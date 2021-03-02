@@ -1,4 +1,4 @@
-# CommunityBot
+# CommunityBot Beta (Nur für Developer)
 
 Der Deutsche Bot für die Community!<br/> <br/>
 
