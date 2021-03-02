@@ -24,7 +24,7 @@ memechannel = data['memechannel']
 botchannel = data['botchannel']
 json_file.close()
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or(Prefix), intents=discord.Intents.all())
+client = commands.Bot(command_prefix=commands.when_mentioned_or(Prefix), case_insensitive=True, intents=discord.Intents.all())
 
 
 def is_not_pinned(message):
