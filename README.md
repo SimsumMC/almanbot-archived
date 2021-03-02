@@ -8,6 +8,7 @@ Wieso solltest du ihn nutzen?<br/>
 + komplett konfigurierbar - im JSON Dokument oder per Befehl<br/>
 + wird stetig weiterentwickelt<br/>
 + viele Aliasse für die Befehle<br/>
++ Groß - und Kleinschreibung wird ignoriert <br/>
 + in Python geschrieben - leicht erweiterbar<br/>
 
 Commands:<br/>
