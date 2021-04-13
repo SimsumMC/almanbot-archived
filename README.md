@@ -1,4 +1,4 @@
-# CommunityBot Beta (Nur für Developer)
+# CommunityBot Beta (Rework | doesn't work)
 
 Der Deutsche Bot für die Community!<br/> <br/>
 
