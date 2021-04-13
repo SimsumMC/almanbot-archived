@@ -32,4 +32,4 @@ for filename in os.listdir('./commands'):
             print(f'Der Command "{extension}" konnte nicht geladen werden.', file=sys.stderr)
             traceback.print_exc()
 
-client.run('ODEwOTMzMTI0NTk4NTk1NjE0.YCq2Uw.NfBygn7JnrKMZ40nvVMlM748kyk')
+client.run('TOKEN')
