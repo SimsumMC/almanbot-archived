@@ -1,4 +1,4 @@
-# CommunityBot Beta (Rework | doesn't work)
+# CommunityBot Beta (Release with 24/7 Hosting on 21.04.)
 
 Der Deutsche Bot für die Community!<br/> <br/>
 
