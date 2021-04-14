@@ -19,7 +19,7 @@ class CommunityBot(commands.Bot):
 ########################################################################################################################
 
 
-client = CommunityBot(command_prefix=commands.when_mentioned_or(get_prefix), help_command=None,
+client = CommunityBot(command_prefix=get_prefix, help_command=None,
                       intents=discord.Intents.all())
 
 for filename in os.listdir('./commands'):
