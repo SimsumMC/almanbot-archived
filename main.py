@@ -1,4 +1,3 @@
-import json
 import sys
 import traceback
 import os
@@ -20,7 +19,7 @@ class CommunityBot(commands.Bot):
 
 
 client = CommunityBot(command_prefix=get_prefix, help_command=None,
-                      intents=discord.Intents.all())
+                      case_insensitive=True, intents=discord.Intents.all())
 
 for filename in os.listdir('./commands'):
     if filename.endswith('.py'):
@@ -32,4 +31,4 @@ for filename in os.listdir('./commands'):
             print(f'Der Command "{extension}" konnte nicht geladen werden.', file=sys.stderr)
             traceback.print_exc()
 
-client.run('TOKEN')
+client.run('ODEwOTMzMTI0NTk4NTk1NjE0.YCq2Uw.zwHKjgtDNhOpGixX7p-qUn7Qt9k')

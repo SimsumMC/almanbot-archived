@@ -26,6 +26,17 @@ def get_prefix(bot, message):
         return commands.when_mentioned_or(prefix)(bot, message)
 
 
+def get_prefix_string(message):
+    path = "data\\configs\\" + str(message.guild.id) + ".json"
+    if not os.path.exists(path):
+        return str('!')
+    else:
+        with open(path, 'r') as f:
+            data = json.load(f)
+        prefix = str(data["prefix"])
+        return str(prefix)
+
+
 def get_botc(message):
     path = "data\\configs\\" + str(message.guild.id) + ".json"
     with open(path, 'r') as f:
@@ -79,9 +90,11 @@ def log(input, id):
             f.write(input + '\n')
 
 
-def get_author(message):
+def get_author():
     Author = 'SimsumMC#0001'
     return Author
+
+########################################################################################################################
 
 
 def setup(bot):
