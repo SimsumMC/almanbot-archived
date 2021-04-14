@@ -94,6 +94,16 @@ def get_author():
     Author = 'SimsumMC#0001'
     return Author
 
+
+def writejson(type, input, path):
+    with open(path, 'r') as f:
+        data = json.load(f)
+    data[type] = str(input)
+    #os.remove(filename)
+    with open(path, 'w') as f:
+        json.dump(data, f, indent=4)
+
+
 ########################################################################################################################
 
 

@@ -31,4 +31,4 @@ for filename in os.listdir('./commands'):
             print(f'Der Command "{extension}" konnte nicht geladen werden.', file=sys.stderr)
             traceback.print_exc()
 
-client.run('ODEwOTMzMTI0NTk4NTk1NjE0.YCq2Uw.zwHKjgtDNhOpGixX7p-qUn7Qt9k')
+client.run('do you want it? I dont give it')
