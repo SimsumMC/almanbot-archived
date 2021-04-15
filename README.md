@@ -1,8 +1,8 @@
 # CommunityBot Beta (Release with 24/7 Hosting on 21.04.)
 
-Der Deutsche Bot für die Community!<br/> <br/>
+**Der Deutsche Bot für die Community!**<br/> <br/>
 
-Wieso solltest du ihn nutzen?<br/>
+**Wieso solltest du ihn nutzen?**<br/>
 + Open Source<br/>
 + Clean Code<br/>
 + viele Befehle<br/>
@@ -12,7 +12,27 @@ Wieso solltest du ihn nutzen?<br/>
 + Groß - und Kleinschreibung wird ignoriert <br/>
 + in Python geschrieben - leicht erweiterbar<br/>
 
-Commands:<br/>
+**Einrichtung:**<br/>
+
+--24/7 Hosting--<br/>
+
++Invite-Link: ... comming soon...<br/>
+
+--Eigenständiges Hosting--<br/>
+
+Nur für Profis empfohlen!
+
+Benötigtes Programm:
++ Notepad ++
+
+1. Laden sie sich den Ordner herunter und entpacken sie ihn
+2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++
+3. Änderen sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version
+4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token
+5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten
+
+
+**Commands:**<br/>
 
 Allgemein:<br/>
 !hilfe - Zeigt dir eine Übersicht aller Hilfeseiten!<br/>
@@ -39,3 +59,5 @@ Administration<br/>
 Geplante Befehle:<br/>
 !report (Member) (Reason) > mit konfigurierbarem Mod Channel<br/>
 !server ("hilfe" / "top" / modus) - Top Server allgemein oder die perfekten Server für einen Modus<br/>
+
+
