@@ -4,8 +4,9 @@ Der Deutsche Bot für die Community!<br/> <br/>
 
 Wieso solltest du ihn nutzen?<br/>
 + Open Source<br/>
++ Clean Code<br/>
 + viele Befehle<br/>
-+ komplett konfigurierbar - im JSON Dokument oder per Befehl<br/>
++ komplett konfigurierbar per Befehl<br/>
 + wird stetig weiterentwickelt<br/>
 + viele Aliasse für die Befehle<br/>
 + Groß - und Kleinschreibung wird ignoriert <br/>
