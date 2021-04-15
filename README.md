@@ -1,6 +1,6 @@
 # CommunityBot Beta (Release with 24/7 Hosting on 21.04.)
 
-**Der Deutsche Bot für die Community!**<br/> <br/>
+**Der Deutsche Bot für die Community!**<br/> <br/>                                              <img src="data/pictures/logo.png" alt="logo" width="240"/> 
 
 **Wieso solltest du ihn nutzen?**<br/>
 + Open Source<br/>
@@ -25,11 +25,12 @@ Nur für Profis empfohlen!
 Benötigtes Programm:
 + Notepad ++
 
-1. Laden sie sich den Ordner herunter und entpacken sie ihn
-2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++
-3. Änderen sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version
-4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token
-5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten
+1. Laden sie sich den Ordner herunter und entpacken sie ihn<br/>
+<img src="data/pictures/download.png" alt="download" width="240"/> 
+2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++<br/>
+3. Änderen sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version<br/>
+4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token<br/>
+5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten<br/>
 
 
 **Commands:**<br/>
