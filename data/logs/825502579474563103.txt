@@ -15,3 +15,6 @@
 2021-04-14 17:43:31.642831: Der Spieler SimsumMC hat probiert den ungültigen Befehl "?sssmnsns" zu nutzen!
 2021-04-14 18:09:40.369362: Der Spieler SimsumMC hat probiert den Befehl !serverlog im Channel #test zu benutzen!
 2021-04-14 18:10:20.787374: Der Spieler SimsumMC hat probiert den Befehl !serverlog im Channel #test zu benutzen!
+2021-04-15 09:14:19.991028: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl !config eingegeben.
+2021-04-15 09:19:16.112146: Der Spieler SimsumMC hat probiert den Befehl !serverlog im Channel #test zu benutzen!
+2021-04-15 09:19:22.116534: Der Spieler SimsumMC hat sich den Log mit der ID "825502579474563103" ausgeben lassen!
