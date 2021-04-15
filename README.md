@@ -14,11 +14,13 @@
 
 **Einrichtung:**<br/>
 
-24/7 Hosting<br/>
+--24/7 Hosting--<br/>
 
 +Invite-Link: ... comming soon...<br/>
 
-Eigenständiges Hosting<br/>
+--Eigenständiges Hosting--<br/>
+
+Nur für Profis empfohlen!
 
 Benötigtes Programm:
 + Notepad ++
