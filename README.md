@@ -1,6 +1,7 @@
 # CommunityBot Beta (Release with 24/7 Hosting on 21.04.)
 
-**Der Deutsche Bot für die Community!**<br/> <br/>                                              <img src="data/pictures/logo.png" alt="logo" width="240"/> 
+**Der Deutsche Bot für die Community!**<br/>
+<img src="data/pictures/logo.png" alt="logo" width="240"/> 
 
 **Wieso solltest du ihn nutzen?**<br/>
 + Open Source<br/>
