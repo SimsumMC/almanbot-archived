@@ -9,6 +9,7 @@ from commands.functions import get_prefix
 class CommunityBot(commands.Bot):
 
     async def on_ready(self):
+        print('\n---------------------------------------------------------------------------------------------------\n')
         print(f'Der {self.user} wurde erfolgreich gestartet!')
 
     async def on_message(self, message):
@@ -25,10 +26,10 @@ for filename in os.listdir('./commands'):
     if filename.endswith('.py'):
         extension = f'commands.{filename[:-3]}'
         try:
-            print(f'Der Command {extension} konnte erfolgreich geladen werden.')
+            print(f'Das Modul {extension} konnte erfolgreich geladen werden.')
             client.load_extension(extension)
         except Exception as e:
-            print(f'Der Command "{extension}" konnte nicht geladen werden.', file=sys.stderr)
+            print(f'Das Modul "{extension}" konnte nicht geladen werden.', file=sys.stderr)
             traceback.print_exc()
 
-client.run('private')
+client.run('secret token')
