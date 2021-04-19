@@ -18,3 +18,4 @@
 2021-04-15 09:14:19.991028: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl !config eingegeben.
 2021-04-15 09:19:16.112146: Der Spieler SimsumMC hat probiert den Befehl !serverlog im Channel #test zu benutzen!
 2021-04-15 09:19:22.116534: Der Spieler SimsumMC hat sich den Log mit der ID "825502579474563103" ausgeben lassen!
+2021-04-15 16:50:02.036859: Der Spieler SimsumMC hat den Chat "#test" gecleart.
