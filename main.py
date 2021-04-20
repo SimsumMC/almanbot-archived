@@ -10,7 +10,7 @@ class CommunityBot(commands.Bot):
 
     async def on_ready(self):
         print('\n---------------------------------------------------------------------------------------------------\n')
-        print(f'Der {self.user} wurde erfolgreich gestartet!')
+        print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!')
 
     async def on_message(self, message):
         await self.process_commands(message)
@@ -32,4 +32,4 @@ for filename in os.listdir('./commands'):
             print(f'Das Modul "{extension}" konnte nicht geladen werden.', file=sys.stderr)
             traceback.print_exc()
 
-client.run('secret token')
+client.run('your token')

@@ -26,12 +26,13 @@ class events(commands.Cog):
         channel = get_botc(message=ctx.message)
         if isinstance(error, CommandNotFound):
             if name == channel or channel == "None":
-                embed = discord.Embed(colour=13372193)
-                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(message=ctx.message),
-                                 icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
+                embed = discord.Embed(title="Fehler", description='Der Befehl "' + str(msg) + '" existiert nicht!',
+                                      color=13372193)
+                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' +
+                                 get_prefix_string(message=ctx.message),
+                                 icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                          '/803322491480178739'
                                           '/winging-easy.png?width=676&height=676')
-                embed.add_field(name='Fehler', value='Der Befehl "' + str(msg) + '" existiert nicht!',
-                                inline=False)
                 await ctx.send(embed=embed)
                 log(input=str(time) + ': Der Spieler ' + str(user) + ' hat probiert den ungültigen Befehl "' + str(
                     msg) + '" zu nutzen!', id=ctx.guild.id)
@@ -53,7 +54,8 @@ class events(commands.Cog):
             with open(path, 'w') as f:
                 data = {"prefix": "!",
                         "botchannel": "None",
-                        "memechannel": "None"}
+                        "memechannel": "None",
+                        "colour": "13372193"}
                 json.dump(data, f, indent=4)
 
     @commands.Cog.listener()
@@ -64,6 +66,7 @@ class events(commands.Cog):
         copyfile(path, dest)
         os.remove(path)
         os.remove(path2)
+
 
 ########################################################################################################################
 

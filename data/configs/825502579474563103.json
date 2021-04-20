@@ -1,5 +1,6 @@
 {
     "prefix": "!",
     "botchannel": "test",
-    "memechannel": "None"
+    "memechannel": "None",
+    "colour": 2154002
 }
