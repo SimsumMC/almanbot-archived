@@ -31,7 +31,7 @@ Benötigtes Programm:
 2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++<br/>
 3. Änderen sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version<br/>
 4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token<br/>
-5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten<br/>
+5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten<br/><br/>
 
 
 **Commands:**<br/>
