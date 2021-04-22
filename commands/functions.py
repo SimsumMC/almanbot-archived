@@ -1,13 +1,8 @@
-import datetime
 import json
 import os
 import random
-import discord
-import asyncio
-
 import qrcode
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound
 
 
 class functions(commands.Cog):
@@ -159,8 +154,8 @@ def colour_check(colour):
 
 
 def random_colour():
-    colours = ["Rot", "Hellrot", "Hellblau", "Blau", "Hellgrün", "Grün", "Hellorange", "Orange", "Schwarz", "Hellgrau",
-               "Grau", "Weiß", "Dunkellila", "Lila", "Pink"]
+    colours = ["Rot", "Hellrot", "Hellblau", "Blau", "Hellgrün", "Grün", "Hellorange", "Orange", "Dunkellila", "Lila"
+               , "Pink"]
     return get_colour_code(random.choice(colours))
 
 
@@ -179,6 +174,12 @@ def is_not_pinned(message):
 def make_qr(filename, msg):
     img = qrcode.make(msg)
     img.save(filename)
+
+def whoisr(member):
+    if member.bot is True:
+        return str("Ja")
+    else:
+        return str("Nein")
 ########################################################################################################################
 
 

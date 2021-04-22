@@ -1,14 +1,9 @@
-import asyncio
 import datetime
-import os
 import random
-
 import praw
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument
-
-from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr, get_memec
+from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_memec
 
 
 class fun(commands.Cog):
@@ -34,7 +29,8 @@ class fun(commands.Cog):
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎', value='Du hast eine ```' + str(value) + '``` gewürfelt!', inline=False)
             await ctx.send(embed=embed)
-            log(input=str(time) + ': Der Spieler ' + str(user) + ' hat eine ' + str(value) + ' gewürfelt.', id= ctx.guild.id)
+            log(input=str(time) + ': Der Spieler ' + str(user) + ' hat eine ' + str(value) + ' gewürfelt.'
+                , id= ctx.guild.id)
         else:
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat probiert den Befehl ' +

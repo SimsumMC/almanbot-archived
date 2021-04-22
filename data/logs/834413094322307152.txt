@@ -1,0 +1,31 @@
+2021-04-22 12:56:53.203788: Der Spieler SimsumMC hat den Befehl !hilfe benutzt!
+2021-04-22 12:57:14.438466: Der Spieler SimsumMC hat den Befehl !meme benutzt!
+2021-04-22 12:57:33.764414: Der Spieler SimsumMC hat den Befehl !config hilfe benutzt.
+2021-04-22 12:57:39.612873: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul prefix zu+ erfolgreich geändert
+2021-04-22 12:58:12.526945: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul colour zuBlau erfolgreich geändert
+2021-04-22 12:58:22.062823: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul colour zuHellblau erfolgreich geändert
+2021-04-22 12:58:57.138968: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-22 13:00:19.789579: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:00:42.347612: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:00:48.783973: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:00:52.023709: Der Spieler Draezu hat den Befehl +meme benutzt!
+2021-04-22 13:01:25.101037: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:01:34.845059: Der Spieler Draezu hat den Befehl +hilfe Administration benutzt!
+2021-04-22 13:02:14.877237: Der Spieler Draezu hat nicht alle erforderlichen Argumente beim Befehl +clear eingegeben.
+2021-04-22 13:29:42.076206: Der Spieler Draezu hat den Befehl +meme benutzt!
+2021-04-22 13:31:12.235684: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:31:18.376931: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:31:44.270645: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:32:06.059224: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:32:14.722272: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:32:27.875492: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:32:34.072674: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:32:37.852060: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:39:29.109991: Der Spieler Draezu hat den Befehl +meme benutzt!
+2021-04-22 13:40:57.863922: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:41:22.373917: Der Spieler Draezu hat den Befehl +meme benutzt!
+2021-04-22 13:41:41.798493: Der Spieler SimsumMC hat den Befehl +meme benutzt!
+2021-04-22 13:41:50.031471: Der Spieler Draezu hat den Befehl +meme benutzt!
+2021-04-22 20:55:31.905936: Der Spieler Draezu hat den Befehl +meme benutzt!
+2021-04-22 22:30:25.501017: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:30:43.961203: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!

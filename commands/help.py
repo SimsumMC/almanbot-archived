@@ -29,14 +29,15 @@ class help(commands.Cog):
                     get_prefix_string(message=ctx.message)),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
-                embed.add_field(name='!hilfe', value='Zeigt dir eine Übersicht aller Hilfeseiten!', inline=False)
-                embed.add_field(name='!hilfe Allgemein', value='Zeigt dir alle Befehle der Kategorie Allgemein an!',
-                                inline=False)
-                embed.add_field(name='!hilfe Unterhaltung',
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe', value='Zeigt dir eine Übersicht aller'
+                'Hilfeseiten!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe Allgemein', value='Zeigt dir alle Befehle'
+                                ' der Kategorie Allgemein an!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe Unterhaltung',
                                 value='Zeigt dir alle Befehle der Kategorie Unterhaltung an!', inline=False)
-                embed.add_field(name='!hilfe Moderation', value='Zeigt dir alle Befehle der Kategorie Moderation an!',
-                                inline=False)
-                embed.add_field(name='!hilfe Administration',
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe Moderation', value='Zeigt dir alle Befehle'
+                'der Kategorie Moderation an!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe Administration',
                                 value='Zeigt dir alle Befehle der Kategorie Administrator an!', inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
@@ -52,10 +53,14 @@ class help(commands.Cog):
                     get_prefix_string(message=ctx.message)),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
-                embed.add_field(name='!hilfe', value='Zeigt dir eine Übersicht aller Hilfeseiten!', inline=False)
-                embed.add_field(name='!qr', value='Erstelle einen QR Code zu einer beliebigen Website!', inline=False)
-                embed.add_field(name='!invite', value='Schau bei meinem Zuhause vorbei!', inline=False)
-                embed.add_field(name='!ping', value='Zeigt dir meinen Ping an!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe', value='Zeigt dir eine Übersicht aller'
+                                                                                     ' Hilfeseiten!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}qr', value='Erstelle einen QR Code zu einer'
+                                                                                  ' beliebigen Website!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}invite', value='Schau bei meinem Zuhause vorbei!'
+                                , inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}ping', value='Zeigt dir meinen Ping an!'
+                                , inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
                     get_prefix_string(ctx.message) + 'hilfe Allgemein benutzt!',
@@ -71,9 +76,12 @@ class help(commands.Cog):
                     get_prefix_string(message=ctx.message)),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
-                embed.add_field(name='!würfel', value='Nutze meinen integrierten Würfel!', inline=False)
-                embed.add_field(name='!ssp', value='Spiele Schere, Stein, Papier gegen mich!', inline=False)
-                embed.add_field(name='!meme', value='Zeigt dir einen zufälligen Meme von Reddit!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}würfel', value='Nutze meinen integrierten'
+                                                                                      ' Würfel!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}ssp', value='Spiele Schere, Stein, Papier gegen'
+                                                                                   ' mich!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}meme', value='Zeigt dir einen zufälligen Meme'
+                                                                                    ' von Reddit!', inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
                     get_prefix_string(ctx.message) + 'hilfe Unterhaltung benutzt!',
@@ -89,10 +97,20 @@ class help(commands.Cog):
                     get_prefix_string(message=ctx.message)),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
-                embed.add_field(name='!clear', value='Lösche eine bestimmte Anzahl an Nachrichten!', inline=False)
-                embed.add_field(name='!ban', value='Banne einen bestimmten Spieler bis er entbannt wird!', inline=False)
-                embed.add_field(name='!unban', value='Entbanne einen zuvor gebannten SPieler!', inline=False)
-                embed.add_field(name='!kick', value='Kicke einen bestimmten Spieler!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}slowmode', value=
+                'Lege den Intervall zwischen Nachrochten fest.!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}clear', value='Lösche eine bestimmte Anzahl an'
+                                                                                     ' Nachrichten!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}ban', value='Banne einen bestimmten Spieler bis'
+                                                                                   ' er entbannt wird!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}unban', value='Entbanne einen zuvor'
+                                                                               ' gebannten SPieler!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}kick', value='Kicke einen bestimmten Spieler!'
+                                , inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}mute', value=
+                'Stumme einen spezifischen Spieler!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}unmute', value=
+                'Entstumme einen spezifischen Spieler!', inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
                     get_prefix_string(ctx.message) + 'hilfe Administration benutzt!',
@@ -108,10 +126,12 @@ class help(commands.Cog):
                     get_prefix_string(message=ctx.message)),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
-                embed.add_field(name='!config hilfe', value='Ändere die Botkonfiguration über einen Befehl!',
-                                inline=False)
-                embed.add_field(name='!channelclear', value='Lösche alle Nachrichten aus einem Channel!', inline=False)
-                embed.add_field(name='!botlog', value='Gebe dir den Botlog deines Servers aus!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}config hilfe', value='Ändere die'
+                                ' Botkonfiguration über einen Befehl!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}channelclear', value='Lösche alle Nachrichten'
+                                ' aus einem Channel!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}botlog', value='Gebe dir den Botlog deines'
+                                                                                      ' Servers aus!', inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
                     get_prefix_string(ctx.message) + 'hilfe Administation benutzt!',

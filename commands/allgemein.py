@@ -1,4 +1,3 @@
-import asyncio
 import datetime
 import os
 
@@ -6,7 +5,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import MissingRequiredArgument
 
-from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr
+from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr, whoisr
 from main import client
 
 
@@ -109,6 +108,7 @@ class allgemein(commands.Cog):
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
+            embed.add_field(name='‎', value=f'Mein  Ping beträgt aktuell {ping}ms!', inline=False)
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                               '/803322491480178739/winging-easy.png?width=676&height=676')
@@ -123,6 +123,55 @@ class allgemein(commands.Cog):
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
                            delete_after=3)
             await msg2.delete()
+
+    @commands.command()
+    async def nutzerinfo(self, ctx, member: discord.Member = None):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        name = ctx.channel.name
+        msg2 = ctx.message
+        mention = ctx.author.mention
+        botchannel = get_botc(ctx.message)
+        if name == botchannel or name == "None":
+            if member is None:
+                member = ctx.author
+                roles = [role for role in ctx.author.roles]
+
+            else:
+                roles = [role for role in member.roles]
+
+            embed = discord.Embed(title=f"Nutzerinfo für {member}", colour=get_colour(ctx.message))
+            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
+                message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                               '/803322491480178739/winging-easy.png?width=676&height=676')
+            embed.add_field(name="User Name:", value=member.display_name, inline=True)
+            embed.add_field(name="ID:", value=member.id, inline=True)
+
+            embed.add_field(name="Tag:", value=member.discriminator, inline=True)
+            embed.add_field(name="Aktuelle Aktivität:",
+                            value=f" {member.activity.name}" if member.activity is not None else "Keine",
+                            inline=True)
+            embed.add_field(name="Erstellt am:", value=member.created_at.strftime("%d.%m.%y um %H:%M"),
+                            inline=True)
+            embed.add_field(name="Beigetrteten am:", value=member.joined_at.strftime("%d.%m.%y um %H:%M"),
+                            inline=True)
+            embed.add_field(name=f"Rollen ({len(roles)}):", value=" **|** "
+                            .join([role.mention for role in roles if not role.is_default()]),
+                            inline=True)
+            embed.add_field(name="Höchste Rolle:", value=member.top_role.mention, inline=True)
+            embed.add_field(name="Bot?:", value=str(whoisr(member=member)) , inline=True)
+            await ctx.send(embed=embed)
+            log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl  ' +
+                get_prefix_string(ctx.message) + 'nutzerinfo benutzt!', ctx.guild.id)
+        else:
+            log(input=str(time) + ': Der Spieler ' + str(
+                user) + ' hat probiert den Befehl ' +
+                      get_prefix_string(ctx.message) + 'nutzerinfo im Channel #' + str(botchannel) + ' zu benutzen!',
+                id=ctx.guild.id)
+            await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
+                           delete_after=3)
+            await msg2.delete()
+
 
 ########################################################################################################################
 

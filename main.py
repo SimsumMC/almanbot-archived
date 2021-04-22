@@ -2,6 +2,7 @@ import sys
 import traceback
 import os
 import discord
+import asyncio
 from discord.ext import commands
 from commands.functions import get_prefix
 
@@ -11,6 +12,15 @@ class CommunityBot(commands.Bot):
     async def on_ready(self):
         print('\n---------------------------------------------------------------------------------------------------\n')
         print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!')
+        while True:
+            await client.change_presence(activity=discord.Game('discord.visitlink.de'), status=discord.Status.online)
+            await asyncio.sleep(2)
+            await client.change_presence(activity=discord.Game('Custom Prefixes'), status=discord.Status.online)
+            await asyncio.sleep(2)
+            await client.change_presence(activity=discord.Game('Many Settings'), status=discord.Status.online)
+            await asyncio.sleep(2)
+            await client.change_presence(activity=discord.Game('Open Source'), status=discord.Status.online)
+            await asyncio.sleep(2)
 
     async def on_message(self, message):
         await self.process_commands(message)

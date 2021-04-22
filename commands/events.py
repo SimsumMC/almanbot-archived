@@ -55,7 +55,7 @@ class events(commands.Cog):
                 data = {"prefix": "!",
                         "botchannel": "None",
                         "memechannel": "None",
-                        "colour": "13372193"}
+                        "colour": 13372193}
                 json.dump(data, f, indent=4)
 
     @commands.Cog.listener()
