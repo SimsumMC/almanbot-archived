@@ -55,6 +55,10 @@ class help(commands.Cog):
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
                 embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe', value='Zeigt dir eine Übersicht aller'
                                                                                      ' Hilfeseiten!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}serverinfo',
+                                value='Zeige Daten zum aktuellen Server an!', inline=False)
+                embed.add_field(name=f'{get_prefix_string(ctx.message)}nutzerinfo',
+                                value='Zeige Daten zu einem Spieler an!', inline=False)
                 embed.add_field(name=f'{get_prefix_string(ctx.message)}qr', value='Erstelle einen QR Code zu einer'
                                                                                   ' beliebigen Website!', inline=False)
                 embed.add_field(name=f'{get_prefix_string(ctx.message)}invite', value='Schau bei meinem Zuhause vorbei!'
@@ -151,12 +155,12 @@ class help(commands.Cog):
                     user) + ' hat eine ungültige Seite beim Befehl  ' +
                     get_prefix_string(ctx.message) + 'hilfe angegeben.', ctx.guild.id)
         else:
-            msg = await ctx.send('Du kannst diesen Befehl nur im #' + str(botchannel) + ' Chat nutzen!')
-            await asyncio.sleep(3)
-            await msg.delete()
-            log(str(time) + ': Der Spieler ' + str(user) + ' hat probiert den Befehl ' +
-                get_prefix_string(ctx.message) + 'hilfe im Channel #' + str(
-                name) + ' zu benutzen!', ctx.guild.id)
+            log(input=str(time) + ': Der Spieler ' + str(
+                user) + ' hat probiert den Befehl ' + get_prefix_string(ctx.message) + 'hilfe im Channel #' +
+                str(botchannel) + ' zu benutzen!', id=ctx.guild.id)
+            await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
+                           delete_after=3)
+            await msg2.delete()
 
 
 ########################################################################################################################

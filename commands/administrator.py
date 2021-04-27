@@ -88,16 +88,14 @@ class administrator(commands.Cog):
                 if subcommand == "colour":
                     if colour_check(arg) is True:
                         writejson(type=subcommand, input=get_colour_code(str(arg)), path=path)
-                        embed = discord.Embed(title='Config', colour=get_colour(ctx.message))
+                        embed = discord.Embed(title='Config', description='Das Modul ```' + str(subcommand)
+                                              + '``` wurde erfolgreich zu ```' + str( arg) + '``` geändert!'
+                                              ,colour=get_colour(ctx.message))
                         embed.set_footer(
                             text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                                 message=ctx.message),
                             icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                      '/winging-easy.png?width=676&height=676')
-                        embed.add_field(name='‎',
-                                        value='Das Modul ```' + str(subcommand) + '``` wurde erfolgreich zu ```' + str(
-                                            arg) + '``` geändert!',
-                                        inline=False)
                         await ctx.send(embed=embed)
                         log(input=str(time) + ': Der Spieler ' + str(
                             user) + ' hat den Befehl ' +
@@ -106,16 +104,14 @@ class administrator(commands.Cog):
                             arg) + ' erfolgreich geändert',
                             id=ctx.guild.id)
                     else:
-                        embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+                        embed = discord.Embed(title='Fehler', description='Das Modul ```' + str(subcommand)
+                                              + '``` kann nicht zu ```' + str(arg) + '``` geändert werden.'
+                                              ,colour=get_colour(ctx.message))
                         embed.set_footer(
                             text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                                 message=ctx.message),
                             icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                      '/winging-easy.png?width=676&height=676')
-                        embed.add_field(name='‎',
-                                        value='Das Modul ' + str(subcommand) + ' kann nicht zu "' + str(
-                                            arg) + '" geändert werden.',
-                                        inline=False)
                         await ctx.send(embed=embed)
                         log(input=str(time) + ': Der Spieler ' + str(
                             user) + ' hat probiert das Modul ' + str(subcommand) + ' zu ' + str(arg) + ' zu ändern.',

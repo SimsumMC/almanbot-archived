@@ -14,7 +14,13 @@ class functions(commands.Cog):
 def get_prefix(bot, message):
     path = "data\\configs\\" + str(message.guild.id) + ".json"
     if not os.path.exists(path):
-        return commands.when_mentioned_or('!')(bot, message)
+        with open(path, 'w') as f:
+            data = {"prefix": "!",
+                    "botchannel": "None",
+                    "memechannel": "None",
+                    "colour": 13372193}
+            json.dump(data, f, indent=4)
+            return commands.when_mentioned_or(prefix)(bot, message)
     else:
         with open(path, 'r') as f:
             data = json.load(f)
@@ -175,11 +181,31 @@ def make_qr(filename, msg):
     img = qrcode.make(msg)
     img.save(filename)
 
+
 def whoisr(member):
     if member.bot is True:
         return str("Ja")
     else:
         return str("Nein")
+
+def get_blacklist(path):
+    if os.path.isfile(path):
+        with open(path, "r") as f:
+            data = json.load(f)
+        return data["blacklist"]
+    else:
+        with open(path, "r+") as f:
+            data = {
+                "blacklist": []
+            }
+            json.dump(data, f, indent=4)
+        return get_blacklist(path)
+
+
+def msg_contains_word(msg, word):
+    return re.search(fr'\b({word})\b', msg) is not None
+
+
 ########################################################################################################################
 
 

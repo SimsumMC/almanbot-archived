@@ -1,12 +1,3 @@
-2021-04-21 15:21:44.494402: Der Spieler SimsumMC hat den Befehl !hilfe benutzt!
-2021-04-21 15:22:11.938687: Der Spieler SimsumMC hat den Befehl !hilfe benutzt!
-2021-04-21 15:22:21.246929: Der Spieler SimsumMC hat den Befehl !config hilfe benutzt.
-2021-04-21 15:22:29.917860: Der Spieler SimsumMC hat probiert den Befehl !config zu benutzen und damit das Modul clour zuGrün zu ändern.
-2021-04-21 15:22:38.128362: Der Spieler SimsumMC hat den Befehl !config benutzt und damit das Modul colour zuGrün erfolgreich geändert
-2021-04-21 15:22:54.069442: Der Spieler SimsumMC hat den Befehl !config benutzt und damit das Modul botchannel zubot erfolgreich geändert
-2021-04-21 15:23:00.085899: Der Spieler SimsumMC hat den Befehl !config benutzt und damit das Modul memechannel zumemes erfolgreich geändert
-2021-04-21 15:23:22.141478: Der Spieler SimsumMC hat den Befehl §config benutzt und damit das Modul prefix zu§ erfolgreich geändert
-2021-04-21 15:23:28.076580: Der Spieler SimsumMC hat den Befehl §hilfe benutzt!
 2021-04-21 15:24:01.312028: Der Spieler SimsumMC hat den Befehl #config benutzt und damit das Modul prefix zu# erfolgreich geändert
 2021-04-21 15:24:06.041262: Der Spieler SimsumMC hat probiert den ungültigen Befehl "#hile" zu nutzen!
 2021-04-21 15:24:06.842228: Der Spieler Flashtube hat den Befehl #hilfe benutzt!
@@ -110,3 +101,150 @@
 2021-04-22 22:20:36.118330: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
 2021-04-22 22:20:50.170778: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
 2021-04-22 22:20:56.472124: Der Spieler SimsumMC hat den Befehl +hilfe Allgemein benutzt!
+2021-04-22 22:36:09.668299: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +slowmode eingegeben.
+2021-04-22 22:37:31.099501: Der Spieler SimsumMC hat den Befehl +hilfe Administration benutzt!
+2021-04-22 22:40:32.411101: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-22 22:40:36.828362: Der Spieler SimsumMC hat den Befehl +hilfe Allgemein benutzt!
+2021-04-22 22:40:41.355236: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:44.609873: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:45.795174: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:50.494863: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:53.576474: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:55.093615: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:56.359486: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:57.478561: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-22 22:40:58.436488: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 11:45:39.882426: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 11:45:57.313944: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +config eingegeben.
+2021-04-23 11:46:02.361267: Der Spieler SimsumMC hat probiert den Befehl +config zu benutzen und damit das Modul hifle zuhilfe zu ändern.
+2021-04-23 11:46:06.451557: Der Spieler SimsumMC hat den Befehl +config hilfe benutzt.
+2021-04-23 11:47:02.654590: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-23 11:47:12.613964: Der Spieler SimsumMC hat den Befehl ?config benutzt und damit das Modul prefix zu? erfolgreich geändert
+2021-04-23 11:47:15.957888: Der Spieler SimsumMC hat den Befehl ?hilfe benutzt!
+2021-04-23 11:47:33.224339: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul prefix zu+ erfolgreich geändert
+2021-04-23 11:54:08.700914: Der Spieler SimsumMC hat sich den Log mit der ID "802923248840867840" ausgeben lassen!
+2021-04-23 12:08:01.081225: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +kick eingegeben.
+2021-04-23 12:14:25.817019: Der Spieler Flashtube hatte nicht die nötigen Berrechtigungen um +kick zu nutzen.
+2021-04-23 15:46:52.580387: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-23 15:46:56.861044: Der Spieler SimsumMC hat den Befehl +hilfe Allgemein benutzt!
+2021-04-23 15:47:02.811553: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:47:29.357623: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:47:55.475009: Der Spieler Itachey hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:48:23.343843: Der Spieler NewSchwitzer hat 5 Nachrichten im Kanal #memes mit dem Befehl +clear gelöscht.
+2021-04-23 15:48:29.085027: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:48:30.931657: Der Spieler NewSchwitzer hat 2 Nachrichten im Kanal #memes mit dem Befehl +clear gelöscht.
+2021-04-23 15:48:59.312886: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:49:11.701866: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:49:42.445525: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:50:17.370820: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:50:27.609118: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:50:41.468369: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:50:58.187553: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:51:06.198817: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:51:50.983154: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:52:08.931928: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:52:56.294032: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:53:14.967763: Der Spieler NewSchwitzer hat den Befehl +hilfe benutzt!
+2021-04-23 15:53:26.863255: Der Spieler NewSchwitzer hat eine ungültige Seite beim Befehl  +hilfe angegeben.
+2021-04-23 15:53:46.235038: Der Spieler NewSchwitzer hat eine ungültige Seite beim Befehl  +hilfe angegeben.
+2021-04-23 15:54:04.308758: Der Spieler NewSchwitzer hat eine ungültige Seite beim Befehl  +hilfe angegeben.
+2021-04-23 15:54:04.598839: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-23 15:54:21.588689: Der Spieler shyzite hat probiert den ungültigen Befehl "+haltdiefresse" zu nutzen!
+2021-04-23 15:54:27.054459: Der Spieler NewSchwitzer hat den Befehl +hilfe Administation benutzt!
+2021-04-23 15:55:01.879550: Der Spieler NewSchwitzer hat den Befehl +config hilfe benutzt.
+2021-04-23 15:55:14.276965: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul colour zu Hellgrün erfolgreich geändert
+2021-04-23 15:55:19.471891: Der Spieler NewSchwitzer hat den Befehl ²config benutzt und damit das Modul prefix zu² erfolgreich geändert
+2021-04-23 15:55:26.603282: Der Spieler NewSchwitzer hat den Befehl ²hilfe benutzt!
+2021-04-23 15:55:48.037621: Der Spieler SimsumMC hat den Befehl ²hilfe Administation benutzt!
+2021-04-23 15:55:54.222491: Der Spieler SimsumMC hat den Befehl ²config hilfe benutzt.
+2021-04-23 15:56:08.219880: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul prefix zu+ erfolgreich geändert
+2021-04-23 15:56:15.481847: Der Spieler NewSchwitzer hat den Befehl ñconfig benutzt und damit das Modul prefix zuñ erfolgreich geändert
+2021-04-23 15:56:36.351666: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul prefix zu+ erfolgreich geändert
+2021-04-23 15:56:41.922455: Der Spieler NewSchwitzer hat den Befehl ²config benutzt und damit das Modul prefix zu² erfolgreich geändert
+2021-04-23 15:56:57.204688: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul prefix zu+ erfolgreich geändert
+2021-04-23 15:57:04.872719: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-23 15:57:16.270336: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 15:57:27.550552: Der Spieler NewSchwitzer hat 10 Nachrichten im Kanal #bot mit dem Befehl +clear gelöscht.
+2021-04-23 15:57:38.897411: Der Spieler NewSchwitzer hat 10 Nachrichten im Kanal #bot mit dem Befehl +clear gelöscht.
+2021-04-23 15:57:50.125775: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 16:12:53.628592: Der Spieler SimsumMC hat probiert den Befehl +mute im Channel #bot zu benutzen!
+2021-04-23 16:12:59.792506: Der Moderator SimsumMC hat den Spieler Yavuz#5339 für None gemuted.
+2021-04-23 16:13:30.666898: Der Moderator SimsumMC hat den Spieler Yavuz#5339 unmuted.
+2021-04-23 16:13:42.565430: Der Moderator SimsumMC hat den Spieler Yavuz#5339 für breeze ist wild und polyforg ist gut gemuted.
+2021-04-23 16:14:36.532601: Der Spieler SimsumMC hat sich den Log mit der ID "802923248840867840" ausgeben lassen!
+2021-04-23 16:15:19.428756: Der Moderator SimsumMC hat den Spieler Yavuz#5339 unmuted.
+2021-04-23 16:15:53.488408: Der Spieler SimsumMC hat probiert den Befehl +hilfe im Channel #allgemein zu benutzen!
+2021-04-23 16:17:52.221312: Der Spieler SimsumMC hat probiert den Befehl +hilfe im Channel #bot zu benutzen!
+2021-04-23 16:18:45.533097: Der Spieler SimsumMC hat probiert den Befehl +hilfe im Channel #bot zu benutzen!
+2021-04-23 16:51:02.610085: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 16:51:50.298877: Der Moderator SimsumMC hat den Spieler Jumbo#2909 für * gemuted.
+2021-04-23 16:52:03.609322: Der Moderator SimsumMC hat den Spieler Jumbo#2909 unmuted.
+2021-04-23 16:53:04.802156: Der Moderator Jumbo hat den Spieler SimsumMC#3679 für None gemuted.
+2021-04-23 16:53:18.463237: Der Moderator SimsumMC hat den Spieler SimsumMC#3679 unmuted.
+2021-04-23 16:57:22.013156: Der Moderator SimsumMC hat den Spieler critparticle#2914 für None gemuted.
+2021-04-23 16:58:02.547939: Der Moderator SimsumMC hat den Spieler critparticle#2914 unmuted.
+2021-04-23 16:58:12.381958: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 16:58:46.100244: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 17:03:30.074514: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 17:04:13.028636: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 17:05:49.470465: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 17:11:34.990335: Der Moderator SimsumMC hat den Spieler Jumbo#2909 für None gemuted.
+2021-04-23 17:42:11.827257: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 17:46:03.480442: Der Spieler NewSchwitzer hat probiert den ungültigen Befehl "+userinfo" zu nutzen!
+2021-04-23 17:46:13.340604: Der Spieler NewSchwitzer hat den Befehl +hilfe benutzt!
+2021-04-23 17:46:28.794307: Der Spieler NewSchwitzer hat probiert den ungültigen Befehl "+help" zu nutzen!
+2021-04-23 18:04:49.095844: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-23 18:04:59.577894: Der Spieler SimsumMC hat den Befehl +hilfe Administation benutzt!
+2021-04-23 18:21:49.434235: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:21:58.906107: Der Spieler NewSchwitzer hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:21:59.356704: Der Spieler NewSchwitzer hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:21:59.763785: Der Spieler NewSchwitzer hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:22:18.410734: Der Spieler SimsumMC hat probiert den ungültigen Befehl "+servercountz" zu nutzen!
+2021-04-23 18:22:21.328159: Der Spieler SimsumMC hat probiert den ungültigen Befehl "+servercount" zu nutzen!
+2021-04-23 18:22:29.192060: Der Spieler SimsumMC hat probiert den ungültigen Befehl "+servercount" zu nutzen!
+2021-04-23 18:22:41.261243: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:23:46.726600: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:24:06.922529: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:25:06.885111: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:25:44.780609: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-23 18:26:01.024952: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 18:29:00.701879: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 18:29:39.840584: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 19:50:21.817523: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-23 19:50:26.559535: Der Spieler SimsumMC hat den Befehl +hilfe Allgemein benutzt!
+2021-04-23 19:50:57.808223: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul colour zu random erfolgreich geändert
+2021-04-23 19:51:16.438839: Der Spieler SimsumMC hat probiert das Modul colour zu test zu ändern.
+2021-04-23 19:52:42.973519: Der Spieler SimsumMC hat probiert das Modul colour zu test zu ändern.
+2021-04-23 19:53:06.516566: Der Spieler SimsumMC hat probiert das Modul colour zu * zu ändern.
+2021-04-23 19:53:31.793494: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul colour zu random erfolgreich geändert
+2021-04-23 19:54:26.650028: Der Spieler SimsumMC hat probiert das Modul colour zu * zu ändern.
+2021-04-23 19:54:58.646004: Der Spieler SimsumMC hat probiert das Modul colour zu * zu ändern.
+2021-04-23 19:55:51.805259: Der Spieler SimsumMC hat probiert das Modul colour zu * zu ändern.
+2021-04-23 21:01:56.524160: Der Spieler Flashtube hatte nicht die nötigen Berrechtigungen um +config zu nutzen.
+2021-04-24 01:03:12.074736: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-24 20:36:34.511652: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +config eingegeben.
+2021-04-24 20:36:44.693882: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul botchannel zuNone erfolgreich geändert
+2021-04-24 20:36:53.064098: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +config eingegeben.
+2021-04-24 20:37:10.401080: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul botchannel zubot erfolgreich geändert
+2021-04-24 20:42:50.323858: Der Spieler Flashtube hat den Befehl  +nutzerinfo benutzt!
+2021-04-24 20:46:39.059364: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-24 20:46:43.538796: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-24 20:51:24.678752: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-24 22:52:15.919199: Der Spieler SimsumMC hat probiert den ungültigen Befehl "+hilfwe" zu nutzen!
+2021-04-24 23:02:35.808294: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-25 14:07:15.441904: Der Spieler SimsumMC hat den Chat "#allgemein" gecleart.
+2021-04-25 14:49:03.137266: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-25 14:49:18.265003: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-25 14:49:46.976891: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-25 14:56:36.242424: Der Moderator SimsumMC hat den Spieler Flashtube#7817 für None gemuted.
+2021-04-25 14:58:13.238315: Der Moderator SimsumMC hat den Spieler counting#3262 für bitte nicht zählen gemuted.
+2021-04-25 15:07:02.700124: Der Spieler SimsumMC hat probiert den ungültigen Befehl "+clear2" zu nutzen!
+2021-04-25 15:07:10.012419: Der Spieler SimsumMC hat 2 Nachrichten im Kanal #clips mit dem Befehl +clear gelöscht.
+2021-04-25 15:07:23.633832: Der Spieler SimsumMC hat probiert den ungültigen Befehl "+clear2" zu nutzen!
+2021-04-25 15:07:30.856611: Der Spieler SimsumMC hat sich den Log mit der ID "802923248840867840" ausgeben lassen!
+2021-04-25 15:15:02.026844: Der Moderator SimsumMC hat den Spieler Flashtube#7817 unmuted.
+2021-04-25 15:15:15.372162: Der Moderator SimsumMC hat den Spieler counting#3262 unmuted.
+2021-04-25 15:51:59.029439: Der Spieler Flashtube hat probiert den ungültigen Befehl "+nutzerinfo#" zu nutzen!
+2021-04-25 15:52:04.948992: Der Spieler Flashtube hat den Befehl  +nutzerinfo benutzt!
+2021-04-25 18:03:05.010661: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-25 18:03:31.126771: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!

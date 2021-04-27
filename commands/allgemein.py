@@ -144,7 +144,7 @@ class allgemein(commands.Cog):
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
-            embed.add_field(name="User Name:", value=member.display_name, inline=True)
+            embed.add_field(name="Nutzername:", value=member.display_name, inline=True)
             embed.add_field(name="ID:", value=member.id, inline=True)
 
             embed.add_field(name="Tag:", value=member.discriminator, inline=True)
@@ -153,9 +153,9 @@ class allgemein(commands.Cog):
                             inline=True)
             embed.add_field(name="Erstellt am:", value=member.created_at.strftime("%d.%m.%y um %H:%M"),
                             inline=True)
-            embed.add_field(name="Beigetrteten am:", value=member.joined_at.strftime("%d.%m.%y um %H:%M"),
+            embed.add_field(name="Beigetreten am:", value=member.joined_at.strftime("%d.%m.%y um %H:%M"),
                             inline=True)
-            embed.add_field(name=f"Rollen ({len(roles)}):", value=" **|** "
+            embed.add_field(name=f"Rollen ({len(roles) - 1}):", value=" **|** "
                             .join([role.mention for role in roles if not role.is_default()]),
                             inline=True)
             embed.add_field(name="Höchste Rolle:", value=member.top_role.mention, inline=True)
@@ -171,6 +171,44 @@ class allgemein(commands.Cog):
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
                            delete_after=3)
             await msg2.delete()
+
+    @commands.command()
+    async def serverinfo(self, ctx):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        name = ctx.channel.name
+        msg2 = ctx.message
+        mention = ctx.author.mention
+        botchannel = get_botc(ctx.message)
+        if name == botchannel or name == "None":
+            embed = discord.Embed(title=f"Serverinfo für {ctx.guild.name}", colour=get_colour(ctx.message))
+            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
+                message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                               '/803322491480178739/winging-easy.png?width=676&height=676')
+            embed.set_thumbnail(url=ctx.guild.icon_url)
+            embed.add_field(name="Name:", value=ctx.guild.name, inline=True)
+            embed.add_field(name="ID:", value=ctx.guild.id, inline=True)
+            embed.add_field(name="Region:", value=ctx.guild.region, inline=True)
+            embed.add_field(name="Erstellt am", value=ctx.guild.created_at.strftime("%d.%m.%y um %H:%M"), inline=True)
+            embed.add_field(name="Besitzer:", value=ctx.guild.owner.mention, inline=True)
+            embed.add_field(name="Spielerzahlen:", value=f"Gesamt: {ctx.guild.member_count}\n"
+                                                         "Spieler : "
+                                                         f"{len(list(filter(lambda m: not m.bot,ctx.guild.members)))}\n"
+                                                         "Bots: "
+                                                         f"{len(list(filter(lambda m: m.bot, ctx.guild.members)))}\n"
+                                                         , inline=True)
+            await ctx.send(embed=embed)
+            log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl  ' +
+                get_prefix_string(ctx.message) + 'serverinfo benutzt!', ctx.guild.id)
+        else:
+            log(input=str(time) + ': Der Spieler ' + str(
+                user) + ' hat probiert den Befehl ' +
+                      get_prefix_string(ctx.message) + 'serverinfo im Channel #' + str(botchannel) + ' zu benutzen!',
+                id=ctx.guild.id)
+            await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
+                           delete_after=3)
+            await msg2.delete()
+
 
 
 ########################################################################################################################

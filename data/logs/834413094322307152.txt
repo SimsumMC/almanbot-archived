@@ -29,3 +29,7 @@
 2021-04-22 20:55:31.905936: Der Spieler Draezu hat den Befehl +meme benutzt!
 2021-04-22 22:30:25.501017: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
 2021-04-22 22:30:43.961203: Der Spieler SimsumMC hat den Befehl  +nutzerinfo benutzt!
+2021-04-23 19:06:20.815082: Der Spieler SimsumMC hat den Befehl  +serverinfo benutzt!
+2021-04-25 16:24:01.050263: Der Spieler Draezu hat den Befehl  +nutzerinfo benutzt!
+2021-04-25 16:24:36.804219: Der Spieler Draezu hat den Befehl  +nutzerinfo benutzt!
+2021-04-25 16:25:11.923051: Der Spieler Draezu hat den Befehl  +nutzerinfo benutzt!
