@@ -1,10 +1,12 @@
 import sys
+import datetime
 import traceback
 import os
 import discord
 import asyncio
 from discord.ext import commands
-from commands.functions import get_prefix, msg_contains_word, get_blacklist
+from commands.functions import get_prefix, msg_contains_word, get_blacklist, get_colour, get_prefix_string, get_author\
+    , log
 
 
 class CommunityBot(commands.Bot):
@@ -23,26 +25,28 @@ class CommunityBot(commands.Bot):
             await asyncio.sleep(5)
 
     async def on_message(self, message):
-        #time = datetime.datetime.now()
+        time = datetime.datetime.now()
         user = message.author.name
-        bannedWords = get_blacklist(message.guild.id)
+        path = f".\\data\\blacklist\\{message.guild.id}.json"
+        bannedWords = get_blacklist(path)
+        bannedWords = bannedWords["blacklist"]
         if bannedWords != None and (isinstance(message.channel, discord.channel.DMChannel) == False):
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):
                     await message.delete()
                     embed = discord.Embed(title='Fehler', description='Deine Nachricht hat ein verbotenes Wort '
                     'enthalten, daher wurde sie gelöscht. Sollte dies ein Fehler sein kontaktiere einen Administrator.'
-                    , colour=get_colour(message))
+                    , colour=get_colour(message=message))
                     embed.set_footer(
                         text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                             message=message),
                         icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                  '/winging-easy.png?width=676&height=676')
                     await message.channel.send(embed=embed, delete_after=5)
-                    log(time + f': Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen.'
+                    log(str(time) + f': Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen.'
                                ' Wort: "{bannedWord}"', message.guild.id)
-        else:
-            await self.process_commands(message)
+        await self.process_commands(message)
+
 
 ########################################################################################################################
 
@@ -60,4 +64,4 @@ for filename in os.listdir('./commands'):
             print(f'Das Modul "{extension}" konnte nicht geladen werden.', file=sys.stderr)
             traceback.print_exc()
 
-client.run('your token')
+client.run('token')

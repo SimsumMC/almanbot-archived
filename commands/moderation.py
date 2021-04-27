@@ -593,7 +593,7 @@ class moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def blacklist(self, ctx, type: str, word):
+    async def blacklist(self, ctx, type: str, *, word: str):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
@@ -602,6 +602,8 @@ class moderation(commands.Cog):
         botchannel = get_botc(ctx.message)
         bannedWords = get_blacklist(path)
         path = f"\\data\\blacklist\\{ctx.guild.id}.json"
+        #with open(path, "r") as f:
+           # bannedWords = json.load(f)
         if name == botchannel or botchannel == "None":
             if type == "add":
                 if word.lower() in bannedWords:
@@ -616,13 +618,9 @@ class moderation(commands.Cog):
                     log(f'{time}: Der Moderator {user} hat versucht das Wort "{word}" zur Blacklist hinzufügen,'
                         ' es war aber schon drauf.', id=ctx.guild.id)
                 else:
-                    bannedWords.append(word.lower())
-                    with open(path, "r+") as f:
-                        data = json.load(f)
-                        data["blacklist"] = bannedWords
-                        f.seek(0)
-                        f.write(json.dumps(data))
-                        f.truncate()
+                    bannedWords["blacklist"].append(word.lower())
+                    with open(path, "w") as f:
+                        json.dump(bannedWords, f, indent=4)
                     await msg2.delete()
                     embed = discord.Embed(title='Blacklist', description=f'Das Wort ```{word}```'
                     ' wurde zur Blacklist hinzugefügt!',colour=get_colour(ctx.message))
@@ -639,11 +637,9 @@ class moderation(commands.Cog):
                     bannedWords.remove(word.lower())
 
                     with open(path, "r+") as f:
-                        data = json.load(f)
+                        json.load(f)
                         data["blacklist"] = bannedWords
-                        f.seek(0)
-                        f.write(json.dumps(data))
-                        f.truncate()
+                        json.dump(data, f, indent=4)
 
                     await ctx.message.delete()
                     embed = discord.Embed(title='Blacklist', description=f'Das Wort ```{word}```'
@@ -681,7 +677,7 @@ class moderation(commands.Cog):
                 log(f'{time}: Der Moderator {user} hat ein ungültiges Argument beim Befehl' +
                 get_prefix_string(ctx.message) + 'blacklist eingegeben.', ctx.guild.id)
 
-    @unmute.error
+    @blacklist.error
     async def handle_error(self, ctx, error):
         time = datetime.datetime.now()
         user = ctx.author.name

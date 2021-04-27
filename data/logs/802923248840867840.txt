@@ -1,12 +1,3 @@
-2021-04-21 15:24:01.312028: Der Spieler SimsumMC hat den Befehl #config benutzt und damit das Modul prefix zu# erfolgreich geändert
-2021-04-21 15:24:06.041262: Der Spieler SimsumMC hat probiert den ungültigen Befehl "#hile" zu nutzen!
-2021-04-21 15:24:06.842228: Der Spieler Flashtube hat den Befehl #hilfe benutzt!
-2021-04-21 15:24:08.508949: Der Spieler SimsumMC hat den Befehl #hilfe benutzt!
-2021-04-21 15:24:31.431594: Der Spieler SimsumMC hat den Befehl -config benutzt und damit das Modul prefix zu- erfolgreich geändert
-2021-04-21 15:24:34.908860: Der Spieler SimsumMC hat den Befehl -hilfe benutzt!
-2021-04-21 15:24:35.770481: Der Spieler Flashtube hat den Befehl -hilfe benutzt!
-2021-04-21 15:24:43.054609: Der Spieler Flashtube hatte nicht die nötigen Berrechtigungen um -config zu nutzen.
-2021-04-21 15:24:46.986368: Der Spieler SimsumMC hat den Befehl +config benutzt und damit das Modul prefix zu+ erfolgreich geändert
 2021-04-21 15:24:50.245060: Der Spieler SimsumMC hat probiert den Befehl +meme im Channel #memes zu benutzen!
 2021-04-21 15:24:57.347777: Der Spieler SimsumMC hat den Befehl +meme benutzt!
 2021-04-21 15:25:01.502449: Der Spieler SimsumMC hat den Befehl +meme benutzt!
@@ -248,3 +239,12 @@
 2021-04-25 15:52:04.948992: Der Spieler Flashtube hat den Befehl  +nutzerinfo benutzt!
 2021-04-25 18:03:05.010661: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
 2021-04-25 18:03:31.126771: Der Spieler NewSchwitzer hat den Befehl  +nutzerinfo benutzt!
+2021-04-27 10:45:11.374089: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-27 10:45:18.459820: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +blacklist eingegeben.
+2021-04-27 10:55:06.522548: Der Spieler SimsumMC hat den Befehl +hilfe Administation benutzt!
+2021-04-27 10:58:07.139254: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +blacklist eingegeben.
+2021-04-27 11:33:25.700688: Der Spieler SimsumMC hat den Befehl +hilfe benutzt!
+2021-04-27 11:35:12.630644: Der Spieler SimsumMC hat versucht ein verbotenes Wort zu benutzen. Wort: "{bannedWord}"
+2021-04-27 11:35:43.890416: Der Spieler SimsumMC hat den Befehl +hilfe Allgemein benutzt!
+2021-04-27 11:36:36.896810: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl +blacklist eingegeben.
+2021-04-27 11:42:09.641683: Der Spieler Flashtube hatte nicht die nötigen Berrechtigungen um +blacklist zu nutzen.

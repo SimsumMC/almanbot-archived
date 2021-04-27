@@ -2,6 +2,7 @@ import json
 import os
 import random
 import qrcode
+import re
 from discord.ext import commands
 
 
@@ -192,9 +193,9 @@ def get_blacklist(path):
     if os.path.isfile(path):
         with open(path, "r") as f:
             data = json.load(f)
-        return data["blacklist"]
+        return data
     else:
-        with open(path, "r+") as f:
+        with open(path, "w") as f:
             data = {
                 "blacklist": []
             }
