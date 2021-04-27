@@ -31,28 +31,33 @@ Benötigtes Programm:
 2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++<br/>
 3. Änderen sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version<br/>
 4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token<br/>
-5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten<br/>
+5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten<br/><br/>
 
 
 **Commands:**<br/>
 
 Allgemein:<br/>
 !hilfe - Zeigt dir eine Übersicht aller Hilfeseiten!<br/>
+!nutzerinfo (opt. Member) - Zeige Daten zu einem Spieler an!<br/>
 !qr - Erstelle einen QR Code zu einer beliebigen Website!<br/>
 !Invite - Schau bei meinem Zuhause vorbei!<br/>
 !ping - Zeigt dir meinen Ping an!<br/>
 
+
 Unterhaltung:<br/>
 !würfel - Nutze meinen integrierten Würfel!<br/>
 !ssp - Spiele Schere, Stein, Papier gegen mich!<br/>
-  -> !schere / !stein / !papier - einzelne RUnden sind möglich!<br/>
+  -> !schere / !stein / !papier - einzelne Runden sind möglich!<br/>
 !meme - Zeigt dir einen zufälligen Meme von Reddit!<br/>
 
 Moderation:<br/>
+!slowmode <Sekunden> <opt. Channel> - Setze den Slowmode eines Channels fest!<br/>
 !clear (Anzahl) - Lösche eine bestimmte Anzahl an Nachrichten!v
 !ban (Member) (optional Grund) - Banne einen bestimmten Spieler bis er entbannt wird!<br/>
 !unban (Member) - Entbanne einen zuvor gebannten Spieler!<br/>
-!kick (Member) (optional Grund) - Kicke einen bestimmten Spieler!<br/>
+!kick (Member) (opt. Grund) - Kicke einen bestimmten Spieler!<br/>
+!mute (Member) (opt. Grund) - Stumme einen spezifischen Spieler!<br/>
+!unmute (Member) - Entstumme einen spezifischen Spieler!<br/>
 
 Administration<br/>
 !channelclear - Lösche alle Nachrichten aus einem Channel!<br/>
@@ -61,5 +66,5 @@ Administration<br/>
 Geplante Befehle:<br/>
 !report (Member) (Reason) > mit konfigurierbarem Mod Channel<br/>
 !server ("hilfe" / "top" / modus) - Top Server allgemein oder die perfekten Server für einen Modus<br/>
-
+Und noch viel mehr!
 
