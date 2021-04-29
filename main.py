@@ -29,7 +29,6 @@ class CommunityBot(commands.Bot):
         user = message.author.name
         path = f".\\data\\blacklist\\{message.guild.id}.json"
         bannedWords = get_blacklist(path)
-        bannedWords = bannedWords["blacklist"]
         if bannedWords != None and (isinstance(message.channel, discord.channel.DMChannel) == False):
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):
@@ -45,6 +44,7 @@ class CommunityBot(commands.Bot):
                     await message.channel.send(embed=embed, delete_after=5)
                     log(str(time) + f': Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen.'
                                ' Wort: "{bannedWord}"', message.guild.id)
+                    break
         await self.process_commands(message)
 
 

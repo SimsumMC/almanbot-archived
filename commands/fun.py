@@ -41,6 +41,7 @@ class fun(commands.Cog):
             await msg2.delete()
 
     @commands.command()
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def meme(self, ctx):
         global submission
         time = datetime.datetime.now()
@@ -77,6 +78,27 @@ class fun(commands.Cog):
                            delete_after=3)
             await msg2.delete()
 
+    @meme.error
+    async def handle_error(self, ctx, error):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        if isinstance(error, commands.CommandOnCooldown):
+            embed = discord.Embed(title=f"Cooldown", description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
+                               color=get_colour(ctx.message))
+            embed.set_thumbnail(
+                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                    '.png?width=676&height=676')
+            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                get_prefix_string(message=ctx.message)),
+                             icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                      '/803322491480178739/winging-easy.png?width=676&height=676')
+            await ctx.send(embed=embed)
+            log(f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
+                f"'{get_prefix_string(ctx.message)}meme im Kanal #{ctx.channel.name} zu nutzen.", ctx.guild.id)
+        else:
+            print(error)
+
+
     @commands.command()
     async def ssp(self, ctx):
         time = datetime.datetime.now()
@@ -91,9 +113,11 @@ class fun(commands.Cog):
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
-            embed.add_field(name='!schere', value='Spiele die Schere aus!', inline=False)
-            embed.add_field(name='!stein', value='Spiele den Stein aus!', inline=False)
-            embed.add_field(name='!papier', value='Spiele das Papier aus!', inline=False)
+            embed.add_field(name=
+                get_prefix_string(ctx.message) + 'schere', value='Spiele die Schere aus!', inline=False)
+            embed.add_field(name=get_prefix_string(ctx.message) + 'stein', value='Spiele den Stein aus!', inline=False)
+            embed.add_field(name=get_prefix_string(ctx.message) + 'papier', value='Spiele das Papier aus!'
+                            , inline=False)
             await ctx.send(embed=embed)
             log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
                 get_prefix_string(ctx.message) + 'ssp benutzt!', id=ctx.guild.id)

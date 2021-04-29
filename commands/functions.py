@@ -193,7 +193,7 @@ def get_blacklist(path):
     if os.path.isfile(path):
         with open(path, "r") as f:
             data = json.load(f)
-        return data
+        return data["blacklist"]
     else:
         with open(path, "w") as f:
             data = {

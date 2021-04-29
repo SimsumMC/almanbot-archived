@@ -2,7 +2,7 @@ import datetime
 import os
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingPermissions, MissingRequiredArgument
+from discord.ext.commands import MissingPermissions, MissingRequiredArgument, BotMissingPermissions
 
 from commands.functions import get_botc, log, get_author, get_prefix_string, writejson, get_colour_code, colour_check, \
     get_colour

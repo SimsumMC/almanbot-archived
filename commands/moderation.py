@@ -1,7 +1,7 @@
 import datetime
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument, MissingPermissions
+from discord.ext.commands import MissingRequiredArgument, MissingPermissions, BotMissingPermissions
 from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, is_not_pinned, get_blacklist
 
 
@@ -358,9 +358,12 @@ class moderation(commands.Cog):
         if name == botchannel or botchannel == "None":
             if channel is None:
                 await ctx.channel.edit(slowmode_delay=seconds)
-                channel = str(ctx.channel)
+                channel = str(ctx.channel.mention)
+                channelname = ctx.channel.name
             else:
                 await channel.edit(slowmode_delay=seconds)
+                channel = channel.mention
+                channelname = channel.name
             embed = discord.Embed(title='Slowmode', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
@@ -369,9 +372,9 @@ class moderation(commands.Cog):
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
-            embed.add_field(name="⠀", value=f'Der Slowmode vom Channel #{channel} zu {seconds} Sekunden geändert.')
+            embed.add_field(name="⠀", value=f'Der Slowmode vom Channel {channel} wurde zu {seconds} Sekunden geändert.')
             await ctx.send(embed=embed)
-            log(input=str(time) + ': Der Spieler ' + str(user) + ' hat im Chat "#' + str(channel1) + '" den Slowmode'
+            log(input=str(time) + ': Der Spieler ' + str(user) + ' hat im Chat "#' + str(channelname) + '" den Slowmode'
                 f' auf {seconds} Sekunden gesetzt.', id=ctx.guild.id)
         else:
             log(input=str(time) + ': Der Spieler ' + str(
@@ -593,17 +596,15 @@ class moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def blacklist(self, ctx, type: str, *, word: str):
+    async def blacklist(self, ctx, type, *, word):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
-        bannedWords = get_blacklist(path)
         path = f"\\data\\blacklist\\{ctx.guild.id}.json"
-        #with open(path, "r") as f:
-           # bannedWords = json.load(f)
+        bannedWords = get_blacklist(path)
         if name == botchannel or botchannel == "None":
             if type == "add":
                 if word.lower() in bannedWords:
@@ -618,9 +619,15 @@ class moderation(commands.Cog):
                     log(f'{time}: Der Moderator {user} hat versucht das Wort "{word}" zur Blacklist hinzufügen,'
                         ' es war aber schon drauf.', id=ctx.guild.id)
                 else:
-                    bannedWords["blacklist"].append(word.lower())
+                    bannedWords.append(word.lower())
                     with open(path, "w") as f:
                         json.dump(bannedWords, f, indent=4)
+                    #with open(path, "r+") as f:
+                        #json.load(f)
+                        #data["blacklist"] = bannedWords
+                        #f.seek(0)
+                        #f.write(json.dumps(data))
+                        #f.truncate()
                     await msg2.delete()
                     embed = discord.Embed(title='Blacklist', description=f'Das Wort ```{word}```'
                     ' wurde zur Blacklist hinzugefügt!',colour=get_colour(ctx.message))
@@ -632,7 +639,7 @@ class moderation(commands.Cog):
                     await ctx.send(embed=embed)
                     log(f'{time}: Der Moderator {user} hat das Wort "{word}" auf die Blacklist hinzugefügt.'
                         , id=ctx.guild.id)
-            if type == "remove":
+            elif type == "remove":
                 if word.lower() in bannedWords:
                     bannedWords.remove(word.lower())
 
@@ -708,7 +715,8 @@ class moderation(commands.Cog):
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'blacklist eingegeben.', id=ctx.guild.id)
-
+        else:
+            print(error)
 
 ########################################################################################################################
 
