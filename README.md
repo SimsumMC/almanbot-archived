@@ -1,4 +1,4 @@
-# CommunityBot Beta (Release with 24/7 Hosting on 21.04.)
+# CommunityBot Pre-Release 24/7 Hosting
 
 **Der Deutsche Bot für die Community!**<br/>
 <img src="data/pictures/logo.png" alt="logo" width="240"/> 
@@ -17,7 +17,7 @@
 
 --24/7 Hosting--<br/>
 
-+Invite-Link: ... comming soon...<br/>
++Invite-Link: https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775<br/>
 
 --Eigenständiges Hosting--<br/>
 
@@ -39,6 +39,7 @@ Benötigtes Programm:
 Allgemein:<br/>
 !hilfe - Zeigt dir eine Übersicht aller Hilfeseiten!<br/>
 !nutzerinfo (opt. Member) - Zeige Daten zu einem Spieler an!<br/>
+!serverinfo - Zeigt dir Daten über den Server an
 !qr - Erstelle einen QR Code zu einer beliebigen Website!<br/>
 !Invite - Schau bei meinem Zuhause vorbei!<br/>
 !ping - Zeigt dir meinen Ping an!<br/>
@@ -62,9 +63,10 @@ Moderation:<br/>
 Administration<br/>
 !channelclear - Lösche alle Nachrichten aus einem Channel!<br/>
 !config hilfe - Ändere die Botkonfiguration über einen Befehl!<br/>
+!blacklist add/remove - In Arbeit / mit Bugs versehen
 
 Geplante Befehle:<br/>
 !report (Member) (Reason) > mit konfigurierbarem Mod Channel<br/>
-!server ("hilfe" / "top" / modus) - Top Server allgemein oder die perfekten Server für einen Modus<br/>
+!server ("hilfe" / "top" / modus) - Top Minecraft Server allgemein oder die perfekten Server für einen Modus<br/>
 Und noch viel mehr!
 
