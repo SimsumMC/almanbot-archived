@@ -23,12 +23,12 @@ class allgemein(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(message=ctx.message)
         if name == botchannel or botchannel == 'None':
-            embed = discord.Embed(title='**Invite**', color=get_colour(ctx.message))
+            embed = discord.Embed(title='**Invites**', color=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
                 get_prefix_string(ctx.message)),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
-            embed.add_field(name='‎', value='Link: https://discord.visitlink.de', inline=False)
+            embed.add_field(name='‎', value='[Bot Invite](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775)  |  [Discord Server](https://discord.visitlink.de)', inline=False)
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
@@ -39,6 +39,45 @@ class allgemein(commands.Cog):
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat probiert den Befehl ' +
                       get_prefix_string(ctx.message) + 'invite im Channel #' + str(botchannel) + ' zu benutzen!',
+                id=ctx.guild.id)
+            await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
+                           delete_after=3)
+            await msg2.delete()
+            
+    @commands.command()
+    async def botinfo(self, ctx):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        name = ctx.channel.name
+        msg2 = ctx.message
+        mention = ctx.author.mention
+        botchannel = get_botc(message=ctx.message)
+        if name == botchannel or botchannel == 'None':
+            ergebnis = 0
+            for guild in client.guilds:
+                ergebnis += guild.member_count
+            embed = discord.Embed(title='Botinfo', color=get_colour(ctx.message))
+            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                get_prefix_string(ctx.message)),
+                             icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
+                                      '/winging-easy.png?width=676&height=676')
+            embed.add_field(name='Entwickler‎', value='SimsumMC#3579', inline=True)
+            embed.add_field(name='‎Projektbeginn', value='Anfang 2021', inline=True)
+            embed.add_field(name='‎Geschätzte Arbeitszeit', value='40 Stunden', inline=True)
+            embed.add_field(name='‎Server', value=f'{len(client.guilds)}', inline=True)
+            embed.add_field(name='‎Nutzer', value=f'{ergebnis}', inline=True)
+            embed.add_field(name='Source Code', value='[Github](https://github.com/SimsumMC/communitybot)', inline=True)
+            embed.add_field(name='Website', value='In Arbeit', inline=True)
+            embed.set_thumbnail(
+                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
+                    '?width=676&height=676')
+            await ctx.send(embed=embed)
+            log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl  ' +
+                get_prefix_string(ctx.message) + 'botinfo benutzt!', ctx.guild.id)
+        else:
+            log(input=str(time) + ': Der Spieler ' + str(
+                user) + ' hat probiert den Befehl ' +
+                      get_prefix_string(ctx.message) + 'botinfo im Channel #' + str(botchannel) + ' zu benutzen!',
                 id=ctx.guild.id)
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
                            delete_after=3)
