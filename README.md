@@ -17,7 +17,7 @@
 
 --24/7 Hosting--<br/>
 
-+Invite-Link: https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775<br/>
++ Invite-Link: https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775<br/>
 
 --Eigenständiges Hosting--<br/>
 
