@@ -1,72 +1,108 @@
-# CommunityBot Pre-Release 24/7 Hosting
+<h1 align="center">
+  <br>
+  <img src="data/pictures/logo.png" alt="logo" width="240"/> 
+  <br>
+  Community Bot 
+  <br>
+</h1> 
 
-**Der Deutsche Bot für die Community!**<br/>
-<img src="data/pictures/logo.png" alt="logo" width="240"/> 
+<h4 align="center">Moderation, Informationen, Music (in Arbeit) uvm.</h4>
 
-**Wieso solltest du ihn nutzen?**<br/>
-+ Open Source<br/>
-+ Clean Code<br/>
-+ viele Befehle<br/>
-+ komplett konfigurierbar per Befehl<br/>
-+ wird stetig weiterentwickelt<br/>
-+ viele Aliasse für die Befehle<br/>
-+ Groß - und Kleinschreibung wird ignoriert <br/>
-+ in Python geschrieben - leicht erweiterbar<br/>
+<p align="center">
+  <a href="https://discord.visitlink.de">
+    <img src="https://discord.com/api/guilds/802923248840867840/widget.png?style=shield" alt="Discord Server">
+  </a>
+  <a href="https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775">
+    <img src="https://img.shields.io/badge/Invite-Bot-red" alt="Einladung">
+  </a>
+  <a href="https://www.gnu.org/licenses/gpl-3.0.html">
+    <img src="https://img.shields.io/github/license/SimsumMC/communitybot?color=red&label=Lizenz" alt="Lizenz">
+  </a>
+  <a href="https://github.com/SimsumMC/communitybot">
+    <img src="https://img.shields.io/badge/Fortschritt-30%25-red" alt="Fortschritt">
+  </a>
+  <a href="https://github.com/Rapptz/discord.py/">
+     <img src="https://img.shields.io/badge/discord-py-red.svg" alt="discord.py">
+  </a>
+</p>
 
-**Einrichtung:**<br/>
+<p align="center">
+  <a href="#übersicht">Übersicht</a>
+  •
+  <a href="#installation">Installation</a>
+  •
+  <a href="#funktionen">Funktionen</a>
+  •
+  <a href="#lizenz">Lizenz</a>
+</p>
 
---24/7 Hosting--<br/>
+# Übersicht
 
-+ Invite-Link: https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775<br/>
+Der Community Bot ist ein Discord Bot mit dem Ziel alles in einem Bot zu vereinen, es ist natürlich klar das es immer ein zwei Bots gibt die man einfach nicht ersetzen kann, trotzdem sind wir der Meinung, dass man nicht 5 Bots für jeweils eine Funktion braucht. Wir wollen auch nicht, dass man für Funktionen wie z.B. das ändern des Präfix's Geld zahlen muss. Du kannst ihn zum Spielen, zur Moderation oder auch bald zum Musik hören nutzen! Wenn dich das Konzept überzeugt, dann [teste](https://discord.com/api/guilds/802923248840867840/widget.png?style=shield) ihn direkt aus! 
 
---Eigenständiges Hosting--<br/>
+Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet und du benötigst dafür keine großen Vorkentnisse.
 
-Nur für Profis empfohlen!
+**Vorteile:**
 
-Benötigtes Programm:
-+ Notepad ++
+- Open Source
+- 24/7 Hosting mit kurzen Wartungen
+- [Botlog](#botlog) über die Nutzungen des Bots
+- komplett konfigurierbar über Discord
+- wird stetig weiterentwickelt
+- Groß - und Kleinschreibung wird ignoriert
+- in Python geschrieben - leicht erweiterbar mit Cogs
 
-1. Laden sie sich den Ordner herunter und entpacken sie ihn<br/>
-<img src="data/pictures/download.png" alt="download" width="240"/> 
-2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++<br/>
-3. Änderen sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version<br/>
-4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token<br/>
-5. Nun können sie den Bot starten und natürlich auch den Code bearbeiten<br/><br/>
+# Installation
 
+**Folgende Betriebssysteme werden offiziell unterstützt:** 
 
-**Commands:**<br/>
+- Windows
+- alle großen Linux Distributionen
 
-Allgemein:<br/>
-!hilfe - Zeigt dir eine Übersicht aller Hilfeseiten!<br/>
-!nutzerinfo (opt. Member) - Zeige Daten zu einem Spieler an!<br/>
-!serverinfo - Zeigt dir Daten über den Server an
-!qr - Erstelle einen QR Code zu einer beliebigen Website!<br/>
-!Invite - Schau bei meinem Zuhause vorbei!<br/>
-!ping - Zeigt dir meinen Ping an!<br/>
+**Erforderliche Programme:**
 
+- Python
 
-Unterhaltung:<br/>
-!würfel - Nutze meinen integrierten Würfel!<br/>
-!ssp - Spiele Schere, Stein, Papier gegen mich!<br/>
-  -> !schere / !stein / !papier - einzelne Runden sind möglich!<br/>
-!meme - Zeigt dir einen zufälligen Meme von Reddit!<br/>
+**Universelle Installation**
 
-Moderation:<br/>
-!slowmode <Sekunden> <opt. Channel> - Setze den Slowmode eines Channels fest!<br/>
-!clear (Anzahl) - Lösche eine bestimmte Anzahl an Nachrichten!v
-!ban (Member) (optional Grund) - Banne einen bestimmten Spieler bis er entbannt wird!<br/>
-!unban (Member) - Entbanne einen zuvor gebannten Spieler!<br/>
-!kick (Member) (opt. Grund) - Kicke einen bestimmten Spieler!<br/>
-!mute (Member) (opt. Grund) - Stumme einen spezifischen Spieler!<br/>
-!unmute (Member) - Entstumme einen spezifischen Spieler!<br/>
+1. Laden sie sich den Ordner herunter und entpacken sie ihn
+2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++ oder einem anderem Editor
+3. Ändern sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version
+4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token
+5. Nun können sie den Bot starten und natürlich auch den Code modifizieren
 
-Administration<br/>
-!channelclear - Lösche alle Nachrichten aus einem Channel!<br/>
-!config hilfe - Ändere die Botkonfiguration über einen Befehl!<br/>
-!blacklist add/remove - In Arbeit / mit Bugs versehen
+# Funktionen
 
-Geplante Befehle:<br/>
-!report (Member) (Reason) > mit konfigurierbarem Mod Channel<br/>
-!server ("hilfe" / "top" / modus) - Top Minecraft Server allgemein oder die perfekten Server für einen Modus<br/>
-Und noch viel mehr!
+**Allgemein**
+- Infos über den Bot (Ping, Server, Nutzer etc.) und Invite Links zum Bot 
+- QR Codes erstellen 
 
+**Informationen**
+- Informationen zu einzelnen Nutzern
+- Informationen zu dem aktuellen Server
+
+**Unterhaltung**
+- Würfel Befehl (1-6) 
+- Schere Stein Papier
+- Zufälligen Meme per Command
+
+**Moderation**
+- Slomode eines Channels setzen
+- Bestimmte Anzahl an Nachrichten löschen
+- Spieler Muten / Entmuten
+- Spieler Bannen / Entbannen
+- Spieler Kicken
+
+**Administration**
+- Farbe von Embeds, Präfix, Meme bzw. Bot Channel festlegen mit dem config Befehl
+- Kompletten Channel "leeren"
+- <a href="#botlog">Botlog</a> ausgeben
+
+# Lizenz
+
+"Die GNU General Public License (kurz GNU GPL oder GPL; aus dem Englischen wörtlich für allgemeine Veröffentlichungserlaubnis oder -genehmigung) ist die am weitesten verbreitete Softwarelizenz, die einem gewährt, die Software auszuführen, zu studieren, zu ändern und zu verbreiten (kopieren). Software, die diese Freiheitsrechte gewährt, wird Freie Software genannt; und wenn die Software einem Copyleft unterliegt, so müssen diese Rechte bei Weitergabe (mit oder ohne Software-Änderung, -Erweiterung, oder Softwareteile-Wiederverwendung) beibehalten werden. Bei der GPL ist beides der Fall." Quelle: [Wikepedia](https://de.wikipedia.org/wiki/GNU_General_Public_License)
+
+Demnach hast du die Erlaubnis, :
+
+- den Code für alle Zwecke zu nutzen (sowhol kommerziell als auch privat)
+- du darfst ihn unter den Bedingungen der Lizenz kopieren, weiterverbreiten und ändern
