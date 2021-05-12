@@ -60,9 +60,9 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        path = "data\\configs\\" + str(guild.id) + ".json"
-        path2 = 'data\\logs\\' + str(guild.id) + '.txt'
-        dest = "data\\configs\\deleted\\" + str(guild.id) + ".json"
+        path = os.path.join('data', 'configs', f'{guild.id}.json')
+        path2 = os.path.join('data', 'logs', f'{guild.id}.txt')
+        dest = os.path.join('data', 'configs','deleted', f'{guild.id}.json')
         copyfile(path, dest)
         os.remove(path)
         os.remove(path2)
