@@ -9,7 +9,7 @@
 <h4 align="center">Moderation, Informationen, Music (in Arbeit) uvm.</h4>
 
 <p align="center">
-  <a href="https://discord.visitlink.de">
+  <a href="https://discord.gg/wksGyBNnHN">
     <img src="https://discord.com/api/guilds/802923248840867840/widget.png?style=shield" alt="Discord Server">
   </a>
   <a href="https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775">
