@@ -1,4 +1,3 @@
-import sys
 import datetime
 import traceback
 import os
@@ -58,8 +57,8 @@ for filename in os.listdir('./commands'):
     if filename.endswith('.py'):
         extension = f'commands.{filename[:-3]}'
         try:
-            print(f'Das Modul {extension} konnte erfolgreich geladen werden.')
             client.load_extension(extension)
+            print(f'Das Modul {extension} konnte erfolgreich geladen werden.')
         except Exception as e:
             print(f'Das Modul "{extension}" konnte nicht geladen werden.', file=sys.stderr)
             traceback.print_exc()

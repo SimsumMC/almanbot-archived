@@ -42,7 +42,7 @@ class fun(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 3, commands.BucketType.user)
-    async def meme(self, ctx):
+    async def meme(self, ctx, redditname="memes"):
         global submission
         time = datetime.datetime.now()
         user = ctx.author.name
@@ -51,24 +51,40 @@ class fun(commands.Cog):
         mention = ctx.author.mention
         memechannel = get_memec(ctx.message)
         if name == memechannel or memechannel == "None":
-            reddit = praw.Reddit(client_id='JiHoJGCPBC9vlg',
-                                 client_secret='egXFBVdIx7ucn9_6tji18kyLClWCIA',
-                                 user_agent='Test Meme Bot',
-                                 check_for_async=False)
+            try:
+                reddit = praw.Reddit(client_id='JiHoJGCPBC9vlg',
+                                     client_secret='egXFBVdIx7ucn9_6tji18kyLClWCIA',
+                                     user_agent='Test Meme Bot',
+                                     check_for_async=False)
 
-            memes_submissions = reddit.subreddit('memes').hot()
-            post_to_pick = random.randint(1, 100)
-            for i in range(0, post_to_pick):
-                submission = next(x for x in memes_submissions if not x.stickied)
+                memes_submissions = reddit.subreddit(redditname).hot()
+                post_to_pick = random.randint(1, 100)
+                for i in range(0, post_to_pick):
+                    submission = next(x for x in memes_submissions if not x.stickied)
 
-            embed = discord.Embed(title=f"**{submission.title}**", colour=get_colour(ctx.message))
-            embed.set_image(url=submission.url)
-            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                embed = discord.Embed(title=f"**{submission.title}**", colour=get_colour(ctx.message))
+                embed.set_image(url=submission.url)
+                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
+                    message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
-            await ctx.send(embed=embed)
-            log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
-                get_prefix_string(ctx.message) + 'meme benutzt!', id=ctx.guild.id)
+                await ctx.send(embed=embed)
+                log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +get_prefix_string(ctx.message) +
+                    'meme benutzt!', id=ctx.guild.id)
+            except Exception as e:
+                embed = discord.Embed(title="**Fehler**",
+                                      description=f"Der Reddit **{redditname}** konnte nicht gefunden werden.",
+                                      color=get_colour(ctx.message))
+                embed.set_thumbnail(
+                    url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                        '.png?width=676&height=676')
+                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                    get_prefix_string(message=ctx.message)),
+                                 icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                          '/803322491480178739/winging-easy.png?width=676&height=676')
+                await ctx.send(embed=embed)
+                log(f"{time}: Der Spieler {user} hat beim Befehl"
+                    f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.", ctx.guild.id)
+
         else:
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat probiert den Befehl ' +

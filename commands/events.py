@@ -45,8 +45,8 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        path = "data\\configs\\" + str(guild.id) + ".json"
-        pathcheck = "data\\configs\\deleted\\" + str(guild.id) + ".json"
+        path = os.path.join('data', 'configs', f'{guild.id}.json')
+        pathcheck = os.path.join('data', 'configs', 'deleted', f'{guild.id}.json')
         if os.path.isfile(pathcheck):
             copyfile(pathcheck, path)
             os.remove(pathcheck)

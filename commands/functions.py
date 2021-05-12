@@ -21,7 +21,7 @@ def get_prefix(bot, message):
                     "memechannel": "None",
                     "colour": 13372193}
             json.dump(data, f, indent=4)
-            return commands.when_mentioned_or(prefix)(bot, message)
+            return commands.when_mentioned_or('!')(bot, message)
     else:
         with open(path, 'r') as f:
             data = json.load(f)
