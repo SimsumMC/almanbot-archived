@@ -1,8 +1,13 @@
 import json
+import time
 import os
+import asyncio
 import random
 import qrcode
 import re
+import urllib
+from urllib.request import urlopen
+import json
 from discord.ext import commands
 
 
@@ -206,7 +211,15 @@ def get_blacklist(path):
 def msg_contains_word(msg, word):
     return re.search(fr'\b({word})\b', msg) is not None
 
-
+def redditnsfwcheck(reddit):
+    time.sleep(3)
+    url = f"https://www.reddit.com/r/{reddit}/about.json"
+    response = urlopen(url)
+    data = json.loads(response.read())
+    if data["data"]["over18"] is True:
+        return True
+    else:
+        return False
 ########################################################################################################################
 
 

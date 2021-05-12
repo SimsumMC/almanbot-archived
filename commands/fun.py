@@ -3,7 +3,7 @@ import random
 import praw
 import discord
 from discord.ext import commands
-from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_memec
+from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_memec, redditnsfwcheck
 
 
 class fun(commands.Cog):
@@ -41,7 +41,7 @@ class fun(commands.Cog):
             await msg2.delete()
 
     @commands.command()
-    @commands.cooldown(1, 3, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def meme(self, ctx, redditname="memes"):
         global submission
         time = datetime.datetime.now()
@@ -56,12 +56,28 @@ class fun(commands.Cog):
                                      client_secret='egXFBVdIx7ucn9_6tji18kyLClWCIA',
                                      user_agent='Test Meme Bot',
                                      check_for_async=False)
-
                 memes_submissions = reddit.subreddit(redditname).hot()
                 post_to_pick = random.randint(1, 100)
+                if redditname != "memes":
+                    await asyncio.sleep(3)
+                    if redditnsfwcheck(redditname):
+                        embed = discord.Embed(title="**Fehler**",
+                                          description=f"Der angegebene Reddit **{redditname}** enthält nicht "
+                                                      "zulässigen Inhalt.",
+                                          color=get_colour(ctx.message))
+                        embed.set_thumbnail(
+                        url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                            '.png?width=676&height=676')
+                        embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                        get_prefix_string(message=ctx.message)),
+                                     icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                              '/803322491480178739/winging-easy.png?width=676&height=676')
+                        await ctx.send(embed=embed)
+                        log(f"{time}: Der Spieler {user} hat beim Befehl"
+                        f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.", ctx.guild.id)
+                        return
                 for i in range(0, post_to_pick):
                     submission = next(x for x in memes_submissions if not x.stickied)
-
                 embed = discord.Embed(title=f"**{submission.title}**", colour=get_colour(ctx.message))
                 embed.set_image(url=submission.url)
                 embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' +
@@ -71,6 +87,7 @@ class fun(commands.Cog):
                 await ctx.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +get_prefix_string(ctx.message) +
                     'meme benutzt!', id=ctx.guild.id)
+
             except Exception as e:
                 embed = discord.Embed(title="**Fehler**",
                                       description=f"Der Reddit **{redditname}** konnte nicht gefunden werden.",
@@ -113,7 +130,7 @@ class fun(commands.Cog):
             log(f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
                 f"'{get_prefix_string(ctx.message)}meme im Kanal #{ctx.channel.name} zu nutzen.", ctx.guild.id)
         else:
-            print(error)
+            raise error
 
 
     @commands.command()

@@ -289,8 +289,8 @@ class moderation(commands.Cog):
                 embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
-                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                message=ctx.message),
+                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' +
+                                      get_prefix_string(message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
                 embed.add_field(name='Moderator:', value=mention, inline=False)
@@ -299,6 +299,7 @@ class moderation(commands.Cog):
                 await ctx.send(embed=embed)
                 log(str(time) + ': Der Moderator ' + str(user) + 'hat den Nutzer ' + str(
                 member) + 'erfolgreich für den Grund "' + str(reason) + '"gekickt.', id=ctx.guild.id)
+                return
             except Exception:
                 embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
                 embed.set_footer(
@@ -312,6 +313,7 @@ class moderation(commands.Cog):
                 await ctx.send(embed=embed)
                 log(input=str(time) + ': Der Bot hatte nicht die nötigen Berrechtigungen um ' +
                           get_prefix_string(ctx.message) + 'kick auszuführen..', id=ctx.guild.id)
+                return
         else:
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat probiert den Befehl ' + get_prefix_string(ctx.message) +
