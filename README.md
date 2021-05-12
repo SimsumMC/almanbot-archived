@@ -38,7 +38,7 @@
 
 # Übersicht
 
-Der Community Bot ist ein Discord Bot mit dem Ziel alles in einem Bot zu vereinen, es ist natürlich klar das es immer ein zwei Bots gibt die man einfach nicht ersetzen kann, trotzdem sind wir der Meinung, dass man nicht 5 Bots für jeweils eine Funktion braucht. Wir wollen auch nicht, dass man für Funktionen wie z.B. das ändern des Präfix's Geld zahlen muss. Du kannst ihn zum Spielen, zur Moderation oder auch bald zum Musik hören nutzen! Wenn dich das Konzept überzeugt, dann [teste](https://discord.com/api/guilds/802923248840867840/widget.png?style=shield) ihn direkt aus! 
+Der Community Bot ist ein Discord Bot mit dem Ziel alles in einem Bot zu vereinen, es ist natürlich klar das es immer ein zwei Bots gibt die man einfach nicht ersetzen kann, trotzdem sind wir der Meinung, dass man nicht 5 Bots für jeweils eine Funktion braucht. Wir wollen auch nicht, dass man für Funktionen wie z.B. das ändern des Präfix's Geld zahlen muss. Du kannst ihn zum Spielen, zur Moderation oder auch bald zum Musik hören nutzen! Wenn dich das Konzept überzeugt, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
 
 Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet und du benötigst dafür keine großen Vorkentnisse.
 
