@@ -46,7 +46,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 - Open Source
 - 24/7 Hosting mit kurzen Wartungen
-- <a href="#botlog">Botlog</a> über die Nutzungen des Bots
+- Botlog über die Nutzungen des Bots
 - komplett konfigurierbar über Discord
 - wird stetig weiterentwickelt
 - Groß - und Kleinschreibung wird ignoriert
