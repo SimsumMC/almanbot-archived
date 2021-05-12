@@ -44,7 +44,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Vorteile:**
 
-- Open Source
+- Open Source <a href="https://www.freepik.com/free-vector/cute-bot-say-users-hello-chatbot-greets-online-consultation_4015765.htm#page=1&query=bot&position=0"> <img src="data/pictures/bot.png" align="right" alt="bot" width="200"/> </a>
 - 24/7 Hosting mit kurzen Wartungen
 - Botlog über die Nutzungen des Bots
 - Komplett konfigurierbar über Discord
@@ -65,7 +65,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Universelle Installation**
 
-1. Laden sie sich den Ordner herunter und entpacken sie ihn
+1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) herunter und entpacken sie ihn
 2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++ oder einem anderem Editor
 3. Ändern sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version
 4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token
