@@ -46,7 +46,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 - Open Source
 - 24/7 Hosting mit kurzen Wartungen
-- [Botlog](#botlog) über die Nutzungen des Bots
+- <a href="#botlog">Log</a> über die Nutzungen des Bots
 - komplett konfigurierbar über Discord
 - wird stetig weiterentwickelt
 - Groß - und Kleinschreibung wird ignoriert
@@ -96,7 +96,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 **Administration**
 - Farbe von Embeds, Präfix, Meme bzw. Bot Channel festlegen mit dem config Befehl
 - Kompletten Channel "leeren"
-- <a href="#botlog">Botlog</a> ausgeben
+- [Botlog](#botlog) ausgeben
 
 # Lizenz
 
