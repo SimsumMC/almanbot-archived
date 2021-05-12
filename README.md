@@ -44,7 +44,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Vorteile:**
 
-- Open Source <img src="data/pictures/bot.png" align="right" alt="bot" width="200"/> 
+- Open Source <a href="https://www.freepik.com/free-vector/cute-bot-say-users-hello-chatbot-greets-online-consultation_4015765.htm#page=1&query=bot&position=0"> <img src="data/pictures/bot.png" align="right" alt="bot" width="200"/> </a>
 - 24/7 Hosting mit kurzen Wartungen
 - Botlog über die Nutzungen des Bots
 - Komplett konfigurierbar über Discord
