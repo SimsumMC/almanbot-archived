@@ -44,7 +44,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Vorteile:**
 
-- Open Source
+- Open Source <img src="data/pictures/bot.png" align="right" alt="bot" width="200"/> 
 - 24/7 Hosting mit kurzen Wartungen
 - Botlog über die Nutzungen des Bots
 - Komplett konfigurierbar über Discord
