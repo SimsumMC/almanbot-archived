@@ -21,19 +21,19 @@ class moderation(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if amount < 101:
-            await ctx.channel.purge(limit=amount + 1, check=is_not_pinned)
-            embed = discord.Embed(description='Es wurden ' + str(amount ) + ' Nachrichten gelöscht!',
+            deleted = await ctx.channel.purge(limit=amount + 1, check=is_not_pinned)
+            embed = discord.Embed(description='Es wurden ' + str(deleted - 1) + ' Nachrichten gelöscht!',
                                   colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
                     get_prefix_string(message=ctx.message)),
                     icon_url='https://media.discordapp.net/attachments/645276319311200286'
                     '/803322491480178739/winging-easy.png?width=676&height=676')
             await ctx.send(embed=embed, delete_after=5)
-            log(str(time) + ': Der Spieler ' + str(user) + ' hat ' + str(amount) + ' Nachrichten im Kanal #' +
+            log(str(time) + ': Der Spieler ' + str(user) + ' hat ' + str(deleted - 1) + ' Nachrichten im Kanal #' +
                 str(name) + ' mit dem Befehl ' + get_prefix_string(ctx.message) + 'clear gelöscht.',
                 id=ctx.guild.id)
         else:
-            embed = discord.Embed(title='Fehler',
+            embed = discord.Embed(title='**Fehler**',
                                   description='Du kannst nicht über 100 Nachrichten  aufeinmal löschen!'
                                               ' Nutze dazu bitte !channelclear .',
                                   colour=get_colour(ctx.message))
@@ -52,7 +52,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -65,7 +65,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                       get_prefix_string(ctx.message) + 'clear zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -79,7 +79,7 @@ class moderation(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'clear eingegeben.', id=ctx.guild.id)
         if isinstance(error, BotMissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -101,7 +101,7 @@ class moderation(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if name == botchannel or botchannel == "None":
-            embed = discord.Embed(title='Ban', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Ban**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
@@ -130,7 +130,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -143,7 +143,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                       get_prefix_string(ctx.message) + 'ban zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -157,7 +157,7 @@ class moderation(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'ban eingegeben.', id=ctx.guild.id)
         if isinstance(error, BotMissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -185,7 +185,7 @@ class moderation(commands.Cog):
             for ban_entry in banned_users:
                 user2 = ban_entry.user
                 if (user2.name, user2.discriminator) == (member_name, member_disc):
-                    embed = discord.Embed(title='Unban', colour=get_colour(ctx.message))
+                    embed = discord.Embed(title='**Unban**', colour=get_colour(ctx.message))
                     embed.set_thumbnail(
                         url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging'
                             '-easy.png?width=676&height=676')
@@ -201,7 +201,7 @@ class moderation(commands.Cog):
                     log(str(time) + ': Der Moderator ' + str(user) + 'hat den Nutzer ' + str(
                         member) + ' erfolgreich entbannt.', id=ctx.guild.id)
                 else:
-                    embed = discord.Embed(title='Fehler',
+                    embed = discord.Embed(title='**Fehler**',
                                           description='Der Nutzer ' + str(member) + ' ist nicht gebannt und kann daher '
                                                                                     'auch nicht entbannt werden.',
                                           colour=get_colour(ctx.message))
@@ -227,7 +227,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -240,7 +240,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                       get_prefix_string(ctx.message) + 'unban zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -254,7 +254,7 @@ class moderation(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'unban eingegeben.', id=ctx.guild.id)
         if isinstance(error, BotMissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -277,7 +277,7 @@ class moderation(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if name == botchannel or botchannel == 'None':
-            embed = discord.Embed(title='Kick', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Kick**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
@@ -306,7 +306,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -319,7 +319,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                 get_prefix_string(ctx.message) + 'kick zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -333,7 +333,7 @@ class moderation(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                 get_prefix_string(ctx.message) + 'kick eingegeben.', id=ctx.guild.id)
         if isinstance(error, BotMissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -364,7 +364,7 @@ class moderation(commands.Cog):
                 await channel.edit(slowmode_delay=seconds)
                 channel = channel.mention
                 channelname = channel.name
-            embed = discord.Embed(title='Slowmode', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Slowmode**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
@@ -390,7 +390,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -403,7 +403,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                 get_prefix_string(ctx.message) + 'slowmode zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -417,7 +417,7 @@ class moderation(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                 get_prefix_string(ctx.message) + 'slowmode eingegeben.', id=ctx.guild.id)
         if isinstance(error, BotMissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -443,12 +443,11 @@ class moderation(commands.Cog):
         if name == botchannel or botchannel == "None":
             if not mutedrole:
                 mutedrole = await guild.create_role(name="Muted")
-
                 for channel in guild.channels:
                     for channel in guild.channels:
                         await channel.set_permissions(mutedRole, speak=False, send_messages=False,
                                                       read_message_history=True, read_messages=False)
-            embed = discord.Embed(title='Mute', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Mute**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -477,7 +476,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -490,7 +489,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                       get_prefix_string(ctx.message) + 'mute zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -504,7 +503,7 @@ class moderation(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'mute eingegeben.', id=ctx.guild.id)
         if isinstance(error, BotMissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -528,7 +527,7 @@ class moderation(commands.Cog):
         guild = ctx.guild
         mutedrole = discord.utils.get(guild.roles, name='Muted')
         if name == botchannel or botchannel == "None":
-            embed = discord.Embed(title='Unmute', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Unmute**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -555,7 +554,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -568,7 +567,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                       get_prefix_string(ctx.message) + 'unmute zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -582,7 +581,7 @@ class moderation(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'unmute eingegeben.', id=ctx.guild.id)
         if isinstance(error, BotMissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -608,7 +607,7 @@ class moderation(commands.Cog):
         if name == botchannel or botchannel == "None":
             if type == "add":
                 if word.lower() in bannedWords:
-                    embed = discord.Embed(title='Fehler', description=f'Das Wort ```{word}```'
+                    embed = discord.Embed(title='**Fehler**', description=f'Das Wort ```{word}```'
                     ' ist bereits auf der Blacklist!', colour=get_colour(ctx.message))
                     embed.set_footer(
                         text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -629,7 +628,7 @@ class moderation(commands.Cog):
                         #f.write(json.dumps(data))
                         #f.truncate()
                     await msg2.delete()
-                    embed = discord.Embed(title='Blacklist', description=f'Das Wort ```{word}```'
+                    embed = discord.Embed(title='**Blacklist**', description=f'Das Wort ```{word}```'
                     ' wurde zur Blacklist hinzugefügt!',colour=get_colour(ctx.message))
                     embed.set_footer(
                         text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -649,7 +648,7 @@ class moderation(commands.Cog):
                         json.dump(data, f, indent=4)
 
                     await ctx.message.delete()
-                    embed = discord.Embed(title='Blacklist', description=f'Das Wort ```{word}```'
+                    embed = discord.Embed(title='**Blacklist**', description=f'Das Wort ```{word}```'
                     ' wurde von der Blacklist entfernt!',colour=get_colour(ctx.message))
                     embed.set_footer(
                         text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -660,7 +659,7 @@ class moderation(commands.Cog):
                     log(f'{time}: Der Moderator {user} hat das Wort "{word}"von der Blacklist entfernt.'
                         , id=ctx.guild.id)
                 else:
-                    embed = discord.Embed(title='Fehler', description=f'Das Wort ```{word}```'
+                    embed = discord.Embed(title='**Fehler**', description=f'Das Wort ```{word}```'
                     ' befindet sich nicht auf der Blacklist!',colour=get_colour(ctx.message))
                     embed.set_footer(
                         text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -671,7 +670,7 @@ class moderation(commands.Cog):
                     log(f'{time}: Der Moderator {user} hat versucht das Wort "{word}" von der Blacklist zu entfernen,'
                         ' es war aber nicht drauf.', id=ctx.guild.id)
             else:
-                embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+                embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
                 embed.set_footer(
                     text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                         message=ctx.message),
@@ -689,7 +688,7 @@ class moderation(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -702,7 +701,7 @@ class moderation(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                       get_prefix_string(ctx.message) + 'blacklist zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'

@@ -27,13 +27,13 @@ class CommunityBot(commands.Bot):
     async def on_message(self, message):
         time = datetime.datetime.now()
         user = message.author.name
-        path = f".\\data\\blacklist\\{message.guild.id}.json"
+        path = os.path.join('data', 'blacklist', f'{message.guild.id}.json')
         bannedWords = get_blacklist(path)
         if bannedWords != None and (isinstance(message.channel, discord.channel.DMChannel) == False):
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):
                     await message.delete()
-                    embed = discord.Embed(title='Fehler', description='Deine Nachricht hat ein verbotenes Wort '
+                    embed = discord.Embed(title='**Fehler**', description='Deine Nachricht hat ein verbotenes Wort '
                     'enthalten, daher wurde sie gelöscht. Sollte dies ein Fehler sein kontaktiere einen Administrator.'
                     , colour=get_colour(message=message))
                     embed.set_footer(

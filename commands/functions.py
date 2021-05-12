@@ -13,7 +13,7 @@ class functions(commands.Cog):
 
 
 def get_prefix(bot, message):
-    path = "data\\configs\\" + str(message.guild.id) + ".json"
+    path = os.path.join('data', 'configs', f'{message.guild.id}.json')
     if not os.path.exists(path):
         with open(path, 'w') as f:
             data = {"prefix": "!",
@@ -30,7 +30,7 @@ def get_prefix(bot, message):
 
 
 def get_prefix_string(message):
-    path = "data\\configs\\" + str(message.guild.id) + ".json"
+    path = os.path.join('data', 'configs', f'{message.guild.id}.json')
     if not os.path.exists(path):
         return str('!')
     else:
@@ -41,14 +41,14 @@ def get_prefix_string(message):
 
 
 def get_botc(message):
-    path = "data\\configs\\" + str(message.guild.id) + ".json"
+    path = os.path.join('data', 'configs', f'{message.guild.id}.json')
     with open(path, 'r') as f:
         data = json.load(f)
     return str(data["botchannel"])
 
 
 def get_memec(message):
-    path = "data\\configs\\" + str(message.guild.id) + ".json"
+    path = os.path.join('data', 'configs', f'{message.guild.id}.json')
     with open(path, 'r') as f:
         data = json.load(f)
     return data["memechannel"]
@@ -80,7 +80,7 @@ def deletelines(path, amount):
 
 
 def log(input, id):
-    path = 'data\\logs\\' + str(id) + '.txt'
+    path = os.path.join('data', 'logs', f'{id}.txt')
     if os.path.isfile(path):
         with open(path, 'a') as f:
             f.write(input + '\n')
@@ -103,7 +103,7 @@ def get_botname():
 
 
 def get_colour(message):
-    path = "data\\configs\\" + str(message.guild.id) + ".json"
+    path = os.path.join('data', 'configs', f'{message.guild.id}.json')
     with open(path, 'r') as f:
         data = json.load(f)
     if data["colour"] == "random":

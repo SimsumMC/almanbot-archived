@@ -22,7 +22,7 @@ class administrator(commands.Cog):
         mention = ctx.author.mention
         msg2 = ctx.message
         name = ctx.channel.name
-        path = 'data\\logs\\' + str(ctx.guild.id) + '.txt'
+        path = os.path.join('data', 'logs', f'{ctx.guild.id}.txt')
         channel = get_botc(message=ctx.message)
         if name == channel or channel == "None":
             if os.path.isfile(path):
@@ -30,7 +30,7 @@ class administrator(commands.Cog):
                 log(input=str(time) + ': Der Spieler ' + str(user) + ' hat sich den Log mit der ID "' + str(
                     ctx.guild.id) + '" ausgeben lassen!', id=ctx.guild.id)
             else:
-                embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+                embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
                 embed.set_footer(
                     text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                         message=ctx.message),
@@ -59,7 +59,7 @@ class administrator(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -80,7 +80,7 @@ class administrator(commands.Cog):
         mention = ctx.author.mention
         msg2 = ctx.message
         name = ctx.channel.name
-        path = "data\\configs\\" + str(ctx.guild.id) + ".json"
+        path = os.path.join('data', 'configs', f'{ctx.guild.id}.json')
         channel = get_botc(message=ctx.message)
         existing = ['prefix', 'botchannel', 'memechannel', 'colour', 'hilfe']
         if name == channel or channel == "None":
@@ -88,7 +88,7 @@ class administrator(commands.Cog):
                 if subcommand == "colour":
                     if colour_check(arg) is True:
                         writejson(type=subcommand, input=get_colour_code(str(arg)), path=path)
-                        embed = discord.Embed(title='Config', description='Das Modul ```' + str(subcommand)
+                        embed = discord.Embed(title='**Config**', description='Das Modul ```' + str(subcommand)
                                               + '``` wurde erfolgreich zu ```' + str( arg) + '``` geändert!'
                                               ,colour=get_colour(ctx.message))
                         embed.set_footer(
@@ -104,7 +104,7 @@ class administrator(commands.Cog):
                             arg) + ' erfolgreich geändert',
                             id=ctx.guild.id)
                     else:
-                        embed = discord.Embed(title='Fehler', description='Das Modul ```' + str(subcommand)
+                        embed = discord.Embed(title='**Fehler**', description='Das Modul ```' + str(subcommand)
                                               + '``` kann nicht zu ```' + str(arg) + '``` geändert werden.'
                                               ,colour=get_colour(ctx.message))
                         embed.set_footer(
@@ -117,7 +117,7 @@ class administrator(commands.Cog):
                             user) + ' hat probiert das Modul ' + str(subcommand) + ' zu ' + str(arg) + ' zu ändern.',
                             id=ctx.guild.id)
                 elif subcommand == "hilfe":
-                    embed = discord.Embed(title='Config Hilfe',
+                    embed = discord.Embed(title='**Config Hilfe**',
                                           description='Hier findest du alle Subbefehle zum !config Befehl!',
                                           colour=get_colour(ctx.message))
                     embed.set_thumbnail(
@@ -127,16 +127,16 @@ class administrator(commands.Cog):
                                           str(get_prefix_string(ctx.message)),
                                      icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                               '/803322491480178739/winging-easy.png?width=676&height=676')
-                    embed.add_field(name=f'{get_prefix_string(ctx.message)}config prefix <Präfix>',
+                    embed.add_field(name=f'**{get_prefix_string(ctx.message)}config prefix <Präfix>**',
                                     value='Ändere den Prefix deines Bots, der in der Konsole angezeigt wird!',
                                     inline=False)
-                    embed.add_field(name=f'{get_prefix_string(ctx.message)}config colour <Farbe / "random">',
+                    embed.add_field(name=f'**{get_prefix_string(ctx.message)}config colour <Farbe / "random">**',
                                     value='Ändere die Farbe der Embeds.',
                                     inline=False)
-                    embed.add_field(name=f'{get_prefix_string(ctx.message)}config botchannel <name / "None"> ',
+                    embed.add_field(name=f'**{get_prefix_string(ctx.message)}config botchannel <name / "None">**',
                                     value='Sorge dafür das die Befehle nur in einem bestimmten Kanal funktionieren!',
                                     inline=False)
-                    embed.add_field(name=f'{get_prefix_string(ctx.message)}config memechannel <name / "None"> ',
+                    embed.add_field(name=f'**{get_prefix_string(ctx.message)}config memechannel <name / "None">**',
                                     value='Sorge dafür das der Meme Befehl nur in einem bestimmten Kanal funktioniert!',
                                     inline=False)
                     await ctx.send(embed=embed)
@@ -145,7 +145,7 @@ class administrator(commands.Cog):
 
                 else:
                     writejson(type=subcommand, input=arg, path=path)
-                    embed = discord.Embed(title='Config', colour=get_colour(ctx.message))
+                    embed = discord.Embed(title='**Config**', colour=get_colour(ctx.message))
                     embed.set_footer(
                         text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                             message=ctx.message),
@@ -162,7 +162,7 @@ class administrator(commands.Cog):
                         'Modul ' + str(subcommand) + ' zu' + str(arg) + ' erfolgreich geändert',
                         id=ctx.guild.id)
             else:
-                embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+                embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
                 embed.set_footer(
                     text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                         message=ctx.message),
@@ -191,7 +191,7 @@ class administrator(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -204,7 +204,7 @@ class administrator(commands.Cog):
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
                 get_prefix_string(ctx.message) + 'config zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -235,7 +235,7 @@ class administrator(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='Fehler', colour=13372193)
+            embed = discord.Embed(title='**Fehler**', colour=13372193)
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'

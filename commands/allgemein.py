@@ -56,7 +56,7 @@ class allgemein(commands.Cog):
             ergebnis = 0
             for guild in client.guilds:
                 ergebnis += guild.member_count
-            embed = discord.Embed(title='Botinfo', color=get_colour(ctx.message))
+            embed = discord.Embed(title='**Botinfo**', color=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
                 get_prefix_string(ctx.message)),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -94,7 +94,7 @@ class allgemein(commands.Cog):
         path = f'qrcode by {get_botname()}.png'
         if name == botchannel or botchannel == 'None':
             make_qr(str(path), link)
-            embed = discord.Embed(title="QR Code", colour=get_colour(ctx.message))
+            embed = discord.Embed(title="**QR Code**", colour=get_colour(ctx.message))
             file = discord.File(path, filename="image.png")
             embed.set_image(url="attachment://image.png")
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
@@ -119,7 +119,7 @@ class allgemein(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title='Fehler', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -143,7 +143,7 @@ class allgemein(commands.Cog):
         botchannel = get_botc(ctx.message)
         ping = round(client.latency * 1000)
         if name == botchannel or name == "None":
-            embed = discord.Embed(title='Ping', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Ping**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
@@ -179,7 +179,7 @@ class allgemein(commands.Cog):
             else:
                 roles = [role for role in member.roles]
 
-            embed = discord.Embed(title=f"Nutzerinfo für {member}", colour=get_colour(ctx.message))
+            embed = discord.Embed(title=f"**Nutzerinfo für {member}**", colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
@@ -220,7 +220,7 @@ class allgemein(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if name == botchannel or name == "None":
-            embed = discord.Embed(title=f"Serverinfo für {ctx.guild.name}", colour=get_colour(ctx.message))
+            embed = discord.Embed(title=f"**Serverinfo für {ctx.guild.name}**", colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')

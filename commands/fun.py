@@ -21,7 +21,7 @@ class fun(commands.Cog):
         botchannel = get_botc(ctx.message)
         value = random.randint(1, 6)
         if name == botchannel or botchannel == "None":
-            embed = discord.Embed(title='Würfel', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Würfel**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://cdn.discordapp.com/attachments/645276319311200286/803550939112931378/wurfelv2.png')
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -61,7 +61,7 @@ class fun(commands.Cog):
             for i in range(0, post_to_pick):
                 submission = next(x for x in memes_submissions if not x.stickied)
 
-            embed = discord.Embed(title=submission.title, colour=get_colour(ctx.message))
+            embed = discord.Embed(title=f"**{submission.title}**", colour=get_colour(ctx.message))
             embed.set_image(url=submission.url)
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
@@ -83,7 +83,7 @@ class fun(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, commands.CommandOnCooldown):
-            embed = discord.Embed(title=f"Cooldown", description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
+            embed = discord.Embed(title="**Cooldown**", description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
                                color=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
@@ -108,7 +108,7 @@ class fun(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if name == botchannel or botchannel == "None":
-            embed = discord.Embed(title='Schere Stein Papier', description='Lass uns "Schere Stein Papier" spielen!'
+            embed = discord.Embed(title='**Schere Stein Papier**', description='Lass uns "Schere Stein Papier" spielen!'
                                   'Nutze dazu die Commands:', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
@@ -144,7 +144,7 @@ class fun(commands.Cog):
                       'Du hast gewonnen, ich hatte mich für das Papier entschieden!',
                       'Guter Versuch, aber ich habe aber mit dem Stein gewonnen!']
             schererandom = random.choice(schere)
-            embed = discord.Embed(title='Schere Stein Papier', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Schere Stein Papier**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://cdn.discordapp.com/attachments/645276319311200286/803373963316953158/stp.png')
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -176,7 +176,7 @@ class fun(commands.Cog):
                      'Du hast gewonnen, ich hatte mich für die Schere entschieden!',
                      'Guter Versuch, aber ich habe aber mit dem Papier gewonnen!']
             steinrandom = random.choice(stein)
-            embed = discord.Embed(title='Schere Stein Papier', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Schere Stein Papier**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://cdn.discordapp.com/attachments/645276319311200286/803373963316953158/stp.png')
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -208,7 +208,7 @@ class fun(commands.Cog):
                       'Du hast gewonnen, ich hatte mich für den Stein entschieden!',
                       'Guter Versuch, aber ich habe aber mit der Schere gewonnen! Papier ist leider nur so dünn...']
             papierrandom = random.choice(papier)
-            embed = discord.Embed(title='Schere Stein Papier', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='**Schere Stein Papier**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://cdn.discordapp.com/attachments/645276319311200286/803373963316953158/stp.png')
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
