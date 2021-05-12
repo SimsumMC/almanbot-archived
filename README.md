@@ -105,4 +105,4 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 Demnach hast du die Erlaubnis, :
 
 - den Code für alle Zwecke zu nutzen (sowhol kommerziell als auch privat)
-- du darfst ihn unter den Bedingungen der Lizenz kopieren, weiterverbreiten und ändern
+- den Code nach den Bedingungen der Lizenz kopieren, weiterverbreiten und ändern
