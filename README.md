@@ -65,7 +65,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Universelle Installation**
 
-1. Laden sie sich den Ordner herunter und entpacken sie ihn
+1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) herunter und entpacken sie ihn
 2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++ oder einem anderem Editor
 3. Ändern sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version
 4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token
