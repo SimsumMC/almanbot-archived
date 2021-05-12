@@ -61,7 +61,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Erforderliche Programme:**
 
-- Python
+- Python 3.7 oder höher
 
 **Universelle Installation**
 
