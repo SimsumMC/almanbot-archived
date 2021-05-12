@@ -59,7 +59,6 @@ class fun(commands.Cog):
                 memes_submissions = reddit.subreddit(redditname).hot()
                 post_to_pick = random.randint(1, 100)
                 if redditname != "memes":
-                    await asyncio.sleep(3)
                     if redditnsfwcheck(redditname):
                         embed = discord.Embed(title="**Fehler**",
                                           description=f"Der angegebene Reddit **{redditname}** enthält nicht "
