@@ -23,6 +23,8 @@ class CommunityBot(commands.Bot):
             await asyncio.sleep(5)
             await client.change_presence(activity=discord.Game('Open Source'), status=discord.Status.online)
             await asyncio.sleep(5)
+            await client.change_presence(activity=discord.Game(f'in {len(client.guilds)} Servern'), status=discord.Status.online)
+            await asyncio.sleep(5)
 
     async def on_message(self, message):
         time = datetime.datetime.now()
