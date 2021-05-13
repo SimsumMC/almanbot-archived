@@ -94,8 +94,8 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 - Spieler Kicken
 
 **Administration**
-- Farbe von Embeds, Präfix, Meme bzw. Bot Channel festlegen mit dem config Befehl
-- Kompletten Channel "leeren"
+- Möglichkeit die Farbe von Embeds, Präfix, Meme bzw. Bot Channel oder die Quelle der Memes festlegen mit dem Config Befehl
+- Kompletten Channel mit einem Befehl "leeren"
 - Botlog ausgeben
 
 # Lizenz
