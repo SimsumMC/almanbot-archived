@@ -23,31 +23,20 @@ class moderation(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if amount < 101:
-            try:
-                deleted = await ctx.channel.purge(limit=amount + 1, check=is_not_pinned)
-                embed = discord.Embed(description='Es wurden ' + str(deleted - 1) + ' Nachrichten gelöscht!',
+            deleted = await ctx.channel.purge(limit=amount + 1, check=is_not_pinned)
+            embed = discord.Embed(title="Clear", description=f'Es wurden {len(deleted) - 1} Nachrichten gelöscht!',
                                       colour=get_colour(ctx.message))
-                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+            embed.set_thumbnail(
+                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                    '.png?width=676&height=676')
+            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
                     get_prefix_string(message=ctx.message)),
                     icon_url='https://media.discordapp.net/attachments/645276319311200286'
                     '/803322491480178739/winging-easy.png?width=676&height=676')
-                await ctx.send(embed=embed, delete_after=5)
-                log(str(time) + ': Der Spieler ' + str(user) + ' hat ' + str(deleted - 1) + ' Nachrichten im Kanal #' +
+            await ctx.send(embed=embed, delete_after=5)
+            log(str(time) + ': Der Spieler ' + str(user) + ' hat ' + str(len(deleted) - 1) + ' Nachrichten im Kanal #' +
                 str(name) + ' mit dem Befehl ' + get_prefix_string(ctx.message) + 'clear gelöscht.',
                 id=ctx.guild.id)
-            except Exception:
-                embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
-                embed.set_footer(
-                    text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                        message=ctx.message),
-                    icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
-                             '/winging-easy.png?width=676&height=676')
-                embed.add_field(name='‎',
-                                value='Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!',
-                                inline=False)
-                await ctx.send(embed=embed)
-                log(input=str(time) + ': Der Bot hatte nicht die nötigen Berrechtigungen um ' +
-                          get_prefix_string(ctx.message) + 'clear auszuführen.', id=ctx.guild.id)
         else:
             embed = discord.Embed(title='**Fehler**',
                                   description='Du kannst nicht über 100 Nachrichten  aufeinmal löschen!'
@@ -94,6 +83,8 @@ class moderation(commands.Cog):
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'clear eingegeben.', id=ctx.guild.id)
+        else:
+            raise error
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
