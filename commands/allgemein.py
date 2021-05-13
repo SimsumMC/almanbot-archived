@@ -27,7 +27,10 @@ class allgemein(commands.Cog):
                 get_prefix_string(ctx.message)),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
-            embed.add_field(name='‎', value='[Bot Invite](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775)  |  [Discord Server](https://discord.visitlink.de)', inline=False)
+            embed.add_field(name='‎', value='[Bot Invite](https://discord.com/oauth2/authorize?'
+                                            'client_id=802922765782089738&scope=bot&permissions=2620914775)  |  '
+                                            '[Discord Server](https://discord.visitlink.de)  |  ' 
+                                            '[Website](https://communitybot.visitlink.de/)', inline=False)
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
@@ -60,13 +63,13 @@ class allgemein(commands.Cog):
                 get_prefix_string(ctx.message)),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
-            embed.add_field(name='Entwickler‎', value='SimsumMC#3579', inline=True)
-            embed.add_field(name='‎Projektbeginn', value='Anfang 2021', inline=True)
-            embed.add_field(name='‎Arbeitszeit', value='ca. 40 Stunden', inline=True)
-            embed.add_field(name='‎Server', value=f'{len(client.guilds)}', inline=True)
-            embed.add_field(name='‎Nutzer', value=f'{ergebnis}', inline=True)
-            embed.add_field(name='Source', value='[Github](https://github.com/SimsumMC/communitybot)', inline=True)
-            embed.add_field(name='Website', value='In Arbeit', inline=True)
+            embed.add_field(name='**Entwickler**', value='SimsumMC#3579', inline=True)
+            embed.add_field(name='**Projektbeginn', value='Anfang 2021', inline=True)
+            embed.add_field(name='**Arbeitszeit', value='ca. 40 Stunden', inline=True)
+            embed.add_field(name='**Server**', value=f'{len(client.guilds)}', inline=True)
+            embed.add_field(name='**Nutzer**', value=f'{ergebnis}', inline=True)
+            embed.add_field(name='**Source**', value='[Github](https://github.com/SimsumMC/communitybot)', inline=True)
+            embed.add_field(name='**Website**', value='[Link](https://communitybot.visitlink.de/)', inline=True)
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')
@@ -179,22 +182,22 @@ class allgemein(commands.Cog):
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
-            embed.add_field(name="Nutzername:", value=member.display_name, inline=True)
-            embed.add_field(name="ID:", value=member.id, inline=True)
+            embed.add_field(name="**Nutzername:**", value=member.display_name, inline=True)
+            embed.add_field(name="**ID:**", value=member.id, inline=True)
 
-            embed.add_field(name="Tag:", value=member.discriminator, inline=True)
+            embed.add_field(name="**Tag:**", value=member.discriminator, inline=True)
             embed.add_field(name="Aktuelle Aktivität:",
                             value=f" {member.activity.name}" if member.activity is not None else "Keine",
                             inline=True)
-            embed.add_field(name="Erstellt am:", value=member.created_at.strftime("%d.%m.%y um %H:%M"),
+            embed.add_field(name="**Erstellt am:**", value=member.created_at.strftime("%d.%m.%y um %H:%M"),
                             inline=True)
-            embed.add_field(name="Beigetreten am:", value=member.joined_at.strftime("%d.%m.%y um %H:%M"),
+            embed.add_field(name="**Beigetreten am:**", value=member.joined_at.strftime("%d.%m.%y um %H:%M"),
                             inline=True)
-            embed.add_field(name=f"Rollen ({len(roles) - 1}):", value=" **|** "
+            embed.add_field(name=f"**Rollen ({len(roles) - 1}):**", value=" **|** "
                             .join([role.mention for role in roles if not role.is_default()]),
                             inline=True)
-            embed.add_field(name="Höchste Rolle:", value=member.top_role.mention, inline=True)
-            embed.add_field(name="Bot?:", value=str(whoisr(member=member)) , inline=True)
+            embed.add_field(name="**Höchste Rolle:**", value=member.top_role.mention, inline=True)
+            embed.add_field(name="**Bot?:**", value=str(whoisr(member=member)) , inline=True)
             await ctx.send(embed=embed)
             log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl  ' +
                 get_prefix_string(ctx.message) + 'nutzerinfo benutzt!', ctx.guild.id)
@@ -222,12 +225,13 @@ class allgemein(commands.Cog):
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
             embed.set_thumbnail(url=ctx.guild.icon_url)
-            embed.add_field(name="Name:", value=ctx.guild.name, inline=True)
-            embed.add_field(name="ID:", value=ctx.guild.id, inline=True)
-            embed.add_field(name="Region:", value=ctx.guild.region, inline=True)
-            embed.add_field(name="Erstellt am", value=ctx.guild.created_at.strftime("%d.%m.%y um %H:%M"), inline=True)
-            embed.add_field(name="Besitzer:", value=ctx.guild.owner.mention, inline=True)
-            embed.add_field(name="Spielerzahlen:", value=f"Gesamt: `{ctx.guild.member_count}`\n"
+            embed.add_field(name="**Name:**", value=ctx.guild.name, inline=True)
+            embed.add_field(name="**ID:**", value=ctx.guild.id, inline=True)
+            embed.add_field(name="**Region:**", value=ctx.guild.region, inline=True)
+            embed.add_field(name="**Erstellt am:**", value=ctx.guild.created_at.strftime("%d.%m.%y um %H:%M")
+                            , inline=True)
+            embed.add_field(name="**Besitzer:**", value=ctx.guild.owner.mention, inline=True)
+            embed.add_field(name="**Spielerzahlen:**", value=f"Gesamt: `{ctx.guild.member_count}`\n"
                                                          "Spieler: "
                                                          f"`{len(list(filter(lambda m: not m.bot,ctx.guild.members)))}`\n"
                                                          "Bots: "
