@@ -34,11 +34,11 @@ class help(commands.Cog):
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Allgemein**', value='Zeigt dir alle Befehle'
                                 ' der Kategorie Allgemein an!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Unterhaltung**',
-                                value='Zeigt dir alle Befehle der Kategorie Unterhaltung an!**', inline=False)
+                                value='Zeigt dir alle Befehle der Kategorie Unterhaltung an!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Moderation**', value='Zeigt dir alle Befehle'
                 'der Kategorie Moderation an!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Administration**',
-                                value='Zeigt dir alle Befehle der Kategorie Administrator an!**', inline=False)
+                                value='Zeigt dir alle Befehle der Kategorie Administrator an!', inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
                     get_prefix_string(ctx.message) + 'hilfe benutzt!', ctx.guild.id)

@@ -55,6 +55,7 @@ class events(commands.Cog):
                 data = {"prefix": "!",
                         "botchannel": "None",
                         "memechannel": "None",
+                        "memesource":"memes",
                         "colour": 13372193}
                 json.dump(data, f, indent=4)
 

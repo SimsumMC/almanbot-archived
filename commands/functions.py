@@ -49,7 +49,7 @@ def get_botc(message):
     path = os.path.join('data', 'configs', f'{message.guild.id}.json')
     with open(path, 'r') as f:
         data = json.load(f)
-    return str(data["botchannel"])
+    return data["botchannel"]
 
 
 def get_memec(message):
@@ -220,6 +220,17 @@ def redditnsfwcheck(reddit):
         return True
     else:
         return False
+
+def get_memes(id):
+    path = os.path.join('data', 'configs', f'{id}.json')
+    with open(path, 'r+') as f:
+        data = json.load(f)
+    if 'memesource' in data:
+        return data["memesource"]
+    else:
+        writejson("memesource", "memes", path)
+        return "memes"
+
 ########################################################################################################################
 
 

@@ -173,10 +173,7 @@ class allgemein(commands.Cog):
         if name == botchannel or name == "None":
             if member is None:
                 member = ctx.author
-                roles = [role for role in ctx.author.roles]
-
-            else:
-                roles = [role for role in member.roles]
+            roles = [role for role in member.roles]
 
             embed = discord.Embed(title=f"**Nutzerinfo für {member}**", colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -237,14 +234,14 @@ class allgemein(commands.Cog):
             embed.add_field(name="Region:", value=ctx.guild.region, inline=True)
             embed.add_field(name="Erstellt am", value=ctx.guild.created_at.strftime("%d.%m.%y um %H:%M"), inline=True)
             embed.add_field(name="Besitzer:", value=ctx.guild.owner.mention, inline=True)
-            embed.add_field(name="Spielerzahlen:", value=f"Gesamt: {ctx.guild.member_count}"
-                                                         f" ({ges}:small_orange_diamond:)\n"
+            embed.add_field(name="Spielerzahlen:", value=f"Gesamt: `{ctx.guild.member_count}` |"
+                                                         f" {ges}:small_orange_diamond: \n"
                                                          "Spieler: "
-                                                         f"{len(list(filter(lambda m: not m.bot,ctx.guild.members)))}"
-                                                         f" ({member}:small_orange_diamond:)\n"
+                                                         f"`{len(list(filter(lambda m: not m.bot,ctx.guild.members)))}` |"
+                                                         f" {member}:small_orange_diamond: \n"
                                                          "Bots: "
-                                                         f"{len(list(filter(lambda m: m.bot, ctx.guild.members)))}"
-                                                         f" ({bot}:small_orange_diamond:)\n"
+                                                         f"`{len(list(filter(lambda m: m.bot, ctx.guild.members)))}` |"
+                                                         f" {bot}:small_orange_diamond: \n"
                                                          , inline=True)
             await ctx.send(embed=embed)
             log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl  ' +

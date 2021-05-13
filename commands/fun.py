@@ -3,7 +3,8 @@ import random
 import praw
 import discord
 from discord.ext import commands
-from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_memec, redditnsfwcheck
+from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_memec, redditnsfwcheck\
+    , get_memes
 
 
 class fun(commands.Cog):
@@ -42,7 +43,9 @@ class fun(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def meme(self, ctx, redditname="memes"):
+    async def meme(self, ctx, redditname=None):
+        if redditname is None:
+            redditname = get_memes(ctx.guild.id)
         global submission
         time = datetime.datetime.now()
         user = ctx.author.name
@@ -58,7 +61,7 @@ class fun(commands.Cog):
                                      check_for_async=False)
                 memes_submissions = reddit.subreddit(redditname).hot()
                 post_to_pick = random.randint(1, 100)
-                if redditname != "memes":
+                if redditname != get_memes(ctx.guild.id):
                     if redditnsfwcheck(redditname):
                         embed = discord.Embed(title="**Fehler**",
                                           description=f"Der angegebene Reddit **{redditname}** enthält nicht "
@@ -86,8 +89,8 @@ class fun(commands.Cog):
                 await ctx.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +get_prefix_string(ctx.message) +
                     'meme benutzt!', id=ctx.guild.id)
-
-            except Exception as e:
+                return
+            except Exception:
                 embed = discord.Embed(title="**Fehler**",
                                       description=f"Der Reddit **{redditname}** konnte nicht gefunden werden.",
                                       color=get_colour(ctx.message))
@@ -101,6 +104,7 @@ class fun(commands.Cog):
                 await ctx.send(embed=embed)
                 log(f"{time}: Der Spieler {user} hat beim Befehl"
                     f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.", ctx.guild.id)
+                raise Exception
 
         else:
             log(input=str(time) + ': Der Spieler ' + str(
@@ -130,7 +134,6 @@ class fun(commands.Cog):
                 f"'{get_prefix_string(ctx.message)}meme im Kanal #{ctx.channel.name} zu nutzen.", ctx.guild.id)
         else:
             raise error
-
 
     @commands.command()
     async def ssp(self, ctx):
