@@ -33,6 +33,8 @@ class help(commands.Cog):
                 'Hilfeseiten!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Allgemein**', value='Zeigt dir alle Befehle'
                                 ' der Kategorie Allgemein an!', inline=False)
+                embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Statistiken**',
+                                value='Zeigt dir alle Befehle der Kategorie Statistiken an!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Unterhaltung**',
                                 value='Zeigt dir alle Befehle der Kategorie Unterhaltung an!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Moderation**', value='Zeigt dir alle Befehle'
@@ -42,7 +44,7 @@ class help(commands.Cog):
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
                     get_prefix_string(ctx.message) + 'hilfe benutzt!', ctx.guild.id)
-            elif page == 'allgmein' or page == 'Allgemein' or page == 'all':
+            elif page == 'allgemein' or page == 'Allgemein' or page == 'all':
                 embed = discord.Embed(title='**Hilfe Allgemein**',
                                       description='Hier findest du alle Befehle zu der Kategorie Allgemein!',
                                       colour=get_colour(ctx.message))
@@ -57,19 +59,38 @@ class help(commands.Cog):
                                                                                      ' Hilfeseiten!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}invite**',
                                 value='Invite mich oder schau bei meinem Zuhause vorbei!', inline=False)
+
+                embed.add_field(name=f'**{get_prefix_string(ctx.message)}qr**', value='Erstelle einen QR Code zu einer'
+                                                                                  ' beliebigen Website!', inline=False)
+                embed.add_field(name=f'**{get_prefix_string(ctx.message)}nachricht**',
+                                value='Sende einen personalisierten Embed in einen Channel deiner Wahl',
+                                inline=False)
+                await ctx.channel.send(embed=embed)
+                log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
+                    get_prefix_string(ctx.message) + 'hilfe Allgemein benutzt!',
+                    ctx.guild.id)
+            elif page == 'Statistiken' or page == 'statistiken' or page == 'stats':
+                embed = discord.Embed(title='**Hilfe Statistiken**',
+                                      description='Hier findest du alle Befehle zu der Kategorie Allgemein!',
+                                      colour=get_colour(ctx.message))
+                embed.set_thumbnail(
+                    url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                        '.png?width=676&height=676')
+                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                    get_prefix_string(message=ctx.message)),
+                                 icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                          '/803322491480178739/winging-easy.png?width=676&height=676')
+                embed.add_field(name=f'**{get_prefix_string(ctx.message)}ping**', value='Zeigt dir meinen Ping an!'
+                                , inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}botinfo**',
                                 value='Zeigt dir Daten zu mir!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}serverinfo**',
                                 value='Zeigt Daten zum aktuellen Server an!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}nutzerinfo**',
                                 value='Zeigt Daten zu einem Spieler an!', inline=False)
-                embed.add_field(name=f'**{get_prefix_string(ctx.message)}qr**', value='Erstelle einen QR Code zu einer'
-                                                                                  ' beliebigen Website!', inline=False)
-                embed.add_field(name=f'**{get_prefix_string(ctx.message)}ping**', value='Zeigt dir meinen Ping an!'
-                                , inline=False)
-                await ctx.channel.send(embed=embed)
+                await ctx.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
-                    get_prefix_string(ctx.message) + 'hilfe Allgemein benutzt!',
+                    get_prefix_string(ctx.message) + 'hilfe Statistiken benutzt!',
                     ctx.guild.id)
             elif page == 'Unterhaltung' or page == 'unterhaltung' or page == 'fun':
                 embed = discord.Embed(title='**Hilfe Unterhaltung**',
