@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
-from commands.functions import get_prefix, get_botc, get_author, get_prefix_string
+from commands.functions import get_prefix, get_botc, get_author, get_prefix_string, get_colour
 from commands.functions import log
 
 
@@ -27,7 +27,7 @@ class events(commands.Cog):
         if isinstance(error, CommandNotFound):
             if name == channel or channel == "None":
                 embed = discord.Embed(title="Fehler", description='Der Befehl "' + str(msg) + '" existiert nicht!',
-                                      color=13372193)
+                                      color=get_colour(ctx.message))
                 embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' +
                                  get_prefix_string(message=ctx.message),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
