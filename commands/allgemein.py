@@ -4,7 +4,8 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import MissingRequiredArgument
 
-from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr, whoisr
+from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr, whoisr,\
+    colour_check, get_colour_code
 from main import client
 
 
@@ -251,7 +252,7 @@ class allgemein(commands.Cog):
 
 
     @commands.command()
-    async def nachricht(self, ctx, name, channel: discord.TextChannel, *, message):
+    async def nachricht(self, ctx, title, colour, channel: discord.TextChannel, *, message):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
@@ -260,7 +261,11 @@ class allgemein(commands.Cog):
         botchannel = get_botc(ctx.message)
         if name == botchannel or name == "None":
             try:
-                embed = discord.Embed(title=name,description=message, colour=get_colour(ctx.message))
+                if colour_check(colour):
+                    colour = get_colour_code(colour)
+                else:
+                    colour = get_colour(ctx.message)
+                embed = discord.Embed(title=title,description=message, colour=colour)
                 embed.set_footer(
                     text='von ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                         message=ctx.message),
@@ -314,7 +319,7 @@ class allgemein(commands.Cog):
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
                             value='Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```' +
-                                  get_prefix_string(ctx.message) + 'nachricht <Titel> <Channel> <Nachricht>```',
+                                  get_prefix_string(ctx.message) + 'nachricht <Titel> <Farbe> <Channel> <Nachricht>```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
