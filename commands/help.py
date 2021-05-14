@@ -30,7 +30,7 @@ class help(commands.Cog):
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe**', value='Zeigt dir eine Übersicht aller'
-                'Hilfeseiten!', inline=False)
+                ' Hilfeseiten!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Allgemein**', value='Zeigt dir alle Befehle'
                                 ' der Kategorie Allgemein an!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe Statistiken**',
