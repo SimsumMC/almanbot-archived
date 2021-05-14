@@ -34,8 +34,10 @@ class CommunityBot(commands.Bot):
         if bannedWords != None and (isinstance(message.channel, discord.channel.DMChannel) == False):
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):
-                    if msg_contains_word(message.content.lower(), "blacklist remove") or \
-                            msg_contains_word(message.content.lower(), "blacklist add"):
+                    if msg_contains_word(message.content.lower(), "blacklist add") or \
+                        msg_contains_word(message.content.lower(), "blacklist remove") or \
+                        msg_contains_word(message.content.lower(), "qr") or \
+                        msg_contains_word(message.content.lower(), "nachricht"):
                         pass
                     else:
                         await message.delete()
