@@ -76,8 +76,10 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 **Allgemein**
 - Infos über den Bot (Ping, Server, Nutzer etc.) und Invite Links zum Bot 
 - QR Codes erstellen 
+- personalisierte Embeds senden
 
-**Informationen**
+**Statistiken**
+- Informationen zum Bot
 - Informationen zu einzelnen Nutzern
 - Informationen zu dem aktuellen Server
 
