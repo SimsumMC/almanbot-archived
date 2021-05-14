@@ -123,6 +123,8 @@ def get_colour_code(colour):
         final = 0xa80000
     elif colour == "Hellrot":
         final = 0xf00000
+    elif colour == "Gelb":
+        final = 0xf3d720
     elif colour == "Hellblau":
         final = 0x2fa5ee
     elif colour == "Blau":
@@ -158,7 +160,7 @@ def get_colour_code(colour):
 
 def colour_check(colour):
     colours = ["Rot", "Hellrot", "Hellblau", "Blau", "Hellgrün", "Grün", "Hellorange", "Orange", "Schwarz", "Hellgrau",
-               "Grau", "Weiß", "Dunkellila", "Lila", "Pink", "bunt", "rainbow", "random"]
+               "Grau", "Weiß", "Dunkellila", "Lila", "Pink", "bunt", "rainbow", "random", "Gelb"]
     if colour in colours:
         return True
     else:
@@ -166,7 +168,7 @@ def colour_check(colour):
 
 
 def random_colour():
-    colours = ["Rot", "Hellrot", "Hellblau", "Blau", "Hellgrün", "Grün", "Hellorange", "Orange", "Dunkellila", "Lila"
+    colours = ["Rot", "Hellrot", "Hellblau", "Blau", "Gelb", "Hellgrün", "Grün", "Hellorange", "Orange", "Dunkellila", "Lila"
                , "Pink"]
     return get_colour_code(random.choice(colours))
 
