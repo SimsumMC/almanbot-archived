@@ -64,8 +64,8 @@ class allgemein(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='**Entwickler**', value='SimsumMC#3579', inline=True)
-            embed.add_field(name='**Projektbeginn', value='Anfang 2021', inline=True)
-            embed.add_field(name='**Arbeitszeit', value='ca. 40 Stunden', inline=True)
+            embed.add_field(name='**Projektbeginn**', value='Anfang 2021', inline=True)
+            embed.add_field(name='**Arbeitszeit**', value='ca. 40 Stunden', inline=True)
             embed.add_field(name='**Server**', value=f'{len(client.guilds)}', inline=True)
             embed.add_field(name='**Nutzer**', value=f'{ergebnis}', inline=True)
             embed.add_field(name='**Source**', value='[Github](https://github.com/SimsumMC/communitybot)', inline=True)
