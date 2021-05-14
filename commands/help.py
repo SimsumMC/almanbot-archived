@@ -55,7 +55,7 @@ class help(commands.Cog):
                     get_prefix_string(message=ctx.message)),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
-                embed.add_field(name=f'{get_prefix_string(ctx.message)}hilfe**', value='Zeigt dir eine Übersicht aller'
+                embed.add_field(name=f'**{get_prefix_string(ctx.message)}hilfe**', value='Zeigt dir eine Übersicht aller'
                                                                                      ' Hilfeseiten!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}invite**',
                                 value='Invite mich oder schau bei meinem Zuhause vorbei!', inline=False)
