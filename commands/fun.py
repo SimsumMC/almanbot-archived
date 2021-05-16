@@ -1,10 +1,11 @@
 import datetime
 import random
+import os
 import praw
 import discord
 from discord.ext import commands
 from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_memec, redditnsfwcheck\
-    , get_memes
+    , get_memes, get_checkedmemes, writejson, readjson
 
 
 class fun(commands.Cog):
@@ -53,6 +54,7 @@ class fun(commands.Cog):
         msg2 = ctx.message
         mention = ctx.author.mention
         memechannel = get_memec(ctx.message)
+        path = os.path.join('data', 'verifiedmemes', 'memes.json')
         if name == memechannel or memechannel == "None":
             try:
                 reddit = praw.Reddit(client_id='JiHoJGCPBC9vlg',
@@ -61,8 +63,8 @@ class fun(commands.Cog):
                                      check_for_async=False)
                 memes_submissions = reddit.subreddit(redditname).hot()
                 post_to_pick = random.randint(1, 100)
-                if redditname != get_memes(ctx.guild.id):
-                    if redditnsfwcheck(redditname):
+                if redditname != get_memes(ctx.guild.id) and get_checkedmemes(redditname) is False:
+                    if redditname in readjson("failed", path) or redditnsfwcheck(redditname):
                         embed = discord.Embed(title="**Fehler**",
                                           description=f"Der angegebene Reddit **{redditname}** enthält nicht "
                                                       "zulässigen Inhalt.",
@@ -78,6 +80,11 @@ class fun(commands.Cog):
                         log(f"{time}: Der Spieler {user} hat beim Befehl"
                         f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.", ctx.guild.id)
                         return
+                    else:
+                        with open(path, "r+") as f:
+                            data = json.load(f)
+                        data["verified"].append(redditname)
+                        json.dump(data, f, indent=4)
                 for i in range(0, post_to_pick):
                     submission = next(x for x in memes_submissions if not x.stickied)
                 embed = discord.Embed(title=f"**{submission.title}**", colour=get_colour(ctx.message))
@@ -92,7 +99,10 @@ class fun(commands.Cog):
                 return
             except Exception:
                 embed = discord.Embed(title="**Fehler**",
-                                      description=f"Der Reddit **{redditname}** konnte nicht gefunden werden.",
+                                      description=f"Beim Reddit **{redditname}** ist wohl etwas schiefgelaufen. "
+                                      "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
+                                      "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
+                                      "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
                                       color=get_colour(ctx.message))
                 embed.set_thumbnail(
                     url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
@@ -132,8 +142,6 @@ class fun(commands.Cog):
             await ctx.send(embed=embed)
             log(f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
                 f"'{get_prefix_string(ctx.message)}meme im Kanal #{ctx.channel.name} zu nutzen.", ctx.guild.id)
-        else:
-            raise error
 
     @commands.command()
     async def ssp(self, ctx):

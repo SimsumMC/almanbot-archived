@@ -265,7 +265,7 @@ class allgemein(commands.Cog):
                     colour = get_colour_code(colour)
                 else:
                     colour = get_colour(ctx.message)
-                embed = discord.Embed(title=title,description=message, colour=colour)
+                embed = discord.Embed(title=f"**{title}**",description=message, colour=colour)
                 embed.set_footer(
                     text='von ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                         message=ctx.message),

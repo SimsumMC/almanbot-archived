@@ -63,7 +63,7 @@ class help(commands.Cog):
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}qr**', value='Erstelle einen QR Code zu einer'
                                                                                   ' beliebigen Website!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}nachricht**',
-                                value='Sende einen personalisierten Embed in einen Channel deiner Wahl',
+                                value='Sende einen personalisierten Embed in einen Channel deiner Wahl!',
                                 inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
@@ -125,18 +125,18 @@ class help(commands.Cog):
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739/winging-easy.png?width=676&height=676')
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}slowmode**', value=
-                'Lege den Intervall zwischen Nachrochten fest.!', inline=False)
+                'Lege den Intervall zwischen Nachrichten in einem bestimmten Kanal fest.!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}clear**', value='Lösche eine bestimmte Anzahl an'
                                                                                      ' Nachrichten!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}ban**', value='Banne einen bestimmten Spieler bis'
                                                                                    ' er entbannt wird!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}unban**', value='Entbanne einen zuvor'
-                                                                               ' gebannten SPieler!', inline=False)
+                                                                               ' gebannten Spieler!', inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}kick**', value='Kicke einen bestimmten Spieler!'
                                 , inline=False)
                 embed.add_field(name=f'**{get_prefix_string(ctx.message)}mute**', value=
                 'Stumme einen spezifischen Spieler!', inline=False)
-                embed.add_field(name=f'**{get_prefix_string(ctx.message)}unmute', value=
+                embed.add_field(name=f'**{get_prefix_string(ctx.message)}unmute**', value=
                 'Entstumme einen spezifischen Spieler!', inline=False)
                 await ctx.channel.send(embed=embed)
                 log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +

@@ -5,9 +5,7 @@ import asyncio
 import random
 import qrcode
 import re
-import urllib
 from urllib.request import urlopen
-import json
 from discord.ext import commands
 
 
@@ -27,22 +25,20 @@ def get_prefix(bot, message):
                     "colour": 13372193}
             json.dump(data, f, indent=4)
             return commands.when_mentioned_or('!')(bot, message)
-    else:
-        with open(path, 'r') as f:
-            data = json.load(f)
-        prefix = str(data["prefix"])
-        return commands.when_mentioned_or(prefix)(bot, message)
+    with open(path, 'r') as f:
+        data = json.load(f)
+    prefix = str(data["prefix"])
+    return commands.when_mentioned_or(prefix)(bot, message)
 
 
 def get_prefix_string(message):
     path = os.path.join('data', 'configs', f'{message.guild.id}.json')
     if not os.path.exists(path):
         return str('!')
-    else:
-        with open(path, 'r') as f:
-            data = json.load(f)
-        prefix = str(data["prefix"])
-        return str(prefix)
+    with open(path, 'r') as f:
+        data = json.load(f)
+    prefix = str(data["prefix"])
+    return str(prefix)
 
 
 def get_botc(message):
@@ -91,10 +87,7 @@ def log(input, id):
             f.write(input + '\n')
         if countlines(path=path) > 250:
             deletelines(path=path, amount=1)
-    else:
-        with open(path, 'w') as f:
-            pass
-        with open(path, 'a') as f:
+    with open(path, 'a') as f:
             f.write(input + '\n')
 
 
@@ -113,8 +106,7 @@ def get_colour(message):
         data = json.load(f)
     if data["colour"] == "random":
         return random_colour()
-    else:
-        return data["colour"]
+    return data["colour"]
 
 
 def get_colour_code(colour):
@@ -163,8 +155,7 @@ def colour_check(colour):
                "Grau", "Weiß", "Dunkellila", "Lila", "Pink", "bunt", "rainbow", "random", "Gelb"]
     if colour in colours:
         return True
-    else:
-        return False
+    return False
 
 
 def random_colour():
@@ -193,20 +184,18 @@ def make_qr(filename, msg):
 def whoisr(member):
     if member.bot is True:
         return str("Ja")
-    else:
-        return str("Nein")
+    return str("Nein")
 
 def get_blacklist(path):
     if os.path.isfile(path):
         with open(path, "r") as f:
             data = json.load(f)
         return data["blacklist"]
-    else:
-        with open(path, "w") as f:
-            data = {
-                "blacklist": []
-            }
-            json.dump(data, f, indent=4)
+    with open(path, "w") as f:
+        data = {
+            "blacklist": []
+        }
+        json.dump(data, f, indent=4)
         return get_blacklist(path)
 
 
@@ -214,14 +203,12 @@ def msg_contains_word(msg, word):
     return re.search(fr'\b({word})\b', msg) is not None
 
 def redditnsfwcheck(reddit):
-    time.sleep(3)
     url = f"https://www.reddit.com/r/{reddit}/about.json"
     response = urlopen(url)
     data = json.loads(response.read())
     if data["data"]["over18"] is True:
         return True
-    else:
-        return False
+    return False
 
 def get_memes(id):
     path = os.path.join('data', 'configs', f'{id}.json')
@@ -229,10 +216,19 @@ def get_memes(id):
         data = json.load(f)
     if 'memesource' in data:
         return data["memesource"]
-    else:
-        writejson("memesource", "memes", path)
-        return "memes"
+    writejson("memesource", "memes", path)
+    return "memes"
 
+def readjson(type, path):
+    with open(path, 'r') as f:
+        data = json.load(f)
+    return data[type]
+
+def get_checkedmemes(reddit):
+    data = readjson(type="verified" ,path=os.path.join('data', 'verifiedmemes', 'memes.json'))
+    if reddit in data:
+        return False
+    return False
 ########################################################################################################################
 
 
