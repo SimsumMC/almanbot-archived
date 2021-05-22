@@ -6,7 +6,7 @@
   <br>
 </h1> 
 
-<h4 align="center">Moderation, Informationen, Musik (in Arbeit) uvm.</h4>
+<h4 align="center">Moderation, Minigames, Informationen, Musik (in Arbeit) uvm.</h4>
 
 <p align="center">
   <a href="https://discord.gg/wksGyBNnHN">
