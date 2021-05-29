@@ -175,7 +175,7 @@ class moderation(commands.Cog):
         msg2 = ctx.message
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
-        if name == botchannel or botchannel == 'None':
+        if name == botchannel or botchannel == "None":
             banned_users = await ctx.guild.bans()
             member_name, member_disc = member.split('#')
             for ban_entry in banned_users:

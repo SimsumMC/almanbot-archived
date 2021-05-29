@@ -151,27 +151,29 @@ class administrator(commands.Cog):
                         get_prefix_string(ctx.message) + 'config hilfe benutzt.', id=ctx.guild.id)
                     return
                 if subcommand == "memesource":
+                    path2 = os.path.join('data', 'verifiedmemes', 'memes.json')
                     if arg == "default":
                         arg = "memes"
-                    if redditnsfwcheck(arg):
-                        embed = discord.Embed(title="**Fehler**",
+                    if arg != get_memes(ctx.guild.id) and get_checkedmemes(arg) is False:
+                        if arg in readjson("failed", path2) or redditnsfwcheck(arg):
+                            embed = discord.Embed(title="**Fehler**",
                                               description=f"Der angegebene Reddit **{arg}** enthält nicht "
                                                           "zulässigen Inhalt.",
                                               color=get_colour(ctx.message))
-                        embed.set_thumbnail(
+                            embed.set_thumbnail(
                             url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
                                 '.png?width=676&height=676')
-                        embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
                             get_prefix_string(message=ctx.message)),
                                          icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                   '/803322491480178739/winging-easy.png?width=676&height=676')
-                        await ctx.send(embed=embed)
-                        log(input=str(time) + ': Der Spieler ' + str(
+                            await ctx.send(embed=embed)
+                            log(input=str(time) + ': Der Spieler ' + str(
                             user) + ' hat probiert den Befehl ' +
                                   get_prefix_string(ctx.message) + 'config zu benutzen und damit das '
                                                                    'Modul ' + str(subcommand) + ' zu' + str(
                             arg) + ' zu ändern.', id=ctx.guild.id)
-                        return
+                            return
                 writejson(type=subcommand, input=arg, path=path)
                 embed = discord.Embed(title='**Config**', colour=get_colour(ctx.message))
                 embed.set_footer(

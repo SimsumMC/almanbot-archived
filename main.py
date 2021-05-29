@@ -15,7 +15,8 @@ class CommunityBot(commands.Bot):
         print('\n---------------------------------------------------------------------------------------------------\n')
         print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!')
         while True:
-            await client.change_presence(activity=discord.Game('discord.visitlink.de'), status=discord.Status.online)
+            await client.change_presence(activity=discord.Game('discord.visitlink.de'),
+                                         status=discord.Status.online)
             await asyncio.sleep(5)
             await client.change_presence(activity=discord.Game('Custom Prefixes'), status=discord.Status.online)
             await asyncio.sleep(5)
@@ -23,7 +24,8 @@ class CommunityBot(commands.Bot):
             await asyncio.sleep(5)
             await client.change_presence(activity=discord.Game('Open Source'), status=discord.Status.online)
             await asyncio.sleep(5)
-            await client.change_presence(activity=discord.Game(f'in {len(client.guilds)} Servern'), status=discord.Status.online)
+            await client.change_presence(activity=discord.Game(f'in {len(client.guilds)} Servern'),
+                                         status=discord.Status.online)
             await asyncio.sleep(5)
 
     async def on_message(self, message):
@@ -31,13 +33,14 @@ class CommunityBot(commands.Bot):
         user = message.author.name
         path = os.path.join('data', 'blacklist', f'{message.guild.id}.json')
         bannedWords = get_blacklist(path)
-        if bannedWords != None and (isinstance(message.channel, discord.channel.DMChannel) == False):
+        if message.author.bot:
+            return
+        elif bannedWords != None and (isinstance(message.channel, discord.channel.DMChannel) == False):
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):
                     if msg_contains_word(message.content.lower(), "blacklist add") or \
                         msg_contains_word(message.content.lower(), "blacklist remove") or \
-                        msg_contains_word(message.content.lower(), "qr") or \
-                        msg_contains_word(message.content.lower(), "nachricht"):
+                        msg_contains_word(message.content.lower(), "qr"):
                         pass
                     else:
                         await message.delete()
@@ -52,7 +55,7 @@ class CommunityBot(commands.Bot):
                         await message.channel.send(embed=embed, delete_after=5)
                         log(str(time) + f': Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen.'
                                ' Wort: "{bannedWord}"', message.guild.id)
-                        break
+                        return
         await self.process_commands(message)
 
 

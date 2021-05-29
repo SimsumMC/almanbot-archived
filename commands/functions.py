@@ -22,6 +22,7 @@ def get_prefix(bot, message):
             data = {"prefix": "!",
                     "botchannel": "None",
                     "memechannel": "None",
+                    "memesource": "memes",
                     "colour": 13372193}
             json.dump(data, f, indent=4)
             return commands.when_mentioned_or('!')(bot, message)
@@ -85,9 +86,10 @@ def log(input, id):
     if os.path.isfile(path):
         with open(path, 'a') as f:
             f.write(input + '\n')
-        if countlines(path=path) > 250:
+        if countlines(path=path) >= 250:
             deletelines(path=path, amount=1)
-    with open(path, 'a') as f:
+    else:
+        with open(path, 'a') as f:
             f.write(input + '\n')
 
 
@@ -191,11 +193,12 @@ def get_blacklist(path):
         with open(path, "r") as f:
             data = json.load(f)
         return data["blacklist"]
-    with open(path, "w") as f:
-        data = {
-            "blacklist": []
-        }
-        json.dump(data, f, indent=4)
+    else:
+        with open(path, "w") as f:
+            data = {
+                "blacklist": []
+            }
+            json.dump(data, f, indent=4)
         return get_blacklist(path)
 
 

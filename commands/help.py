@@ -12,13 +12,13 @@ class help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(aliases=["help", "info"])
     async def hilfe(self, ctx, *, page=None):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
         botchannel = get_botc(message=ctx.message)
-        if name == botchannel or botchannel == 'None':
+        if name == botchannel or botchannel == "None":
             if page is None:
                 embed = discord.Embed(title='**Hilfe Übersicht**', description='Hier findest du alle Hilfeseiten!',
                                       colour=get_colour(ctx.message))
@@ -179,8 +179,9 @@ class help(commands.Cog):
                     get_prefix_string(ctx.message) + 'hilfe angegeben.', ctx.guild.id)
         else:
             log(input=str(time) + ': Der Spieler ' + str(
-                user) + ' hat probiert den Befehl ' + get_prefix_string(ctx.message) + 'hilfe im Channel #' +
-                str(botchannel) + ' zu benutzen!', id=ctx.guild.id)
+                user) + ' hat probiert den Befehl ' +
+                      get_prefix_string(ctx.message) + 'ban im Channel #' + str(botchannel) + ' zu benutzen!',
+                id=ctx.guild.id)
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
                            delete_after=3)
             await msg2.delete()

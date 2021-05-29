@@ -6,6 +6,7 @@ from discord.ext.commands import MissingRequiredArgument
 
 from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr, whoisr,\
     colour_check, get_colour_code
+from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
 from main import client
 
 
@@ -46,7 +47,8 @@ class allgemein(commands.Cog):
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
                            delete_after=3)
             await msg2.delete()
-            
+
+
     @commands.command()
     async def botinfo(self, ctx):
         time = datetime.datetime.now()
@@ -86,6 +88,7 @@ class allgemein(commands.Cog):
                            delete_after=3)
             await msg2.delete()
 
+
     @commands.command()
     async def qr(self, ctx, *, link):
         time = datetime.datetime.now()
@@ -93,8 +96,8 @@ class allgemein(commands.Cog):
         name = ctx.channel.name
         msg2 = ctx.message
         mention = ctx.author.mention
-        botchannel = str(get_botc(ctx.message))
         path = f'qrcode by {get_botname()}.png'
+        botchannel = get_botc(message=ctx.message)
         if name == botchannel or botchannel == 'None':
             make_qr(str(path), link)
             embed = discord.Embed(title="**QR Code**", colour=get_colour(ctx.message))
@@ -136,6 +139,7 @@ class allgemein(commands.Cog):
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                 get_prefix_string(ctx.message) + 'qr eingegeben.', id=ctx.guild.id)
 
+
     @commands.command()
     async def ping(self, ctx):
         time = datetime.datetime.now()
@@ -143,9 +147,9 @@ class allgemein(commands.Cog):
         name = ctx.channel.name
         msg2 = ctx.message
         mention = ctx.author.mention
-        botchannel = get_botc(ctx.message)
         ping = round(client.latency * 1000)
-        if name == botchannel or name == "None":
+        botchannel = get_botc(message=ctx.message)
+        if name == botchannel or botchannel == 'None':
             embed = discord.Embed(title='**Ping**', colour=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
@@ -173,8 +177,8 @@ class allgemein(commands.Cog):
         name = ctx.channel.name
         msg2 = ctx.message
         mention = ctx.author.mention
-        botchannel = get_botc(ctx.message)
-        if name == botchannel or name == "None":
+        botchannel = get_botc(message=ctx.message)
+        if name == botchannel or botchannel == 'None':
             if member is None:
                 member = ctx.author
             roles = [role for role in member.roles]
@@ -218,9 +222,9 @@ class allgemein(commands.Cog):
         name = ctx.channel.name
         msg2 = ctx.message
         mention = ctx.author.mention
-        botchannel = get_botc(ctx.message)
         bot, member = 0, 0
-        if name == botchannel or name == "None":
+        botchannel = get_botc(message=ctx.message)
+        if name == botchannel or botchannel == 'None':
             embed = discord.Embed(title=f"**Serverinfo für {ctx.guild.name}**", colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
@@ -258,8 +262,8 @@ class allgemein(commands.Cog):
         name = ctx.channel.name
         msg2 = ctx.message
         mention = ctx.author.mention
-        botchannel = get_botc(ctx.message)
-        if name == botchannel or name == "None":
+        botchannel = get_botc(message=ctx.message)
+        if name == botchannel or botchannel == 'None':
             try:
                 if colour_check(colour):
                     colour = get_colour_code(colour)
