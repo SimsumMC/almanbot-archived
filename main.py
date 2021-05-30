@@ -7,11 +7,13 @@ import asyncio
 from discord.ext import commands
 from commands.functions import get_prefix, msg_contains_word, get_blacklist, get_colour, get_prefix_string, get_author\
     , log
+from discord_components import DiscordComponents
 
 
 class CommunityBot(commands.Bot):
 
     async def on_ready(self):
+        DiscordComponents(client)
         print('\n---------------------------------------------------------------------------------------------------\n')
         print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!')
         while True:
@@ -35,6 +37,18 @@ class CommunityBot(commands.Bot):
         bannedWords = get_blacklist(path)
         if message.author.bot:
             return
+        elif client.user.mentioned_in(message) and len(message.content) == len(f"<@!{client.user.id}>"):
+            embed = discord.Embed(title='**Prefix**', color=get_colour(message))
+            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                get_prefix_string(message)),
+                             icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
+                                      '/winging-easy.png?width=676&height=676')
+            embed.add_field(name=' ⠀ ', value=f'Mein Prefix hier ist: ```{get_prefix_string(message)}```', inline=True)
+            embed.set_thumbnail(
+                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
+                    '?width=676&height=676')
+            await message.channel.send(embed=embed)
+            log(f"{time}: Der Spieler {user} hat sich den Prefix über eine Erwähnung ausgeben lassen.", message.guild.id)
         elif bannedWords != None and (isinstance(message.channel, discord.channel.DMChannel) == False):
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):

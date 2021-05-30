@@ -13,7 +13,6 @@ class moderation(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.bot_has_permissions(manage_messages=True)
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, amount: int):
         time = datetime.datetime.now()
@@ -23,20 +22,35 @@ class moderation(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if amount < 101:
-            deleted = await ctx.channel.purge(limit=amount + 1, check=is_not_pinned)
-            embed = discord.Embed(title="Clear", description=f'Es wurden {len(deleted) - 1} Nachrichten gelöscht!',
+            try:
+                deleted = await ctx.channel.purge(limit=amount + 1, check=is_not_pinned)
+                embed = discord.Embed(title="Clear", description=f'Es wurden {len(deleted) - 1} Nachrichten gelöscht!',
                                       colour=get_colour(ctx.message))
-            embed.set_thumbnail(
+                embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
                     '.png?width=676&height=676')
-            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
                     get_prefix_string(message=ctx.message)),
                     icon_url='https://media.discordapp.net/attachments/645276319311200286'
                     '/803322491480178739/winging-easy.png?width=676&height=676')
-            await ctx.send(embed=embed, delete_after=5)
-            log(str(time) + ': Der Spieler ' + str(user) + ' hat ' + str(len(deleted) - 1) + ' Nachrichten im Kanal #' +
+                await ctx.send(embed=embed, delete_after=5)
+                log(str(time) + ': Der Spieler ' + str(user) + ' hat ' + str(len(deleted) - 1) + ' Nachrichten im Kanal #' +
                 str(name) + ' mit dem Befehl ' + get_prefix_string(ctx.message) + 'clear gelöscht.',
                 id=ctx.guild.id)
+            except Exception:
+                embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
+                embed.set_footer(
+                    text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
+                        message=ctx.message),
+                    icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
+                             '/winging-easy.png?width=676&height=676')
+                embed.add_field(name='‎',
+                                value='Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!',
+                                inline=False)
+                await ctx.send(embed=embed)
+                log(input=str(time) + ': Der Bot hatte nicht die nötigen Berrechtigungen um ' +
+                          get_prefix_string(ctx.message) + 'clear auszuführen.', id=ctx.guild.id)
+
         else:
             embed = discord.Embed(title='**Fehler**',
                                   description='Du kannst nicht über 100 Nachrichten  aufeinmal löschen!'
@@ -63,7 +77,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```manage_messages```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
@@ -145,7 +160,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```ban_members```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
@@ -176,39 +192,40 @@ class moderation(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(ctx.message)
         if name == botchannel or botchannel == "None":
-            banned_users = await ctx.guild.bans()
-            member_name, member_disc = member.split('#')
-            for ban_entry in banned_users:
-                user2 = ban_entry.user
-                if (user2.name, user2.discriminator) == (member_name, member_disc):
-                    try:
-                        await ctx.guild.unban(user2)
-                        embed = discord.Embed(title='**Unban**', colour=get_colour(ctx.message))
-                        embed.set_thumbnail(
-                        url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging'
+            try:
+                banned_users = await ctx.guild.bans()
+                member_name, member_disc = member.split('#')
+                for ban_entry in banned_users:
+                    user2 = ban_entry.user
+                    if (user2.name, user2.discriminator) == (member_name, member_disc):
+                        try:
+                            await ctx.guild.unban(user2)
+                            embed = discord.Embed(title='**Unban**', colour=get_colour(ctx.message))
+                            embed.set_thumbnail(
+                            url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging'
                             '-easy.png?width=676&height=676')
-                        embed.set_footer(
-                        text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
+                            embed.set_footer(
+                            text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                             message=ctx.message),
-                        icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
+                            icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                  '/winging-easy.png?width=676&height=676')
-                        embed.add_field(name='Moderator:', value=mention, inline=False)
-                        embed.add_field(name='Nutzer:', value=str(member), inline=False)
-                        await ctx.send(embed=embed)
-                        log(str(time) + ': Der Moderator ' + str(user) + 'hat den Nutzer ' + str(
-                        member) + ' erfolgreich entbannt.', id=ctx.guild.id)
-                    except Exception:
-                        embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
-                        embed.set_footer(
+                            embed.add_field(name='Moderator:', value=mention, inline=False)
+                            embed.add_field(name='Nutzer:', value=str(member), inline=False)
+                            await ctx.send(embed=embed)
+                            log(str(time) + ': Der Moderator ' + str(user) + 'hat den Nutzer ' + str(
+                            member) + ' erfolgreich entbannt.', id=ctx.guild.id)
+                        except Exception:
+                            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
+                            embed.set_footer(
                             text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                                 message=ctx.message),
                             icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                      '/winging-easy.png?width=676&height=676')
-                        embed.add_field(name='‎',
+                            embed.add_field(name='‎',
                                         value='Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!',
                                         inline=False)
-                        await ctx.send(embed=embed)
-                        log(input=str(time) + ': Der Bot hatte nicht die nötigen Berrechtigungen um ' +
+                            await ctx.send(embed=embed)
+                            log(input=str(time) + ': Der Bot hatte nicht die nötigen Berrechtigungen um ' +
                                   get_prefix_string(ctx.message) + 'unban auszuführen..', id=ctx.guild.id)
                 else:
                     embed = discord.Embed(title='**Fehler**',
@@ -222,7 +239,9 @@ class moderation(commands.Cog):
                                  '/winging-easy.png?width=676&height=676')
                     await ctx.send(embed=embed)
                     log(str(time) + ': Der Moderator ' + str(user) + 'hat versucht den  ungültigen Nutzer ' + str(
-                        member) + ' zu entbannen.', id=ctx.guild.id)
+                            member) + ' zu entbannen.', id=ctx.guild.id)
+            except Exception:
+                raise Exception
         else:
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat probiert den Befehl ' +
@@ -243,7 +262,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```ban_members```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
@@ -325,7 +345,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```kick_members```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
@@ -411,7 +432,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```manage_channels```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
@@ -499,7 +521,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```ban_members```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
@@ -578,7 +601,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```ban_members```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
@@ -688,7 +712,8 @@ class moderation(commands.Cog):
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
             embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
+                            value='Dir fehlt folgende Berrechtigung um den Befehl auszuführen: '
+                                  '```ban_members```',
                             inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(

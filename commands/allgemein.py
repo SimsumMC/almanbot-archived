@@ -6,7 +6,7 @@ from discord.ext.commands import MissingRequiredArgument
 
 from commands.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr, whoisr,\
     colour_check, get_colour_code
-from discord_buttons import DiscordButton, Button, ButtonStyle, InteractionType
+from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
 from main import client
 
 
@@ -29,14 +29,16 @@ class allgemein(commands.Cog):
                 get_prefix_string(ctx.message)),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
                                       '/winging-easy.png?width=676&height=676')
-            embed.add_field(name='‎', value='[Bot Invite](https://discord.com/oauth2/authorize?'
-                                            'client_id=802922765782089738&scope=bot&permissions=2620914775)  |  '
-                                            '[Discord Server](https://discord.visitlink.de)  |  ' 
-                                            '[Website](https://communitybot.visitlink.de/)', inline=False)
-            embed.set_thumbnail(
-                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
-                    '?width=676&height=676')
-            await ctx.send(embed=embed)
+            await ctx.send(embed=embed,
+                           components=[[
+                               Button(style=ButtonStyle.URL, label="Bot Invite",
+                                      url="https://discord.com/oauth2/authorize?"
+                                          "client_id=802922765782089738&scope=bot&permissions=2620914775"),
+                               Button(style=ButtonStyle.URL, label="Discord Server",
+                                      url="https://discord.visitlink.de"),
+                               Button(style=ButtonStyle.URL, label="Website", url="https://communitybot.visitlink.de/"),
+                           ]], )
+
             log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl  ' +
                 get_prefix_string(ctx.message) + 'invite benutzt!', ctx.guild.id)
         else:
@@ -103,6 +105,9 @@ class allgemein(commands.Cog):
             embed = discord.Embed(title="**QR Code**", colour=get_colour(ctx.message))
             file = discord.File(path, filename="image.png")
             embed.set_image(url="attachment://image.png")
+            embed.set_thumbnail(
+                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                    '.png?width=676&height=676')
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
                 get_prefix_string(ctx.message)),
                              icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
@@ -187,6 +192,7 @@ class allgemein(commands.Cog):
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
+            embed.set_thumbnail(url=member.avatar_url)
             embed.add_field(name="**Nutzername:**", value=member.display_name, inline=True)
             embed.add_field(name="**ID:**", value=member.id, inline=True)
 
