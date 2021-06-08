@@ -28,7 +28,7 @@ class würfel(commands.Cog):
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
-            embed.add_field(name='‎', value='Du hast eine ```' + str(value) + '``` gewürfelt!', inline=False)
+            embed.add_field(name='‎', value=f'Du hast eine ```{value}``` gewürfelt!', inline=False)
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(user) + ' hat eine ' + str(value) + ' gewürfelt.'
                 , id= ctx.guild.id)

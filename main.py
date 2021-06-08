@@ -87,7 +87,7 @@ check = 0
 for directory in os.listdir('./cogs'):
     for directory2 in os.listdir(f'./cogs/{directory}'):
         if check == 0:
-            print(f"\n\nDirectory: {directory2}\n")
+            print(f"\n\nDirectory: {directory}/{directory2}\n")
         for filename in os.listdir(f'./cogs/{directory}/{directory2}/'):
             if filename.endswith('.py'):
                 extension = f"cogs.{directory}.{directory2}.{filename[:-3]}"
@@ -99,4 +99,4 @@ for directory in os.listdir('./cogs'):
                     traceback.print_exc()
         check = 0
 
-client.run('ODEwOTMzMTI0NTk4NTk1NjE0.YCq2Uw.pXXaXbXpeOFGqjAuMPtTfh-VV5I')
+client.run('test')

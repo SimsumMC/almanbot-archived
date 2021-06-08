@@ -12,6 +12,7 @@ class münzwurf(commands.Cog):
 
     @commands.command(aliases=["münze", "coin", "coinflip"])
     async def münzwurf(self, ctx):
+        global picture, strval
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
@@ -19,10 +20,16 @@ class münzwurf(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(message=ctx.message)
         if name == botchannel or botchannel == 'None':
+            value = random.randint(1, 2)
+            if value == 1:
+                strval = "Kopf"
+                picture = "https://cdn.discordapp.com/attachments/851853486948745246/851853519497199671/kopf.png"
+            elif value == 2:
+                picture = "https://cdn.discordapp.com/attachments/851853486948745246/851853652002996224/zahl.png"
+                strval = "Zahl"
             embed = discord.Embed(title='**Münzwurf**', colour=get_colour(ctx.message))
-            embed.set_thumbnail(url="https://media.discordapp.net/attachments/851853486948745246/851853555731529768/"
-                                    "munzwurf.png")
-            embed.add_field(name='‎', value='', inline=False)
+            embed.set_thumbnail(url=picture)
+            embed.add_field(name='‎', value=f'Das Ergebnis ist ```{strval}```', inline=False)
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
