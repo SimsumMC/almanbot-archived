@@ -1,76 +1,19 @@
 import datetime
 import os
+
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingPermissions, MissingRequiredArgument, BotMissingPermissions
+from discord.ext.commands import MissingPermissions, MissingRequiredArgument
 
-from commands.functions import get_botc, log, get_author, get_prefix_string, writejson, get_colour_code, colour_check, \
+from cogs.core.functions.functions import get_botc, log, get_author, get_prefix_string, writejson, get_colour_code, \
+    colour_check, \
     get_colour, redditnsfwcheck
-from main import client
 
 
-class administrator(commands.Cog):
+class config(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.command()
-    @commands.has_permissions(view_audit_log=True)
-    async def botlog(self, ctx):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        mention = ctx.author.mention
-        msg2 = ctx.message
-        name = ctx.channel.name
-        path = os.path.join('data', 'logs', f'{ctx.guild.id}.txt')
-        channel = get_botc(message=ctx.message)
-        if name == channel or channel == "None":
-            if os.path.isfile(path):
-                await ctx.send(file=discord.File(path))
-                log(input=str(time) + ': Der Spieler ' + str(user) + ' hat sich den Log mit der ID "' + str(
-                    ctx.guild.id) + '" ausgeben lassen!', id=ctx.guild.id)
-            else:
-                embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
-                embed.set_footer(
-                    text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                        message=ctx.message),
-                    icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
-                             '/winging-easy.png?width=676&height=676')
-                embed.add_field(name='‎',
-                                value='Es existiert noch kein Log deines Servers, da dass hier anscheinend dein erster '
-                                      'Befehl ist!',
-                                inline=False)
-                await ctx.send(embed=embed)
-                log(input=str(time) + ': Der Spieler ' + str(
-                    user) + ' hat sich probiert den noch nicht existierenden Log mit der ID "' + str(
-                    ctx.guild.id) + '" ausgeben zu lassen!', id=ctx.guild.id)
-
-        else:
-            log(input=str(time) + ': Der Spieler ' + str(
-                user) + ' hat probiert den Befehl ' +
-                get_prefix_string(ctx.message) + 'serverlog im Channel #' + str(channel) + ' zu benutzen!',
-                id=ctx.guild.id)
-            await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(channel),
-                           delete_after=3)
-            await msg2.delete()
-
-    @botlog.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
-            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                message=ctx.message),
-                             icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
-                                      '/winging-easy.png?width=676&height=676')
-            embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
-                            inline=False)
-            await ctx.send(embed=embed)
-            log(input=str(time) + ': Der Spieler ' + str(
-                user) + ' hatte nicht die nötigen Berrechtigungen um ' +
-                get_prefix_string(ctx.message) + 'botlog zu nutzen.', id=ctx.guild.id)
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -90,8 +33,9 @@ class administrator(commands.Cog):
                     if colour_check(arg) is True:
                         writejson(type=subcommand, input=get_colour_code(str(arg)), path=path)
                         embed = discord.Embed(title='**Config**', description='Das Modul ```' + str(subcommand)
-                                              + '``` wurde erfolgreich zu ```' + str( arg) + '``` geändert!'
-                                              ,colour=get_colour(ctx.message))
+                                                                              + '``` wurde erfolgreich zu ```' + str(
+                            arg) + '``` geändert!'
+                                              , colour=get_colour(ctx.message))
                         embed.set_footer(
                             text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                                 message=ctx.message),
@@ -100,15 +44,16 @@ class administrator(commands.Cog):
                         await ctx.send(embed=embed)
                         log(input=str(time) + ': Der Spieler ' + str(
                             user) + ' hat den Befehl ' +
-                            get_prefix_string(ctx.message) + 'config benutzt und damit das '
-                            'Modul ' + str(subcommand) + ' zu ' + str(
+                                  get_prefix_string(ctx.message) + 'config benutzt und damit das '
+                                                                   'Modul ' + str(subcommand) + ' zu ' + str(
                             arg) + ' erfolgreich geändert',
                             id=ctx.guild.id)
                         return
                     else:
                         embed = discord.Embed(title='**Fehler**', description='Das Modul ```' + str(subcommand)
-                                              + '``` kann nicht zu ```' + str(arg) + '``` geändert werden.'
-                                              ,colour=get_colour(ctx.message))
+                                                                              + '``` kann nicht zu ```' + str(
+                            arg) + '``` geändert werden.'
+                                              , colour=get_colour(ctx.message))
                         embed.set_footer(
                             text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                                 message=ctx.message),
@@ -148,7 +93,7 @@ class administrator(commands.Cog):
                                     inline=False)
                     await ctx.send(embed=embed)
                     log(input=str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl ' +
-                        get_prefix_string(ctx.message) + 'config hilfe benutzt.', id=ctx.guild.id)
+                              get_prefix_string(ctx.message) + 'config hilfe benutzt.', id=ctx.guild.id)
                     return
                 if subcommand == "memesource":
                     path2 = os.path.join('data', 'verifiedmemes', 'memes.json')
@@ -157,40 +102,42 @@ class administrator(commands.Cog):
                     if arg != get_memes(ctx.guild.id) and get_checkedmemes(arg) is False:
                         if arg in readjson("failed", path2) or redditnsfwcheck(arg):
                             embed = discord.Embed(title="**Fehler**",
-                                              description=f"Der angegebene Reddit **{arg}** enthält nicht "
-                                                          "zulässigen Inhalt.",
-                                              color=get_colour(ctx.message))
+                                                  description=f"Der angegebene Reddit **{arg}** enthält nicht "
+                                                              "zulässigen Inhalt.",
+                                                  color=get_colour(ctx.message))
                             embed.set_thumbnail(
-                            url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
-                                '.png?width=676&height=676')
-                            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
-                            get_prefix_string(message=ctx.message)),
-                                         icon_url='https://media.discordapp.net/attachments/645276319311200286'
-                                                  '/803322491480178739/winging-easy.png?width=676&height=676')
+                                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                                    '.png?width=676&height=676')
+                            embed.set_footer(
+                                text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
+                                    get_prefix_string(message=ctx.message)),
+                                icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                         '/803322491480178739/winging-easy.png?width=676&height=676')
                             await ctx.send(embed=embed)
                             log(input=str(time) + ': Der Spieler ' + str(
-                            user) + ' hat probiert den Befehl ' +
-                                  get_prefix_string(ctx.message) + 'config zu benutzen und damit das '
-                                                                   'Modul ' + str(subcommand) + ' zu' + str(
-                            arg) + ' zu ändern.', id=ctx.guild.id)
+                                user) + ' hat probiert den Befehl ' +
+                                      get_prefix_string(ctx.message) + 'config zu benutzen und damit das '
+                                                                       'Modul ' + str(subcommand) + ' zu' + str(
+                                arg) + ' zu ändern.', id=ctx.guild.id)
                             return
                 writejson(type=subcommand, input=arg, path=path)
                 embed = discord.Embed(title='**Config**', colour=get_colour(ctx.message))
                 embed.set_footer(
-                        text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                            message=ctx.message),
-                        icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
-                                 '/winging-easy.png?width=676&height=676')
+                    text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
+                        message=ctx.message),
+                    icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
+                             '/winging-easy.png?width=676&height=676')
                 embed.add_field(name='‎',
-                                    value='Das Modul ```' + str(subcommand) + '``` wurde erfolgreich zu ```' + str(
-                                        arg) + '``` geändert!',
-                                    inline=False)
+                                value='Das Modul ```' + str(subcommand) + '``` wurde erfolgreich zu ```' + str(
+                                    arg) + '``` geändert!',
+                                inline=False)
                 await ctx.send(embed=embed)
                 log(input=str(time) + ': Der Spieler ' + str(
-                        user) + ' hat den Befehl ' +
-                        get_prefix_string(ctx.message) + 'config benutzt und damit das '
-                        'Modul ' + str(subcommand) + ' zu' + str(arg) + ' erfolgreich geändert',
-                        id=ctx.guild.id)
+                    user) + ' hat den Befehl ' +
+                          get_prefix_string(ctx.message) + 'config benutzt und damit das '
+                                                           'Modul ' + str(subcommand) + ' zu' + str(
+                    arg) + ' erfolgreich geändert',
+                    id=ctx.guild.id)
             else:
                 embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
                 embed.set_footer(
@@ -204,13 +151,13 @@ class administrator(commands.Cog):
                 await ctx.send(embed=embed)
                 log(input=str(time) + ': Der Spieler ' + str(
                     user) + ' hat probiert den Befehl ' +
-                    get_prefix_string(ctx.message) + 'config zu benutzen und damit das '
-                    'Modul ' + str(subcommand) + ' zu' + str(
+                          get_prefix_string(ctx.message) + 'config zu benutzen und damit das '
+                                                           'Modul ' + str(subcommand) + ' zu' + str(
                     arg) + ' zu ändern.', id=ctx.guild.id)
         else:
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat probiert den Befehl ' +
-                get_prefix_string(ctx.message) + 'serverlog im Channel #' + str(channel) + ' zu benutzen!',
+                      get_prefix_string(ctx.message) + 'serverlog im Channel #' + str(channel) + ' zu benutzen!',
                 id=ctx.guild.id)
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(channel),
                            delete_after=3)
@@ -232,7 +179,7 @@ class administrator(commands.Cog):
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hatte nicht die nötigen Berrechtigungen um ' +
-                get_prefix_string(ctx.message) + 'config zu nutzen.', id=ctx.guild.id)
+                      get_prefix_string(ctx.message) + 'config zu nutzen.', id=ctx.guild.id)
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(title='**Fehler**', colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
@@ -246,10 +193,10 @@ class administrator(commands.Cog):
             await ctx.send(embed=embed)
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
-                get_prefix_string(ctx.message) + 'config eingegeben.', id=ctx.guild.id)
+                      get_prefix_string(ctx.message) + 'config eingegeben.', id=ctx.guild.id)
         if isinstance(error, commands.CommandOnCooldown):
             embed = discord.Embed(title="**Cooldown**", description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
-                               color=get_colour(ctx.message))
+                                  color=get_colour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
                     '.png?width=676&height=676')
@@ -261,39 +208,8 @@ class administrator(commands.Cog):
             log(f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
                 f"'{get_prefix_string(ctx.message)}config im Kanal #{ctx.channel.name} zu nutzen.", ctx.guild.id)
 
-    @commands.command()
-    @commands.has_permissions(administrator=True)
-    async def channelclear(self, ctx):
-        channelid = ctx.channel.id
-        channel1 = client.get_channel(channelid)
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        await channel1.clone()
-        await channel1.delete()
-        log(input=str(time) + ': Der Spieler ' + str(user) + ' hat den Chat "#' + str(channel1) + '" gecleart.',
-            id=ctx.guild.id)
-
-    @channelclear.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title='**Fehler**', colour=13372193)
-            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                message=ctx.message),
-                             icon_url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739'
-                                      '/winging-easy.png?width=676&height=676')
-            embed.add_field(name='‎',
-                            value='Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!',
-                            inline=False)
-            await ctx.send(embed=embed)
-            log(input=str(time) + ': Der Spieler ' + str(
-                user) + ' hatte nicht die nötigen Berrechtigungen um ' +
-                get_prefix_string(ctx.message) + 'channelclear zu nutzen.', id=ctx.guild.id)
-
-
 ########################################################################################################################
 
 
 def setup(bot):
-    bot.add_cog(administrator(bot))
+    bot.add_cog(config(bot))
