@@ -26,7 +26,8 @@ class ban(commands.Cog):
                 await member.ban(reason=reason)
                 embed = discord.Embed(title='**Ban**', colour=get_colour(ctx.message))
                 embed.set_thumbnail(
-                    url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
+                    url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
+                        '.png '
                         '?width=676&height=676')
                 embed.set_footer(
                     text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(

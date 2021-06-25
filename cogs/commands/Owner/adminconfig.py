@@ -96,10 +96,6 @@ class adminconfig(commands.Cog):
                                 inline=False)
                 await ctx.send(embed=embed)
         else:
-            log(input=str(time) + ': Der Spieler ' + str(
-                user) + ' hat probiert den Befehl ' +
-                      get_prefix_string(ctx.message) + 'papier im Channel #' + str(channel) + ' zu benutzen!',
-                id=ctx.guild.id)
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(channel),
                            delete_after=3)
             await msg2.delete()

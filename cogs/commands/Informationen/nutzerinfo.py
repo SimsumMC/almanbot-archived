@@ -21,8 +21,7 @@ class nutzerinfo(commands.Cog):
             if member is None:
                 member = ctx.author
             roles = [role for role in member.roles]
-
-            embed = discord.Embed(title=f"**Nutzerinfo für {member}**", colour=get_colour(ctx.message))
+            embed = discord.Embed(title=f"**Nutzerinfo für {member.display_name}**", colour=get_colour(ctx.message))
             embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
                 message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
@@ -38,14 +37,15 @@ class nutzerinfo(commands.Cog):
                             inline=True)
             embed.add_field(name="**Beigetreten am:**", value=member.joined_at.strftime("%d.%m.%y um %H:%M"),
                             inline=True)
-            embed.add_field(name=f"**Rollen ({len(roles) - 1}):**", value=" **|** "
-                            .join([role.mention for role in roles if not role.is_default()]),
+            embed.add_field(name=f"**Rollen ({len(roles) - 1}):**", value=""
+                            .join([role.mention for role in roles]),
                             inline=True)
             embed.add_field(name="**Höchste Rolle:**", value=member.top_role.mention, inline=True)
             embed.add_field(name="**Bot?:**", value=str(whoisr(member=member)), inline=True)
             await ctx.send(embed=embed)
             log(str(time) + ': Der Spieler ' + str(user) + ' hat den Befehl  ' +
                 get_prefix_string(ctx.message) + 'nutzerinfo benutzt!', ctx.guild.id)
+            print("final")
         else:
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat probiert den Befehl ' +
@@ -54,6 +54,7 @@ class nutzerinfo(commands.Cog):
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
                            delete_after=3)
             await msg2.delete()
+
 
 ########################################################################################################################
 

@@ -1,13 +1,9 @@
 import json
-import time
 import os
-import asyncio
 import random
-import qrcode
 import re
-import datetime
-import discord
 from urllib.request import urlopen
+
 from discord.ext import commands
 
 
@@ -181,11 +177,6 @@ def is_not_pinned(message):
     return not message.pinned
 
 
-def make_qr(filename, msg):
-    img = qrcode.make(msg)
-    img.save(filename)
-
-
 def whoisr(member):
     if member.bot is True:
         return str("Ja")
@@ -254,17 +245,6 @@ def add_automaticdelete(id):
     with open(path, 'w') as f:
         json.load(f)
         json.dump(data, f, indent=4)
-
-
-def resetconfig(path):
-    with open(path, 'w') as f:
-        data = {"prefix": "!",
-                "botchannel": "None",
-                "memechannel": "None",
-                "memesource": "memes",
-                "colour": 13372193}
-        json.dump(data, f, indent=4)
-    return True
 
 
 ########################################################################################################################

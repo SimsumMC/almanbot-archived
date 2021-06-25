@@ -6,11 +6,11 @@ from discord.ext import commands
 from cogs.core.functions.functions import get_botc, get_author, get_prefix_string, get_colour, log
 from discord_components import Button, ButtonStyle
 
+
 class help(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-
 
     @commands.command(aliases=["help", "commands"])
     async def hilfe(self, ctx):
@@ -42,6 +42,7 @@ class help(commands.Cog):
             await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(botchannel),
                            delete_after=3)
             await msg2.delete()
+
 
 def get_page(message, user, page):
     if page == "übersicht":
@@ -86,10 +87,13 @@ def get_page(message, user, page):
                         value='Invite mich oder schau bei meinem Zuhause vorbei!', inline=False)
 
         embed.add_field(name=f'**{get_prefix_string(message)}qr**', value='Erstelle einen QR Code zu einer'
-                                                                              ' beliebigen Website!',
+                                                                          ' beliebigen Website!',
                         inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}avatar**',
-                        value='Gebe dir das Profilbildvon einem Nutzer aus!',
+                        value='Gib dir das Profilbild von einem Nutzer aus!',
+                        inline=False)
+        embed.add_field(name=f'**{get_prefix_string(message)}servericon**',
+                        value='Gib dir das Profilbild von dem aktuellen Server aus!',
                         inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}nachricht**',
                         value='Sende einen personalisierten Embed in einen Channel deiner Wahl!',
@@ -127,10 +131,16 @@ def get_page(message, user, page):
                          icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                   '/803322491480178739/winging-easy.png?width=676&height=676')
         embed.add_field(name=f'**{get_prefix_string(message)}würfel**', value='Nutze meinen integrierten'
-                                                                                  ' Würfel!', inline=False)
+                                                                              ' Würfel!', inline=False)
+        embed.add_field(name=f'**{get_prefix_string(message)}münzwurf**',
+                        value='Wirf eine Münze!', inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}ssp**',
                         value='Spiele Schere, Stein, Papier gegen'
                               ' mich!', inline=False)
+        embed.add_field(name=f'**{get_prefix_string(message)}löschdich**', value='Fordere einen bestimmten Nutzer dazu'
+                                                                                 'auf, sich aus dem Internet zu '
+                                                                                 'löschen!',
+                        inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}meme**',
                         value='Zeigt dir einen zufälligen Meme'
                               ' von Reddit!', inline=False)
@@ -154,7 +164,7 @@ def get_page(message, user, page):
                         value='Banne einen bestimmten Spieler bis'
                               ' er entbannt wird!', inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}unban**', value='Entbanne einen zuvor'
-                                                                                 ' gebannten Spieler!',
+                                                                             ' gebannten Spieler!',
                         inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}kick**',
                         value='Kicke einen bestimmten Spieler!'
@@ -175,15 +185,14 @@ def get_page(message, user, page):
                          icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                   '/803322491480178739/winging-easy.png?width=676&height=676')
         embed.add_field(name=f'**{get_prefix_string(message)}config hilfe**', value='Ändere die'
-                                                                                        ' Botkonfiguration über einen Befehl!',
+                                                                                    ' Botkonfiguration über einen Befehl!',
                         inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}channelclear**',
                         value='Lösche alle Nachrichten'
                               ' aus einem Channel!', inline=False)
         embed.add_field(name=f'**{get_prefix_string(message)}botlog**', value='Gebe dir den Botlog deines'
-                                                                                  ' Servers aus!', inline=False)
+                                                                              ' Servers aus!', inline=False)
     return embed
-
 
 
 ########################################################################################################################

@@ -7,9 +7,12 @@ from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
 from cogs.commands.Hilfe.help import get_page
-from cogs.core.functions.functions import get_prefix, get_botc, get_author, get_prefix_string, get_colour, add_automaticdelete
+from cogs.core.functions.functions import get_botc, get_author, get_prefix_string, get_colour, \
+    add_automaticdelete
 from cogs.core.functions.functions import log
-from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
+from discord_components import Button, ButtonStyle, InteractionType
+
+from cogs.core.config.config_general import get_defaultconfig
 
 
 class events(commands.Cog):
@@ -28,12 +31,12 @@ class events(commands.Cog):
         channel = get_botc(message=ctx.message)
         if isinstance(error, CommandNotFound):
             return
-            #out of function for verifying on top.gg
+            # out of function for verifying on top.gg
             if name == channel or channel == "None":
                 embed = discord.Embed(title="Fehler", description='Der Befehl "' + str(msg) + '" existiert nicht!',
                                       color=get_colour(ctx.message))
                 embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' +
-                                 get_prefix_string(message=ctx.message),
+                                      get_prefix_string(message=ctx.message),
                                  icon_url='https://media.discordapp.net/attachments/645276319311200286'
                                           '/803322491480178739'
                                           '/winging-easy.png?width=676&height=676')
@@ -51,19 +54,15 @@ class events(commands.Cog):
     async def on_guild_join(self, guild):
         path = os.path.join('data', 'configs', f'{guild.id}.json')
         pathcheck = os.path.join('data', 'configs', 'deleted', f'{guild.id}.json')
-        #config
+        # config
         if os.path.isfile(pathcheck):
             copyfile(pathcheck, path)
             os.remove(pathcheck)
         else:
             with open(path, 'w') as f:
-                data = {"prefix": "!",
-                        "botchannel": "None",
-                        "memechannel": "None",
-                        "memesource": "memes",
-                        "colour": 13372193}
+                data = get_defaultconfig()
                 json.dump(data, f, indent=4)
-        #logs
+        # logs
         path = os.path.join('data', 'logs', f'{guild.id}.txt')
         pathcheck = os.path.join('data', 'logs', 'deleted', f'{guild.id}.txt')
         if os.path.isfile(pathcheck):
@@ -71,13 +70,12 @@ class events(commands.Cog):
             os.remove(pathcheck)
         else:
             log(f"{datetime.datetime.now()}: Der Bot ist dem Server beigetreten.", guild.id)
-        #blacklist
+        # blacklist
         path = os.path.join('data', 'blacklist', f'{guild.id}.json')
         pathcheck = os.path.join('data', 'blacklist', 'deleted', f'{guild.id}.json')
         if os.path.isfile(pathcheck):
             copyfile(pathcheck, path)
             os.remove(pathcheck)
-
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
@@ -97,7 +95,6 @@ class events(commands.Cog):
             os.remove(path3)
         add_automaticdelete(guild.id)
 
-
     @commands.Cog.listener()
     async def on_button_click(self, res):
         helpp = ["allgemein", "informationen", "unterhaltung", "moderation", "administration", "übersicht"]
@@ -106,20 +103,21 @@ class events(commands.Cog):
             if res.component.label.lower() in helpp:
                 embed = get_page(message=res.message, user=user, page=res.component.label.lower())
                 await res.respond(
-                type=7, embed=embed, components=[[
-                               Button(style=ButtonStyle.red, label="Übersicht", emoji="🔖"),
-                               Button(style=ButtonStyle.red, label="Allgemein", emoji="🤖"),
-                               Button(style=ButtonStyle.red, label="Informationen", emoji="📉"),
-                               Button(style=ButtonStyle.red, label="Unterhaltung", emoji="🎲")], [
-                               Button(style=ButtonStyle.red, label="Moderation", emoji="🛡"),
-                               Button(style=ButtonStyle.red, label="Administration", emoji="⚙")
+                    type=7, embed=embed, components=[[
+                        Button(style=ButtonStyle.red, label="Übersicht", emoji="🔖"),
+                        Button(style=ButtonStyle.red, label="Allgemein", emoji="🤖"),
+                        Button(style=ButtonStyle.red, label="Informationen", emoji="📉"),
+                        Button(style=ButtonStyle.red, label="Unterhaltung", emoji="🎲")], [
+                        Button(style=ButtonStyle.red, label="Moderation", emoji="🛡"),
+                        Button(style=ButtonStyle.red, label="Administration", emoji="⚙")
 
-                           ]],)
-                log(f"{datetime.datetime.now()}: Der Spieler {user} hat mit der Hilfenachricht interagiert und die Seite"
-                f" {res.component.label.lower()} aufgerufen!", res.message.guild.id)
+                    ]], )
+                log(f"{datetime.datetime.now()}: Der Spieler {user} hat mit der Hilfenachricht interagiert und die "
+                    f"Seite {res.component.label.lower()} aufgerufen!", res.message.guild.id)
             else:
                 await res.respond(
-                type=InteractionType.ChannelMessageWithSource, content=f"{res.component.label} pressed"
+                    type=InteractionType.ChannelMessageWithSource,
+                    content=f"Der Button {res.component.label} ist ungültig!"
                 )
         except Exception:
             pass

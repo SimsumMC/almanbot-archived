@@ -8,4 +8,5 @@
 .__pycache__/
 .data/pictures/prvt/
 *.pyc
-.main.py
+./main.py
+./cogs/events/statcord/statcord-post.py

@@ -1,13 +1,16 @@
 import datetime
 import os
+import qrcode
 import discord
 from discord.ext import commands
 from discord.ext.commands import MissingRequiredArgument
 
-from cogs.core.functions.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname, make_qr, whoisr,\
-    colour_check, get_colour_code
-from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType
-from main import client
+from cogs.core.functions.functions import log, get_author, get_prefix_string, get_botc, get_colour, get_botname
+
+
+def make_qr(filename, msg):
+    img = qrcode.make(msg)
+    img.save(filename)
 
 
 class qr(commands.Cog):
@@ -67,6 +70,7 @@ class qr(commands.Cog):
             log(input=str(time) + ': Der Spieler ' + str(
                 user) + ' hat nicht alle erforderlichen Argumente beim Befehl ' +
                       get_prefix_string(ctx.message) + 'qr eingegeben.', id=ctx.guild.id)
+
 
 ########################################################################################################################
 

@@ -27,7 +27,7 @@ class config(commands.Cog):
         path = os.path.join('data', 'configs', f'{ctx.guild.id}.json')
         channel = get_botc(message=ctx.message)
         existing = ['prefix', 'botchannel', 'memechannel', 'memesource', 'colour', 'hilfe']
-        if name == channel or channel == "None":
+        if True:  # removed Channel Check
             if subcommand in existing:
                 if subcommand == "colour":
                     if colour_check(arg) is True:
@@ -207,6 +207,7 @@ class config(commands.Cog):
             await ctx.send(embed=embed)
             log(f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
                 f"'{get_prefix_string(ctx.message)}config im Kanal #{ctx.channel.name} zu nutzen.", ctx.guild.id)
+
 
 ########################################################################################################################
 
