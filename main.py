@@ -148,3 +148,4 @@ for directory in os.listdir('./cogs'):
                         traceback.print_exc()
             check = 0
 
+client.run('ODEwOTMzMTI0NTk4NTk1NjE0.YCq2Uw.CvlJMR5Cndj5kYf3FaxhszvGQaI')
