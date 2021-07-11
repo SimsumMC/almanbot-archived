@@ -74,34 +74,11 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token
 5. Nun können sie den Bot starten und natürlich auch den Code modifizieren
 
-# Funktionen
+# Befehle
 
-**Allgemein**
-- Infos über den Bot (Ping, Server, Nutzer etc.) und Invite Links zum Bot 
-- QR Codes erstellen 
-- personalisierte Embeds senden
+Alle Befehle können auf unserer [Website](https://communitybot.visitlink.de/#commands) gefunden werden und mit dem Hilfe / Help Befehl über den Bot.
 
-**Statistiken**
-- Informationen zum Bot
-- Informationen zu einzelnen Nutzern
-- Informationen zu dem aktuellen Server
-
-**Unterhaltung**
-- Würfel Befehl (1-6) 
-- Schere Stein Papier
-- Zufälligen Meme per Command
-
-**Moderation**
-- Slomode eines Channels setzen
-- Bestimmte Anzahl an Nachrichten löschen
-- Spieler Muten / Entmuten
-- Spieler Bannen / Entbannen
-- Spieler Kicken
-
-**Administration**
-- Möglichkeit die Farbe von Embeds, Präfix, Meme bzw. Bot Channel oder die Quelle der Memes festlegen mit dem Config Befehl
-- Kompletten Channel mit einem Befehl "leeren"
-- Botlog ausgeben
+<img src="data/pictures/commands.png" alt="Website-Vorschau">
 
 # Lizenz
 
