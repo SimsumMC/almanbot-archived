@@ -1,7 +1,12 @@
 import datetime
 import discord
 from discord.ext import commands
-from cogs.core.functions.functions import log, get_author, get_prefix_string, get_botc, get_colour
+
+from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+from cogs.core.functions.functions import get_author, get_prefix_string
+from cogs.core.config.config_colours import get_colour
+from cogs.core.functions.logging import log
+from config import FOOTER, ICON_URL, WRONG_CHANNEL_ERROR
 
 
 class join(commands.Cog):
@@ -17,28 +22,45 @@ class join(commands.Cog):
         msg2 = ctx.message
         mention = ctx.author.mention
         channel = ctx.author.voice.channel
-        botchannel = get_botc(message=ctx.message)
-        if name == botchannel or botchannel == 'None':
+        if botchannel_check(ctx):
             if ctx.author.voice:
-                #here connect to vc
+                # here connect to vc
                 embed = discord.Embed(title='Musik Join', colour=get_colour(ctx.message))
                 embed.set_thumbnail(
-                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
-                    '?width=676&height=676')
+                    url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
+                        '?width=676&height=676')
                 embed.add_field(name='‎', value='', inline=False)
-                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
-                message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
-                                               '/803322491480178739/winging-easy.png?width=676&height=676')
+                embed.set_footer(
+                    text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + get_prefix_string(
+                        message=ctx.message), icon_url='https://media.discordapp.net/attachments/645276319311200286'
+                                                       '/803322491480178739/winging-easy.png?width=676&height=676')
                 await ctx.send(embed=embed)
                 log(f'{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}'
                     'meme benutzt!', id=ctx.guild.id)
             else:
-                #author is in NO voice channel
+                ...
+                # author is in NO voice channel
         else:
             log(input=f'{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}'
                       f'example im Channel #{name} zu benutzen!', id=ctx.guild.id)
-            await ctx.send(f'{mention}, dieser Befehl kann nur im Kanal #{botchannel} genutzt werden.',
-                           delete_after=3)
+            embed = discord.Embed(
+                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+            )
+            embed.set_footer(
+                text=FOOTER[0]
+                     + str(user)
+                     + FOOTER[1]
+                     + str(get_author())
+                     + FOOTER[2]
+                     + str(get_prefix_string(ctx.message)),
+                icon_url=ICON_URL,
+            )
+            embed.add_field(
+                name="‎",
+                value=get_botchannel_obj_list(ctx),
+                inline=False,
+            )
+            await ctx.send(embed=embed)
             await msg2.delete()
 
 

@@ -1,6 +1,41 @@
 {
-    "prefix": "!",
-    "botchannel": "test",
-    "memechannel": "None",
-    "colour": 2154002
+    "prefix": "a!",
+    "blacklist": [],
+    "botchannel": [],
+    "memechannel": [],
+    "memesource": "memes",
+    "colour": 4301114,
+    "deactivated_commands": [],
+    "trigger": {
+        "triggerlist": [
+            "Alman Bot"
+        ],
+        "triggermsg": {
+            "Alman Bot": "Hey, Ich bins!"
+        }
+    },
+    "errors": {
+        "commandnotfound": false,
+        "missing_permissions": true,
+        "missing_argument": true,
+        "wrongchannel": true,
+        "badargument": true
+    },
+    "welcome_messages": {
+        "active": false,
+        "channel": null
+    },
+    "leave_messages": {
+        "active": false,
+        "channel": null
+    },
+    "tags": {
+        "list": [],
+        "tagmsg": {}
+    },
+    "levelling": {
+        "messages": false,
+        "spam_allowed": false,
+        "activated": false
+    }
 }

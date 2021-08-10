@@ -1,9 +1,57 @@
-2021-04-20 22:31:42.976356: Der Spieler SimsumMC hat sich probiert den noch nicht existierenden Log mit der ID "825502579474563103" ausgeben zu lassen!
-2021-04-20 22:31:51.924342: Der Spieler SimsumMC hat sich den Log mit der ID "825502579474563103" ausgeben lassen!
-2021-04-20 22:56:33.161684: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl !ban eingegeben.
-2021-04-20 23:03:22.822262: Der Spieler SimsumMC hat den Befehl !hilfe benutzt!
-2021-04-20 23:03:28.018902: Der Spieler SimsumMC hat den Befehl !hilfe Administration benutzt!
-2021-04-20 23:22:12.419533: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl !kick eingegeben.
-2021-04-20 23:23:35.926114: Der Moderator SimsumMChat den Nutzer Yavuz#5339erfolgreich für den Grund "None"gekickt.
-2021-04-20 23:24:28.035122: Der Moderator SimsumMChat den Nutzer Yavuz#5339 erfolgreich für "None" gebannt.
-2021-04-20 23:24:36.141073: Der Moderator SimsumMChat den Nutzer Yavuz#5339 erfolgreich entbannt.
+
+2021-08-10 17:59:26.926200: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-10 17:59:29.525658: Der Spieler SimsumMC hat sich den Log mit der ID "825502579474563103" ausgeben lassen!
+2021-08-10 18:07:49.498054: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-10 18:07:56.098920: Der Spieler SimsumMC hat den Befehl  a!invite benutzt!
+2021-08-10 18:11:58.154005: Der Spieler SimsumMC hat den Befehl  a!invite benutzt!
+2021-08-10 18:12:43.949524: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 18:12:46.252837: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-10 18:12:48.096681: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 18:12:50.292665: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-10 18:12:51.869274: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-10 18:13:43.783084: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-10 18:13:45.348026: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 18:14:02.616849: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 18:14:04.023386: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-10 18:14:05.497344: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-10 18:14:07.259040: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-10 18:14:08.649389: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-10 18:14:10.906606: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-10 18:14:13.107131: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-10 18:14:14.013150: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-10 18:54:58.143151: Der Bot hat die fehlende Config automatisch wiederhergestellt.
+2021-08-10 18:56:15.793100: Der Spieler SimsumMC hat den Befehl a!trigger add benutzt und damit den Trigger Hummel hinzugefügt.!
+2021-08-10 18:58:01.775443: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-10 19:00:39.270915: Der Bot hat die fehlende Config automatisch wiederhergestellt.
+2021-08-10 19:00:39.280417: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-10 19:00:40.853528: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-10 19:00:42.176445: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-10 19:00:43.404244: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 19:00:44.524636: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-10 19:01:34.175402: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 19:06:33.137227: Der Bot hat die fehlende Config automatisch wiederhergestellt.
+2021-08-10 19:36:11.049508: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-10 19:38:23.508117: Der Spieler SimsumMC hat mit dem Befehl !qr einen QRCODE des Links help my mind generiert!
+2021-08-10 19:38:28.264748: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-10 19:38:29.332012: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 19:38:32.026769: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-10 19:38:36.367375: Der Spieler SimsumMC hat den Befehl a!ssp benutzt!
+2021-08-10 19:38:48.685285: Der Spieler SimsumMC hat den Befehl a!papier benutzt!
+2021-08-10 19:43:10.899622: Der Spieler SimsumMC hat den Befehl a!avatar benutzt!
+2021-08-10 19:50:42.385738: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-10 19:50:46.341970: Der Spieler SimsumMC hat den Befehl a!ssp benutzt!
+2021-08-10 19:50:49.457822: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-10 19:50:51.413064: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-10 19:50:57.711098: Der Spieler SimsumMC hat den Befehl a!servericon benutzt!
+2021-08-10 19:51:02.201052: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl a!ban eingegeben.
+2021-08-10 19:51:17.971066: Der Spieler SimsumMC hat mit dem Befehl a!nachricht eine Nachricht in #bot gesendet.
+2021-08-10 19:51:48.567284: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-10 19:51:52.023784: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-10 19:51:59.298403: Der Spieler SimsumMC hat sich den Ping (116ms) ausgeben lassen.
+2021-08-10 20:03:01.721484: Der Spieler SimsumMC hat nicht alle erforderlichen Argumente beim Befehl a!löschdich eingegeben.
+2021-08-10 20:03:07.734842: Der Spieler SimsumMC hat den Befehl a!löschdich benutzt!
+2021-08-10 20:03:21.953660: Der Spieler SimsumMC hat den Befehl a!löschdich benutzt!
+2021-08-10 20:43:14.393924: Der Spieler SimsumMC hat ein ungültiges Argument bei a!lookup angegeben.
+2021-08-10 20:43:23.250079: Der Spieler SimsumMC hat den Befehl a!meme benutzt!
+2021-08-10 21:56:07.594462: Der Spieler SimsumMC hat den Befehl a!meme benutzt!
+2021-08-10 21:56:21.489454: Der Spieler SimsumMC hat den Befehl a!meme benutzt!

@@ -1,35 +1,41 @@
 import datetime
-
+import random
 import discord
 from discord.ext import commands
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+from config import ICON_URL, THUMBNAIL_URL, FOOTER, COIN_HEAD, COIN_NUMBER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
     get_prefix_string,
 )
 from cogs.core.config.config_colours import get_colour
 from cogs.core.functions.logging import log
-from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR
 
 
-class ssp(commands.Cog):
+class coinflip(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def ssp(self, ctx):
+    @commands.command(aliases=["münze", "coin", "münzwurf"])
+    async def coinflip(self, ctx):
+        global picture, strval
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
-        mention = ctx.author.mention
         if botchannel_check(ctx):
-            embed = discord.Embed(
-                title="**Schere Stein Papier**",
-                description='Lass uns "Schere Stein Papier" spielen!'
-                "Nutze dazu die Commands:",
-                colour=get_colour(ctx.message),
+            value = random.randint(1, 6)
+            if value == 1:
+                strval = "Kopf"
+                picture = COIN_HEAD
+            elif value == 2:
+                strval = "Zahl"
+                picture = COIN_NUMBER
+            embed = discord.Embed(title="**Münzwurf**", colour=get_colour(ctx.message))
+            embed.set_thumbnail(url=picture)
+            embed.add_field(
+                name="‎", value=f"Das Ergebnis ist ```{strval}```", inline=False
             )
             embed.set_footer(
                 text=FOOTER[0]
@@ -40,42 +46,16 @@ class ssp(commands.Cog):
                 + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
-            embed.add_field(
-                name=get_prefix_string(ctx.message) + "schere",
-                value="Spiele die Schere aus!",
-                inline=False,
-            )
-            embed.add_field(
-                name=get_prefix_string(ctx.message) + "stein",
-                value="Spiele den Stein aus!",
-                inline=False,
-            )
-            embed.add_field(
-                name=get_prefix_string(ctx.message) + "papier",
-                value="Spiele das Papier aus!",
-                inline=False,
-            )
             await ctx.send(embed=embed)
             log(
-                str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat den Befehl "
-                + get_prefix_string(ctx.message)
-                + "ssp benutzt!",
+                f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                "münzwurf benutzt!",
                 id=ctx.guild.id,
             )
-
         else:
             log(
-                input=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "ssp im Channel #"
-                + str(name)
-                + " zu benutzen!",
+                input=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                f"münzwurf im Channel #{name} zu benutzen!",
                 id=ctx.guild.id,
             )
             embed = discord.Embed(
@@ -103,4 +83,4 @@ class ssp(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(ssp(bot))
+    bot.add_cog(coinflip(bot))

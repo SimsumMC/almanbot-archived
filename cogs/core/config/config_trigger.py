@@ -5,7 +5,6 @@ from discord.ext import commands
 
 
 class trigger_func(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
 
@@ -15,15 +14,14 @@ def get_trigger_list(guildid):
         path = os.path.join("data", "configs", f"{guildid}.json")
         with open(path, "r") as f:
             data = json.load(f)
-        if not data["trigger"]:
-            data["trigger"] = []
+        if not data["trigger"]["triggerlist"]:
+            data["trigger"]["triggerlist"] = []
             with open(path, "w") as f:
                 json.dump(data, f, indent=4)
-            return data["trigger"]
-        return data["trigger"]
+            return data["triggerlist"]
+        return data["trigger"]["triggerlist"]
     except Exception:
-        print(Exception)
-        return []
+        raise Exception
 
 
 def get_trigger_msg(guildid, trigger):
@@ -31,11 +29,12 @@ def get_trigger_msg(guildid, trigger):
         path = os.path.join("data", "configs", f"{guildid}.json")
         with open(path, "r") as f:
             data = json.load(f)
-        msg = data["triggermsg"][trigger]
+        msg = data["trigger"]["triggermsg"][trigger]
+        if not msg:
+            return "Unbekannter Fehler! Specification: 'trigger-get-msg-unknown'"
         return msg
     except Exception:
-        print(Exception)
-        return None
+        raise Exception
 
 
 def add_trigger(guildid, trigger, msg):
@@ -44,14 +43,17 @@ def add_trigger(guildid, trigger, msg):
         with open(path, "r") as f:
             data = json.load(f)
             f.close()
-        data["trigger"].append(trigger)
-        data["triggermsg"][trigger] = msg
+        if not data["trigger"]["triggerlist"]:
+            data["trigger"]["triggerlist"] = []
+        data["trigger"]["triggerlist"].append(trigger)
+        if not data["trigger"]["triggermsg"]:
+            data["trigger"]["triggermsg"] = {}
+        data["trigger"]["triggermsg"][trigger] = msg
         with open(path, "w") as f:
             json.dump(data, f, indent=4)
         return True
     except Exception:
-        print(Exception)
-        return False
+        raise Exception
 
 
 def remove_trigger(guildid, trigger):
@@ -60,14 +62,13 @@ def remove_trigger(guildid, trigger):
         with open(path, "r") as f:
             data = json.load(f)
             f.close()
-        data["trigger"].remove(trigger)
-        del data["triggermsg"][trigger]
+        data["trigger"]["triggerlist"].remove(trigger)
+        del data["trigger"]["triggermsg"][trigger]
         with open(path, "w") as f:
             json.dump(data, f, indent=4)
         return True
     except Exception:
-        print(Exception)
-        return False
+        raise Exception
 
 
 ########################################################################################################################

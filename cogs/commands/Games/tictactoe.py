@@ -1,14 +1,12 @@
-import asyncio
-import datetime
 import json
+import os
 
 import discord
-import random
-import os
 from discord.ext import commands
 
-from cogs.core.functions.functions import get_botc, get_author, get_prefix_string, get_colour, readjson, writejson
-from cogs.core.functions.functions import log
+from cogs.core.functions.functions import (
+    readjson,
+)
 
 konditionen = [
     [0, 1, 2],
@@ -18,25 +16,26 @@ konditionen = [
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
 ]
 
 
 class tictactoe(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
 
     @commands.group()
     async def tictactoe(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send('info about tictactoe should be here')
+            await ctx.send("info about tictactoe should be here")
 
     @tictactoe.command()
     async def start(self, ctx, spieler1: discord.Member, spieler2: discord.Member):
         print("start")
         if create_game(ctx.guild.id, spieler1.id, spieler2.id) is False:
-            await ctx.send(f"game started, use tictactoe setze zum spielen: Am zug ist {spieler2.mention}")
+            await ctx.send(
+                f"game started, use tictactoe setze zum spielen: Am zug ist {spieler2.mention}"
+            )
             return
         await ctx.send("game already exist")
 
@@ -63,9 +62,9 @@ class tictactoe(commands.Cog):
 
 
 def create_game(guildid, player1, player2):
-    path = os.path.join('data', 'games', 'tictactoe', f'{guildid}.json')
+    path = os.path.join("data", "games", "tictactoe", f"{guildid}.json")
     if not os.path.isfile(path):
-        with open(path, 'w') as f:
+        with open(path, "w") as f:
             data = {"gamemax": 0, "active": [], "player": {}, "data": {}}
             json.dump(data, f, indent=4)
     if readjson("player"[player1], path):
@@ -73,43 +72,45 @@ def create_game(guildid, player1, player2):
     elif readjson("player"[player2], path):
         return False
     else:
-        with open(path, 'r') as f:
+        with open(path, "r") as f:
             data = json.load(f)
         id = data["gamemax"] + 1
         data["active"].append(id)
         data["player"[player1]] = id
         data["player"[player2]] = id
-        data["data"[id]] = {"player": [player1, player2],
-                            "turn": player2,
-                            "kreuz": player1,
-                            "kreis": player2,
-                            player1: [],
-                            player2: []}
-        with open(path, 'w') as f:
+        data["data"[id]] = {
+            "player": [player1, player2],
+            "turn": player2,
+            "kreuz": player1,
+            "kreis": player2,
+            player1: [],
+            player2: [],
+        }
+        with open(path, "w") as f:
             json.dump(data, f, indent=4)
         print(data)
         return True
 
 
 def get_gameid(guildid, player):
-    path = os.path.join('data', 'games', 'tictactoe', f'{guildid}.json')
-    with open(path, 'r') as f:
+    path = os.path.join("data", "games", "tictactoe", f"{guildid}.json")
+    with open(path, "r") as f:
         data = json.load(f)
         print(data)
         return True and data["player"[player]]
 
 
 def get_turn(guildid, gameid):
-    path = os.path.join('data', 'games', 'tictactoe', f'{guildid}.json')
-    with open(path, 'r') as f:
+    path = os.path.join("data", "games", "tictactoe", f"{guildid}.json")
+    with open(path, "r") as f:
         data = json.load(f)
         print(data)
         return True and data["data"[gameid["turn"]]]
 
 
 def check_win(guildid, gameid, player):
-    path = os.path.join('data', 'games', 'tictactoe', f'{guildid}.json')
-    with open(path, 'r') as f:
+    path = os.path.join("data", "games", "tictactoe", f"{guildid}.json")
+    with open(path, "r") as f:
         data = json.load(f)
         print(data)
     if tictactoe_check(data["data"[gameid[player]]]):
@@ -126,8 +127,8 @@ def tictactoe_check(liste):
 
 
 def get_embed(guildid, gameid, player, turn):
-    path = os.path.join('data', 'games', 'tictactoe', f'{guildid}.json')
-    with open(path, 'r+') as f:
+    path = os.path.join("data", "games", "tictactoe", f"{guildid}.json")
+    with open(path, "r+") as f:
         data = json.load(f)
     playerlist = data[["data"[gameid["player"]]]]
     if player == playerlist[1]:
@@ -138,8 +139,8 @@ def get_embed(guildid, gameid, player, turn):
 
 def delete_game(guildid, gameid):
     try:
-        path = os.path.join('data', 'games', 'tictactoe', f'{guildid}.json')
-        with open(path, 'r') as f:
+        path = os.path.join("data", "games", "tictactoe", f"{guildid}.json")
+        with open(path, "r") as f:
             data = json.load(f)
             print(data)
         # remove game from active
@@ -151,7 +152,7 @@ def delete_game(guildid, gameid):
         # delete game data
         del data["data"[gameid]]
         print(data)
-        with open(path, 'w') as f:
+        with open(path, "w") as f:
             json.dump(data, f, indent=4)
         return True
     except Exception:

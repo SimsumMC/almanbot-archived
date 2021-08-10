@@ -1,12 +1,12 @@
 from discord.ext import commands
-
+from config import STATCORD_TOKEN
 import statcord
 
 
 class statcordpost(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.key = "statcord.com-9iZxO8MHcofFsR3izx4F"
+        self.key = STATCORD_TOKEN
         self.api = statcord.Client(self.bot, self.key)
         self.api.start_loop()
 

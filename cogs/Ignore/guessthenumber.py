@@ -7,13 +7,13 @@ from cogs.core.config.config_colours import get_colour
 from cogs.core.functions.logging import log
 
 
-class example(commands.Cog):
+class guessthenumber(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
-    async def example(self, ctx):
+    async def guessthenumber(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
@@ -44,4 +44,4 @@ class example(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(example(bot))
+    bot.add_cog(guessthenumber(bot))

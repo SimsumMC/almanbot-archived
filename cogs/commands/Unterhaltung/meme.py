@@ -1,17 +1,26 @@
 import datetime
+import json
 import os
 import random
 
 import discord
 import praw
+
+from cogs.core.config.config_memechannel import get_memechannel_obj_list, memechannel_check
+from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR, BOT_NAME, REDDIT_APP
 from discord.ext import commands
 
-from cogs.core.functions.functions import log, get_author, get_prefix_string, get_colour, get_memec, redditnsfwcheck \
-    , get_memes, get_checkedmemes, readjson
+from cogs.core.functions.functions import (
+    get_author,
+    get_prefix_string,
+    readjson,
+)
+from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
+from cogs.core.config.config_colours import get_colour
+from cogs.core.functions.logging import log
 
 
 class meme(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
 
@@ -25,33 +34,46 @@ class meme(commands.Cog):
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
-        mention = ctx.author.mention
-        memechannel = get_memec(ctx.message)
-        path = os.path.join('data', 'verifiedmemes', 'memes.json')
-        if name == memechannel or memechannel == "None":
+        path = os.path.join("data", "verifiedmemes", "memes.json")
+        if memechannel_check(ctx):
             try:
-                reddit = praw.Reddit(client_id='JiHoJGCPBC9vlg',
-                                     client_secret='egXFBVdIx7ucn9_6tji18kyLClWCIA',
-                                     user_agent='Test Meme Bot',
-                                     check_for_async=False)
+                reddit = praw.Reddit(
+                    client_id=REDDIT_APP["client_id"],
+                    client_secret=REDDIT_APP["client_secret"],
+                    user_agent=BOT_NAME,
+                    check_for_async=False,
+                )
                 memes_submissions = reddit.subreddit(redditname).hot()
                 post_to_pick = random.randint(1, 100)
-                if redditname != get_memes(ctx.guild.id) and get_checkedmemes(redditname) is False:
-                    if redditname in readjson("failed", path) or redditnsfwcheck(redditname):
-                        embed = discord.Embed(title="**Fehler**",
-                                              description=f"Der angegebene Reddit **{redditname}** enthält nicht "
-                                                          "zulässigen Inhalt.",
-                                              color=get_colour(ctx.message))
-                        embed.set_thumbnail(
-                            url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
-                                '.png?width=676&height=676')
-                        embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
-                            get_prefix_string(message=ctx.message)),
-                                         icon_url='https://media.discordapp.net/attachments/645276319311200286'
-                                                  '/803322491480178739/winging-easy.png?width=676&height=676')
+                if (
+                    redditname != get_memes(ctx.guild.id)
+                    and meme_is_checked(redditname) is False
+                ):
+                    if redditname in readjson("failed", path) or redditnsfwcheck(
+                        redditname
+                    ):
+                        embed = discord.Embed(
+                            title="**Fehler**",
+                            description=f"Der angegebene Reddit **{redditname}** enthält nicht "
+                            "zulässigen Inhalt.",
+                            color=get_colour(ctx.message),
+                        )
+                        embed.set_thumbnail(url=THUMBNAIL_URL)
+                        embed.set_footer(
+                            text=FOOTER[0]
+                            + str(user)
+                            + FOOTER[1]
+                            + str(get_author())
+                            + FOOTER[2]
+                            + str(get_prefix_string(ctx.message)),
+                            icon_url=ICON_URL,
+                        )
                         await ctx.send(embed=embed)
-                        log(f"{time}: Der Spieler {user} hat beim Befehl"
-                            f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.", ctx.guild.id)
+                        log(
+                            f"{time}: Der Spieler {user} hat beim Befehl"
+                            f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.",
+                            ctx.guild.id,
+                        )
                         return
                     else:
                         with open(path, "r+") as f:
@@ -60,42 +82,83 @@ class meme(commands.Cog):
                         json.dump(data, f, indent=4)
                 for i in range(0, post_to_pick):
                     submission = next(x for x in memes_submissions if not x.stickied)
-                embed = discord.Embed(title=f"**{submission.title}**", colour=get_colour(ctx.message))
+                embed = discord.Embed(
+                    title=f"**{submission.title}**", colour=get_colour(ctx.message)
+                )
                 embed.set_image(url=submission.url)
-                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' +
-                                      get_prefix_string(message=ctx.message), icon_url='https://media.discordapp.net/'
-                                                                                       'attachments/645276319311200286'
-                                                                                       '/803322491480178739/winging-easy.png?width=676&height=676')
+                embed.set_footer(
+                    text=FOOTER[0]
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
+                    icon_url=ICON_URL,
+                )
                 await ctx.send(embed=embed)
-                log(f'{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}'
-                    'meme benutzt!', id=ctx.guild.id)
+                log(
+                    f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                    "meme benutzt!",
+                    id=ctx.guild.id,
+                )
                 return
             except Exception:
-                embed = discord.Embed(title="**Fehler**",
-                                      description=f"Beim Reddit **{redditname}** ist wohl etwas schiefgelaufen. "
-                                                  "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
-                                                  "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
-                                                  "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
-                                      color=get_colour(ctx.message))
-                embed.set_thumbnail(
-                    url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
-                        '.png?width=676&height=676')
-                embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
-                    get_prefix_string(message=ctx.message)),
-                                 icon_url='https://media.discordapp.net/attachments/645276319311200286'
-                                          '/803322491480178739/winging-easy.png?width=676&height=676')
+                embed = discord.Embed(
+                    title="**Fehler**",
+                    description=f"Beim Reddit **{redditname}** ist wohl etwas schiefgelaufen. "
+                    "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
+                    "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
+                    "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
+                    color=get_colour(ctx.message),
+                )
+                embed.set_thumbnail(url=THUMBNAIL_URL)
+                embed.set_footer(
+                    text=FOOTER[0]
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
+                    icon_url=ICON_URL,
+                )
                 await ctx.send(embed=embed)
-                log(f"{time}: Der Spieler {user} hat beim Befehl"
-                    f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.", ctx.guild.id)
+                log(
+                    f"{time}: Der Spieler {user} hat beim Befehl"
+                    f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.",
+                    ctx.guild.id,
+                )
                 raise Exception
 
         else:
-            log(input=str(time) + ': Der Spieler ' + str(
-                user) + ' hat probiert den Befehl ' +
-                      get_prefix_string(ctx.message) + 'meme im Channel #' + str(memechannel) + ' zu benutzen!',
-                id=ctx.guild.id)
-            await ctx.send(str(mention) + ', dieser Befehl kann nur im Kanal #{} genutzt werden.'.format(memechannel),
-                           delete_after=3)
+            log(
+                input=str(time)
+                + ": Der Spieler "
+                + str(user)
+                + " hat probiert den Befehl "
+                + get_prefix_string(ctx.message)
+                + "meme im Channel #"
+                + str(name)
+                + " zu benutzen!",
+                id=ctx.guild.id,
+            )
+            embed = discord.Embed(
+                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+            )
+            embed.set_footer(
+                text=FOOTER[0]
+                     + str(user)
+                     + FOOTER[1]
+                     + str(get_author())
+                     + FOOTER[2]
+                     + str(get_prefix_string(ctx.message)),
+                icon_url=ICON_URL,
+            )
+            embed.add_field(
+                name="‎",
+                value=get_memechannel_obj_list(ctx),
+                inline=False,
+            )
+            await ctx.send(embed=embed)
             await msg2.delete()
 
     @meme.error
@@ -103,18 +166,28 @@ class meme(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, commands.CommandOnCooldown):
-            embed = discord.Embed(title="**Cooldown**", description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
-                                  color=get_colour(ctx.message))
-            embed.set_thumbnail(
-                url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy'
-                    '.png?width=676&height=676')
-            embed.set_footer(text='for ' + str(user) + ' | by ' + str(get_author()) + ' | Prefix ' + str(
-                get_prefix_string(message=ctx.message)),
-                             icon_url='https://media.discordapp.net/attachments/645276319311200286'
-                                      '/803322491480178739/winging-easy.png?width=676&height=676')
+            embed = discord.Embed(
+                title="**Cooldown**",
+                description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
+                color=get_colour(ctx.message),
+            )
+            embed.set_thumbnail(url=THUMBNAIL_URL)
+            embed.set_footer(
+                text=FOOTER[0]
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
+                icon_url=ICON_URL,
+            )
             await ctx.send(embed=embed)
-            log(f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
-                f"'{get_prefix_string(ctx.message)}meme im Kanal #{ctx.channel.name} zu nutzen.", ctx.guild.id)
+            log(
+                f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
+                f"'{get_prefix_string(ctx.message)}meme im Kanal #{ctx.channel.name} zu nutzen.",
+                ctx.guild.id,
+            )
+
 
 ########################################################################################################################
 
