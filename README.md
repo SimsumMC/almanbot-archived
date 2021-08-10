@@ -41,7 +41,7 @@
 
 # Übersicht
 
-Egal ob Moderation, einfach ein bisschen Spaß haben oder den Avatar von einem Nutzer klauen - ich helfe dir wo ich nur kann! Penibel wie ein Deutscher bin ich natürlich auch... Wenn dich das Konzept überzeugt, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
+Egal ob Moderation, einfach ein bisschen Spaß haben oder den Avatar von einem Nutzer klauen - ich helfe dir wo ich nur kann! Penibel wie ein Deutscher bin ich natürlich auch, manchmal bin ich kurz offline, um eine Liege am Pool zu reservieren oder um Falschparker anzuzeigen. Wenn ich dich als wahrer Alman überzeugen konnte, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
 
 Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet und du benötigst dafür keine großen Vorkentnisse.
 
