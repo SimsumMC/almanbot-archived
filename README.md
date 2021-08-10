@@ -2,7 +2,7 @@
   <br>
   <img src="data/pictures/logo.png" alt="logo" width="240"/> 
   <br>
-  Community Bot 
+  Alman Bot 
   <br>
 </h1> 
 
@@ -41,7 +41,7 @@
 
 # Übersicht
 
-Der Community Bot ist ein Discord Bot mit dem Ziel alles in einem Bot zu vereinen, es ist natürlich klar das es immer ein zwei Bots gibt die man einfach nicht ersetzen kann, trotzdem sind wir der Meinung, dass man nicht 5 Bots für jeweils eine Funktion braucht. Wir wollen auch nicht, dass man für Funktionen wie z.B. das ändern des Präfix's Geld zahlen muss. Du kannst ihn zum Spielen, zur Moderation oder auch bald zum Musik hören nutzen! Wenn dich das Konzept überzeugt, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
+Egal ob Moderation, einfach ein bisschen Spaß haben oder den Avatar von einem Nutzer klauen - ich helfe dir wo ich nur kann! Penibel wie ein Deutscher bin ich natürlich auch... Wenn dich das Konzept überzeugt, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
 
 Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet und du benötigst dafür keine großen Vorkentnisse.
 
