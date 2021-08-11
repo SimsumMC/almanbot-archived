@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="data/pictures/logo.png" alt="logo" width="240"/> 
+  <img src="data/pictures/logo.png" href="https://www.freepik.com/free-vector/german-man-with-beer_4979644.htm#page=1&query=german%20man%20with%20beer&position=3" alt="logo" width="240"/> 
   <br>
   Alman Bot 
   <br>
