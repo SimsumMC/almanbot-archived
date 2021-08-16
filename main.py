@@ -3,23 +3,27 @@ import datetime
 import traceback
 import os
 import discord
+import platform
 from asyncio import sleep
 from discord.ext import commands
 from discord.ext.commands import ExtensionAlreadyLoaded
-
-from cogs.core.functions.functions import (
-    get_prefix,
-    msg_contains_word,
-    get_blacklist,
-    get_prefix_string,
-    get_author,
-)
-from cogs.core.config.config_colours import get_colour
+from cogs.core.functions.func_json import readjson
+from cogs.core.functions.functions import msg_contains_word, get_author
+from cogs.core.config.config_prefix import get_prefix_string, get_prefix
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 from cogs.core.config.config_trigger import get_trigger_list, get_trigger_msg
 from discord_components import DiscordComponents
 from cogs.core.config.config_general import config_check, config_fix
-from config import DISCORD_TOKEN, ICON_URL, THUMBNAIL_URL, FOOTER, BANNER, STATUS_LIST, STATUS
+from config import (
+    DISCORD_TOKEN,
+    ICON_URL,
+    THUMBNAIL_URL,
+    FOOTER,
+    BANNER,
+    ACTIVITY_LIST,
+    STATUS,
+)
 
 
 ########################################################################################################################
@@ -28,8 +32,10 @@ from config import DISCORD_TOKEN, ICON_URL, THUMBNAIL_URL, FOOTER, BANNER, STATU
 def run_check():
     version = sys.version_info
     if not int(version.major) >= 3 and int(version.minor) >= 7:
+        if int(version.major) == 4:
+            return
         raise SystemExit(
-            f"Du brauchst eine aktuellere Python Version um das Skript auszuführen, 3.7 oder höher!"
+            f"Du brauchst eine aktuellere Python Version um das Skript auszuführen, mindestens 3.7 oder höher!"
         )
     return
 
@@ -44,22 +50,33 @@ class CommunityBot(commands.Bot):
     async def on_ready(self):
         DiscordComponents(client)
         print(BANNER)
-        print("\n---------------------------------------------------------------------------------------------------\n")
-        print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!')
+        print(
+            "\n---------------------------------------------------------------------------------------------------\n"
+        )
+        print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!\n')
+        print(f"Discord.py API version: {discord.__version__}")
+        print(f"Python version: {platform.python_version()}")
+        print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
         client.loop.create_task(self.status_task())
 
     async def status_task(self):
-        from cogs.commands.Informationen.botinfo import get_member_count, get_developer_string
+        from cogs.commands.Informationen.botinfo import (
+            get_member_count,
+            get_developer_string,
+        )
+
         while True:
-            for status in STATUS_LIST:
-                if "{guild_count}" in status:
-                    status = status.replace("{guild_count}", str(len(client.guilds)))
-                if "{member_count}" in status:
-                    status = status.replace("{member_count}", str(get_member_count()))
-                if "{developer_names}" in status:
-                    status = status.replace("{developer_names}", str(get_developer_string()))
+            for activity in ACTIVITY_LIST:
+                if "{guild_count}" in activity:
+                    activity = activity.replace("{guild_count}", str(len(client.guilds)))
+                elif "{user_count}" in activity:
+                    activity = activity.replace("{user_count}", str(get_member_count()))
+                elif "{developer_names}" in activity:
+                    activity = activity.replace(
+                        "{developer_names}", str(get_developer_string())
+                    )
                 await client.change_presence(
-                    activity=discord.Game(status),
+                    activity=discord.Game(activity),
                     status=STATUS,
                 )
                 await sleep(5)
@@ -73,13 +90,13 @@ class CommunityBot(commands.Bot):
             embed.add_field(
                 name="German",
                 value="Dieser Bot hat keine DM Funktion - daher bringt es nichts "
-                      "mich hier zu kontaktieren.",
+                "mich hier zu kontaktieren.",
                 inline=False,
             )
             embed.add_field(
                 name="English",
                 value="This bot don't have a DM Function - so you cant achieve something "
-                      "with writing something to me.",
+                "with writing something to me.",
                 inline=False,
             )
             embed.set_footer(
@@ -92,24 +109,24 @@ class CommunityBot(commands.Bot):
         ignore = ["blacklist add", "blacklist remove", "qr"]
         user = message.author.name
         path = os.path.join("data", "configs", f"{message.guild.id}.json")
-        bannedWords = get_blacklist(path)
         if not config_check(guildid=message.guild.id):  # todo make it working lmao
             config_fix(guildid=message.guild.id)
             log(
                 input=f"{str(time)}: Der Bot hat die fehlende Config automatisch wiederhergestellt.",
                 id=message.guild.id,
             )
-        elif client.user.mentioned_in(message) and len(message.content) == len(
-                f"<@!{client.user.id}>"
+        bannedWords = readjson(type="blacklist", path=path)
+        if client.user.mentioned_in(message) and len(message.content) == len(
+            f"<@!{client.user.id}>"
         ):
-            embed = discord.Embed(title="**Prefix**", color=get_colour(message))
+            embed = discord.Embed(title="**Prefix**", color=get_embedcolour(message))
             embed.set_footer(
                 text=FOOTER[0]
-                     + message.author.name
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(message)),
+                + message.author.name
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -124,27 +141,28 @@ class CommunityBot(commands.Bot):
                 message.guild.id,
             )
         elif message.content in get_trigger_list(
-                message.guild.id
+            message.guild.id
         ):  # trigger check + msg
             answer = get_trigger_msg(guildid=message.guild.id, trigger=message.content)
-            embed = discord.Embed(
-                title="**Trigger**", description=answer, color=get_colour(message)
-            )
-            embed.set_footer(
-                text="for "
-                     + str(user)
-                     + " | by "
-                     + str(get_author())
-                     + " | Prefix "
-                     + str(get_prefix_string(message)),
-                icon_url="https://media.discordapp.net/attachments/645276319311200286/803322491480178739"
-                         "/winging-easy.png?width=676&height=676",
-            )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            await message.channel.send(embed=embed)
-        elif bannedWords is not None and (
-                isinstance(message.channel, discord.channel.DMChannel) is False
-        ):  # check if word in blacklist
+            if answer is not None:
+                embed = discord.Embed(
+                    title="**Trigger**",
+                    description=answer,
+                    color=get_embedcolour(message),
+                )
+                embed.set_footer(
+                    text="for "
+                    + str(user)
+                    + " | by "
+                    + str(get_author())
+                    + " | Prefix "
+                    + str(get_prefix_string(message)),
+                    icon_url="https://media.discordapp.net/attachments/645276319311200286/803322491480178739"
+                    "/winging-easy.png?width=676&height=676",
+                )
+                embed.set_thumbnail(url=THUMBNAIL_URL)
+                await message.channel.send(embed=embed)
+        elif bannedWords != [] and ():  # check if word in blacklist
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):
                     for ignorearg in ignore:
@@ -155,26 +173,26 @@ class CommunityBot(commands.Bot):
                         embed = discord.Embed(
                             title="**Fehler**",
                             description="Deine Nachricht hat ein verbotenes Wort "
-                                        "enthalten, daher wurde sie gelöscht. "
-                                        "Sollte dies ein Fehler sein "
-                                        "kontaktiere einen Administrator des "
-                                        "Servers. ",
-                            colour=get_colour(message=message),
+                            "enthalten, daher wurde sie gelöscht. "
+                            "Sollte dies ein Fehler sein "
+                            "kontaktiere einen Administrator des "
+                            "Servers. ",
+                            colour=get_embedcolour(message=message),
                         )
                         embed.set_footer(
                             text=FOOTER[0]
-                                 + message.author.name
-                                 + FOOTER[1]
-                                 + str(get_author())
-                                 + FOOTER[2]
-                                 + str(get_prefix_string(message)),
+                            + message.author.name
+                            + FOOTER[1]
+                            + str(get_author())
+                            + FOOTER[2]
+                            + str(get_prefix_string(message)),
                             icon_url=ICON_URL,
                         )
                         await message.channel.send(embed=embed, delete_after=5)
                         log(
                             str(time)
                             + f": Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen."
-                              ' Wort: "{bannedWord}"',
+                            ' Wort: "{bannedWord}"',
                             message.guild.id,
                         )
                         return
@@ -191,11 +209,15 @@ client = CommunityBot(
     intents=discord.Intents.all(),
 )
 
+
 ########################################################################################################################
 
 
-most_important = ["cogs.core.functions.functions", "cogs.core.config.config_botchannel",
-                  "cogs.core.config.config_memechannel"]
+most_important = [
+    "cogs.core.functions.functions",
+    "cogs.core.config.config_botchannel",
+    "cogs.core.config.config_memechannel",
+]
 for extension in most_important:
     client.load_extension(extension)
 
@@ -222,6 +244,7 @@ for directory in os.listdir("./cogs"):
                         )
                         traceback.print_exc()
             check = 0
+
 
 ########################################################################################################################
 

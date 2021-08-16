@@ -55,3 +55,101 @@
 2021-08-10 20:43:23.250079: Der Spieler SimsumMC hat den Befehl a!meme benutzt!
 2021-08-10 21:56:07.594462: Der Spieler SimsumMC hat den Befehl a!meme benutzt!
 2021-08-10 21:56:21.489454: Der Spieler SimsumMC hat den Befehl a!meme benutzt!
+2021-08-11 15:18:14.743269: Der Spieler SimsumMC hat beim Befehl'a!meme ein ungültiges Argument eingegeben.
+2021-08-11 15:18:24.361051: Der Spieler SimsumMC hat beim Befehl'a!meme ein ungültiges Argument eingegeben.
+2021-08-11 15:18:35.391390: Der Spieler SimsumMC hat den Befehl aa!config benutzt und damit das Modul prefix zuaa! erfolgreich geändert
+2021-08-11 15:18:52.697336: Der Spieler SimsumMC hat den Befehl a!config benutzt und damit das Modul prefix zua! erfolgreich geändert
+2021-08-11 17:02:23.248183: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-11 17:02:24.802773: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-11 17:02:25.672072: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-11 17:02:26.613266: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-12 18:48:31.354401: Der Bot hat die fehlende Config automatisch wiederhergestellt.
+2021-08-12 18:48:31.369904: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-12 18:48:32.781675: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-12 18:50:45.476897: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-12 18:50:48.964507: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-12 18:50:50.167233: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:50:51.993099: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:50:52.798784: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-12 18:50:58.808340: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-12 18:50:59.647988: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:01.120747: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-12 18:51:02.104419: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-12 18:51:03.066090: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:04.024760: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-12 18:51:05.305985: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-12 18:51:06.331663: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-12 18:51:07.394350: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-12 18:51:08.249999: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:09.511723: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:10.435884: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-12 18:51:11.361047: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-12 18:51:12.032665: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:13.082850: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-12 18:51:14.964679: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-12 18:51:17.055548: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:18.225753: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:19.388959: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-12 18:51:20.406137: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-12 18:51:21.745872: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-12 18:51:22.451996: Der Spieler Flashtube hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-12 18:51:34.152289: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-12 18:51:52.846150: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-12 18:51:54.370866: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:51:55.733217: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-12 18:51:56.551914: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-12 18:51:57.643198: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-12 18:51:58.340377: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-12 18:52:01.467219: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:52:28.198819: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-12 18:52:29.521050: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-12 18:52:30.507249: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-12 18:52:31.473935: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-12 18:53:13.296203: Der Spieler Flashtube hat den Befehl a!löschdich benutzt!
+2021-08-12 20:49:12.574661: Der Spieler SimsumMC hat den Befehl  a!invite benutzt!
+2021-08-16 16:25:25.511379: Der Spieler SimsumMC hat den Befehl a!trigger add benutzt und damit den Trigger Bendix hinzugefügt.!
+2021-08-16 16:25:37.751795: Der Spieler SimsumMC hat den Befehl a!trigger add benutzt und damit den Trigger Bendix hinzugefügt.!
+2021-08-16 16:25:46.122480: Der Spieler SimsumMC hat den Befehl a!trigger add benutzt und damit den Trigger Bendix hinzugefügt.!
+2021-08-16 16:25:51.746989: Der Spieler Benpino hatte nicht die nötigen Berrechtigungen um a!trigger add zu nutzen.
+2021-08-16 16:26:12.231699: Der Spieler Benpino hat den Befehl a!trigger add benutzt und damit den Trigger Bendix hinzugefügt.!
+2021-08-16 16:27:14.888094: Der Spieler Benpino hat den Befehl a!trigger add benutzt und damit den Trigger Niklas hinzugefügt.!
+2021-08-16 16:29:33.519632: Der Spieler Benpino hat den Befehl a!trigger add benutzt und damit den Trigger Bendix hinzugefügt.!
+2021-08-16 16:29:40.716831: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-16 16:29:42.790521: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:29:43.846447: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-16 16:30:23.081084: Der Spieler Benpino hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-16 16:30:23.237594: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-16 16:30:25.958880: Der Spieler Benpino hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-16 16:30:28.267498: Der Spieler Benpino hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-16 16:30:29.340316: Der Spieler Benpino hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-16 16:30:30.399036: Der Spieler Benpino hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:30:31.316028: Der Spieler Benpino hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-16 16:30:46.840574: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-16 16:39:58.959848: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:40:00.621104: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-16 16:40:02.835870: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-16 16:40:03.772407: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:40:06.773124: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-16 16:40:08.364097: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-16 16:40:09.059720: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:40:10.124531: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-16 16:40:39.635102: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-16 16:40:40.374160: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:41:16.585098: Der Spieler SimsumMC hat den Befehl a!trigger add benutzt und damit den Trigger Bendix hinzugefügt.!
+2021-08-16 16:41:54.498986: Der Spieler SimsumMC hat den Befehl a!trigger add benutzt und damit den Trigger test hinzugefügt.!
+2021-08-16 16:42:09.198305: Der Bot hat die fehlende Config automatisch wiederhergestellt.
+2021-08-16 16:42:12.228723: Der Spieler SimsumMC hat den Befehl a!hilfe benutzt!
+2021-08-16 16:42:29.984752: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:42:31.277187: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-16 16:42:32.325926: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-16 16:42:50.909185: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite moderation aufgerufen!
+2021-08-16 16:42:51.765641: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:42:52.988078: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-16 16:42:54.406340: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!
+2021-08-16 16:42:56.461783: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-16 16:42:58.061679: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite allgemein aufgerufen!
+2021-08-16 16:42:58.885505: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite informationen aufgerufen!
+2021-08-16 16:42:59.872091: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite unterhaltung aufgerufen!
+2021-08-16 16:43:00.800115: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite inhaber aufgerufen!
+2021-08-16 16:43:02.128586: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite administration aufgerufen!
+2021-08-16 16:43:02.853429: Der Spieler SimsumMC hat mit der Hilfenachricht interagiert und die Seite übersicht aufgerufen!

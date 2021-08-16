@@ -2,22 +2,20 @@ import datetime
 import json
 import os
 from shutil import copyfile
+
 import discord
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
-from cogs.commands.Hilfe.help import get_page
 from cogs.core.config.config_botchannel import botchannel_check
+from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_general import get_defaultconfig
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.functions.automaticdelete import add_automaticdelete
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
 )
-from cogs.core.functions.automaticdelete import add_automaticdelete
-from cogs.core.config.config_colours import get_colour
 from cogs.core.functions.logging import log
-from discord_components import Button, ButtonStyle, InteractionType
-
-from cogs.core.config.config_general import get_defaultconfig
 
 
 class events(commands.Cog):
@@ -39,7 +37,7 @@ class events(commands.Cog):
                 embed = discord.Embed(
                     title="Fehler",
                     description='Der Befehl "' + str(msg) + '" existiert nicht!',
-                    color=get_colour(ctx.message),
+                    color=get_embedcolour(ctx.message),
                 )
                 embed.set_footer(
                     text="for "
@@ -116,61 +114,6 @@ class events(commands.Cog):
         os.remove(path)
         os.remove(path2)
         add_automaticdelete(guild.id)
-
-    @commands.Cog.listener()
-    async def on_button_click(self, res):
-        helpp = [
-            "allgemein",
-            "informationen",
-            "unterhaltung",
-            "moderation",
-            "administration",
-            "übersicht",
-            "inhaber",
-        ]
-        user = res.author.name
-        try:
-            if res.component.label.lower() in helpp:
-                embed = get_page(
-                    message=res.message, user=user, page=res.component.label.lower()
-                )
-                await res.respond(
-                    type=7,
-                    embed=embed,
-                    components=[
-                        [
-                            Button(style=ButtonStyle.red, label="Übersicht", emoji="🔖"),
-                            Button(style=ButtonStyle.red, label="Allgemein", emoji="🤖"),
-                            Button(
-                                style=ButtonStyle.red, label="Informationen", emoji="📉"
-                            ),
-                            Button(
-                                style=ButtonStyle.red, label="Unterhaltung", emoji="🎲"
-                            ),
-                        ],
-                        [
-                            Button(
-                                style=ButtonStyle.red, label="Moderation", emoji="🛡"
-                            ),
-                            Button(
-                                style=ButtonStyle.red, label="Administration", emoji="⚙"
-                            ),
-                            Button(style=ButtonStyle.red, label="Inhaber", emoji="🔒"),
-                        ],
-                    ],
-                )
-                log(
-                    f"{datetime.datetime.now()}: Der Spieler {user} hat mit der Hilfenachricht interagiert und die "
-                    f"Seite {res.component.label.lower()} aufgerufen!",
-                    res.message.guild.id,
-                )
-            else:
-                await res.respond(
-                    type=InteractionType.ChannelMessageWithSource,
-                    content=f"Error 404: Der Button {res.component.label} ist ungültig!",
-                )
-        except Exception:
-            pass
 
 
 ########################################################################################################################

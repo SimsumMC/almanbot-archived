@@ -10,10 +10,10 @@ from discord.ext.commands import (
 from config import ICON_URL, THUMBNAIL_URL, FOOTER
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
     is_not_pinned,
 )
-from cogs.core.config.config_colours import get_colour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 
 
@@ -39,7 +39,7 @@ class clear(commands.Cog):
                 embed = discord.Embed(
                     title="Clear",
                     description=f"Es {wurde} {len(deleted) - 1} {nachricht} gelöscht!",
-                    colour=get_colour(ctx.message),
+                    colour=get_embedcolour(ctx.message),
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
@@ -67,7 +67,7 @@ class clear(commands.Cog):
                 )
             except Exception:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_colour(ctx.message)
+                    title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
                     text=FOOTER[0]
@@ -97,7 +97,7 @@ class clear(commands.Cog):
                 title="**Fehler**",
                 description="Du kannst nicht über 100 Nachrichten  aufeinmal löschen!"
                 " Nutze dazu bitte !channelclear .",
-                colour=get_colour(ctx.message),
+                colour=get_embedcolour(ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
@@ -129,7 +129,9 @@ class clear(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
                 + str(user)
@@ -156,7 +158,9 @@ class clear(commands.Cog):
                 id=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
                 + str(user)
@@ -184,7 +188,9 @@ class clear(commands.Cog):
                 id=ctx.guild.id,
             )
         if isinstance(error, BadArgument):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
                 + str(user)

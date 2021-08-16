@@ -8,9 +8,9 @@ from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchann
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
 )
-from cogs.core.config.config_colours import get_colour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 
 
@@ -29,7 +29,9 @@ class kick(commands.Cog):
         if botchannel_check(ctx):
             try:
                 await member.kick(reason=reason)
-                embed = discord.Embed(title="**Kick**", colour=get_colour(ctx.message))
+                embed = discord.Embed(
+                    title="**Kick**", colour=get_embedcolour(ctx.message)
+                )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
                     text=FOOTER[0]
@@ -58,7 +60,7 @@ class kick(commands.Cog):
                 return
             except Exception:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_colour(ctx.message)
+                    title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
                     text=FOOTER[0]
@@ -96,15 +98,17 @@ class kick(commands.Cog):
                 id=ctx.guild.id,
             )
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -120,7 +124,9 @@ class kick(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
                 + str(user)
@@ -147,7 +153,9 @@ class kick(commands.Cog):
                 id=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
                 + str(user)

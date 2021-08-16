@@ -4,9 +4,7 @@ import os
 import discord
 from discord.ext import commands
 
-from cogs.core.functions.functions import (
-    readjson,
-)
+from cogs.core.functions.func_json import readjson
 
 konditionen = [
     [0, 1, 2],

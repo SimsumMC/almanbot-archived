@@ -5,8 +5,9 @@ from discord.ext import commands
 from discord.ext.commands import MissingPermissions
 
 from config import ICON_URL, FOOTER
-from cogs.core.functions.functions import get_author, get_prefix_string
-from cogs.core.config.config_colours import get_colour
+from cogs.core.functions.functions import get_author
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 from main import client
 
@@ -40,7 +41,7 @@ class channelclear(commands.Cog):
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
             embed = discord.Embed(
-                title="**Fehler**", colour=get_colour(message=ctx.message)
+                title="**Fehler**", colour=get_embedcolour(message=ctx.message)
             )
             embed.set_footer(
                 text=FOOTER[0]

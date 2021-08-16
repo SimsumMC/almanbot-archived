@@ -2,7 +2,7 @@ import json
 import time
 import os
 from discord.ext import commands
-from cogs.core.functions.functions import readjson, writejson
+from cogs.core.functions.func_json import writejson, readjson
 
 
 class automaticdelete(commands.Cog):
@@ -50,5 +50,3 @@ def main():
 
 def setup(bot):
     bot.add_cog(automaticdelete(bot))
-
-

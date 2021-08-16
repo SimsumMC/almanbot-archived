@@ -31,7 +31,7 @@ def get_trigger_msg(guildid, trigger):
             data = json.load(f)
         msg = data["trigger"]["triggermsg"][trigger]
         if not msg:
-            return "Unbekannter Fehler! Specification: 'trigger-get-msg-unknown'"
+            return None
         return msg
     except Exception:
         raise Exception

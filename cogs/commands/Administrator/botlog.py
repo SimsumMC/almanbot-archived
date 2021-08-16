@@ -9,9 +9,9 @@ from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
 )
-from cogs.core.config.config_colours import get_colour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 
 
@@ -43,7 +43,7 @@ class botlog(commands.Cog):
                 embed = discord.Embed(
                     title="**Erfolgreich**",
                     description="Schau in deine Privatnachrichten!",
-                    colour=get_colour(ctx.message),
+                    colour=get_embedcolour(ctx.message),
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
@@ -58,7 +58,7 @@ class botlog(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_colour(ctx.message)
+                    title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
                     text=FOOTER[0]
@@ -99,15 +99,17 @@ class botlog(commands.Cog):
                 id=ctx.guild.id,
             )
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -123,7 +125,9 @@ class botlog(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingPermissions):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
                 + str(user)

@@ -8,12 +8,15 @@ from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
-    writejson,
-    readjson,
 )
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.functions.func_json import writejson, readjson
 from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
-from cogs.core.config.config_colours import get_colour, get_colour_code, colour_check
+from cogs.core.config.config_embedcolour import (
+    get_embedcolour,
+    get_embedcolour_code,
+    embedcolour_check,
+)
 
 
 class adminconfig(commands.Cog):
@@ -40,9 +43,11 @@ class adminconfig(commands.Cog):
         if botchannel_check(ctx):
             if subcommand in existing:
                 if subcommand == "colour":
-                    if colour_check(arg) is True:
+                    if embedcolour_check(arg) is True:
                         writejson(
-                            type=subcommand, input=get_colour_code(str(arg)), path=path
+                            type=subcommand,
+                            input=get_embedcolour_code(str(arg)),
+                            path=path,
                         )
                         embed = discord.Embed(
                             title="**Admin Config**",
@@ -51,7 +56,7 @@ class adminconfig(commands.Cog):
                             + "``` wurde erfolgreich zu ```"
                             + str(arg)
                             + "``` geändert!",
-                            colour=get_colour(ctx.message),
+                            colour=get_embedcolour(ctx.message),
                         )
                         embed.set_footer(
                             text=FOOTER[0]
@@ -72,7 +77,7 @@ class adminconfig(commands.Cog):
                             + "``` kann nicht zu ```"
                             + str(arg)
                             + "``` geändert werden.",
-                            colour=get_colour(ctx.message),
+                            colour=get_embedcolour(ctx.message),
                         )
                         embed.set_footer(
                             text=FOOTER[0]
@@ -96,7 +101,7 @@ class adminconfig(commands.Cog):
                                 title="**Fehler**",
                                 description=f"Der angegebene Reddit **{arg}** enthält nicht "
                                 "zulässigen Inhalt.",
-                                color=get_colour(ctx.message),
+                                color=get_embedcolour(ctx.message),
                             )
                             embed.set_thumbnail(url=THUMBNAIL_URL)
                             embed.set_footer(
@@ -112,7 +117,7 @@ class adminconfig(commands.Cog):
                             return
                 writejson(type=subcommand, input=arg, path=path)
                 embed = discord.Embed(
-                    title="**Admin Config**", colour=get_colour(ctx.message)
+                    title="**Admin Config**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
                     text=FOOTER[0]
@@ -135,7 +140,7 @@ class adminconfig(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_colour(ctx.message)
+                    title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
                     text=FOOTER[0]
@@ -154,15 +159,17 @@ class adminconfig(commands.Cog):
                 await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -178,7 +185,9 @@ class adminconfig(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
                 + str(user)

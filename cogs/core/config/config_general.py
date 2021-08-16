@@ -3,10 +3,11 @@ import os
 from shutil import copyfile
 from config import (
     DEFAULT_PREFIX,
-    DEFAULT_COLOUR,
+    DEFAULT_EMBEDCOLOUR,
     DEFAULT_MEMESOURCE,
     DEFAULT_TRIGGER,
     DEFAULT_TRIGGER_LIST,
+    DEFAULT_BUTTONCOLOUR,
 )
 from discord.ext import commands
 
@@ -25,8 +26,10 @@ def get_defaultconfig():
         "blacklist": [],
         "botchannel": [],
         "memechannel": [],
+        "autoroles": [],
         "memesource": DEFAULT_MEMESOURCE,
-        "colour": DEFAULT_COLOUR,
+        "embedcolour": DEFAULT_EMBEDCOLOUR,
+        "buttoncolour": DEFAULT_BUTTONCOLOUR,
         "deactivated_commands": [],
         "trigger": {
             "triggerlist": DEFAULT_TRIGGER_LIST,
@@ -39,7 +42,7 @@ def get_defaultconfig():
             "wrongchannel": True,
             "badargument": True,
         },
-        "welcome_messages":{
+        "welcome_messages": {
             "active": False,
             "channel": None
         },
@@ -55,7 +58,7 @@ def get_defaultconfig():
             "messages": False,
             "spam_allowed": False,
             "activated": False,
-        }
+        },
     }
     return data
 

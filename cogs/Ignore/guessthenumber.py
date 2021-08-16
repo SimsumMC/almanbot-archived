@@ -2,8 +2,9 @@ import datetime
 import discord
 import whois
 from discord.ext import commands
-from cogs.core.functions.functions import get_author, get_prefix_string, get_botc, whoisr
-from cogs.core.config.config_colours import get_colour
+from cogs.core.functions.functions import get_author, get_botc, whoisr
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 
 
@@ -21,7 +22,7 @@ class guessthenumber(commands.Cog):
         mention = ctx.author.mention
         botchannel = get_botc(message=ctx.message)
         if name == botchannel or botchannel == 'None':
-            embed = discord.Embed(title='', colour=get_colour(ctx.message))
+            embed = discord.Embed(title='', colour=get_embedcolour(ctx.message))
             embed.set_thumbnail(
                 url='https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy.png'
                     '?width=676&height=676')

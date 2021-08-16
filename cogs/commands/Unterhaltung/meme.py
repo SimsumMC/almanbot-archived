@@ -6,17 +6,27 @@ import random
 import discord
 import praw
 
-from cogs.core.config.config_memechannel import get_memechannel_obj_list, memechannel_check
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR, BOT_NAME, REDDIT_APP
+from cogs.core.config.config_memechannel import (
+    get_memechannel_obj_list,
+    memechannel_check,
+)
+from config import (
+    ICON_URL,
+    THUMBNAIL_URL,
+    FOOTER,
+    WRONG_CHANNEL_ERROR,
+    BOT_NAME,
+    REDDIT_APP,
+)
 from discord.ext import commands
 
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
-    readjson,
 )
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.functions.func_json import readjson
 from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
-from cogs.core.config.config_colours import get_colour
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 
 
@@ -56,7 +66,7 @@ class meme(commands.Cog):
                             title="**Fehler**",
                             description=f"Der angegebene Reddit **{redditname}** enthält nicht "
                             "zulässigen Inhalt.",
-                            color=get_colour(ctx.message),
+                            color=get_embedcolour(ctx.message),
                         )
                         embed.set_thumbnail(url=THUMBNAIL_URL)
                         embed.set_footer(
@@ -83,7 +93,7 @@ class meme(commands.Cog):
                 for i in range(0, post_to_pick):
                     submission = next(x for x in memes_submissions if not x.stickied)
                 embed = discord.Embed(
-                    title=f"**{submission.title}**", colour=get_colour(ctx.message)
+                    title=f"**{submission.title}**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_image(url=submission.url)
                 embed.set_footer(
@@ -109,7 +119,7 @@ class meme(commands.Cog):
                     "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
                     "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
                     "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
-                    color=get_colour(ctx.message),
+                    color=get_embedcolour(ctx.message),
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
@@ -142,15 +152,17 @@ class meme(commands.Cog):
                 id=ctx.guild.id,
             )
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -169,7 +181,7 @@ class meme(commands.Cog):
             embed = discord.Embed(
                 title="**Cooldown**",
                 description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
-                color=get_colour(ctx.message),
+                color=get_embedcolour(ctx.message),
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
             embed.set_footer(

@@ -9,9 +9,9 @@ from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchann
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
 )
-from cogs.core.config.config_colours import get_colour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_embedcolour import get_embedcolour
 from main import client
 
 
@@ -28,36 +28,40 @@ class cog(commands.Cog):
         mention = ctx.author.mention
         if ctx.invoked_subcommand is None:
             if botchannel_check(ctx):
-                embed = discord.Embed(title="Fehler", colour=get_colour(ctx.message))
+                embed = discord.Embed(
+                    title="Fehler", colour=get_embedcolour(ctx.message)
+                )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.add_field(
                     name="‎",
                     value="Bitte gib eines der unten angegebenen Argumente ein:\n"
-                          "`load <Name vom Cog>`\n`unload <Name vom Cog>`\n`reload <Name vom "
-                          "Cog>`\n `reloadall`\n",
+                    "`load <Name vom Cog>`\n`unload <Name vom Cog>`\n`reload <Name vom "
+                    "Cog>`\n `reloadall`\n",
                     inline=False,
                 )
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(ctx.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
                 await ctx.send(embed=embed)
             else:
                 embed = discord.Embed(
-                    title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                    title="**Fehler**",
+                    description=WRONG_CHANNEL_ERROR,
+                    colour=get_embedcolour(message=ctx.message),
                 )
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(ctx.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
                 embed.add_field(
@@ -81,7 +85,7 @@ class cog(commands.Cog):
                     if directory != "Ignore":
                         for directory2 in os.listdir(f"./cogs/{directory}"):
                             for filename in os.listdir(
-                                    f"./cogs/{directory}/{directory2}/"
+                                f"./cogs/{directory}/{directory2}/"
                             ):
                                 if filename == f"{cogname}.py":
                                     extension = (
@@ -89,7 +93,8 @@ class cog(commands.Cog):
                                     )
                                     client.load_extension(extension)
                                     embed = discord.Embed(
-                                        title="Cog Load", colour=get_colour(ctx.message)
+                                        title="Cog Load",
+                                        colour=get_embedcolour(ctx.message),
                                     )
                                     embed.set_thumbnail(url=THUMBNAIL_URL)
                                     embed.add_field(
@@ -99,18 +104,18 @@ class cog(commands.Cog):
                                     )
                                     embed.set_footer(
                                         text=FOOTER[0]
-                                             + str(user)
-                                             + FOOTER[1]
-                                             + str(get_author())
-                                             + FOOTER[2]
-                                             + str(get_prefix_string(ctx.message)),
+                                        + str(user)
+                                        + FOOTER[1]
+                                        + str(get_author())
+                                        + FOOTER[2]
+                                        + str(get_prefix_string(ctx.message)),
                                         icon_url=ICON_URL,
                                     )
                                     await ctx.send(embed=embed)
                                     return
                 else:
                     embed = discord.Embed(
-                        title="Fehler", colour=get_colour(ctx.message)
+                        title="Fehler", colour=get_embedcolour(ctx.message)
                     )
                     embed.set_thumbnail(url=THUMBNAIL_URL)
                     embed.add_field(
@@ -120,19 +125,21 @@ class cog(commands.Cog):
                     )
                     embed.set_footer(
                         text=FOOTER[0]
-                             + str(user)
-                             + FOOTER[1]
-                             + str(get_author())
-                             + FOOTER[2]
-                             + str(get_prefix_string(ctx.message)),
+                        + str(user)
+                        + FOOTER[1]
+                        + str(get_author())
+                        + FOOTER[2]
+                        + str(get_prefix_string(ctx.message)),
                         icon_url=ICON_URL,
                     )
                     await ctx.send(embed=embed)
             except Exception:
-                embed = discord.Embed(title="Fehler", colour=get_colour(ctx.message))
+                embed = discord.Embed(
+                    title="Fehler", colour=get_embedcolour(ctx.message)
+                )
                 embed.set_thumbnail(
                     url="https://media.discordapp.net/attachments/645276319311200286/803322491480178739/winging-easy"
-                        ".png?width=676&height=676"
+                    ".png?width=676&height=676"
                 )
                 embed.add_field(
                     name="‎",
@@ -141,26 +148,28 @@ class cog(commands.Cog):
                 )
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(ctx.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
                 await ctx.send(embed=embed)
                 raise Exception
         else:
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -175,21 +184,23 @@ class cog(commands.Cog):
     async def handle_error(self, ctx, error):
         user = ctx.author
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                      + get_prefix_string(ctx.message)
-                      + "```cog load <Name>```",
+                + get_prefix_string(ctx.message)
+                + "```cog load <Name>```",
                 inline=False,
             )
             await ctx.send(embed=embed)
@@ -207,7 +218,7 @@ class cog(commands.Cog):
                     if directory != "Ignore":
                         for directory2 in os.listdir(f"./cogs/{directory}"):
                             for filename in os.listdir(
-                                    f"./cogs/{directory}/{directory2}/"
+                                f"./cogs/{directory}/{directory2}/"
                             ):
                                 if filename == f"{cogname}.py":
                                     extension = (
@@ -216,7 +227,7 @@ class cog(commands.Cog):
                                     client.unload_extension(extension)
                                     embed = discord.Embed(
                                         title="Cog Unload",
-                                        colour=get_colour(ctx.message),
+                                        colour=get_embedcolour(ctx.message),
                                     )
                                     embed.set_thumbnail(url=THUMBNAIL_URL)
                                     embed.add_field(
@@ -226,18 +237,20 @@ class cog(commands.Cog):
                                     )
                                     embed.set_footer(
                                         text=FOOTER[0]
-                                             + str(user)
-                                             + FOOTER[1]
-                                             + str(get_author())
-                                             + FOOTER[2]
-                                             + str(get_prefix_string(ctx.message)),
+                                        + str(user)
+                                        + FOOTER[1]
+                                        + str(get_author())
+                                        + FOOTER[2]
+                                        + str(get_prefix_string(ctx.message)),
                                         icon_url=ICON_URL,
                                     )
                                     await ctx.send(embed=embed)
                                     return
                 else:
                     embed = discord.Embed(
-                        title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                        title="**Fehler**",
+                        description=WRONG_CHANNEL_ERROR,
+                        colour=get_embedcolour(message=ctx.message),
                     )
                     embed.set_thumbnail(url=THUMBNAIL_URL)
                     embed.add_field(
@@ -247,16 +260,18 @@ class cog(commands.Cog):
                     )
                     embed.set_footer(
                         text=FOOTER[0]
-                             + str(user)
-                             + FOOTER[1]
-                             + str(get_author())
-                             + FOOTER[2]
-                             + str(get_prefix_string(ctx.message)),
+                        + str(user)
+                        + FOOTER[1]
+                        + str(get_author())
+                        + FOOTER[2]
+                        + str(get_prefix_string(ctx.message)),
                         icon_url=ICON_URL,
                     )
                     await ctx.send(embed=embed)
             except Exception:
-                embed = discord.Embed(title="Fehler", colour=get_colour(ctx.message))
+                embed = discord.Embed(
+                    title="Fehler", colour=get_embedcolour(ctx.message)
+                )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.add_field(
                     name="‎",
@@ -265,25 +280,27 @@ class cog(commands.Cog):
                 )
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(ctx.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
                 await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -298,21 +315,23 @@ class cog(commands.Cog):
     async def handle_error(self, ctx, error):
         user = ctx.author
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                      + get_prefix_string(ctx.message)
-                      + "```cog unload <Name>```",
+                + get_prefix_string(ctx.message)
+                + "```cog unload <Name>```",
                 inline=False,
             )
             await ctx.send(embed=embed)
@@ -329,7 +348,7 @@ class cog(commands.Cog):
                     if directory != "Ignore":
                         for directory2 in os.listdir(f"./cogs/{directory}"):
                             for filename in os.listdir(
-                                    f"./cogs/{directory}/{directory2}/"
+                                f"./cogs/{directory}/{directory2}/"
                             ):
                                 if filename == f"{cogname}.py":
                                     extension = (
@@ -339,7 +358,7 @@ class cog(commands.Cog):
                                     client.load_extension(extension)
                                     embed = discord.Embed(
                                         title="Cog Reload",
-                                        colour=get_colour(ctx.message),
+                                        colour=get_embedcolour(ctx.message),
                                     )
                                     embed.set_thumbnail(url=THUMBNAIL_URL)
                                     embed.add_field(
@@ -349,18 +368,18 @@ class cog(commands.Cog):
                                     )
                                     embed.set_footer(
                                         text=FOOTER[0]
-                                             + str(user)
-                                             + FOOTER[1]
-                                             + str(get_author())
-                                             + FOOTER[2]
-                                             + str(get_prefix_string(ctx.message)),
+                                        + str(user)
+                                        + FOOTER[1]
+                                        + str(get_author())
+                                        + FOOTER[2]
+                                        + str(get_prefix_string(ctx.message)),
                                         icon_url=ICON_URL,
                                     )
                                     await ctx.send(embed=embed)
                                     return
                 else:
                     embed = discord.Embed(
-                        title="Fehler", colour=get_colour(ctx.message)
+                        title="Fehler", colour=get_embedcolour(ctx.message)
                     )
                     embed.set_thumbnail(url=THUMBNAIL_URL)
                     embed.add_field(
@@ -370,16 +389,18 @@ class cog(commands.Cog):
                     )
                     embed.set_footer(
                         text=FOOTER[0]
-                             + str(user)
-                             + FOOTER[1]
-                             + str(get_author())
-                             + FOOTER[2]
-                             + str(get_prefix_string(ctx.message)),
+                        + str(user)
+                        + FOOTER[1]
+                        + str(get_author())
+                        + FOOTER[2]
+                        + str(get_prefix_string(ctx.message)),
                         icon_url=ICON_URL,
                     )
                     await ctx.send(embed=embed)
             except Exception:
-                embed = discord.Embed(title="Fehler", colour=get_colour(ctx.message))
+                embed = discord.Embed(
+                    title="Fehler", colour=get_embedcolour(ctx.message)
+                )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.add_field(
                     name="‎",
@@ -388,25 +409,27 @@ class cog(commands.Cog):
                 )
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(ctx.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
                 await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -421,21 +444,23 @@ class cog(commands.Cog):
     async def handle_error(self, ctx, error):
         user = ctx.author
         if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(title="**Fehler**", colour=get_colour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=get_embedcolour(ctx.message)
+            )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                      + get_prefix_string(ctx.message)
-                      + "```cog reload <Name>```",
+                + get_prefix_string(ctx.message)
+                + "```cog reload <Name>```",
                 inline=False,
             )
             await ctx.send(embed=embed)
@@ -452,9 +477,7 @@ class cog(commands.Cog):
             for directory in os.listdir("./cogs"):
                 if directory != "Ignore":
                     for directory2 in os.listdir(f"./cogs/{directory}"):
-                        for filename in os.listdir(
-                                f"./cogs/{directory}/{directory2}/"
-                        ):
+                        for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
                             if filename.endswith(".py"):
                                 extension = (
                                     f"cogs.{directory}.{directory2}.{filename[:-3]}"
@@ -466,28 +489,31 @@ class cog(commands.Cog):
                                 try:
                                     client.load_extension(extension)
                                 except Exception as e:
-                                    embed = discord.Embed(title="Fehler", colour=get_colour(ctx.message))
+                                    embed = discord.Embed(
+                                        title="Fehler",
+                                        colour=get_embedcolour(ctx.message),
+                                    )
                                     embed.set_thumbnail(url=THUMBNAIL_URL)
                                     embed.add_field(
                                         name="‎",
                                         value=f"Der Cog ```{filename}``` konnte nicht neu geladen werden. \n\n"
-                                              f"Fehler: {str(e)}",
+                                        f"Fehler: {str(e)}",
                                         inline=False,
                                     )
                                     embed.set_footer(
                                         text=FOOTER[0]
-                                             + str(user)
-                                             + FOOTER[1]
-                                             + str(get_author())
-                                             + FOOTER[2]
-                                             + str(get_prefix_string(ctx.message)),
+                                        + str(user)
+                                        + FOOTER[1]
+                                        + str(get_author())
+                                        + FOOTER[2]
+                                        + str(get_prefix_string(ctx.message)),
                                         icon_url=ICON_URL,
                                     )
                                     await ctx.send(embed=embed)
                                     traceback.print_exc()
 
             embed = discord.Embed(
-                title="Cog Reload", colour=get_colour(ctx.message)
+                title="Cog Reload", colour=get_embedcolour(ctx.message)
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
             embed.add_field(
@@ -497,25 +523,27 @@ class cog(commands.Cog):
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(

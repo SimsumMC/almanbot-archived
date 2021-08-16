@@ -5,12 +5,13 @@ from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+from cogs.core.config.config_buttoncolour import get_buttoncolour
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
-    get_prefix_string,
 )
-from cogs.core.config.config_colours import get_colour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 
 
@@ -30,17 +31,17 @@ class help(commands.Cog):
                 embed=get_page(ctx.message, ctx.author.name, "übersicht"),
                 components=[
                     [
-                        Button(style=ButtonStyle.red, label="Übersicht", emoji="🔖"),
-                        Button(style=ButtonStyle.red, label="Allgemein", emoji="🤖"),
-                        Button(style=ButtonStyle.red, label="Informationen", emoji="📉"),
-                        Button(style=ButtonStyle.red, label="Unterhaltung", emoji="🎲"),
+                        Button(style=get_buttoncolour(message=ctx.message), label="Übersicht", emoji="🔖"),
+                        Button(style=get_buttoncolour(message=ctx.message), label="Allgemein", emoji="🤖"),
+                        Button(style=get_buttoncolour(message=ctx.message), label="Informationen", emoji="📉"),
+                        Button(style=get_buttoncolour(message=ctx.message), label="Unterhaltung", emoji="🎲"),
                     ],
                     [
-                        Button(style=ButtonStyle.red, label="Moderation", emoji="🛡"),
+                        Button(style=get_buttoncolour(message=ctx.message), label="Moderation", emoji="🛡"),
                         Button(
-                            style=ButtonStyle.red, label="Administration", emoji="⚙"
+                            style=get_buttoncolour(message=ctx.message), label="Administration", emoji="⚙"
                         ),
-                        Button(style=ButtonStyle.red, label="Inhaber", emoji="🔒"),
+                        Button(style=get_buttoncolour(message=ctx.message), label="Inhaber", emoji="🔒"),
                     ],
                 ],
             )
@@ -66,15 +67,17 @@ class help(commands.Cog):
                 id=ctx.guild.id,
             )
             embed = discord.Embed(
-                title="**Fehler**", description=WRONG_CHANNEL_ERROR, colour=get_colour(message=ctx.message)
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -91,7 +94,7 @@ def get_page(message, user, page):
         embed = discord.Embed(
             title="**Hilfe Übersicht**",
             description="Hier findest du alle Hilfekategorien!",
-            colour=get_colour(message),
+            colour=get_embedcolour(message),
         )
         embed.set_footer(
             text=FOOTER[0]
@@ -136,7 +139,7 @@ def get_page(message, user, page):
         embed = discord.Embed(
             title="**Hilfe Allgemein**",
             description="Hier findest du alle Befehle zu der Kategorie `Allgemein!`",
-            colour=get_colour(message),
+            colour=get_embedcolour(message),
         )
         embed.set_footer(
             text=FOOTER[0]
@@ -182,7 +185,7 @@ def get_page(message, user, page):
         embed = discord.Embed(
             title="**Hilfe Informationen**",
             description="Hier findest du alle Befehle zu der Kategorie `Informationen!`",
-            colour=get_colour(message),
+            colour=get_embedcolour(message),
         )
         embed.set_footer(
             text=FOOTER[0]
@@ -222,7 +225,7 @@ def get_page(message, user, page):
         embed = discord.Embed(
             title="**Hilfe Unterhaltung**",
             description="Hier findest du alle Befehle zu der Kategorie `Unterhaltung!`",
-            colour=get_colour(message),
+            colour=get_embedcolour(message),
         )
         embed.set_footer(
             text=FOOTER[0]
@@ -264,7 +267,7 @@ def get_page(message, user, page):
         embed = discord.Embed(
             title="**Hilfe Moderation**",
             description="Hier findest du alle Befehle zu der Kategorie `Moderation!`",
-            colour=get_colour(message),
+            colour=get_embedcolour(message),
         )
         embed.set_footer(
             text=FOOTER[0]
@@ -314,7 +317,7 @@ def get_page(message, user, page):
         embed = discord.Embed(
             title="**Hilfe Administration**",
             description="Hier findest du alle Befehle zu der Kategorie `Administrator!`",
-            colour=get_colour(message),
+            colour=get_embedcolour(message),
         )
         embed.set_footer(
             text=FOOTER[0]
@@ -344,7 +347,7 @@ def get_page(message, user, page):
         embed = discord.Embed(
             title="**Hilfe Administration**",
             description="Hier findest du alle Befehle zu der Kategorie `Inhaber`!",
-            colour=get_colour(message),
+            colour=get_embedcolour(message),
         )
         embed.set_footer(
             text=FOOTER[0]
