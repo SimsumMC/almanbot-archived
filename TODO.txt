@@ -1,0 +1,16 @@
+- Config Recode ( Command Groups, show config (json or optimized?))
+- vokabel abfrage
+- Trigger list
+- Ticket System
+- Custom Events ---> https://stackoverflow.com/questions/64810905/emit-custom-events-discord-py
+- Tools kategorie
+- auto role assignement
+- say Befehl
+- slash commands
+- Musik
+- wipe command to clear all bots data ( to avoid problems with automatic delete?)
+- alle rollen nutzer zurückgeben nach leave (opt)
+
+
+- Blacklist cmd recode -> command groups
+

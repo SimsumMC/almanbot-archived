@@ -45,11 +45,11 @@ class config(commands.Cog):
         embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.set_footer(
             text=FOOTER[0]
-            + str(user)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message)),
+                 + str(user)
+                 + FOOTER[1]
+                 + str(get_author())
+                 + FOOTER[2]
+                 + str(get_prefix_string(ctx.message)),
             icon_url=ICON_URL,
         )
         embed.add_field(
@@ -74,18 +74,18 @@ class config(commands.Cog):
         )
         embed.add_field(
             name=f'**{get_prefix_string(ctx.message)}config memesource <Reddit Name / "default"'
-            ">**",
+                 ">**",
             value="Sorge dafür das der Meme Befehl nur in einem bestimmten Kanal funktioniert!",
             inline=False,
         )
         await ctx.send(embed=embed)
         log(
             input=str(time)
-            + ": Der Nutzer "
-            + str(user)
-            + " hat den Befehl "
-            + get_prefix_string(ctx.message)
-            + "config hilfe benutzt.",
+                  + ": Der Nutzer "
+                  + str(user)
+                  + " hat den Befehl "
+                  + get_prefix_string(ctx.message)
+                  + "config hilfe benutzt.",
             id=ctx.guild.id,
         )
 
@@ -103,11 +103,11 @@ class config(commands.Cog):
         embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.set_footer(
             text=FOOTER[0]
-            + str(user)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message)),
+                 + str(user)
+                 + FOOTER[1]
+                 + str(get_author())
+                 + FOOTER[2]
+                 + str(get_prefix_string(ctx.message)),
             icon_url=ICON_URL,
         )
         embed.add_field(
@@ -122,40 +122,74 @@ class config(commands.Cog):
             id=ctx.guild.id,
         )
 
-    @config.group()
+    @config.group(name="botchannel")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
-        pass
+        if ctx.invoked_subcommand is None:
+            print("none")
+            pass
+            # todo error missing
 
-    @config_botchannel.command(name="add")
+    @config_botchannel.command(name="add", aliases=["hinzufügen"])
     async def config_botchannel_add(self, ctx, channel: discord.TextChannel):
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
-        writejson(type="prefix", input=channel.id, path=path, mode="append")
+        writejson(type="botchannel", input=channel.id, path=path, mode="append")
         embed = discord.Embed(
             title="**Config Botchannel**", colour=get_embedcolour(ctx.message)
         )
         embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.set_footer(
             text=FOOTER[0]
-            + str(user)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message)),
+                 + str(user)
+                 + FOOTER[1]
+                 + str(get_author())
+                 + FOOTER[2]
+                 + str(get_prefix_string(ctx.message)),
             icon_url=ICON_URL,
         )
         embed.add_field(
             name="‎",
-            value=f"Der Prefix wurde erfolgreich zu ```{arg}``` geändert.",
+            value=f"Der Channel ```{channel.name}``` wurde erfolgreich zu der Botchannel-Liste hinzugefügt.",
             inline=False,
         )
         await ctx.send(embed=embed)
         log(
             f"{time}: Der Nutzer {user} hat mit dem Befehl {get_prefix_string(ctx.message)}"
-            f'config den Prefix zu "{arg}" geändert!',
+            f'botchannel add den Channel "{channel.name}" zu der Botchannel-Liste hinzugefügt.',
+            id=ctx.guild.id,
+        )
+
+    @config_botchannel.command(name="remove", aliases=["entfernen"])
+    async def config_botchannel_remove(self, ctx, channel: discord.TextChannel):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
+        writejson(type="botchannel", input=channel.id, path=path, mode="remove")
+        embed = discord.Embed(
+            title="**Config Botchannel**", colour=get_embedcolour(ctx.message)
+        )
+        embed.set_thumbnail(url=THUMBNAIL_URL)
+        embed.set_footer(
+            text=FOOTER[0]
+                 + str(user)
+                 + FOOTER[1]
+                 + str(get_author())
+                 + FOOTER[2]
+                 + str(get_prefix_string(ctx.message)),
+            icon_url=ICON_URL,
+        )
+        embed.add_field(
+            name="‎",
+            value=f"Der Channel ```{channel.name}``` wurde erfolgreich von der Botchannel-Liste entfernt.",
+            inline=False,
+        )
+        await ctx.send(embed=embed)
+        log(
+            f"{time}: Der Nutzer {user} hat mit dem Befehl {get_prefix_string(ctx.message)}"
+            f'botchannel remove den Channel "{channel.name}" von der Botchannel-Liste entfernt.',
             id=ctx.guild.id,
         )
 

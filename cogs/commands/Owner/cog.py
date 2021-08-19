@@ -133,7 +133,7 @@ class cog(commands.Cog):
                         icon_url=ICON_URL,
                     )
                     await ctx.send(embed=embed)
-            except Exception:
+            except Exception as e:
                 embed = discord.Embed(
                     title="Fehler", colour=get_embedcolour(ctx.message)
                 )
@@ -143,7 +143,8 @@ class cog(commands.Cog):
                 )
                 embed.add_field(
                     name="‎",
-                    value=f"Der Cog ```{cogname}``` konnte nicht geladen werden.",
+                    value=f"Der Cog ```{cogname}``` konnte nicht geladen werden. \n\n"
+                          f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed.set_footer(
@@ -268,14 +269,15 @@ class cog(commands.Cog):
                         icon_url=ICON_URL,
                     )
                     await ctx.send(embed=embed)
-            except Exception:
+            except Exception as e:
                 embed = discord.Embed(
                     title="Fehler", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.add_field(
                     name="‎",
-                    value=f"Der Cog ```{cogname}``` konnte nicht entladen werden.",
+                    value=f"Der Cog ```{cogname}``` konnte nicht entladen werden. \n\n"
+                          f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed.set_footer(
@@ -397,14 +399,15 @@ class cog(commands.Cog):
                         icon_url=ICON_URL,
                     )
                     await ctx.send(embed=embed)
-            except Exception:
+            except Exception as e:
                 embed = discord.Embed(
                     title="Fehler", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.add_field(
                     name="‎",
-                    value=f"Der Cog ```{cogname}``` konnte nicht neu geladen werden.",
+                    value=f"Der Cog ```{cogname}``` konnte nicht neu geladen werden. \n\n"
+                          f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed.set_footer(

@@ -22,7 +22,7 @@ from config import (
     FOOTER,
     BANNER,
     ACTIVITY_LIST,
-    STATUS,
+    STATUS, TESTING_MODE,
 )
 
 
@@ -60,7 +60,7 @@ class CommunityBot(commands.Bot):
         client.loop.create_task(self.status_task())
 
     async def status_task(self):
-        from cogs.commands.Informationen.botinfo import (
+        from cogs.commands.Allgemein.botinfo import (
             get_member_count,
             get_developer_string,
         )
@@ -109,7 +109,7 @@ class CommunityBot(commands.Bot):
         ignore = ["blacklist add", "blacklist remove", "qr"]
         user = message.author.name
         path = os.path.join("data", "configs", f"{message.guild.id}.json")
-        if not config_check(guildid=message.guild.id):  # todo make it working lmao
+        if not config_check(guildid=message.guild.id):
             config_fix(guildid=message.guild.id)
             log(
                 input=f"{str(time)}: Der Bot hat die fehlende Config automatisch wiederhergestellt.",
@@ -162,7 +162,10 @@ class CommunityBot(commands.Bot):
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 await message.channel.send(embed=embed)
-        elif bannedWords != [] and ():  # check if word in blacklist
+        elif bannedWords:  # check if word in blacklist
+            if TESTING_MODE is not True:
+                if message.author.id == message.guild.owner_id:
+                    return
             for bannedWord in bannedWords:
                 if msg_contains_word(message.content.lower(), bannedWord):
                     for ignorearg in ignore:

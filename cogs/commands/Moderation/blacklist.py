@@ -8,10 +8,9 @@ from discord.ext.commands import MissingRequiredArgument, MissingPermissions
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.functions.functions import (
     get_author,
-    get_blacklist,
 )
 from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.functions.func_json import writejson
+from cogs.core.functions.func_json import writejson, readjson
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR
@@ -21,17 +20,17 @@ class blacklist(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="blacklist", aliases=["wordlist"])
     @commands.has_permissions(ban_members=True)
     async def blacklist(self, ctx, type, *, word):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
-        path = os.path.join("data", "blacklist", f"{ctx.guild.id}.json")
-        bannedWords = get_blacklist(path)
+        path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
+        bannedWords = readjson(type="blacklist", path=path)
         if botchannel_check(ctx):
-            if type == "add":
+            if type.lower() == "add":
                 if word.lower() in bannedWords:
                     embed = discord.Embed(
                         title="**Fehler**",
@@ -55,8 +54,7 @@ class blacklist(commands.Cog):
                         id=ctx.guild.id,
                     )
                 else:
-                    bannedWords.append(word.lower())
-                    writejson(type="blacklist", input=bannedWords, path=path)
+                    writejson(type="blacklist", input=word.lower(), path=path, mode="append")
                     await msg2.delete()
                     embed = discord.Embed(
                         title="**Blacklist**",
@@ -78,10 +76,9 @@ class blacklist(commands.Cog):
                         f'{time}: Der Moderator {user} hat das Wort "{word}" auf die Blacklist hinzugefügt.',
                         id=ctx.guild.id,
                     )
-            elif type == "remove":
+            elif type.lower() == "remove":
                 if word.lower() in bannedWords:
-                    bannedWords.remove(word.lower())
-                    writejson(type="blacklist", input=bannedWords, path=path)
+                    writejson(type="blacklist", input=word.lower(), path=path, mode="removed")
                     await ctx.message.delete()
                     embed = discord.Embed(
                         title="**Blacklist**",

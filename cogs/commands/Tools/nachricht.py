@@ -7,7 +7,6 @@ from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchann
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
-    colour_check,
 )
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.config.config_embedcolour import (
@@ -15,6 +14,7 @@ from cogs.core.config.config_embedcolour import (
     get_embedcolour_code,
     embedcolour_check,
 )
+from cogs.core.config.config_embedcolour import embedcolour_check
 from cogs.core.functions.logging import log
 
 
@@ -23,9 +23,7 @@ class nachricht(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def nachricht(
-        self, ctx, title, colour, channel: discord.TextChannel, *, message
-    ):
+    async def nachricht(self, ctx, title, colour, channel: discord.TextChannel, *, message):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
