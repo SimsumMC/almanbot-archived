@@ -111,7 +111,7 @@ class on_button_click(commands.Cog):
                     res.message.guild.id,
                 )
             elif "calc_" in res.component.id:
-                description = str(res.message.embeds[0].description)
+                description = str(res.message.embeds[0].description)[:-3][3:]
                 if description == CALCULATING_ERROR:
                     description = '|'
                 elif res.component.label == 'Exit':
@@ -159,9 +159,10 @@ class on_button_click(commands.Cog):
                 elif res.component.label == 'Clear':
                     description = "|"
                 elif res.component.label == '=':
-                    description = calculate(description[:-1])
+                    description = str(calculate(description[:-1])) + "|"
                 else:
                     description = description[:-1] + res.component.label + "|"
+                description = "```" + description + "```"
                 embed = discord.Embed(
                     title=f"**{res.author.name}'s Rechner**", description=description,
                     colour=get_embedcolour(res.message)

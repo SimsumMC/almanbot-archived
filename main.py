@@ -6,7 +6,7 @@ import discord
 import platform
 from asyncio import sleep
 from discord.ext import commands
-from discord.ext.commands import ExtensionAlreadyLoaded
+from discord.ext.commands import ExtensionAlreadyLoaded, Bot
 from cogs.core.functions.func_json import readjson
 from cogs.core.functions.functions import msg_contains_word, get_author
 from cogs.core.config.config_prefix import get_prefix_string, get_prefix
@@ -84,121 +84,16 @@ class CommunityBot(commands.Bot):
     async def on_message(self, message):
         if message.author.bot:
             return
-        if isinstance(message.channel, discord.DMChannel):
-            embed = discord.Embed(title="Hinweis | Note", colour=0xF00000)
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.add_field(
-                name="German",
-                value="Dieser Bot hat keine DM Funktion - daher bringt es nichts "
-                "mich hier zu kontaktieren.",
-                inline=False,
-            )
-            embed.add_field(
-                name="English",
-                value="This bot don't have a DM Function - so you cant achieve something "
-                "with writing something to me.",
-                inline=False,
-            )
-            embed.set_footer(
-                text=f"{FOOTER[0]}{message.author.name}{FOOTER[1]}{str(get_author())}{FOOTER[2]}undefined",
-                icon_url=ICON_URL,
-            )
-            await message.channel.send(embed=embed)
+        elif isinstance(message.channel, discord.DMChannel):
+            Bot.dispatch(self, "dm_message", message)
             return
-        time = datetime.datetime.now()
-        ignore = ["blacklist add", "blacklist remove", "qr"]
-        user = message.author.name
-        path = os.path.join("data", "configs", f"{message.guild.id}.json")
-        if not config_check(guildid=message.guild.id):
-            config_fix(guildid=message.guild.id)
-            log(
-                input=f"{str(time)}: Der Bot hat die fehlende Config automatisch wiederhergestellt.",
-                id=message.guild.id,
-            )
-        bannedWords = readjson(type="blacklist", path=path)
-        if client.user.mentioned_in(message) and len(message.content) == len(
-            f"<@!{client.user.id}>"
-        ):
-            embed = discord.Embed(title="**Prefix**", color=get_embedcolour(message))
-            embed.set_footer(
-                text=FOOTER[0]
-                + message.author.name
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name=" ⠀ ",
-                value=f"Mein Prefix hier ist: ```{get_prefix_string(message)}```",
-                inline=True,
-            )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            await message.channel.send(embed=embed)
-            log(
-                f"{time}: Der Spieler {user} hat sich den Prefix über eine Erwähnung ausgeben lassen.",
-                message.guild.id,
-            )
-        elif message.content in get_trigger_list(
-            message.guild.id
-        ):  # trigger check + msg
-            answer = get_trigger_msg(guildid=message.guild.id, trigger=message.content)
-            if answer is not None:
-                embed = discord.Embed(
-                    title="**Trigger**",
-                    description=answer,
-                    color=get_embedcolour(message),
-                )
-                embed.set_footer(
-                    text="for "
-                    + str(user)
-                    + " | by "
-                    + str(get_author())
-                    + " | Prefix "
-                    + str(get_prefix_string(message)),
-                    icon_url="https://media.discordapp.net/attachments/645276319311200286/803322491480178739"
-                    "/winging-easy.png?width=676&height=676",
-                )
-                embed.set_thumbnail(url=THUMBNAIL_URL)
-                await message.channel.send(embed=embed)
-        elif bannedWords:  # check if word in blacklist
-            if TESTING_MODE is not True:
-                if message.author.id == message.guild.owner_id:
-                    return
-            for bannedWord in bannedWords:
-                if msg_contains_word(message.content.lower(), bannedWord):
-                    for ignorearg in ignore:
-                        if msg_contains_word(message.content.lower(), ignorearg):
-                            return
-                    else:
-                        await message.delete()
-                        embed = discord.Embed(
-                            title="**Fehler**",
-                            description="Deine Nachricht hat ein verbotenes Wort "
-                            "enthalten, daher wurde sie gelöscht. "
-                            "Sollte dies ein Fehler sein "
-                            "kontaktiere einen Administrator des "
-                            "Servers. ",
-                            colour=get_embedcolour(message=message),
-                        )
-                        embed.set_footer(
-                            text=FOOTER[0]
-                            + message.author.name
-                            + FOOTER[1]
-                            + str(get_author())
-                            + FOOTER[2]
-                            + str(get_prefix_string(message)),
-                            icon_url=ICON_URL,
-                        )
-                        await message.channel.send(embed=embed, delete_after=5)
-                        log(
-                            str(time)
-                            + f": Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen."
-                            ' Wort: "{bannedWord}"',
-                            message.guild.id,
-                        )
-                        return
+        elif not config_check(guildid=message.guild.id):
+            Bot.dispatch(self, "missing_config", message)
+        elif client.user.mentioned_in(message) and len(message.content) == len(f"<@!{client.user.id}>"):
+            Bot.dispatch(self, "bot_mention", message)
+        elif message.content in get_trigger_list(message.guild.id):
+            Bot.dispatch(self, "trigger", message)
+        Bot.dispatch(self, "blacklist_check", message)
         await self.process_commands(message)
 
 
@@ -231,7 +126,7 @@ for directory in os.listdir("./cogs"):
             if check == 0:
                 print(f"\n\nDirectory: {directory}/{directory2}\n")
             for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
-                if filename.endswith(".py"):
+                if filename.endswith(".py") and "ignore_" not in filename:
                     extension = f"cogs.{directory}.{directory2}.{filename[:-3]}"
                     try:
                         client.load_extension(extension)

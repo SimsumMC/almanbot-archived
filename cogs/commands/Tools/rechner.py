@@ -37,7 +37,7 @@ class calculator(commands.Cog):
         msg2 = ctx.message
         if botchannel_check(ctx):
             embed = discord.Embed(
-                title=f"**{ctx.author.name}'s Rechner**", description='|', colour=get_embedcolour(ctx.message)
+                title=f"**{ctx.author.name}'s Rechner**", description='```|```', colour=get_embedcolour(ctx.message)
             )
             embed.set_footer(
                 text=FOOTER[0]
