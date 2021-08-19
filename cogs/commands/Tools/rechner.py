@@ -1,23 +1,19 @@
 import datetime
-import os
-import traceback
 
-import qrcode
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument
+from discord_components import Button, DiscordComponents
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.config.config_buttoncolour import get_buttoncolour
+from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.functions.cache import save_message_to_cache
 from cogs.core.functions.functions import (
     get_author,
-    get_botname,
 )
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR, CALCULATING_ERROR
-from discord_components import Button, DiscordComponents
 
 
 def calculate(calculation):
@@ -52,7 +48,7 @@ class calculator(commands.Cog):
                      + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
-            await ctx.send(embed=embed, components=[
+            msg = await ctx.send(embed=embed, components=[
                 [
                     Button(style=get_buttoncolour(message=ctx.message), label="1", id="calc_1"),
                     Button(style=get_buttoncolour(message=ctx.message), label="2", id="calc_2"),
@@ -82,6 +78,16 @@ class calculator(commands.Cog):
                     Button(style=get_buttoncolour(message=ctx.message), label="=", id="calc_equal"),
                 ], ],
                            )
+            await save_message_to_cache(msg)
+            log(
+                str(time)
+                + ": Der Spieler "
+                + str(user)
+                + " hat den Befehl "
+                + get_prefix_string(ctx.message)
+                + "rechner benutzt!",
+                id=ctx.guild.id,
+            )
         else:
             log(
                 input=str(time)

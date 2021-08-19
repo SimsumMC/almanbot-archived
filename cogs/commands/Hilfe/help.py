@@ -6,6 +6,7 @@ from discord_components import Button, ButtonStyle
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.config.config_buttoncolour import get_buttoncolour
+from cogs.core.functions.cache import save_message_to_cache
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from cogs.core.functions.functions import (
     get_author,
@@ -27,7 +28,7 @@ class help(commands.Cog):
         msg2 = ctx.message
         mention = ctx.author.mention
         if botchannel_check(ctx):
-            await ctx.send(
+            msg = await ctx.send(
                 embed=get_page(ctx.message, ctx.author.name, "übersicht"),
                 components=[
                     [
@@ -45,6 +46,7 @@ class help(commands.Cog):
                     ],
                 ],
             )
+            await save_message_to_cache(msg)
             log(
                 str(time)
                 + ": Der Spieler "

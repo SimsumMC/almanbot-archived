@@ -1,3 +1,5 @@
+import traceback
+
 from discord.ext import commands
 
 
@@ -8,7 +10,7 @@ class cache(commands.Cog):
 
 embed_cache = {}
 
-author_message_cache = {}
+message_cache = {}
 
 
 async def save_embed_to_cache(embed, messageid):
@@ -22,14 +24,19 @@ async def get_embed_from_cache(messageid):
     return embed_cache[str(messageid)]
 
 
-async def save_message_to_cache(message):
-    if not author_message_cache[str(message.author.id)]:
-        author_message_cache[str(message.author.id)] = []
-    author_message_cache[str(message.author.id)] = author_message_cache[str(message.author.id)].append[message.id]
+async def save_message_to_cache(message):  # todo
+    try:
+        if str(message.author.id) not in message_cache:
+            message_cache[str(message.author.id)] = []
+        message_cache[str(message.author.id)].append(message.id)
+    except Exception:
+        traceback.print_exc()
 
 
-async def get_messages_from_cache(authorid):
-    return author_message_cache[str(authorid)]
+def get_messages_from_cache(authorid):  # todo
+    if str(authorid) not in message_cache:
+        return []
+    return message_cache[str(authorid)]
 
 
 ########################################################################################################################

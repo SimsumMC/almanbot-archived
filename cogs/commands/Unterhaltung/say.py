@@ -8,6 +8,7 @@ from discord_components import Button
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.config.config_buttoncolour import get_buttoncolour
+from cogs.core.functions.cache import save_message_to_cache
 from cogs.core.functions.functions import (
     get_author,
 )
@@ -28,11 +29,12 @@ class say(commands.Cog):
         name = ctx.channel.name
         msg2 = ctx.message
         if botchannel_check(ctx):
-            await ctx.send(content=str(text), components=[[
+            msg = await ctx.send(content=str(text), components=[[
                     Button(style=get_buttoncolour(message=ctx.message), label="Normal", emoji="📄", id="say_normal", disabled=True),
                     Button(style=get_buttoncolour(message=ctx.message), label="Embed", emoji="✒", id="say_embed"),
                                                          ]],
                            )
+            await save_message_to_cache(msg)
             log(
                 str(time)
                 + ": Der Spieler "
