@@ -1,5 +1,6 @@
 import datetime
 import os
+import traceback
 
 import discord
 from discord.ext import commands
@@ -19,7 +20,7 @@ class botlog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="botlog", aliases=["serverlog", "log"], description="")
     @commands.has_permissions(view_audit_log=True)
     async def botlog(self, ctx):
         time = datetime.datetime.now()
@@ -29,66 +30,70 @@ class botlog(commands.Cog):
         name = ctx.channel.name
         path = os.path.join("data", "logs", f"{ctx.guild.id}.txt")
         if botchannel_check(ctx):
-            if os.path.isfile(path):
-                log(
-                    input=str(time)
-                    + ": Der Spieler "
-                    + str(user)
-                    + ' hat sich den Log mit der ID "'
-                    + str(ctx.guild.id)
-                    + '" ausgeben lassen!',
-                    id=ctx.guild.id,
-                )
-                await ctx.author.send(file=discord.File(path))
-                embed = discord.Embed(
-                    title="**Erfolgreich**",
-                    description="Schau in deine Privatnachrichten!",
-                    colour=get_embedcolour(ctx.message),
-                )
-                embed.set_thumbnail(url=THUMBNAIL_URL)
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
-                await ctx.send(embed=embed)
-            else:
-                embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
-                )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
-                embed.add_field(
-                    name="‎",
-                    value="Es existiert noch kein Log deines Servers, da dass hier anscheinend dein erster "
-                    "Befehl ist!",
-                    inline=False,
-                )
-                await ctx.send(embed=embed)
-                log(
-                    input=str(time)
-                    + ": Der Spieler "
-                    + str(user)
-                    + ' hat sich probiert den noch nicht existierenden Log mit der ID "'
-                    + str(ctx.guild.id)
-                    + '" ausgeben zu lassen!',
-                    id=ctx.guild.id,
-                )
+            try:
+                if os.path.isfile(path):
+                    log(
+                        text=str(time)
+                        + ": Der Spieler "
+                        + str(user)
+                        + ' hat sich den Log mit der ID "'
+                        + str(ctx.guild.id)
+                        + '" ausgeben lassen!',
+                        guildid=ctx.guild.id,
+                    )
+                    await msg2.add_reaction(emoji="✅")
+                    await ctx.author.send(file=discord.File(path))
+                    embed = discord.Embed(
+                        title="**Erfolgreich**",
+                        description="Schau in deine Privatnachrichten!",
+                        colour=get_embedcolour(ctx.message),
+                    )
+                    embed.set_thumbnail(url=THUMBNAIL_URL)
+                    embed.set_footer(
+                        text=FOOTER[0]
+                        + str(user)
+                        + FOOTER[1]
+                        + str(get_author())
+                        + FOOTER[2]
+                        + str(get_prefix_string(ctx.message)),
+                        icon_url=ICON_URL,
+                    )
+                    await ctx.send(embed=embed)
+                else:
+                    embed = discord.Embed(
+                        title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    )
+                    embed.set_footer(
+                        text=FOOTER[0]
+                        + str(user)
+                        + FOOTER[1]
+                        + str(get_author())
+                        + FOOTER[2]
+                        + str(get_prefix_string(ctx.message)),
+                        icon_url=ICON_URL,
+                    )
+                    embed.add_field(
+                        name="‎",
+                        value="Es existiert noch kein Log deines Servers, da dass hier anscheinend dein erster "
+                        "Befehl ist!",
+                        inline=False,
+                    )
+                    await ctx.send(embed=embed)
+                    log(
+                        text=str(time)
+                        + ": Der Spieler "
+                        + str(user)
+                        + ' hat sich probiert den noch nicht existierenden Log mit der ID "'
+                        + str(ctx.guild.id)
+                        + '" ausgeben zu lassen!',
+                        guildid=ctx.guild.id,
+                    )
+            except Exception:
+                traceback.print_exc()
 
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -96,7 +101,7 @@ class botlog(commands.Cog):
                 + "serverlog im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -144,13 +149,13 @@ class botlog(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "botlog zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

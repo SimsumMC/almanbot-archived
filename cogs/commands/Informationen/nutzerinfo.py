@@ -88,7 +88,7 @@ class nutzerinfo(commands.Cog):
             print("final")
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -96,7 +96,7 @@ class nutzerinfo(commands.Cog):
                 + "nutzerinfo im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

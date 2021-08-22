@@ -46,13 +46,13 @@ class avatar(commands.Cog):
             log(
                 f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 "avatar benutzt!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         else:
             log(
-                input=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
                 f"avatar im Channel #{name} zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -100,13 +100,13 @@ class avatar(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat ein ungültiges Argument bei "
                 + get_prefix_string(ctx.message)
                 + "avatar angegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

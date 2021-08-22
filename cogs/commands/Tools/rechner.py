@@ -17,7 +17,7 @@ from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR, CALCULATING_ERROR
 
 
 def calculate(calculation):
-    o = calculation.replace('x', "*").replace('÷', '/')
+    o = calculation.replace("x", "*").replace("÷", "/")
     try:
         result = str(eval(o))
     except Exception:
@@ -37,48 +37,133 @@ class calculator(commands.Cog):
         msg2 = ctx.message
         if botchannel_check(ctx):
             embed = discord.Embed(
-                title=f"**{ctx.author.name}'s Rechner**", description='```|```', colour=get_embedcolour(ctx.message)
+                title=f"**{ctx.author.name}'s Rechner**",
+                description="```|```",
+                colour=get_embedcolour(ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
-            msg = await ctx.send(embed=embed, components=[
-                [
-                    Button(style=get_buttoncolour(message=ctx.message), label="1", id="calc_1"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="2", id="calc_2"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="3", id="calc_3"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="x", id="calc_x"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="Exit", id="calc_exit"),
+            msg = await ctx.send(
+                embed=embed,
+                components=[
+                    [
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="1",
+                            id="calc_1",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="2",
+                            id="calc_2",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="3",
+                            id="calc_3",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="x",
+                            id="calc_x",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Exit",
+                            id="calc_exit",
+                        ),
+                    ],
+                    [
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="4",
+                            id="calc_4",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="5",
+                            id="calc_5",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="6",
+                            id="calc_6",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="÷",
+                            id="calc_division",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="⌫",
+                            id="calc_delete",
+                        ),
+                    ],
+                    [
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="7",
+                            id="calc_7",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="8",
+                            id="calc_8",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="9",
+                            id="calc_9",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="+",
+                            id="calc_addition",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Clear",
+                            id="calc_clear",
+                        ),
+                    ],
+                    [
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="00",
+                            id="calc_00",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="0",
+                            id="calc_0",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label=".",
+                            id="calc_comma",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="-",
+                            id="calc_subtraction",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="=",
+                            id="calc_equal",
+                        ),
+                    ],
                 ],
-                [
-                    Button(style=get_buttoncolour(message=ctx.message), label="4", id="calc_4"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="5", id="calc_5"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="6", id="calc_6"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="÷", id="calc_division"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="⌫", id="calc_delete"),
-                ],
-                [
-                    Button(style=get_buttoncolour(message=ctx.message), label="7", id="calc_7"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="8", id="calc_8"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="9", id="calc_9"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="+", id="calc_addition"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="Clear", id="calc_clear"),
-                ],
-                [
-                    Button(style=get_buttoncolour(message=ctx.message), label="00", id="calc_00"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="0", id="calc_0"),
-                    Button(style=get_buttoncolour(message=ctx.message), label=".", id="calc_comma"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="-", id="calc_subtraction"),
-                    Button(style=get_buttoncolour(message=ctx.message), label="=", id="calc_equal"),
-                ], ],
-                           )
-            await save_message_to_cache(msg)
+            )
+            await save_message_to_cache(message=msg, author=msg2.author)
             log(
                 str(time)
                 + ": Der Spieler "
@@ -86,19 +171,19 @@ class calculator(commands.Cog):
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
                 + "rechner benutzt!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         else:
             log(
-                input=str(time)
-                      + ": Der Spieler "
-                      + str(user)
-                      + " hat probiert den Befehl "
-                      + get_prefix_string(ctx.message)
-                      + "rechner im Channel #"
-                      + str(name)
-                      + " zu benutzen!",
-                id=ctx.guild.id,
+                text=str(time)
+                + ": Der Spieler "
+                + str(user)
+                + " hat probiert den Befehl "
+                + get_prefix_string(ctx.message)
+                + "rechner im Channel #"
+                + str(name)
+                + " zu benutzen!",
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -107,11 +192,11 @@ class calculator(commands.Cog):
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(

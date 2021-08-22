@@ -47,23 +47,23 @@ class on_command_error(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Spieler "
                     + str(user)
                     + ' hat probiert den ungültigen Befehl "'
                     + str(msg)
                     + '" zu nutzen!',
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
             else:
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Spieler "
                     + str(user)
                     + ' hat probiert den ungültigen Befehl "'
                     + str(msg)
                     + '" zu nutzen!',
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 await ctx.send(
                     str(mention)

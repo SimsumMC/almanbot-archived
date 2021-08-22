@@ -42,18 +42,9 @@ def get_defaultconfig():
             "wrongchannel": True,
             "badargument": True,
         },
-        "welcome_messages": {
-            "active": False,
-            "channel": None
-        },
-        "leave_messages": {
-            "active": False,
-            "channel": None
-        },
-        "tags": {
-            "list": [],
-            "tagmsg": {}
-        },
+        "welcome_messages": {"active": False, "channel": None},
+        "leave_messages": {"active": False, "channel": None},
+        "tags": {"list": [], "tagmsg": {}},
         "levelling": {
             "messages": False,
             "spam_allowed": False,

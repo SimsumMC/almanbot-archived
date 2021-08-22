@@ -1,28 +1,24 @@
-import sys
-import datetime
-import traceback
 import os
-import discord
 import platform
+import sys
+import traceback
 from asyncio import sleep
+
+import discord
 from discord.ext import commands
 from discord.ext.commands import ExtensionAlreadyLoaded, Bot
-from cogs.core.functions.func_json import readjson
-from cogs.core.functions.functions import msg_contains_word, get_author
-from cogs.core.config.config_prefix import get_prefix_string, get_prefix
-from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.functions.logging import log
-from cogs.core.config.config_trigger import get_trigger_list, get_trigger_msg
 from discord_components import DiscordComponents
-from cogs.core.config.config_general import config_check, config_fix
+
+from cogs.core.config.config_general import config_check
+from cogs.core.config.config_prefix import get_prefix
+from cogs.core.config.config_trigger import get_trigger_list
+from cogs.core.functions.func_json import readjson
+from cogs.core.functions.functions import msg_contains_word
 from config import (
     DISCORD_TOKEN,
-    ICON_URL,
-    THUMBNAIL_URL,
-    FOOTER,
     BANNER,
     ACTIVITY_LIST,
-    STATUS, TESTING_MODE,
+    STATUS, BLACKLIST_IGNORE, TESTING_MODE,
 )
 
 
@@ -46,7 +42,7 @@ run_check()
 ########################################################################################################################
 
 
-class CommunityBot(commands.Bot):
+class AlmanBot(commands.Bot):
     async def on_ready(self):
         DiscordComponents(client)
         print(BANNER)
@@ -68,7 +64,9 @@ class CommunityBot(commands.Bot):
         while True:
             for activity in ACTIVITY_LIST:
                 if "{guild_count}" in activity:
-                    activity = activity.replace("{guild_count}", str(len(client.guilds)))
+                    activity = activity.replace(
+                        "{guild_count}", str(len(client.guilds))
+                    )
                 elif "{user_count}" in activity:
                     activity = activity.replace("{user_count}", str(get_member_count()))
                 elif "{developer_names}" in activity:
@@ -81,6 +79,22 @@ class CommunityBot(commands.Bot):
                 )
                 await sleep(5)
 
+    async def blacklist_check(self, message):
+        path = os.path.join("data", "configs", f"{message.guild.id}.json")
+        bannedWords = readjson(type="blacklist", path=path)
+        if bannedWords:
+            if TESTING_MODE is not True:
+                if message.author.id == message.guild.owner_id:
+                    return False
+            for bannedWord in bannedWords:
+                if msg_contains_word(message.content.lower(), bannedWord):
+                    for ignorearg in BLACKLIST_IGNORE:
+                        if msg_contains_word(message.content.lower(), ignorearg):
+                            return False
+                    else:
+                        Bot.dispatch(self, "blacklist_word", message, bannedWord=bannedWord)
+                        return True
+
     async def on_message(self, message):
         if message.author.bot:
             return
@@ -91,22 +105,22 @@ class CommunityBot(commands.Bot):
             Bot.dispatch(self, "missing_config", message)
         elif client.user.mentioned_in(message) and len(message.content) == len(f"<@!{client.user.id}>"):
             Bot.dispatch(self, "bot_mention", message)
+        elif await self.blacklist_check(message):
+            return
         elif message.content in get_trigger_list(message.guild.id):
             Bot.dispatch(self, "trigger", message)
-        Bot.dispatch(self, "blacklist_check", message)
         await self.process_commands(message)
 
 
 ########################################################################################################################
 
 
-client = CommunityBot(
+client = AlmanBot(
     command_prefix=get_prefix,
     help_command=None,
     case_insensitive=True,
     intents=discord.Intents.all(),
 )
-
 
 ########################################################################################################################
 
@@ -116,6 +130,7 @@ most_important = [
     "cogs.core.config.config_botchannel",
     "cogs.core.config.config_memechannel",
 ]
+
 for extension in most_important:
     client.load_extension(extension)
 
@@ -142,7 +157,6 @@ for directory in os.listdir("./cogs"):
                         )
                         traceback.print_exc()
             check = 0
-
 
 ########################################################################################################################
 

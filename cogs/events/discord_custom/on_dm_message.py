@@ -18,13 +18,13 @@ class on_dm_message(commands.Cog):
         embed.add_field(
             name="German",
             value="Dieser Bot hat keine DM Funktion - daher bringt es nichts "
-                  "mich hier zu kontaktieren.",
+            "mich hier zu kontaktieren.",
             inline=False,
         )
         embed.add_field(
             name="English",
             value="This bot don't have a DM Function - so you cant achieve something "
-                  "with writing something to me.",
+            "with writing something to me.",
             inline=False,
         )
         embed.set_footer(
@@ -33,6 +33,7 @@ class on_dm_message(commands.Cog):
         )
         await message.channel.send(embed=embed)
         return
+
 
 ########################################################################################################################
 

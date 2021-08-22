@@ -19,10 +19,10 @@ def deletelines(path, amount):
         fout.writelines(data[amount:])
 
 
-def log(input, id):
-    path = os.path.join("data", "logs", f"{id}.txt")
+def log(text, guildid):
+    path = os.path.join("data", "logs", f"{guildid}.txt")
     with open(path, "a") as f:
-        f.write("\n" + input)
+        f.write("\n" + text)
     amount = countlines(path=path)
     if amount >= 199:
         deletelines(path=path, amount=amount - 200)

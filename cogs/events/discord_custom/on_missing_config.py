@@ -15,9 +15,10 @@ class on_missing_config(commands.Cog):
         time = datetime.datetime.now()
         config_fix(guildid=message.guild.id)
         log(
-            input=f"{str(time)}: Der Bot hat die fehlende Config automatisch wiederhergestellt.",
-            id=message.guild.id,
+            text=f"{str(time)}: Der Bot hat die fehlende Config automatisch wiederhergestellt.",
+            guildid=message.guild.id,
         )
+
 
 ########################################################################################################################
 

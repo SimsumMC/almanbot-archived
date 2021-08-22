@@ -47,16 +47,16 @@ class join(commands.Cog):
                 log(
                     f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
                     "meme benutzt!",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
             else:
                 ...
                 # author is in NO voice channel
         else:
             log(
-                input=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
                 f"example im Channel #{name} zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

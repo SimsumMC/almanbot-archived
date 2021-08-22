@@ -55,7 +55,7 @@ class kick(commands.Cog):
                     + 'erfolgreich für den Grund "'
                     + str(reason)
                     + '"gekickt.',
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
             except Exception:
@@ -78,16 +78,16 @@ class kick(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
                     + get_prefix_string(ctx.message)
                     + "kick auszuführen..",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -95,7 +95,7 @@ class kick(commands.Cog):
                 + "unban im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -144,13 +144,13 @@ class kick(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "kick zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -174,13 +174,13 @@ class kick(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "kick eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

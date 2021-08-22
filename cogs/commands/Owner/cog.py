@@ -144,7 +144,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht geladen werden. \n\n"
-                          f"Fehler: {str(e)}",
+                    f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed.set_footer(
@@ -277,7 +277,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht entladen werden. \n\n"
-                          f"Fehler: {str(e)}",
+                    f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed.set_footer(
@@ -407,7 +407,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht neu geladen werden. \n\n"
-                          f"Fehler: {str(e)}",
+                    f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed.set_footer(

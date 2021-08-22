@@ -42,13 +42,13 @@ class servericon(commands.Cog):
             log(
                 f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 "servericon benutzt!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         else:
             log(
-                input=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
                 f"servericon im Channel #{name} zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

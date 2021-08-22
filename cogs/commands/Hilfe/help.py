@@ -32,21 +32,47 @@ class help(commands.Cog):
                 embed=get_page(ctx.message, ctx.author.name, "übersicht"),
                 components=[
                     [
-                        Button(style=get_buttoncolour(message=ctx.message), label="Übersicht", emoji="🔖"),
-                        Button(style=get_buttoncolour(message=ctx.message), label="Allgemein", emoji="🤖"),
-                        Button(style=get_buttoncolour(message=ctx.message), label="Informationen", emoji="📉"),
-                        Button(style=get_buttoncolour(message=ctx.message), label="Unterhaltung", emoji="🎲"),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Übersicht",
+                            emoji="🔖",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Allgemein",
+                            emoji="🤖",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Informationen",
+                            emoji="📉",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Unterhaltung",
+                            emoji="🎲",
+                        ),
                     ],
                     [
-                        Button(style=get_buttoncolour(message=ctx.message), label="Moderation", emoji="🛡"),
                         Button(
-                            style=get_buttoncolour(message=ctx.message), label="Administration", emoji="⚙"
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Moderation",
+                            emoji="🛡",
                         ),
-                        Button(style=get_buttoncolour(message=ctx.message), label="Inhaber", emoji="🔒"),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Administration",
+                            emoji="⚙",
+                        ),
+                        Button(
+                            style=get_buttoncolour(message=ctx.message),
+                            label="Inhaber",
+                            emoji="🔒",
+                        ),
                     ],
                 ],
             )
-            await save_message_to_cache(msg)
+            await save_message_to_cache(message=msg, author=msg2.author)
             log(
                 str(time)
                 + ": Der Spieler "
@@ -58,7 +84,7 @@ class help(commands.Cog):
             )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -66,7 +92,7 @@ class help(commands.Cog):
                 + "ban im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

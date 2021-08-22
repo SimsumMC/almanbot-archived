@@ -54,11 +54,11 @@ class stein(commands.Cog):
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
                 + "stein benutzt!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -66,7 +66,7 @@ class stein(commands.Cog):
                 + "stein im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

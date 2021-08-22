@@ -8,6 +8,7 @@ from discord.ext import commands
 from cogs.core.config.config_general import get_defaultconfig
 from cogs.core.functions.logging import log
 from config import TESTING_MODE, TESTING_GUILDS
+from main import client
 
 
 class on_guild_join(commands.Cog):
@@ -18,9 +19,12 @@ class on_guild_join(commands.Cog):
     async def on_guild_join(self, guild):
         if TESTING_MODE is True:
             if guild.id not in TESTING_GUILDS:
-                await self.bot.leave_guild(guild)
-                print(f"TEST_MODE is True! Left server with ID {guild.id} and Name {guild.name}"
-                      f"because it was not marked as a testing server.")
+                await guild.leave()
+                print(
+                    f"TEST_MODE is True! Left server with ID {guild.id} and Name {guild.name} "
+                    f"because it was not marked as a testing server."
+                )
+                return
         path = os.path.join("data", "configs", f"{guild.id}.json")
         pathcheck = os.path.join("data", "configs", "deleted", f"{guild.id}.json")
         # config

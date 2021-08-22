@@ -45,11 +45,11 @@ class config(commands.Cog):
         embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.set_footer(
             text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(ctx.message)),
+            + str(user)
+            + FOOTER[1]
+            + str(get_author())
+            + FOOTER[2]
+            + str(get_prefix_string(ctx.message)),
             icon_url=ICON_URL,
         )
         embed.add_field(
@@ -74,19 +74,19 @@ class config(commands.Cog):
         )
         embed.add_field(
             name=f'**{get_prefix_string(ctx.message)}config memesource <Reddit Name / "default"'
-                 ">**",
+            ">**",
             value="Sorge dafür das der Meme Befehl nur in einem bestimmten Kanal funktioniert!",
             inline=False,
         )
         await ctx.send(embed=embed)
         log(
-            input=str(time)
-                  + ": Der Nutzer "
-                  + str(user)
-                  + " hat den Befehl "
-                  + get_prefix_string(ctx.message)
-                  + "config hilfe benutzt.",
-            id=ctx.guild.id,
+            text=str(time)
+            + ": Der Nutzer "
+            + str(user)
+            + " hat den Befehl "
+            + get_prefix_string(ctx.message)
+            + "config hilfe benutzt.",
+            guildid=ctx.guild.id,
         )
 
     @config.command(name="prefix", aliases=["präfix"])
@@ -103,11 +103,11 @@ class config(commands.Cog):
         embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.set_footer(
             text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(ctx.message)),
+            + str(user)
+            + FOOTER[1]
+            + str(get_author())
+            + FOOTER[2]
+            + str(get_prefix_string(ctx.message)),
             icon_url=ICON_URL,
         )
         embed.add_field(
@@ -119,7 +119,7 @@ class config(commands.Cog):
         log(
             f"{time}: Der Nutzer {user} hat mit dem Befehl {get_prefix_string(ctx.message)}"
             f'config den Prefix zu "{arg}" geändert!',
-            id=ctx.guild.id,
+            guildid=ctx.guild.id,
         )
 
     @config.group(name="botchannel")
@@ -143,11 +143,11 @@ class config(commands.Cog):
         embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.set_footer(
             text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(ctx.message)),
+            + str(user)
+            + FOOTER[1]
+            + str(get_author())
+            + FOOTER[2]
+            + str(get_prefix_string(ctx.message)),
             icon_url=ICON_URL,
         )
         embed.add_field(
@@ -159,7 +159,7 @@ class config(commands.Cog):
         log(
             f"{time}: Der Nutzer {user} hat mit dem Befehl {get_prefix_string(ctx.message)}"
             f'botchannel add den Channel "{channel.name}" zu der Botchannel-Liste hinzugefügt.',
-            id=ctx.guild.id,
+            guildid=ctx.guild.id,
         )
 
     @config_botchannel.command(name="remove", aliases=["entfernen"])
@@ -174,11 +174,11 @@ class config(commands.Cog):
         embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.set_footer(
             text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(ctx.message)),
+            + str(user)
+            + FOOTER[1]
+            + str(get_author())
+            + FOOTER[2]
+            + str(get_prefix_string(ctx.message)),
             icon_url=ICON_URL,
         )
         embed.add_field(
@@ -190,7 +190,7 @@ class config(commands.Cog):
         log(
             f"{time}: Der Nutzer {user} hat mit dem Befehl {get_prefix_string(ctx.message)}"
             f'botchannel remove den Channel "{channel.name}" von der Botchannel-Liste entfernt.',
-            id=ctx.guild.id,
+            guildid=ctx.guild.id,
         )
 
 

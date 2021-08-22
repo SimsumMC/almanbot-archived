@@ -1,16 +1,20 @@
-- Config Recode ( Command Groups, show config (json or optimized?))
-- vokabel abfrage
-- Trigger list
-- Ticket System
-- Custom Events ---> https://stackoverflow.com/questions/64810905/emit-custom-events-discord-py
-- Tools kategorie
-- auto role assignement
-- say Befehl
-- slash commands
-- Musik
+# 20.08.2021
+- Trigger list, edit
+- help command ( + Tools, new cmds etc)
 - wipe command to clear all bots data ( to avoid problems with automatic delete?)
-- alle rollen nutzer zurückgeben nach leave (opt)
+- Config Recode ( Command Groups, show config (json or optimized?))
 
+
+- Button Permission Check fix
+- vokabel abfrage
+- Ticket System
+- auto role assignement
+- Musik
+- alle rollen nutzer zurückgeben nach leave (opt)
+- Giveaways
+- tag command
+- slash commands
+- tictactoe
+- move command errors together
 
 - Blacklist cmd recode -> command groups
-

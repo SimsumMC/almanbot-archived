@@ -4,6 +4,7 @@ from shutil import copyfile
 from discord.ext import commands
 
 from cogs.core.functions.automaticdelete import add_automaticdelete
+from config import TESTING_MODE, TESTING_GUILDS
 
 
 class on_guild_remove(commands.Cog):
@@ -12,6 +13,8 @@ class on_guild_remove(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
+        if TESTING_MODE and guild.id not in TESTING_GUILDS:
+            return
         path = os.path.join("data", "configs", f"{guild.id}.json")
         path2 = os.path.join("data", "logs", f"{guild.id}.txt")
         dest = os.path.join("data", "configs", "deleted", f"{guild.id}.json")

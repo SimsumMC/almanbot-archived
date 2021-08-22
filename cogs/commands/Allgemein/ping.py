@@ -42,15 +42,15 @@ class ping(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + f" hat sich den Ping ({str(ping)}ms) ausgeben lassen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -58,7 +58,7 @@ class ping(commands.Cog):
                 + "qr im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

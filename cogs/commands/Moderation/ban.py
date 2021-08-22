@@ -59,7 +59,7 @@ class ban(commands.Cog):
                     + ' erfolgreich für "'
                     + str(reason)
                     + '" gebannt.',
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
             except Exception:
                 embed = discord.Embed(
@@ -81,15 +81,15 @@ class ban(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
                     + get_prefix_string(ctx.message)
                     + "ban auszuführen.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -97,7 +97,7 @@ class ban(commands.Cog):
                 + "ban im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -146,13 +146,13 @@ class ban(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "ban zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -176,13 +176,13 @@ class ban(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "ban eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, BadArgument):
             embed = discord.Embed(
@@ -204,13 +204,13 @@ class ban(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat ein ungültiges Argument bei "
                 + get_prefix_string(ctx.message)
                 + "unban angegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

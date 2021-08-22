@@ -46,13 +46,13 @@ class lookup(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Spieler "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
                     + get_prefix_string(ctx.message)
                     + "lookup angegeben.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
             w = whois.whois(domain)
@@ -76,13 +76,13 @@ class lookup(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Spieler "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
                     + get_prefix_string(ctx.message)
                     + "lookup angegeben.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
 
@@ -127,11 +127,11 @@ class lookup(commands.Cog):
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
                 + "meme benutzt!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -139,7 +139,7 @@ class lookup(commands.Cog):
                 + "lookup im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -190,13 +190,13 @@ class lookup(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "lookup eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, BadArgument):
             embed = discord.Embed(
@@ -218,13 +218,13 @@ class lookup(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat ein ungültiges Argument bei "
                 + get_prefix_string(ctx.message)
                 + "lookup angegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

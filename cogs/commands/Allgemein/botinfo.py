@@ -18,7 +18,8 @@ from config import (
     BOT_DEVELOPERLIST,
     GITHUB_LINK,
     WEBSITE_LINK,
-    WRONG_CHANNEL_ERROR, ABOUT,
+    WRONG_CHANNEL_ERROR,
+    ABOUT,
 )
 
 
@@ -48,7 +49,9 @@ class botinfo(commands.Cog):
         mention = ctx.author.mention
         if botchannel_check(ctx):
             embed = discord.Embed(
-                title="**Botinfo**", description=ABOUT, color=get_embedcolour(ctx.message)
+                title="**Botinfo**",
+                description=ABOUT,
+                color=get_embedcolour(ctx.message),
             )
             embed.set_footer(
                 text=FOOTER[0]
@@ -94,7 +97,7 @@ class botinfo(commands.Cog):
             )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -102,7 +105,7 @@ class botinfo(commands.Cog):
                 + "botinfo im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

@@ -45,17 +45,17 @@ class wuerfel(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat eine "
                 + str(value)
                 + " gewürfelt.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -63,7 +63,7 @@ class wuerfel(commands.Cog):
                 + "würfel im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -97,11 +97,11 @@ class wuerfel(commands.Cog):
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -111,14 +111,16 @@ class wuerfel(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
-                      + ": Der Spieler "
-                      + str(user)
-                      + " hat ein ungültiges Argument bei "
-                      + get_prefix_string(ctx.message)
-                      + "würfel angegeben.",
-                id=ctx.guild.id,
+                text=str(time)
+                + ": Der Spieler "
+                + str(user)
+                + " hat ein ungültiges Argument bei "
+                + get_prefix_string(ctx.message)
+                + "würfel angegeben.",
+                guildid=ctx.guild.id,
             )
+
+
 ########################################################################################################################
 
 

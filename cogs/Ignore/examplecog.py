@@ -38,10 +38,10 @@ class example(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(f'{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}'
-                'meme benutzt!', id=ctx.guild.id)
+                'meme benutzt!', guildid=ctx.guild.id)
         else:
-            log(input=f'{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}'
-                      f'example im Channel #{name} zu benutzen!', id=ctx.guild.id)
+            log(text=f'{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}'
+                      f'example im Channel #{name} zu benutzen!', guildid=ctx.guild.id)
             embed = discord.Embed(
                 title="**Fehler**",
                 description=WRONG_CHANNEL_ERROR,

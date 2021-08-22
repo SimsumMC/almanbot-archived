@@ -32,10 +32,10 @@ class guessthenumber(commands.Cog):
                                                '/803322491480178739/winging-easy.png?width=676&height=676')
             await ctx.send(embed=embed)
             log(f'{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}'
-                'meme benutzt!', id=ctx.guild.id)
+                'meme benutzt!', guildid=ctx.guild.id)
         else:
-            log(input=f'{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}'
-                      f'example im Channel #{name} zu benutzen!', id=ctx.guild.id)
+            log(text=f'{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}'
+                      f'example im Channel #{name} zu benutzen!', guildid=ctx.guild.id)
             await ctx.send(f'{mention}, dieser Befehl kann nur im Kanal #{botchannel} genutzt werden.',
                            delete_after=3)
             await msg2.delete()

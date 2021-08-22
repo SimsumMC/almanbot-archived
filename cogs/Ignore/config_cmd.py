@@ -71,18 +71,18 @@ class config(commands.Cog):
                         )
                         await ctx.send(embed=embed)
                         log(
-                            input=str(time)
-                            + ": Der Spieler "
-                            + str(user)
-                            + " hat den Befehl "
-                            + get_prefix_string(ctx.message)
-                            + "config benutzt und damit das "
+                            text=str(time)
+                                 + ": Der Spieler "
+                                 + str(user)
+                                 + " hat den Befehl "
+                                 + get_prefix_string(ctx.message)
+                                 + "config benutzt und damit das "
                             "Modul "
-                            + str(subcommand)
-                            + " zu "
-                            + str(arg)
-                            + " erfolgreich geändert",
-                            id=ctx.guild.id,
+                                 + str(subcommand)
+                                 + " zu "
+                                 + str(arg)
+                                 + " erfolgreich geändert",
+                            guildid=ctx.guild.id,
                         )
                         return
                     else:
@@ -106,15 +106,15 @@ class config(commands.Cog):
                         )
                         await ctx.send(embed=embed)
                         log(
-                            input=str(time)
-                            + ": Der Spieler "
-                            + str(user)
-                            + " hat probiert das Modul "
-                            + str(subcommand)
-                            + " zu "
-                            + str(arg)
-                            + " zu ändern.",
-                            id=ctx.guild.id,
+                            text=str(time)
+                                 + ": Der Spieler "
+                                 + str(user)
+                                 + " hat probiert das Modul "
+                                 + str(subcommand)
+                                 + " zu "
+                                 + str(arg)
+                                 + " zu ändern.",
+                            guildid=ctx.guild.id,
                         )
                         return
                 elif subcommand == "hilfe":
@@ -144,18 +144,18 @@ class config(commands.Cog):
                             )
                             await ctx.send(embed=embed)
                             log(
-                                input=str(time)
-                                + ": Der Spieler "
-                                + str(user)
-                                + " hat probiert den Befehl "
-                                + get_prefix_string(ctx.message)
-                                + "config zu benutzen und damit das "
+                                text=str(time)
+                                     + ": Der Spieler "
+                                     + str(user)
+                                     + " hat probiert den Befehl "
+                                     + get_prefix_string(ctx.message)
+                                     + "config zu benutzen und damit das "
                                 "Modul "
-                                + str(subcommand)
-                                + " zu"
-                                + str(arg)
-                                + " zu ändern.",
-                                id=ctx.guild.id,
+                                     + str(subcommand)
+                                     + " zu"
+                                     + str(arg)
+                                     + " zu ändern.",
+                                guildid=ctx.guild.id,
                             )
                             return
                 writejson(type=subcommand, input=arg, path=path)
@@ -182,18 +182,18 @@ class config(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
-                    + ": Der Spieler "
-                    + str(user)
-                    + " hat den Befehl "
-                    + get_prefix_string(ctx.message)
-                    + "config benutzt und damit das "
+                    text=str(time)
+                         + ": Der Spieler "
+                         + str(user)
+                         + " hat den Befehl "
+                         + get_prefix_string(ctx.message)
+                         + "config benutzt und damit das "
                     "Modul "
-                    + str(subcommand)
-                    + " zu"
-                    + str(arg)
-                    + " erfolgreich geändert",
-                    id=ctx.guild.id,
+                         + str(subcommand)
+                         + " zu"
+                         + str(arg)
+                         + " erfolgreich geändert",
+                    guildid=ctx.guild.id,
                 )
             else:
                 embed = discord.Embed(
@@ -215,26 +215,26 @@ class config(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
-                    + ": Der Spieler "
-                    + str(user)
-                    + " hat probiert den Befehl "
-                    + get_prefix_string(ctx.message)
-                    + "config zu benutzen und damit das "
+                    text=str(time)
+                         + ": Der Spieler "
+                         + str(user)
+                         + " hat probiert den Befehl "
+                         + get_prefix_string(ctx.message)
+                         + "config zu benutzen und damit das "
                     "Modul " + str(subcommand) + " zu" + str(arg) + " zu ändern.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
         else:
             log(
-                input=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "serverlog im Channel #"
-                + str(channel)
-                + " zu benutzen!",
-                id=ctx.guild.id,
+                text=str(time)
+                     + ": Der Spieler "
+                     + str(user)
+                     + " hat probiert den Befehl "
+                     + get_prefix_string(ctx.message)
+                     + "serverlog im Channel #"
+                     + str(channel)
+                     + " zu benutzen!",
+                guildid=ctx.guild.id,
             )
             await ctx.send(
                 str(mention)
@@ -270,13 +270,13 @@ class config(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hatte nicht die nötigen Berrechtigungen um "
-                + get_prefix_string(ctx.message)
-                + "config zu nutzen.",
-                id=ctx.guild.id,
+                text=str(time)
+                     + ": Der Spieler "
+                     + str(user)
+                     + " hatte nicht die nötigen Berrechtigungen um "
+                     + get_prefix_string(ctx.message)
+                     + "config zu nutzen.",
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -301,13 +301,13 @@ class config(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "config eingegeben.",
-                id=ctx.guild.id,
+                text=str(time)
+                     + ": Der Spieler "
+                     + str(user)
+                     + " hat nicht alle erforderlichen Argumente beim Befehl "
+                     + get_prefix_string(ctx.message)
+                     + "config eingegeben.",
+                guildid=ctx.guild.id,
             )
         if isinstance(error, commands.CommandOnCooldown):
             embed = discord.Embed(

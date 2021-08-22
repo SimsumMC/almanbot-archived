@@ -9,18 +9,27 @@ from cogs.core.functions.functions import (
     get_author,
 )
 from cogs.core.functions.logging import log
-from config import THUMBNAIL_URL, FOOTER, ICON_URL
+from config import FOOTER, ICON_URL
 
 
-class on_bot_mention(commands.Cog):
+class on_blacklist_word(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_bot_mention(self, message):
+    async def on_blacklist_word(self, message, bannedword):
         time = datetime.datetime.now()
         user = message.author.name
-        embed = discord.Embed(title="**Prefix**", color=get_embedcolour(message))
+        await message.delete()
+        embed = discord.Embed(
+            title="**Fehler**",
+            description="Deine Nachricht hat ein verbotenes Wort "
+            "enthalten, daher wurde sie gelöscht. "
+            "Sollte dies ein Fehler sein, "
+            "kontaktiere einen Administrator des "
+            "Servers. ",
+            colour=get_embedcolour(message=message),
+        )
         embed.set_footer(
             text=FOOTER[0]
             + message.author.name
@@ -30,15 +39,11 @@ class on_bot_mention(commands.Cog):
             + str(get_prefix_string(message)),
             icon_url=ICON_URL,
         )
-        embed.add_field(
-            name=" ⠀ ",
-            value=f"Mein Prefix hier ist: ```{get_prefix_string(message)}```",
-            inline=True,
-        )
-        embed.set_thumbnail(url=THUMBNAIL_URL)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=embed, delete_after=5)
         log(
-            f"{time}: Der Spieler {user} hat sich den Prefix über eine Erwähnung ausgeben lassen.",
+            str(time)
+            + f": Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen."
+            f' Wort: "{bannedword}"',
             message.guild.id,
         )
 
@@ -47,4 +52,4 @@ class on_bot_mention(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(on_bot_mention(bot))
+    bot.add_cog(on_blacklist_word(bot))

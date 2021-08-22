@@ -109,7 +109,7 @@ class meme(commands.Cog):
                 log(
                     f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
                     "meme benutzt!",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
             except Exception:
@@ -141,7 +141,7 @@ class meme(commands.Cog):
 
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -149,7 +149,7 @@ class meme(commands.Cog):
                 + "meme im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",

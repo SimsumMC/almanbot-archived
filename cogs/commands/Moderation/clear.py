@@ -63,7 +63,7 @@ class clear(commands.Cog):
                     + " mit dem Befehl "
                     + get_prefix_string(ctx.message)
                     + "clear gelöscht.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
             except Exception:
                 embed = discord.Embed(
@@ -85,11 +85,11 @@ class clear(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
                     + get_prefix_string(ctx.message)
                     + "clear auszuführen.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
 
         else:
@@ -121,7 +121,7 @@ class clear(commands.Cog):
                 + get_prefix_string(ctx.message)
                 + "clear zu löschen, hat aber das "
                 "Limit von 100 Nachrichten überschritten!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
     @clear.error
@@ -149,13 +149,13 @@ class clear(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "clear zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -179,13 +179,13 @@ class clear(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "clear eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, BadArgument):
             embed = discord.Embed(
@@ -207,13 +207,13 @@ class clear(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler  "
                 + user
                 + " hat beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "clear Buchstaben statt Zahlen angegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

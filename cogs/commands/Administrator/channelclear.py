@@ -26,13 +26,13 @@ class channelclear(commands.Cog):
         await channel1.clone()
         await channel1.delete()
         log(
-            input=str(time)
+            text=str(time)
             + ": Der Spieler "
             + str(user)
             + ' hat den Chat "#'
             + str(channel1)
             + '" gecleart.',
-            id=ctx.guild.id,
+            guildid=ctx.guild.id,
         )
 
     @channelclear.error
@@ -59,13 +59,13 @@ class channelclear(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "channelclear zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

@@ -3,9 +3,15 @@ import datetime
 import discord
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, MissingRequiredArgument
+from discord_components import Button
 
 from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchannel_check
-from cogs.core.config.config_trigger import get_trigger_list, add_trigger
+from cogs.core.config.config_buttoncolour import get_buttoncolour
+from cogs.core.config.config_trigger import (
+    get_trigger_list,
+    add_trigger,
+    remove_trigger,
+)
 from cogs.core.functions.functions import (
     get_author,
 )
@@ -23,31 +29,34 @@ class trigger(commands.Cog):
 
     @commands.group()
     async def trigger(self, ctx):
-        if ctx.invoked_subcommand is None:
+        if ctx.invoked_subcommand is None:  # todo help
             ...
 
-    @trigger.command()
+    @trigger.command(name="add", usage="tets")
     @commands.has_permissions(administrator=True)
     async def add(self, ctx, *, input):
+        try:
+            print(trigger.add.test)
+        except Exception:
+            pass
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
         mention = ctx.author.mention
+        prefix = get_prefix_string(message=ctx.message)
         if botchannel_check(ctx=ctx):
             word = input.split(" : ")[0]
             msg = input.split(" : ")[1]
-            if trigger in get_trigger_list(guildid=ctx.guild.id):
+            if word in get_trigger_list(guildid=ctx.guild.id):
                 embed = discord.Embed(
                     title=f"**Fehler**",
-                    description=f"Der Trigger {word} existiert bereits!"
-                    f"Wenn du ihn verändern möchtest, nutze "
-                    f"```trigger edit {word}``` oder klicke auf "
-                    f"den unteren Knopf. Wenn du ihn komplett "
-                    f"entfernen möchtest, "
-                    f"nutze ```trigger remove {word}```",
+                    description=f"Der Trigger {word} existiert bereits! Wenn du ihn verändern möchtest, "
+                    f"nutze den Befehl:"
+                    f"```{get_prefix_string(message=ctx.message)}trigger edit",
                     colour=get_embedcolour(ctx.message),
                 )
+                embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
                     text=FOOTER[0]
                     + str(user)
@@ -57,14 +66,12 @@ class trigger(commands.Cog):
                     + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
-                await ctx.send(
-                    embed=embed
-                )  # todo add components -> instant delete / edit
+                await ctx.send(embed=embed)
                 log(
                     f"{time}: Der Spieler {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
                     f"trigger add zu benutzen und damit den Trigger {word} hinzuzufügen, konnte"
                     f" es aber nicht da dieser bereits existiert hat!",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
             add_trigger(guildid=ctx.guild.id, trigger=word, msg=msg)
@@ -88,14 +95,14 @@ class trigger(commands.Cog):
             log(
                 f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 f"trigger add benutzt und damit den Trigger {word} hinzugefügt.!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
         else:
             log(
-                input=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
                 f"trigger add im Channel #{name} zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -144,13 +151,13 @@ class trigger(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "trigger add zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -174,39 +181,32 @@ class trigger(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "trigger add eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
     @trigger.command()
     @commands.has_permissions(administrator=True)
-    async def remove(self, ctx):
+    async def remove(self, ctx, *, word):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
-        mention = ctx.author.mention
-        botchannel = get_botc(message=ctx.message)
-        if name == botchannel or botchannel == "None":
-            cmsg = ctx.message.content[15:]
-            word = cmsg.split(" : ")[0]
-            msg = cmsg.split(" : ")[1]
+        if botchannel_check(ctx):
             if trigger in get_trigger_list(guildid=ctx.guild.id):
                 embed = discord.Embed(
                     title=f"**Fehler**",
-                    description=f"Der Trigger {word} existiert bereits!"
-                    f"Wenn du ihn verändern möchtest, nutze "
-                    f"```trigger edit {word}``` oder klicke auf "
-                    f"den unteren Knopf. Wenn du ihn komplett "
-                    f"entfernen möchtest, "
-                    f"nutze ```trigger remove {word}```",
+                    description=f"Der Trigger {word} existiert nicht! Wenn du einen erstellen möchtest,"
+                    "nutz den Befehl:"
+                    f"```{get_prefix_string(message=ctx.message)}trigger add <Name> : <```",
                     colour=get_embedcolour(ctx.message),
                 )
+                embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
                     text=FOOTER[0]
                     + str(user)
@@ -219,16 +219,15 @@ class trigger(commands.Cog):
                 await ctx.send(embed=embed)  # todo add components
                 log(
                     f"{time}: Der Spieler {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
-                    f"trigger add zu benutzen und damit den Trigger {word} hinzuzufügen, konnte"
-                    f" es aber nicht da dieser bereits existiert hat!",
-                    id=ctx.guild.id,
+                    f"trigger remove zu benutzen und damit den Trigger {word} zu löschen, konnte"
+                    f" es aber nicht da dieser nicht existiert hat!",
+                    guildid=ctx.guild.id,
                 )
                 return
-            add_trigger(guildid=ctx.guild.id, trigger=word, msg=msg)
+            remove_trigger(guildid=ctx.guild.id, trigger=word)
             embed = discord.Embed(
-                title=f"**Trigger Add**",
-                description=f"Der Bot reagiert nun auf ```{word}``` mit der Nachricht:"
-                f"```{msg}```",
+                title=f"**Trigger Remove**",
+                description=f"Der Trigger {word}",
                 colour=get_embedcolour(ctx.message),
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
@@ -246,22 +245,37 @@ class trigger(commands.Cog):
             log(
                 f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 f"trigger add benutzt und damit den Trigger {word} hinzugefügt.!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
-
         else:
             log(
-                input=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
                 f"trigger add im Channel #{name} zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
-            await ctx.send(
-                f"{mention}, dieser Befehl kann nur im Kanal #{botchannel} genutzt werden.",
-                delete_after=3,
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=WRONG_CHANNEL_ERROR,
+                colour=get_embedcolour(message=ctx.message),
             )
+            embed.set_footer(
+                text=FOOTER[0]
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
+                icon_url=ICON_URL,
+            )
+            embed.add_field(
+                name="‎",
+                value=get_botchannel_obj_list(ctx),
+                inline=False,
+            )
+            await ctx.send(embed=embed)
             await msg2.delete()
 
-    @add.error
+    @remove.error
     async def handle_error(self, ctx, error):
         time = datetime.datetime.now()
         user = ctx.author.name
@@ -286,13 +300,13 @@ class trigger(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "trigger add zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -316,13 +330,13 @@ class trigger(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "trigger add eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

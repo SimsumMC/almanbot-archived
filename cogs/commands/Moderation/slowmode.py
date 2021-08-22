@@ -54,14 +54,14 @@ class slowmode(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Spieler "
                     + str(user)
                     + ' hat im Chat "#'
                     + str(channelname)
                     + '" den Slowmode'
                     f" auf {seconds} Sekunden gesetzt.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
             except Exception:
                 embed = discord.Embed(
@@ -83,15 +83,15 @@ class slowmode(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
                     + get_prefix_string(ctx.message)
                     + "slowmode auszuführen..",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -99,7 +99,7 @@ class slowmode(commands.Cog):
                 + "slowmode im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -148,13 +148,13 @@ class slowmode(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "slowmode zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -178,13 +178,13 @@ class slowmode(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "slowmode eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

@@ -51,10 +51,12 @@ class blacklist(commands.Cog):
                     log(
                         f'{time}: Der Moderator {user} hat versucht das Wort "{word}" zur Blacklist hinzufügen,'
                         " es war aber schon drauf.",
-                        id=ctx.guild.id,
+                        guildid=ctx.guild.id,
                     )
                 else:
-                    writejson(type="blacklist", input=word.lower(), path=path, mode="append")
+                    writejson(
+                        type="blacklist", input=word.lower(), path=path, mode="append"
+                    )
                     await msg2.delete()
                     embed = discord.Embed(
                         title="**Blacklist**",
@@ -74,11 +76,13 @@ class blacklist(commands.Cog):
                     await ctx.send(embed=embed)
                     log(
                         f'{time}: Der Moderator {user} hat das Wort "{word}" auf die Blacklist hinzugefügt.',
-                        id=ctx.guild.id,
+                        guildid=ctx.guild.id,
                     )
             elif type.lower() == "remove":
                 if word.lower() in bannedWords:
-                    writejson(type="blacklist", input=word.lower(), path=path, mode="removed")
+                    writejson(
+                        type="blacklist", input=word.lower(), path=path, mode="removed"
+                    )
                     await ctx.message.delete()
                     embed = discord.Embed(
                         title="**Blacklist**",
@@ -98,7 +102,7 @@ class blacklist(commands.Cog):
                     await ctx.send(embed=embed)
                     log(
                         f'{time}: Der Moderator {user} hat das Wort "{word}"von der Blacklist entfernt.',
-                        id=ctx.guild.id,
+                        guildid=ctx.guild.id,
                     )
                 else:
                     embed = discord.Embed(
@@ -120,7 +124,7 @@ class blacklist(commands.Cog):
                     log(
                         f'{time}: Der Moderator {user} hat versucht das Wort "{word}" von der Blacklist zu entfernen,'
                         " es war aber nicht drauf.",
-                        id=ctx.guild.id,
+                        guildid=ctx.guild.id,
                     )
             else:
                 embed = discord.Embed(
@@ -151,7 +155,7 @@ class blacklist(commands.Cog):
                 )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -159,7 +163,7 @@ class blacklist(commands.Cog):
                 + "blacklist im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -208,13 +212,13 @@ class blacklist(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "blacklist zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -238,13 +242,13 @@ class blacklist(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "blacklist eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

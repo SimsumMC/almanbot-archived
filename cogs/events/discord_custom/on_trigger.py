@@ -30,17 +30,21 @@ class on_trigger(commands.Cog):
             )
             embed.set_footer(
                 text="for "
-                     + str(user)
-                     + " | by "
-                     + str(get_author())
-                     + " | Prefix "
-                     + str(get_prefix_string(message)),
+                + str(user)
+                + " | by "
+                + str(get_author())
+                + " | Prefix "
+                + str(get_prefix_string(message)),
                 icon_url="https://media.discordapp.net/attachments/645276319311200286/803322491480178739"
-                         "/winging-easy.png?width=676&height=676",
+                "/winging-easy.png?width=676&height=676",
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
             await message.channel.send(embed=embed)
-            log(f'{time}: Der Nutzer {user} hat den Trigger "{message.content}" aufgerufen.', id=message.guild.id)
+            log(
+                f'{time}: Der Nutzer {user} hat den Trigger "{message.content}" aufgerufen.',
+                guildid=message.guild.id,
+            )
+
 
 ########################################################################################################################
 

@@ -47,13 +47,13 @@ class unban(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Spieler "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
                     + get_prefix_string(ctx.message)
                     + "unban angegeben.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
             elif "<@" in member and ">" in member:
@@ -76,13 +76,13 @@ class unban(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Spieler "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
                     + get_prefix_string(ctx.message)
                     + "unban angegeben.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
                 return
             try:
@@ -120,7 +120,7 @@ class unban(commands.Cog):
                                 + "hat den Nutzer "
                                 + str(member)
                                 + " erfolgreich entbannt.",
-                                id=ctx.guild.id,
+                                guildid=ctx.guild.id,
                             )
                         except Exception:
                             embed = discord.Embed(
@@ -142,11 +142,11 @@ class unban(commands.Cog):
                             )
                             await ctx.send(embed=embed)
                             log(
-                                input=str(time)
+                                text=str(time)
                                 + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
                                 + get_prefix_string(ctx.message)
                                 + "unban auszuführen..",
-                                id=ctx.guild.id,
+                                guildid=ctx.guild.id,
                             )
                 else:
                     embed = discord.Embed(
@@ -174,13 +174,13 @@ class unban(commands.Cog):
                         + "hat versucht den  ungültigen Nutzer "
                         + str(member)
                         + " zu entbannen.",
-                        id=ctx.guild.id,
+                        guildid=ctx.guild.id,
                     )
             except Exception:
                 raise Exception
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -188,7 +188,7 @@ class unban(commands.Cog):
                 + "unban im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -237,13 +237,13 @@ class unban(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
                 + "unban zu nutzen.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
         if isinstance(error, MissingRequiredArgument):
             embed = discord.Embed(
@@ -267,13 +267,13 @@ class unban(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "unban eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 

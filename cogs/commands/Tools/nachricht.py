@@ -23,7 +23,9 @@ class nachricht(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def nachricht(self, ctx, title, colour, channel: discord.TextChannel, *, message):
+    async def nachricht(
+        self, ctx, title, colour, channel: discord.TextChannel, *, message
+    ):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
@@ -69,9 +71,9 @@ class nachricht(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=f"{time}: Der Spieler {user} hat mit dem Befehl {get_prefix_string(ctx.message)}nachricht"
+                    text=f"{time}: Der Spieler {user} hat mit dem Befehl {get_prefix_string(ctx.message)}nachricht"
                     f" eine Nachricht in #{channel} gesendet.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
             except Exception:
                 embed = discord.Embed(
@@ -93,15 +95,15 @@ class nachricht(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    input=str(time)
+                    text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
                     + get_prefix_string(ctx.message)
                     + "nachricht auszuführen.",
-                    id=ctx.guild.id,
+                    guildid=ctx.guild.id,
                 )
         else:
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat probiert den Befehl "
@@ -109,7 +111,7 @@ class nachricht(commands.Cog):
                 + "nachricht im Channel #"
                 + str(name)
                 + " zu benutzen!",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
             embed = discord.Embed(
                 title="**Fehler**",
@@ -159,13 +161,13 @@ class nachricht(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                input=str(time)
+                text=str(time)
                 + ": Der Spieler "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
                 + "ban eingegeben.",
-                id=ctx.guild.id,
+                guildid=ctx.guild.id,
             )
 
 
