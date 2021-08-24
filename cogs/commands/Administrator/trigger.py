@@ -36,7 +36,7 @@ class trigger(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def add(self, ctx, *, input):
         try:
-            print(trigger.add.test)
+            print(trigger.add.usage)
         except Exception:
             pass
         time = datetime.datetime.now()

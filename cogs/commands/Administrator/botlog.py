@@ -20,12 +20,11 @@ class botlog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="botlog", aliases=["serverlog", "log"], description="")
+    @commands.command(name="botlog", aliases=["serverlog", "log"], description="Gebe dir den Botlog deines Servers aus!")
     @commands.has_permissions(view_audit_log=True)
     async def botlog(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        mention = ctx.author.mention
         msg2 = ctx.message
         name = ctx.channel.name
         path = os.path.join("data", "logs", f"{ctx.guild.id}.txt")
@@ -42,7 +41,9 @@ class botlog(commands.Cog):
                         guildid=ctx.guild.id,
                     )
                     await msg2.add_reaction(emoji="✅")
-                    await ctx.author.send(file=discord.File(path))
+                    with open(path, "rb") as file:
+                        await ctx.author.send(file=discord.File(fp=file, filename=f"log_{ctx.guild.name}"))
+                    #await ctx.author.send(file=discord.File(path))
                     embed = discord.Embed(
                         title="**Erfolgreich**",
                         description="Schau in deine Privatnachrichten!",

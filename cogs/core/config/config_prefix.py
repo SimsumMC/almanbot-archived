@@ -1,11 +1,10 @@
 import json
 import os
-import re
 
 from discord.ext import commands
 
 from cogs.core.config.config_general import get_defaultconfig
-from config import BOT_MAIN_DEVELOPER, BOT_NAME, DEFAULT_PREFIX
+from config import DEFAULT_PREFIX
 
 
 class config_prefix(commands.Cog):

@@ -1,11 +1,10 @@
 # 20.08.2021
 - Trigger list, edit
-- help command ( + Tools, new cmds etc)
+- help command ( + Tools, new cmds, description etc)
 - wipe command to clear all bots data ( to avoid problems with automatic delete?)
 - Config Recode ( Command Groups, show config (json or optimized?))
 
 
-- Button Permission Check fix
 - vokabel abfrage
 - Ticket System
 - auto role assignement
@@ -16,5 +15,6 @@
 - slash commands
 - tictactoe
 - move command errors together
+- footer function
 
 - Blacklist cmd recode -> command groups

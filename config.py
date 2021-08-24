@@ -30,11 +30,11 @@ CUBE = "https://cdn.discordapp.com/attachments/645276319311200286/80355093911293
 
 # TOKEN
 
-DISCORD_TOKEN = "token"  # to run the bot
-STATCORD_TOKEN = "token"  # Optional, for bot stats
+DISCORD_TOKEN = ""  # to run the bot
+STATCORD_TOKEN = ""  # Optional, for bot stats
 REDDIT_APP = {  # for the memes command, just create an application on reddit
-    "client_id": "id",
-    "client_secret": "secret"
+    "client_id": "",
+    "client_secret": ""
 }
 
 # DEFAULT TRIGGER | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
@@ -111,6 +111,8 @@ EMBEDCOLOURS_SUPPORTED = [
 
 TESTING_MODE = False  # only allowing Servers to join GUILDS with ID in TESTING_GUILDS, removes guild owner bypasses
 TESTING_GUILDS = []
+
+BLACKLIST_IGNORE = ["blacklist add", "blacklist remove", "qr"]
 
 # © github.com/SimsumMC | You're not allowed to change the following parts without my (github.com/SimsumMC) permission ⚠️
 

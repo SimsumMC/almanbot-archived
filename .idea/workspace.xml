@@ -2,63 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc741242-7678-427f-9d74-e037c3971516" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/Ignore/config_cmd.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/Ignore/config_cmd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/Ignore/examplecog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/Ignore/examplecog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/Ignore/guessthenumber.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/Ignore/guessthenumber.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/botlog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/botlog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/channelclear.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/channelclear.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/config_cmd_inwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/config_cmd_inwork.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/trigger.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/trigger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Allgemein/botinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Allgemein/botinfo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Allgemein/invite.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Allgemein/invite.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Allgemein/ping.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Allgemein/ping.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Hilfe/help.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Hilfe/help.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Informationen/lookup.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Informationen/lookup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Informationen/nutzerinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Informationen/nutzerinfo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Informationen/serverinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Informationen/serverinfo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/ban.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/ban.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/blacklist.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/blacklist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/clear.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/clear.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/kick.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/kick.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/mute.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/mute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/slowmode.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/slowmode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/unban.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/unban.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/unmute.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/unmute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Musik/join.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Musik/join.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Owner/broadcast.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Owner/ignore_broadcast.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Owner/cog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Owner/cog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Tools/avatar.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Tools/avatar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Tools/nachricht.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Tools/nachricht.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Tools/qr.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Tools/qr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Tools/rechner.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Tools/rechner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Tools/servericon.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Tools/servericon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/coinflip.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/coinflip.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/loeschdich.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/loeschdich.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/meme.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/meme.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/papier.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/papier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/say.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/say.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/schere.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/schere.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/ssp.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/ssp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/stein.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/stein.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/wuerfel.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/wuerfel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/core/config/config_general.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/core/config/config_general.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/core/functions/cache.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/core/functions/cache.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/core/functions/logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/core/functions/logging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/core/config/config_memes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/core/config/config_memes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/core/config/config_prefix.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/core/config/config_prefix.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/events/discord_components/on_button_click.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_components/on_button_click.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_blacklist_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_blacklist_word.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_bot_mention.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_bot_mention.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_dm_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_dm_message.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_missing_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_missing_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_trigger.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_trigger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_py/on_command_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_py/on_command_error.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_py/on_guild_join.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_py/on_guild_join.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events/discord_py/on_guild_remove.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_py/on_guild_remove.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cache/message_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/message_cache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/deletecache/delete_waiting.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/logs/825502579474563103.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/logs/825502579474563103.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/verifiedmemes/memes.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,16 +49,16 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Developing/Python/Black-Automatic" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\1234n\Documents\GitHub\almanbot\data\cache" />
       <recent name="C:\Users\1234n\Documents\GitHub\almanbot\cogs\events\discord_components" />
       <recent name="C:\Users\1234n\Documents\GitHub\almanbot\cogs\commands\Allgemein" />
       <recent name="C:\Users\1234n\Documents\GitHub\almanbot\cogs\commands\Tools" />
       <recent name="C:\Users\1234n\Documents\GitHub\almanbot\cogs\Ignore" />
-      <recent name="C:\Users\1234n\Documents\GitHub\communitybot\cogs\Ignore" />
     </key>
   </component>
   <component name="RunManager">

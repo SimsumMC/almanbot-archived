@@ -10,3 +10,4 @@
 *.pyc
 ./main.py
 ./cogs/events/statcord/statcord-post.py
+./todo.txt

@@ -1,5 +1,4 @@
 import datetime
-import traceback
 
 import discord
 from discord.ext import commands
@@ -11,9 +10,6 @@ from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.functions.cache import (
-    save_embed_to_cache,
-    get_embed_from_cache,
-    save_message_to_cache,
     get_messages_from_cache,
 )
 from cogs.core.functions.functions import get_author
@@ -46,8 +42,8 @@ class on_button_click(commands.Cog):
             ]
             if res.component.label.lower() in helpp:
                 embed = get_page(
-                    message=res.message, user=user, page=res.component.label.lower()
-                )
+                                 message=res.message, user=user, page=res.component.label.lower()
+                                 )
                 await res.respond(
                     type=7,
                     embed=embed,
@@ -135,11 +131,11 @@ class on_button_click(commands.Cog):
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
                     text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(res.message)),
+                         + str(user)
+                         + FOOTER[1]
+                         + str(get_author())
+                         + FOOTER[2]
+                         + str(get_prefix_string(res.message)),
                     icon_url=ICON_URL,
                 )
                 await res.respond(
@@ -171,9 +167,9 @@ class on_button_click(commands.Cog):
                 )
             elif "calc_" in res.component.id:
                 description = str(res.message.embeds[0].description)[:-3][3:]
-                if description == CALCULATING_ERROR:
+                if description == CALCULATING_ERROR + "|":
                     description = "|"
-                elif res.component.label == "Exit":
+                if res.component.label == "Exit":
                     await res.respond(
                         type=7,
                         content="Rechner geschlossen!",
@@ -324,11 +320,11 @@ class on_button_click(commands.Cog):
                 )
                 embed.set_footer(
                     text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(res.message)),
+                         + str(user)
+                         + FOOTER[1]
+                         + str(get_author())
+                         + FOOTER[2]
+                         + str(get_prefix_string(res.message)),
                     icon_url=ICON_URL,
                 )
                 await res.respond(
