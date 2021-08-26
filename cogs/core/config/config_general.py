@@ -39,7 +39,7 @@ def get_defaultconfig():
             "commandnotfound": False,
             "missing_permissions": True,
             "missing_argument": True,
-            "wrongchannel": True,
+            "wrong_channel": True,
             "badargument": True,
         },
         "welcome_messages": {"active": False, "channel": None},

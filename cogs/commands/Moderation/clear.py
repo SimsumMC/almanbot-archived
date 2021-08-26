@@ -54,7 +54,7 @@ class clear(commands.Cog):
                 await ctx.send(embed=embed, delete_after=5)
                 log(
                     str(time)
-                    + ": Der Spieler "
+                    + ": Der Nutzer "
                     + str(user)
                     + " hat "
                     + str(len(deleted) - 1)
@@ -111,7 +111,7 @@ class clear(commands.Cog):
             await ctx.send(embed=embed, delete_after=5)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert "
                 + str(amount - 1)
@@ -150,7 +150,7 @@ class clear(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
@@ -180,7 +180,7 @@ class clear(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
@@ -208,7 +208,7 @@ class clear(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler  "
+                + ": Der Nutzer  "
                 + user
                 + " hat beim Befehl "
                 + get_prefix_string(ctx.message)

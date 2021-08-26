@@ -44,11 +44,11 @@ class unmute(commands.Cog):
                     icon_url=ICON_URL,
                 )
                 embed.add_field(name="Moderator", value=str(mention), inline=False)
-                embed.add_field(name="Spieler", value=str(member.mention), inline=False)
+                embed.add_field(name="Nutzer", value=str(member.mention), inline=False)
                 await ctx.send(embed=embed)
                 log(
                     text=str(time)
-                    + f": Der Moderator {user} hat den Spieler {member} unmuted.",
+                    + f": Der Moderator {user} hat den Nutzer {member} unmuted.",
                     guildid=ctx.guild.id,
                 )
             except Exception:
@@ -80,7 +80,7 @@ class unmute(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -137,7 +137,7 @@ class unmute(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
@@ -161,13 +161,13 @@ class unmute(commands.Cog):
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
                 + get_prefix_string(ctx.message)
-                + "unmute <@Spieler>```",
+                + "unmute <@Nutzer>```",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)

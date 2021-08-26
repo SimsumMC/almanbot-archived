@@ -88,7 +88,7 @@ class kick(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -145,7 +145,7 @@ class kick(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
@@ -169,13 +169,13 @@ class kick(commands.Cog):
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
                 + get_prefix_string(ctx.message)
-                + "kick <@Spieler>```",
+                + "kick <@Nutzer>```",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)

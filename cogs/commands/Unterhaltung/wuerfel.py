@@ -46,7 +46,7 @@ class wuerfel(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat eine "
                 + str(value)
@@ -56,7 +56,7 @@ class wuerfel(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -112,7 +112,7 @@ class wuerfel(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat ein ungültiges Argument bei "
                 + get_prefix_string(ctx.message)

@@ -6,7 +6,8 @@ from discord.ext import commands
 from discord.ext.commands import MissingRequiredArgument, BadArgument
 
 from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchannel_check
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
+from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR, WEBSITE_LINK
 from cogs.core.functions.functions import (
     get_author,
 )
@@ -19,7 +20,8 @@ class lookup(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="lookup", aliases=["whois", "domaininfo"], usage="<Domain>",
+                      badargument=f"Du musst eine richtige Domain angeben, z.B. ```{WEBSITE_LINK}```")
     async def lookup(self, ctx, domain: str):
         time = datetime.datetime.now()
         user = ctx.author.name
@@ -31,12 +33,7 @@ class lookup(commands.Cog):
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
+                    text=get_embed_footer_text(ctx),
                     icon_url=ICON_URL,
                 )
                 embed.add_field(
@@ -47,7 +44,7 @@ class lookup(commands.Cog):
                 await ctx.send(embed=embed)
                 log(
                     text=str(time)
-                    + ": Der Spieler "
+                    + ": Der Nutzer "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
                     + get_prefix_string(ctx.message)
@@ -61,12 +58,7 @@ class lookup(commands.Cog):
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
+                    text=get_embed_footer_text(ctx),
                     icon_url=ICON_URL,
                 )
                 embed.add_field(
@@ -77,7 +69,7 @@ class lookup(commands.Cog):
                 await ctx.send(embed=embed)
                 log(
                     text=str(time)
-                    + ": Der Spieler "
+                    + ": Der Nutzer "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
                     + get_prefix_string(ctx.message)
@@ -111,18 +103,13 @@ class lookup(commands.Cog):
                 name="**Auslaufdatum:**", value=w.expiration_date, inline=True
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
             await ctx.send(embed=embed)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
@@ -132,7 +119,7 @@ class lookup(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -147,12 +134,7 @@ class lookup(commands.Cog):
                 colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -162,70 +144,6 @@ class lookup(commands.Cog):
             )
             await ctx.send(embed=embed)
             await msg2.delete()
-
-    @lookup.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "lookup <Domain>```"
-                "`Hinweis: Bitte ohne http/-s angeben, also z.B. communitybot.visitlink.de`",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "lookup eingegeben.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, BadArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du musst eine richtige Domain angeben, z.B. ```communitybot.visitlink.de```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat ein ungültiges Argument bei "
-                + get_prefix_string(ctx.message)
-                + "lookup angegeben.",
-                guildid=ctx.guild.id,
-            )
 
 
 ########################################################################################################################

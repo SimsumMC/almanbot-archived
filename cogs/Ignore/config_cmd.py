@@ -72,7 +72,7 @@ class config(commands.Cog):
                         await ctx.send(embed=embed)
                         log(
                             text=str(time)
-                                 + ": Der Spieler "
+                                 + ": Der Nutzer "
                                  + str(user)
                                  + " hat den Befehl "
                                  + get_prefix_string(ctx.message)
@@ -107,7 +107,7 @@ class config(commands.Cog):
                         await ctx.send(embed=embed)
                         log(
                             text=str(time)
-                                 + ": Der Spieler "
+                                 + ": Der Nutzer "
                                  + str(user)
                                  + " hat probiert das Modul "
                                  + str(subcommand)
@@ -145,7 +145,7 @@ class config(commands.Cog):
                             await ctx.send(embed=embed)
                             log(
                                 text=str(time)
-                                     + ": Der Spieler "
+                                     + ": Der Nutzer "
                                      + str(user)
                                      + " hat probiert den Befehl "
                                      + get_prefix_string(ctx.message)
@@ -183,7 +183,7 @@ class config(commands.Cog):
                 await ctx.send(embed=embed)
                 log(
                     text=str(time)
-                         + ": Der Spieler "
+                         + ": Der Nutzer "
                          + str(user)
                          + " hat den Befehl "
                          + get_prefix_string(ctx.message)
@@ -216,7 +216,7 @@ class config(commands.Cog):
                 await ctx.send(embed=embed)
                 log(
                     text=str(time)
-                         + ": Der Spieler "
+                         + ": Der Nutzer "
                          + str(user)
                          + " hat probiert den Befehl "
                          + get_prefix_string(ctx.message)
@@ -227,7 +227,7 @@ class config(commands.Cog):
         else:
             log(
                 text=str(time)
-                     + ": Der Spieler "
+                     + ": Der Nutzer "
                      + str(user)
                      + " hat probiert den Befehl "
                      + get_prefix_string(ctx.message)
@@ -271,7 +271,7 @@ class config(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                     + ": Der Spieler "
+                     + ": Der Nutzer "
                      + str(user)
                      + " hatte nicht die nötigen Berrechtigungen um "
                      + get_prefix_string(ctx.message)
@@ -302,7 +302,7 @@ class config(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                     + ": Der Spieler "
+                     + ": Der Nutzer "
                      + str(user)
                      + " hat nicht alle erforderlichen Argumente beim Befehl "
                      + get_prefix_string(ctx.message)
@@ -331,7 +331,7 @@ class config(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
+                f"{time}: Der Nutzer {user} hat trotz eines Cooldowns versucht den Befehl'"
                 f"'{get_prefix_string(ctx.message)}config im Kanal #{ctx.channel.name} zu nutzen.",
                 ctx.guild.id,
             )

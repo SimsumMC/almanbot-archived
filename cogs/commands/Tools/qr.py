@@ -52,7 +52,7 @@ class qr(commands.Cog):
             await ctx.send(file=file, embed=embed)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat mit dem Befehl !qr einen QRCODE des Links "
                 + str(text)
@@ -63,7 +63,7 @@ class qr(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -121,7 +121,7 @@ class qr(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)

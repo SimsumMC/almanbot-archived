@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchannel_check
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.functions import (
     get_author,
 )
@@ -37,12 +38,10 @@ class invite(commands.Cog):
                 title="**Invite**", color=get_embedcolour(ctx.message)
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=embed.set_footer(
+                    text=get_embed_footer_text(ctx),
+                    icon_url=ICON_URL,
+                ),
                 icon_url=ICON_URL,
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
@@ -75,7 +74,7 @@ class invite(commands.Cog):
 
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl  "
                 + get_prefix_string(ctx.message)
@@ -85,7 +84,7 @@ class invite(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -100,12 +99,10 @@ class invite(commands.Cog):
                 colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=embed.set_footer(
+                    text=get_embed_footer_text(ctx),
+                    icon_url=ICON_URL,
+                ),
                 icon_url=ICON_URL,
             )
             embed.add_field(

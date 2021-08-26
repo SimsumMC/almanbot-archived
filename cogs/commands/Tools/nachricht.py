@@ -71,7 +71,7 @@ class nachricht(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    text=f"{time}: Der Spieler {user} hat mit dem Befehl {get_prefix_string(ctx.message)}nachricht"
+                    text=f"{time}: Der Nutzer {user} hat mit dem Befehl {get_prefix_string(ctx.message)}nachricht"
                     f" eine Nachricht in #{channel} gesendet.",
                     guildid=ctx.guild.id,
                 )
@@ -104,7 +104,7 @@ class nachricht(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -162,7 +162,7 @@ class nachricht(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)

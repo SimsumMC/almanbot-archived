@@ -9,12 +9,10 @@ from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.cache import save_message_to_cache
-from cogs.core.functions.functions import (
-    get_author,
-)
 from cogs.core.functions.logging import log
-from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR
+from config import ICON_URL, WRONG_CHANNEL_ERROR
 
 
 class say(commands.Cog):
@@ -51,7 +49,7 @@ class say(commands.Cog):
             await save_message_to_cache(message=msg, author=msg2.author)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
@@ -62,7 +60,7 @@ class say(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -77,12 +75,7 @@ class say(commands.Cog):
                 colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -102,12 +95,7 @@ class say(commands.Cog):
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -120,7 +108,7 @@ class say(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)

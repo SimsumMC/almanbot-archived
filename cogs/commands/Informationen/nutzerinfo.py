@@ -78,7 +78,7 @@ class nutzerinfo(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl  "
                 + get_prefix_string(ctx.message)
@@ -89,7 +89,7 @@ class nutzerinfo(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)

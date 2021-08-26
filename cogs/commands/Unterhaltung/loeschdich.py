@@ -61,7 +61,7 @@ class loeschdich(commands.Cog):
             )
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
@@ -71,7 +71,7 @@ class loeschdich(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -123,13 +123,13 @@ class loeschdich(commands.Cog):
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
                 + get_prefix_string(ctx.message)
-                + "löschdich <@Spieler> <opt. Grund>```",
+                + "löschdich <@Nutzer> <opt. Grund>```",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)
@@ -151,13 +151,13 @@ class loeschdich(commands.Cog):
             )
             embed.add_field(
                 name="‎",
-                value="Du musst den Spieler mit dem Tag angeben, also z.B. Spieler#1234 !",
+                value="Du musst den Nutzer mit dem Tag angeben, also z.B. Nutzer#1234 !",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat ein ungültiges Argument bei "
                 + get_prefix_string(ctx.message)

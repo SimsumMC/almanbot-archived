@@ -92,7 +92,7 @@ class AlmanBot(commands.Bot):
                         if msg_contains_word(message.content.lower(), ignorearg):
                             return False
                     else:
-                        Bot.dispatch(self, "blacklist_word", message, bannedWord=bannedWord)
+                        Bot.dispatch(self, "blacklist_word", message, bannedword=bannedWord)
                         return True
 
     async def on_message(self, message):

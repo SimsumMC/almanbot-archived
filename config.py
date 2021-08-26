@@ -33,11 +33,11 @@ CUBE = "https://cdn.discordapp.com/attachments/645276319311200286/80355093911293
 DISCORD_TOKEN = ""  # to run the bot
 STATCORD_TOKEN = ""  # Optional, for bot stats
 REDDIT_APP = {  # for the memes command, just create an application on reddit
-    "client_id": "",
+    "client_id": "J",
     "client_secret": ""
 }
 
-# DEFAULT TRIGGER | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
+# DEFAULTS | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
 
 DEFAULT_TRIGGER_LIST = ["Alman Bot"]
 DEFAULT_TRIGGER = {
@@ -60,8 +60,16 @@ WRONG_CHANNEL_ERROR = (
     "Hier ist eine Liste in denen der Befehl funktioniert: "
 )
 
+MISSING_PERMISSIONS_BUTTON_ERROR = (
+    "Diese Nachricht gehört dir nicht! Nutz den Befehl bitte selbst!"
+)
+
 CALCULATING_ERROR = (
     "Fehler beim berechnen!"
+)
+
+DEFAULT_BROADCAST_MESSAGE = (
+    "Hinweis: _Du erhälst diese Nachricht da du diesen Bot auf einem deiner Server nutzt._"
 )
 # Colour Configuration | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (at any action)
 
@@ -109,10 +117,12 @@ EMBEDCOLOURS_SUPPORTED = [
 
 # Developer Settings | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause the bot to instant leave your server and misfunctions
 
-TESTING_MODE = False  # only allowing Servers to join GUILDS with ID in TESTING_GUILDS, removes guild owner bypasses
+TESTING_MODE = False  # only allowing Servers to join GUILDS with ID in TESTING_GUILDS, removes guild owner bypasses and more
 TESTING_GUILDS = []
 
-BLACKLIST_IGNORE = ["blacklist add", "blacklist remove", "qr"]
+WRONG_CHANNEL_ERROR_DELETE_AFTER = 5
+
+BLACKLIST_IGNORE = ["blacklist add", "blacklist remove", "qr", "broadcast"]
 
 # © github.com/SimsumMC | You're not allowed to change the following parts without my (github.com/SimsumMC) permission ⚠️
 

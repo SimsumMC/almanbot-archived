@@ -28,11 +28,11 @@ class tictactoe(commands.Cog):
             await ctx.send("info about tictactoe should be here")
 
     @tictactoe.command()
-    async def start(self, ctx, spieler1: discord.Member, spieler2: discord.Member):
+    async def start(self, ctx, Nutzer1: discord.Member, Nutzer2: discord.Member):
         print("start")
-        if create_game(ctx.guild.id, spieler1.id, spieler2.id) is False:
+        if create_game(ctx.guild.id, Nutzer1.id, Nutzer2.id) is False:
             await ctx.send(
-                f"game started, use tictactoe setze zum spielen: Am zug ist {spieler2.mention}"
+                f"game started, use tictactoe setze zum spielen: Am zug ist {Nutzer2.mention}"
             )
             return
         await ctx.send("game already exist")

@@ -1,6 +1,8 @@
 import datetime
+import traceback
 
 import discord
+import sympy
 from discord.ext import commands
 from discord_components import Button, DiscordComponents
 
@@ -8,6 +10,7 @@ from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.cache import save_message_to_cache
 from cogs.core.functions.functions import (
     get_author,
@@ -21,6 +24,7 @@ def calculate(calculation):
     try:
         result = str(eval(o))
     except Exception:
+        traceback.print_exc()
         result = CALCULATING_ERROR
     return result
 
@@ -42,14 +46,9 @@ class calculator(commands.Cog):
                 colour=get_embedcolour(ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
+                    text=get_embed_footer_text(ctx),
+                    icon_url=ICON_URL,
+                )
             msg = await ctx.send(
                 embed=embed,
                 components=[
@@ -166,7 +165,7 @@ class calculator(commands.Cog):
             await save_message_to_cache(message=msg, author=msg2.author)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
@@ -176,13 +175,13 @@ class calculator(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "rechner im Channel #"
-                + str(name)
-                + " zu benutzen!",
+                     + ": Der Nutzer "
+                     + str(user)
+                     + " hat probiert den Befehl "
+                     + get_prefix_string(ctx.message)
+                     + "rechner im Channel #"
+                     + str(name)
+                     + " zu benutzen!",
                 guildid=ctx.guild.id,
             )
             embed = discord.Embed(
@@ -192,11 +191,11 @@ class calculator(commands.Cog):
             )
             embed.set_footer(
                 text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                     + str(user)
+                     + FOOTER[1]
+                     + str(get_author())
+                     + FOOTER[2]
+                     + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(

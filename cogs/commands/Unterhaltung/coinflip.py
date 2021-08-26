@@ -57,13 +57,13 @@ class coinflip(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 "münzwurf benutzt!",
                 guildid=ctx.guild.id,
             )
         else:
             log(
-                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
                 f"münzwurf im Channel #{name} zu benutzen!",
                 guildid=ctx.guild.id,
             )

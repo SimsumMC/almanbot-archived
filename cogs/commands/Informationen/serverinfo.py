@@ -50,9 +50,9 @@ class serverinfo(commands.Cog):
                 name="**Besitzer:**", value=ctx.guild.owner.mention, inline=True
             )
             embed.add_field(
-                name="**Spielerzahlen:**",
+                name="**Nutzerzahlen:**",
                 value=f"Gesamt: `{ctx.guild.member_count}`\n"
-                "Spieler: "
+                "Nutzer: "
                 f"`{len(list(filter(lambda m: not m.bot, ctx.guild.members)))}`\n"
                 "Bots: "
                 f"`{len(list(filter(lambda m: m.bot, ctx.guild.members)))}`\n",
@@ -61,7 +61,7 @@ class serverinfo(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl  "
                 + get_prefix_string(ctx.message)
@@ -71,7 +71,7 @@ class serverinfo(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)

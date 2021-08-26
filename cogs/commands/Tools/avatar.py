@@ -44,13 +44,13 @@ class avatar(commands.Cog):
             )
             await ctx.send(embed=embed)
             log(
-                f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 "avatar benutzt!",
                 guildid=ctx.guild.id,
             )
         else:
             log(
-                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
                 f"avatar im Channel #{name} zu benutzen!",
                 guildid=ctx.guild.id,
             )
@@ -95,13 +95,13 @@ class avatar(commands.Cog):
             )
             embed.add_field(
                 name="‎",
-                value="Du musst den Spieler erwähnen, also z.B. @Spieler#1234 !",
+                value="Du musst den Nutzer erwähnen, also z.B. @Nutzer#1234 !",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat ein ungültiges Argument bei "
                 + get_prefix_string(ctx.message)

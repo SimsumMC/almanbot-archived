@@ -14,7 +14,7 @@ from cogs.core.functions.cache import (
 )
 from cogs.core.functions.functions import get_author
 from cogs.core.functions.logging import log
-from config import FOOTER, THUMBNAIL_URL, ICON_URL, CALCULATING_ERROR
+from config import FOOTER, THUMBNAIL_URL, ICON_URL, CALCULATING_ERROR, MISSING_PERMISSIONS_BUTTON_ERROR
 
 
 class on_button_click(commands.Cog):
@@ -25,7 +25,7 @@ class on_button_click(commands.Cog):
     async def on_button_click(self, res):
         if res.message.id not in get_messages_from_cache(authorid=res.author.id):
             await res.respond(
-                content="Diese Nachricht gehört dir nicht! Nutz den Befehl bitte selbst!"
+                content=MISSING_PERMISSIONS_BUTTON_ERROR
             )
             return
 
@@ -90,7 +90,7 @@ class on_button_click(commands.Cog):
                     ],
                 )
                 log(
-                    f"{datetime.datetime.now()}: Der Spieler {user} hat mit der Hilfenachricht interagiert und die "
+                    f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Hilfenachricht interagiert und die "
                     f"Seite {res.component.label.lower()} aufgerufen!",
                     res.message.guild.id,
                 )
@@ -119,7 +119,7 @@ class on_button_click(commands.Cog):
                     ],
                 )
                 log(
-                    f"{datetime.datetime.now()}: Der Spieler {user} hat mit der Say-Nachricht interagiert!",
+                    f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Say-Nachricht interagiert!",
                     res.message.guild.id,
                 )
             elif res.component.id == "say_embed":
@@ -162,14 +162,16 @@ class on_button_click(commands.Cog):
                     ],
                 )
                 log(
-                    f"{datetime.datetime.now()}: Der Spieler {user} hat mit der Say-Nachricht interagiert!",
+                    f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Say-Nachricht interagiert!",
                     res.message.guild.id,
                 )
             elif "calc_" in res.component.id:
                 description = str(res.message.embeds[0].description)[:-3][3:]
                 if description == CALCULATING_ERROR + "|":
                     description = "|"
-                if res.component.label == "Exit":
+                elif res.component.label == "x" and description[-2] == "x":
+                    pass
+                elif res.component.label == "Exit":
                     await res.respond(
                         type=7,
                         content="Rechner geschlossen!",
@@ -310,6 +312,8 @@ class on_button_click(commands.Cog):
                     description = "|"
                 elif res.component.label == "=":
                     description = str(calculate(description[:-1])) + "|"
+                #elif res.coomponent.label == "x" and description[-2] == "x|":
+                    #pass
                 else:
                     description = description[:-1] + res.component.label + "|"
                 description = "```" + description + "```"

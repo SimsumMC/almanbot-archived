@@ -12,6 +12,7 @@ from cogs.core.config.config_trigger import (
     add_trigger,
     remove_trigger,
 )
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.functions import (
     get_author,
 )
@@ -32,7 +33,7 @@ class trigger(commands.Cog):
         if ctx.invoked_subcommand is None:  # todo help
             ...
 
-    @trigger.command(name="add", usage="tets")
+    @trigger.command(name="add", usage="<Trigger Name : Antwort Nachricht>")
     @commands.has_permissions(administrator=True)
     async def add(self, ctx, *, input):
         try:
@@ -52,23 +53,23 @@ class trigger(commands.Cog):
                 embed = discord.Embed(
                     title=f"**Fehler**",
                     description=f"Der Trigger {word} existiert bereits! Wenn du ihn verändern möchtest, "
-                    f"nutze den Befehl:"
-                    f"```{get_prefix_string(message=ctx.message)}trigger edit",
+                                f"nutze den Befehl:"
+                                f"```{get_prefix_string(message=ctx.message)}trigger edit",
                     colour=get_embedcolour(ctx.message),
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
                     text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
+                         + str(user)
+                         + FOOTER[1]
+                         + str(get_author())
+                         + FOOTER[2]
+                         + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
                 await ctx.send(embed=embed)
                 log(
-                    f"{time}: Der Spieler {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                    f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
                     f"trigger add zu benutzen und damit den Trigger {word} hinzuzufügen, konnte"
                     f" es aber nicht da dieser bereits existiert hat!",
                     guildid=ctx.guild.id,
@@ -78,30 +79,22 @@ class trigger(commands.Cog):
             embed = discord.Embed(
                 title=f"**Trigger Add**",
                 description=f"Der Bot reagiert nun auf ```{word}``` mit der Nachricht:"
-                f"```{msg}```",
+                            f"```{msg}```",
                 colour=get_embedcolour(ctx.message),
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
+            embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
             await ctx.send(embed=embed)
             log(
-                f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 f"trigger add benutzt und damit den Trigger {word} hinzugefügt.!",
                 guildid=ctx.guild.id,
             )
 
         else:
             log(
-                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
-                f"trigger add im Channel #{name} zu benutzen!",
+                text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                     f"trigger add im Channel #{name} zu benutzen!",
                 guildid=ctx.guild.id,
             )
             embed = discord.Embed(
@@ -109,15 +102,7 @@ class trigger(commands.Cog):
                 description=WRONG_CHANNEL_ERROR,
                 colour=get_embedcolour(message=ctx.message),
             )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
+            embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
             embed.add_field(
                 name="‎",
                 value=get_botchannel_obj_list(ctx),
@@ -126,71 +111,7 @@ class trigger(commands.Cog):
             await ctx.send(embed=embed)
             await msg2.delete()
 
-    @add.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Dir fehlt folgende Berrechtigung um den Befehl auszuführen: "
-                "```administrator```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hatte nicht die nötigen Berrechtigungen um "
-                + get_prefix_string(ctx.message)
-                + "trigger add zu nutzen.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "trigger add <Trigger Name : Antwort Nachricht>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "trigger add eingegeben.",
-                guildid=ctx.guild.id,
-            )
-
-    @trigger.command()
+    @trigger.command(name="remove", usage="<Trigger Name>")
     @commands.has_permissions(administrator=True)
     async def remove(self, ctx, *, word):
         time = datetime.datetime.now()
@@ -202,23 +123,18 @@ class trigger(commands.Cog):
                 embed = discord.Embed(
                     title=f"**Fehler**",
                     description=f"Der Trigger {word} existiert nicht! Wenn du einen erstellen möchtest,"
-                    "nutz den Befehl:"
-                    f"```{get_prefix_string(message=ctx.message)}trigger add <Name> : <```",
+                                "nutz den Befehl:"
+                                f"```{get_prefix_string(message=ctx.message)}trigger add <Name> : <```",
                     colour=get_embedcolour(ctx.message),
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
+                    text=get_embed_footer_text(ctx),
                     icon_url=ICON_URL,
                 )
                 await ctx.send(embed=embed)  # todo add components
                 log(
-                    f"{time}: Der Spieler {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                    f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
                     f"trigger remove zu benutzen und damit den Trigger {word} zu löschen, konnte"
                     f" es aber nicht da dieser nicht existiert hat!",
                     guildid=ctx.guild.id,
@@ -233,24 +149,24 @@ class trigger(commands.Cog):
             embed.set_thumbnail(url=THUMBNAIL_URL)
             embed.set_footer(
                 text="for "
-                + str(user)
-                + " | by "
-                + str(get_author())
-                + " | Prefix "
-                + get_prefix_string(message=ctx.message),
+                     + str(user)
+                     + " | by "
+                     + str(get_author())
+                     + " | Prefix "
+                     + get_prefix_string(message=ctx.message),
                 icon_url="https://media.discordapp.net/attachments/645276319311200286"
-                "/803322491480178739/winging-easy.png?width=676&height=676",
+                         "/803322491480178739/winging-easy.png?width=676&height=676",
             )
             await ctx.send(embed=embed)
             log(
-                f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 f"trigger add benutzt und damit den Trigger {word} hinzugefügt.!",
                 guildid=ctx.guild.id,
             )
         else:
             log(
-                text=f"{time}: Der Spieler {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
-                f"trigger add im Channel #{name} zu benutzen!",
+                text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+                     f"trigger add im Channel #{name} zu benutzen!",
                 guildid=ctx.guild.id,
             )
             embed = discord.Embed(
@@ -260,11 +176,11 @@ class trigger(commands.Cog):
             )
             embed.set_footer(
                 text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                     + str(user)
+                     + FOOTER[1]
+                     + str(get_author())
+                     + FOOTER[2]
+                     + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -274,70 +190,6 @@ class trigger(commands.Cog):
             )
             await ctx.send(embed=embed)
             await msg2.delete()
-
-    @remove.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Dir fehlt folgende Berrechtigung um den Befehl auszuführen: "
-                "```administrator```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hatte nicht die nötigen Berrechtigungen um "
-                + get_prefix_string(ctx.message)
-                + "trigger add zu nutzen.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "trigger add <Trigger Name : Antwort Nachricht>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "trigger add eingegeben.",
-                guildid=ctx.guild.id,
-            )
 
 
 ########################################################################################################################

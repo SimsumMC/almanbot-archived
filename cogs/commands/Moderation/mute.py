@@ -55,12 +55,12 @@ class mute(commands.Cog):
                     icon_url=ICON_URL,
                 )
                 embed.add_field(name="Moderator", value=str(mention), inline=False)
-                embed.add_field(name="Spieler", value=str(member.mention), inline=False)
+                embed.add_field(name="Nutzer", value=str(member.mention), inline=False)
                 embed.add_field(name="Grund", value=str(reason), inline=False)
                 await ctx.send(embed=embed)
                 log(
                     text=str(time)
-                    + f": Der Moderator {user} hat den Spieler {member} für {reason} gemuted.",
+                    + f": Der Moderator {user} hat den Nutzer {member} für {reason} gemuted.",
                     guildid=ctx.guild.id,
                 )
             except Exception:
@@ -93,7 +93,7 @@ class mute(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -150,7 +150,7 @@ class mute(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hatte nicht die nötigen Berrechtigungen um "
                 + get_prefix_string(ctx.message)
@@ -174,13 +174,13 @@ class mute(commands.Cog):
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
                 + get_prefix_string(ctx.message)
-                + "mute <@Spieler> <opt. Grund>```",
+                + "mute <@Nutzer> <opt. Grund>```",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + get_prefix_string(ctx.message)

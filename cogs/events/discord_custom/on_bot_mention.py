@@ -38,7 +38,7 @@ class on_bot_mention(commands.Cog):
         embed.set_thumbnail(url=THUMBNAIL_URL)
         await message.channel.send(embed=embed)
         log(
-            f"{time}: Der Spieler {user} hat sich den Prefix über eine Erwähnung ausgeben lassen.",
+            f"{time}: Der Nutzer {user} hat sich den Prefix über eine Erwähnung ausgeben lassen.",
             message.guild.id,
         )
 

@@ -2,13 +2,11 @@ import datetime
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingPermissions
 
-from config import ICON_URL, FOOTER
-from cogs.core.functions.functions import get_author
-from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.logging import log
+from config import ICON_URL, THUMBNAIL_URL
 from main import client
 
 
@@ -16,57 +14,29 @@ class channelclear(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="channelclear", usage="<opt. Channel>")
     @commands.has_permissions(administrator=True)
-    async def channelclear(self, ctx):
-        channelid = ctx.channel.id
-        channel1 = client.get_channel(channelid)
+    async def channelclear(self, ctx, channel: discord.TextChannel = None):
+        if channel is None:
+            channel = ctx.channel
         time = datetime.datetime.now()
         user = ctx.author.name
-        await channel1.clone()
-        await channel1.delete()
+        newchannel = await channel.clone()
+        await channel.delete()
+        embed = discord.Embed(title="**Channelclear**", description=f"Der Channel {newchannel.mention} wurde erfolgreich geleert!",
+                              colour=get_embedcolour(ctx.message))
+        embed.set_thumbnail(url=THUMBNAIL_URL)
+        embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
+        await newchannel.send(embed=embed)
         log(
             text=str(time)
-            + ": Der Spieler "
+            + ": Der Nutzer "
             + str(user)
             + ' hat den Chat "#'
-            + str(channel1)
-            + '" gecleart.',
+            + str(channel)
+            + '" geleert.',
             guildid=ctx.guild.id,
         )
-
-    @channelclear.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(message=ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht die nötigen Berrechtigungen um diesen Befehl zu nutzen!",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Spieler "
-                + str(user)
-                + " hatte nicht die nötigen Berrechtigungen um "
-                + get_prefix_string(ctx.message)
-                + "channelclear zu nutzen.",
-                guildid=ctx.guild.id,
-            )
 
 
 ########################################################################################################################

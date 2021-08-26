@@ -42,7 +42,7 @@ class on_blacklist_word(commands.Cog):
         await message.channel.send(embed=embed, delete_after=5)
         log(
             str(time)
-            + f": Der Spieler {user} hat versucht ein verbotenes Wort zu benutzen."
+            + f": Der Nutzer {user} hat versucht ein verbotenes Wort zu benutzen."
             f' Wort: "{bannedword}"',
             message.guild.id,
         )

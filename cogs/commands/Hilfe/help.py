@@ -8,6 +8,7 @@ from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.cache import save_message_to_cache
 from cogs.core.functions.functions import (
     get_author,
@@ -26,7 +27,6 @@ class help(commands.Cog):
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
-        mention = ctx.author.mention
         if botchannel_check(ctx):
             msg = await ctx.send(
                 embed=get_page(ctx.message, ctx.author.name, "übersicht"),
@@ -75,7 +75,7 @@ class help(commands.Cog):
             await save_message_to_cache(message=msg, author=msg2.author)
             log(
                 str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
                 + get_prefix_string(ctx.message)
@@ -85,7 +85,7 @@ class help(commands.Cog):
         else:
             log(
                 text=str(time)
-                     + ": Der Spieler "
+                     + ": Der Nutzer "
                      + str(user)
                      + " hat probiert den Befehl "
                      + get_prefix_string(ctx.message)
@@ -100,12 +100,10 @@ class help(commands.Cog):
                 colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                text=embed.set_footer(
+                    text=get_embed_footer_text(ctx),
+                    icon_url=ICON_URL,
+                ),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -123,15 +121,6 @@ def get_page(message, user, page):
             title="**Hilfe Übersicht**",
             description="Hier findest du alle Hilfekategorien!",
             colour=get_embedcolour(message),
-        )
-        embed.set_footer(
-            text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
         )
         embed.add_field(
             name=f"`{get_prefix_string(message)}hilfe`",
@@ -168,15 +157,6 @@ def get_page(message, user, page):
             title="**Hilfe Allgemein**",
             description="Hier findest du alle Befehle zu der Kategorie `Allgemein!`",
             colour=get_embedcolour(message),
-        )
-        embed.set_footer(
-            text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}hilfe**",
@@ -215,15 +195,6 @@ def get_page(message, user, page):
             description="Hier findest du alle Befehle zu der Kategorie `Informationen!`",
             colour=get_embedcolour(message),
         )
-        embed.set_footer(
-            text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
-        )
         embed.add_field(
             name=f"**{get_prefix_string(message)}ping**",
             value="Zeigt dir meinen Ping an!",
@@ -241,7 +212,7 @@ def get_page(message, user, page):
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}nutzerinfo**",
-            value="Zeigt Daten zu einem Spieler an!",
+            value="Zeigt Daten zu einem Nutzer an!",
             inline=False,
         )
         embed.add_field(
@@ -254,15 +225,6 @@ def get_page(message, user, page):
             title="**Hilfe Unterhaltung**",
             description="Hier findest du alle Befehle zu der Kategorie `Unterhaltung!`",
             colour=get_embedcolour(message),
-        )
-        embed.set_footer(
-            text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}würfel**",
@@ -297,15 +259,6 @@ def get_page(message, user, page):
             description="Hier findest du alle Befehle zu der Kategorie `Moderation!`",
             colour=get_embedcolour(message),
         )
-        embed.set_footer(
-            text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
-        )
         embed.add_field(
             name=f"**{get_prefix_string(message)}slowmode**",
             value="Lege den Intervall zwischen Nachrichten in einem bestimmten Kanal fest.!",
@@ -318,27 +271,27 @@ def get_page(message, user, page):
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}ban**",
-            value="Banne einen bestimmten Spieler bis" " er entbannt wird!",
+            value="Banne einen bestimmten Nutzer bis" " er entbannt wird!",
             inline=False,
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}unban**",
-            value="Entbanne einen zuvor" " gebannten Spieler!",
+            value="Entbanne einen zuvor" " gebannten Nutzer!",
             inline=False,
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}kick**",
-            value="Kicke einen bestimmten Spieler!",
+            value="Kicke einen bestimmten Nutzer!",
             inline=False,
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}mute**",
-            value="Stumme einen spezifischen Spieler!",
+            value="Stumme einen spezifischen Nutzer!",
             inline=False,
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}unmute**",
-            value="Entstumme einen spezifischen Spieler!",
+            value="Entstumme einen spezifischen Nutzer!",
             inline=False,
         )
     elif page == "administration":
@@ -346,15 +299,6 @@ def get_page(message, user, page):
             title="**Hilfe Administration**",
             description="Hier findest du alle Befehle zu der Kategorie `Administrator!`",
             colour=get_embedcolour(message),
-        )
-        embed.set_footer(
-            text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}config**",
@@ -377,15 +321,6 @@ def get_page(message, user, page):
             description="Hier findest du alle Befehle zu der Kategorie `Inhaber`!",
             colour=get_embedcolour(message),
         )
-        embed.set_footer(
-            text=FOOTER[0]
-                 + str(user)
-                 + FOOTER[1]
-                 + str(get_author())
-                 + FOOTER[2]
-                 + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
-        )
         embed.add_field(
             name=f"**{get_prefix_string(message)}cog**",
             value="Lade, Entlade, Lade einzelne oder alle " "Cogs neu!",
@@ -401,6 +336,10 @@ def get_page(message, user, page):
             value="Setze eine Config zurück!",
             inline=False,
         )
+    embed.set_footer(
+        text=get_embed_footer_text(message=message),
+        icon_url=ICON_URL,
+    )
     embed.set_thumbnail(url=THUMBNAIL_URL)
     return embed
 

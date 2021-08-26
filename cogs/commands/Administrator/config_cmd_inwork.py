@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, MissingRequiredArgument
 
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, DEFAULT_PREFIX
 from cogs.core.functions.functions import (
     get_author,
@@ -96,20 +97,22 @@ class config(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
+        if len(arg) > 16:
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=f'Der Präfix darf maximal 16 Zeichen lang sein, daher ist dein eingegebener Präfix "`{arg}`" ungültig.',
+                colour=get_embedcolour(ctx.message),
+            )
+            embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
+            embed.set_thumbnail(url=THUMBNAIL_URL)
+            await ctx.send(embed=embed)
+            return
         writejson(type="prefix", input=arg, path=path)
         embed = discord.Embed(
             title="**Config Prefix**", colour=get_embedcolour(ctx.message)
         )
         embed.set_thumbnail(url=THUMBNAIL_URL)
-        embed.set_footer(
-            text=FOOTER[0]
-            + str(user)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message)),
-            icon_url=ICON_URL,
-        )
+        embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
         embed.add_field(
             name="‎",
             value=f"Der Prefix wurde erfolgreich zu ```{arg}``` geändert.",

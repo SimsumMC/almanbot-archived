@@ -80,7 +80,7 @@ class meme(commands.Cog):
                         )
                         await ctx.send(embed=embed)
                         log(
-                            f"{time}: Der Spieler {user} hat beim Befehl"
+                            f"{time}: Der Nutzer {user} hat beim Befehl"
                             f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.",
                             ctx.guild.id,
                         )
@@ -107,7 +107,7 @@ class meme(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    f"{time}: Der Spieler {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                    f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
                     "meme benutzt!",
                     guildid=ctx.guild.id,
                 )
@@ -133,7 +133,7 @@ class meme(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 log(
-                    f"{time}: Der Spieler {user} hat beim Befehl"
+                    f"{time}: Der Nutzer {user} hat beim Befehl"
                     f"'{get_prefix_string(ctx.message)}meme ein ungültiges Argument eingegeben.",
                     ctx.guild.id,
                 )
@@ -142,7 +142,7 @@ class meme(commands.Cog):
         else:
             log(
                 text=str(time)
-                + ": Der Spieler "
+                + ": Der Nutzer "
                 + str(user)
                 + " hat probiert den Befehl "
                 + get_prefix_string(ctx.message)
@@ -172,33 +172,6 @@ class meme(commands.Cog):
             )
             await ctx.send(embed=embed)
             await msg2.delete()
-
-    @meme.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, commands.CommandOnCooldown):
-            embed = discord.Embed(
-                title="**Cooldown**",
-                description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
-                color=get_embedcolour(ctx.message),
-            )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            await ctx.send(embed=embed)
-            log(
-                f"{time}: Der Spieler {user} hat trotz eines Cooldowns versucht den Befehl'"
-                f"'{get_prefix_string(ctx.message)}meme im Kanal #{ctx.channel.name} zu nutzen.",
-                ctx.guild.id,
-            )
 
 
 ########################################################################################################################
