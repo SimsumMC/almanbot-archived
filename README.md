@@ -15,7 +15,7 @@
   <a href="https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775">
     <img src="https://img.shields.io/badge/Invite-Bot-red" alt="Einladung">
   </a>
-  <a href="https://communitybot.visitlink.de/">
+  <a href="https://almanbot.de/">
     <img src="https://img.shields.io/badge/Website-GO-red" alt="Website">
   </a>
   <a href="https://www.gnu.org/licenses/gpl-3.0.html">
