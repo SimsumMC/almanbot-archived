@@ -3,15 +3,14 @@ import os
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument, MissingPermissions
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.functions.func_json import writejson, readjson
 from cogs.core.functions.functions import (
     get_author,
 )
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.functions.func_json import writejson, readjson
-from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
 from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR
 
@@ -20,17 +19,20 @@ class blacklist(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="blacklist", aliases=["wordlist"])
+    @commands.command(
+        name="blacklist",
+        aliases=["wordlist"],
+    )
     @commands.has_permissions(ban_members=True)
-    async def blacklist(self, ctx, type, *, word):
+    async def blacklist(self, ctx, cmd, *, word):
         time = datetime.datetime.now()
         user = ctx.author.name
         name = ctx.channel.name
         msg2 = ctx.message
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
-        bannedWords = readjson(type="blacklist", path=path)
+        bannedWords = readjson(key="blacklist", path=path)
         if botchannel_check(ctx):
-            if type.lower() == "add":
+            if cmd.lower() == "add":
                 if word.lower() in bannedWords:
                     embed = discord.Embed(
                         title="**Fehler**",
@@ -78,7 +80,7 @@ class blacklist(commands.Cog):
                         f'{time}: Der Moderator {user} hat das Wort "{word}" auf die Blacklist hinzugefügt.',
                         guildid=ctx.guild.id,
                     )
-            elif type.lower() == "remove":
+            elif cmd.lower() == "remove":
                 if word.lower() in bannedWords:
                     writejson(
                         type="blacklist", input=word.lower(), path=path, mode="removed"
@@ -186,70 +188,6 @@ class blacklist(commands.Cog):
             )
             await ctx.send(embed=embed)
             await msg2.delete()
-
-    @blacklist.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Dir fehlt folgende Berrechtigung um den Befehl auszuführen: "
-                "```ban_members```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hatte nicht die nötigen Berrechtigungen um "
-                + get_prefix_string(ctx.message)
-                + "blacklist zu nutzen.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "blacklist <new/add> <Wort>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "blacklist eingegeben.",
-                guildid=ctx.guild.id,
-            )
 
 
 ########################################################################################################################

@@ -1,15 +1,14 @@
 import datetime
+
 import discord
 from discord.ext import commands
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
+from config import ICON_URL, WRONG_CHANNEL_ERROR
 
 
 class serverinfo(commands.Cog):
@@ -29,12 +28,7 @@ class serverinfo(commands.Cog):
                 colour=get_embedcolour(ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
             embed.set_thumbnail(url=ctx.guild.icon_url)
@@ -86,12 +80,7 @@ class serverinfo(commands.Cog):
                 colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
             embed.add_field(

@@ -27,13 +27,9 @@ class slowmode(commands.Cog):
         if botchannel_check(ctx):
             try:
                 if channel is None:
-                    await ctx.channel.edit(slowmode_delay=seconds)
-                    channel = str(ctx.channel.mention)
-                    channelname = ctx.channel.name
-                else:
-                    await channel.edit(slowmode_delay=seconds)
-                    channel = channel.mention
-                    channelname = channel.name
+                    channel = ctx.channel
+                await channel.edit(slowmode_delay=seconds)
+                channelname = channel.name
                 embed = discord.Embed(
                     title="**Slowmode**", colour=get_embedcolour(ctx.message)
                 )
@@ -49,7 +45,7 @@ class slowmode(commands.Cog):
                 )
                 embed.add_field(
                     name="⠀",
-                    value=f"Der Slowmode vom Channel {channel} wurde zu {seconds} Sekunden geändert.",
+                    value=f"Der Slowmode vom Channel {channel.mention} wurde zu {seconds} Sekunden geändert.",
                 )
                 await ctx.send(embed=embed)
                 log(

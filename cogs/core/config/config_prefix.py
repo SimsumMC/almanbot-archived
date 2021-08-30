@@ -15,7 +15,7 @@ class config_prefix(commands.Cog):
 def get_prefix_string(message):
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     if not os.path.exists(path):
-        return str("!")
+        return str(DEFAULT_PREFIX)
     with open(path, "r") as f:
         data = json.load(f)
     prefix = str(data["prefix"])

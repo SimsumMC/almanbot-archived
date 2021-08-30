@@ -53,18 +53,18 @@ class trigger(commands.Cog):
                 embed = discord.Embed(
                     title=f"**Fehler**",
                     description=f"Der Trigger {word} existiert bereits! Wenn du ihn verändern möchtest, "
-                                f"nutze den Befehl:"
-                                f"```{get_prefix_string(message=ctx.message)}trigger edit",
+                    f"nutze den Befehl:"
+                    f"```{get_prefix_string(message=ctx.message)}trigger edit",
                     colour=get_embedcolour(ctx.message),
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(ctx.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(ctx.message)),
                     icon_url=ICON_URL,
                 )
                 await ctx.send(embed=embed)
@@ -79,7 +79,7 @@ class trigger(commands.Cog):
             embed = discord.Embed(
                 title=f"**Trigger Add**",
                 description=f"Der Bot reagiert nun auf ```{word}``` mit der Nachricht:"
-                            f"```{msg}```",
+                f"```{msg}```",
                 colour=get_embedcolour(ctx.message),
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
@@ -94,7 +94,7 @@ class trigger(commands.Cog):
         else:
             log(
                 text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
-                     f"trigger add im Channel #{name} zu benutzen!",
+                f"trigger add im Channel #{name} zu benutzen!",
                 guildid=ctx.guild.id,
             )
             embed = discord.Embed(
@@ -123,8 +123,8 @@ class trigger(commands.Cog):
                 embed = discord.Embed(
                     title=f"**Fehler**",
                     description=f"Der Trigger {word} existiert nicht! Wenn du einen erstellen möchtest,"
-                                "nutz den Befehl:"
-                                f"```{get_prefix_string(message=ctx.message)}trigger add <Name> : <```",
+                    "nutz den Befehl:"
+                    f"```{get_prefix_string(message=ctx.message)}trigger add <Name> : <```",
                     colour=get_embedcolour(ctx.message),
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
@@ -149,13 +149,13 @@ class trigger(commands.Cog):
             embed.set_thumbnail(url=THUMBNAIL_URL)
             embed.set_footer(
                 text="for "
-                     + str(user)
-                     + " | by "
-                     + str(get_author())
-                     + " | Prefix "
-                     + get_prefix_string(message=ctx.message),
+                + str(user)
+                + " | by "
+                + str(get_author())
+                + " | Prefix "
+                + get_prefix_string(message=ctx.message),
                 icon_url="https://media.discordapp.net/attachments/645276319311200286"
-                         "/803322491480178739/winging-easy.png?width=676&height=676",
+                "/803322491480178739/winging-easy.png?width=676&height=676",
             )
             await ctx.send(embed=embed)
             log(
@@ -166,7 +166,7 @@ class trigger(commands.Cog):
         else:
             log(
                 text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
-                     f"trigger add im Channel #{name} zu benutzen!",
+                f"trigger add im Channel #{name} zu benutzen!",
                 guildid=ctx.guild.id,
             )
             embed = discord.Embed(
@@ -176,11 +176,11 @@ class trigger(commands.Cog):
             )
             embed.set_footer(
                 text=FOOTER[0]
-                     + str(user)
-                     + FOOTER[1]
-                     + str(get_author())
-                     + FOOTER[2]
-                     + str(get_prefix_string(ctx.message)),
+                + str(user)
+                + FOOTER[1]
+                + str(get_author())
+                + FOOTER[2]
+                + str(get_prefix_string(ctx.message)),
                 icon_url=ICON_URL,
             )
             embed.add_field(

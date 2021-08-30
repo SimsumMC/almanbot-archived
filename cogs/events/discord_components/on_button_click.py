@@ -1,10 +1,11 @@
+import traceback
 import datetime
 
 import discord
 from discord.ext import commands
 from discord_components import Button
 
-from cogs.commands.Hilfe.help import get_page
+from cogs.commands.Hilfe.help import get_page, get_help_buttons
 from cogs.commands.Tools.rechner import calculate
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
@@ -14,7 +15,13 @@ from cogs.core.functions.cache import (
 )
 from cogs.core.functions.functions import get_author
 from cogs.core.functions.logging import log
-from config import FOOTER, THUMBNAIL_URL, ICON_URL, CALCULATING_ERROR, MISSING_PERMISSIONS_BUTTON_ERROR
+from config import (
+    FOOTER,
+    THUMBNAIL_URL,
+    ICON_URL,
+    CALCULATING_ERROR,
+    MISSING_PERMISSIONS_BUTTON_ERROR,
+)
 
 
 class on_button_click(commands.Cog):
@@ -24,70 +31,29 @@ class on_button_click(commands.Cog):
     @commands.Cog.listener()
     async def on_button_click(self, res):
         if res.message.id not in get_messages_from_cache(authorid=res.author.id):
-            await res.respond(
-                content=MISSING_PERMISSIONS_BUTTON_ERROR
-            )
+            await res.respond(content=MISSING_PERMISSIONS_BUTTON_ERROR)
             return
 
         user = res.author.name
+        print(res.component.label.lower())
+        print(res.component.id[5:])
         try:
-            helpp = [
-                "allgemein",
-                "informationen",
-                "unterhaltung",
-                "moderation",
-                "administration",
-                "übersicht",
-                "inhaber",
+            help_buttons = [
+                "help_allgemein",
+                "help_informationen",
+                "help_unterhaltung",
+                "help_moderation",
+                "help_administration",
+                "help_übersicht",
+                "help_tools",
+                "help_inhaber",
+                "help_musik",
             ]
-            if res.component.label.lower() in helpp:
-                embed = get_page(
-                                 message=res.message, user=user, page=res.component.label.lower()
-                                 )
+            if res.component.id in help_buttons:
+                print("pass")
+                embed = get_page(message=res.message, page=res.component.id[5:])
                 await res.respond(
-                    type=7,
-                    embed=embed,
-                    components=[
-                        [
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Übersicht",
-                                emoji="🔖",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Allgemein",
-                                emoji="🤖",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Informationen",
-                                emoji="📉",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Unterhaltung",
-                                emoji="🎲",
-                            ),
-                        ],
-                        [
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Moderation",
-                                emoji="🛡",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Administration",
-                                emoji="⚙",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Inhaber",
-                                emoji="🔒",
-                            ),
-                        ],
-                    ],
+                    type=7, embed=embed, components=get_help_buttons(res.message)
                 )
                 log(
                     f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Hilfenachricht interagiert und die "
@@ -131,11 +97,11 @@ class on_button_click(commands.Cog):
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(res.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(res.message)),
                     icon_url=ICON_URL,
                 )
                 await res.respond(
@@ -312,8 +278,8 @@ class on_button_click(commands.Cog):
                     description = "|"
                 elif res.component.label == "=":
                     description = str(calculate(description[:-1])) + "|"
-                #elif res.coomponent.label == "x" and description[-2] == "x|":
-                    #pass
+                # elif res.coomponent.label == "x" and description[-2] == "x|":
+                # pass
                 else:
                     description = description[:-1] + res.component.label + "|"
                 description = "```" + description + "```"
@@ -324,11 +290,11 @@ class on_button_click(commands.Cog):
                 )
                 embed.set_footer(
                     text=FOOTER[0]
-                         + str(user)
-                         + FOOTER[1]
-                         + str(get_author())
-                         + FOOTER[2]
-                         + str(get_prefix_string(res.message)),
+                    + str(user)
+                    + FOOTER[1]
+                    + str(get_author())
+                    + FOOTER[2]
+                    + str(get_prefix_string(res.message)),
                     icon_url=ICON_URL,
                 )
                 await res.respond(
@@ -447,11 +413,10 @@ class on_button_click(commands.Cog):
                 )
             else:
                 await res.respond(
-                    content=f"Error 404: Diesen Button {res.component.label} kenne ich leider nicht!",
-                    empheral=True,
+                    content=f"Error 404: Diesen Button {res.component.label} kenne ich leider nicht!"
                 )
         except Exception:
-            # traceback.print_exc()
+            traceback.print_exc()
             pass
 
 

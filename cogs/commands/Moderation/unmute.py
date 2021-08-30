@@ -18,7 +18,7 @@ class unmute(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="unmute", aliases=["um"], usage="<@Nutzer>")
     @commands.has_permissions(ban_members=True)
     async def unmute(self, ctx, member: discord.Member):
         time = datetime.datetime.now()

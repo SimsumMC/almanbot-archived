@@ -33,9 +33,19 @@ CUBE = "https://cdn.discordapp.com/attachments/645276319311200286/80355093911293
 DISCORD_TOKEN = ""  # to run the bot
 STATCORD_TOKEN = ""  # Optional, for bot stats
 REDDIT_APP = {  # for the memes command, just create an application on reddit
-    "client_id": "J",
+    "client_id": "",
     "client_secret": ""
 }
+
+
+class lavalink:  # required for music
+    host = ''
+    port = ''
+    rest_uri = ''
+    passwort = ''
+    identifier = ''
+    region = ''
+
 
 # DEFAULTS | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
 
@@ -110,7 +120,7 @@ EMBEDCOLOURS_SUPPORTED = [
     "dunkellila",
     "lila",
     "pink",
-    "rainbow",
+    "rainbow",  # todo add rainbow
     "random",
     "gelb",
 ]

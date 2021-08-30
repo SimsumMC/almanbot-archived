@@ -33,7 +33,7 @@ def redditnsfwcheck(reddit):
 
 def meme_is_checked(reddit):
     data = readjson(
-        type="verified", path=os.path.join("data", "cache", "reddit_cache.json")
+        key="verified", path=os.path.join("data", "cache", "reddit_cache.json")
     )
     if reddit in data:
         return True

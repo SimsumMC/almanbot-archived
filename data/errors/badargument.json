@@ -1,0 +1,9 @@
+{
+	"ban": "Du musst den Nutzer erwähnen!",
+	"kick": "Du musst den Nutzer erwähnen!",
+	"mute": "Du musst den Nutzer erwähnen!",
+	"unmute": "Du musst den Nutzer erwähnen!",
+	"slowmode": "Bitte überprüfe, das du eine gültige Zahl und falls notwendig, einen gültigen #Channel angegeben hast.",
+	"clear": "Bitte gib eine gültige Zahl ein, z.B `50`!",
+	"lookup": "Du musst eine richtige Domain angeben, z.B. ```example.org```"
+}

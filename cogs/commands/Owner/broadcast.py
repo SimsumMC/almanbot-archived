@@ -22,7 +22,9 @@ class broadcast(commands.Cog):
         time = datetime.datetime.now()
         if botchannel_check(ctx):
             embed = discord.Embed(
-                title="**Broadcast**", description=DEFAULT_BROADCAST_MESSAGE + "\n\n" + str(message), colour=get_embedcolour(message=ctx.message)
+                title="**Broadcast**",
+                description=DEFAULT_BROADCAST_MESSAGE + "\n\n" + str(message),
+                colour=get_embedcolour(message=ctx.message),
             )
             embed.set_thumbnail(url=THUMBNAIL_URL)
             embed.set_footer(
@@ -41,7 +43,9 @@ class broadcast(commands.Cog):
                     failed.append(owner.id)
                 aldready_messaged.append(owner.id)
             embed2 = discord.Embed(
-                title="**Broadcast**", description="Erfolgreich versendet!", colour=get_embedcolour(message=ctx.message)
+                title="**Broadcast**",
+                description="Erfolgreich versendet!",
+                colour=get_embedcolour(message=ctx.message),
             )
             if failed:
                 embed2.add_field(name="Fehler", value="".join([id for id in failed]))
@@ -65,22 +69,23 @@ class broadcast(commands.Cog):
             embed.add_field(
                 name="‎",
                 value="Es existiert noch kein Log deines Servers, da dass hier anscheinend dein erster "
-                      "Befehl ist!",
+                "Befehl ist!",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                      + ": Der Nutzer "
-                      + str(user)
-                      + ' hat sich probiert den noch nicht existierenden Log mit der ID "'
-                      + str(ctx.guild.id)
-                      + '" ausgeben zu lassen!',
+                + ": Der Nutzer "
+                + str(user)
+                + ' hat sich probiert den noch nicht existierenden Log mit der ID "'
+                + str(ctx.guild.id)
+                + '" ausgeben zu lassen!',
                 guildid=ctx.guild.id,
             )
 
 
 ###############################################################################################################
+
 
 def setup(bot):
     bot.add_cog(broadcast(bot))

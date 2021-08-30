@@ -9,7 +9,7 @@ class func_json(commands.Cog):
 
 
 def writejson(type, input, path, mode="write"):
-    with open(path, "r") as f:
+    with open(path, "r", encoding="UTF-8") as f:
         data = json.load(f)
     if mode == "write":
         data[type] = input
@@ -17,14 +17,16 @@ def writejson(type, input, path, mode="write"):
         data[type].append(input)
     elif mode == "remove":
         data[type].remove(input)
-    with open(path, "w") as f:
+    with open(path, "w", encoding="UTF-8") as f:
         json.dump(data, f, indent=4)
 
 
-def readjson(type, path):
-    with open(path, "r") as f:
+def readjson(key: str, path):
+    with open(path, "r", encoding="UTF-8") as f:
         data = json.load(f)
-    return data[type]
+    if key in data:
+        return True and data[key]
+    return False and None
 
 
 ########################################################################################################################

@@ -1,27 +1,27 @@
 import datetime
+import socket
+
 import discord
 import whois
-import socket
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument, BadArgument
 
 from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchannel_check
-from cogs.core.defaults.defaults_embeds import get_embed_footer_text
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR, WEBSITE_LINK
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.logging import log
+from config import ICON_URL, THUMBNAIL_URL, WRONG_CHANNEL_ERROR
 
 
 class lookup(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="lookup", aliases=["whois", "domaininfo"], usage="<Domain>",
-                      badargument=f"Du musst eine richtige Domain angeben, z.B. ```{WEBSITE_LINK}```")
+    @commands.command(
+        name="lookup",
+        aliases=["whois", "domaininfo"],
+        usage="<Domain>",
+    )
     async def lookup(self, ctx, domain: str):
         time = datetime.datetime.now()
         user = ctx.author.name

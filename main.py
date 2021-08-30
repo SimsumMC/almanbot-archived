@@ -18,7 +18,9 @@ from config import (
     DISCORD_TOKEN,
     BANNER,
     ACTIVITY_LIST,
-    STATUS, BLACKLIST_IGNORE, TESTING_MODE,
+    STATUS,
+    BLACKLIST_IGNORE,
+    TESTING_MODE,
 )
 
 
@@ -46,9 +48,7 @@ class AlmanBot(commands.Bot):
     async def on_ready(self):
         DiscordComponents(client)
         print(BANNER)
-        print(
-            "\n---------------------------------------------------------------------------------------------------\n"
-        )
+        print("\n----------------------------------------------------------------\n")
         print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!\n')
         print(f"Discord.py API version: {discord.__version__}")
         print(f"Python version: {platform.python_version()}")
@@ -81,7 +81,7 @@ class AlmanBot(commands.Bot):
 
     async def blacklist_check(self, message):
         path = os.path.join("data", "configs", f"{message.guild.id}.json")
-        bannedWords = readjson(type="blacklist", path=path)
+        bannedWords = readjson(key="blacklist", path=path)
         if bannedWords:
             if TESTING_MODE is not True:
                 if message.author.id == message.guild.owner_id:
@@ -92,7 +92,9 @@ class AlmanBot(commands.Bot):
                         if msg_contains_word(message.content.lower(), ignorearg):
                             return False
                     else:
-                        Bot.dispatch(self, "blacklist_word", message, bannedword=bannedWord)
+                        Bot.dispatch(
+                            self, "blacklist_word", message, bannedword=bannedWord
+                        )
                         return True
 
     async def on_message(self, message):
@@ -103,7 +105,9 @@ class AlmanBot(commands.Bot):
             return
         elif not config_check(guildid=message.guild.id):
             Bot.dispatch(self, "missing_config", message)
-        elif client.user.mentioned_in(message) and len(message.content) == len(f"<@!{client.user.id}>"):
+        elif client.user.mentioned_in(message) and len(message.content) == len(
+            f"<@!{client.user.id}>"
+        ):
             Bot.dispatch(self, "bot_mention", message)
         elif await self.blacklist_check(message):
             return

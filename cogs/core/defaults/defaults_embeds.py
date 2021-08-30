@@ -18,13 +18,21 @@ def get_embed_footer_text(ctx=None, message=None):
     """
     if ctx:
         footer = (
-                FOOTER[0] + str(ctx.author) + FOOTER[1] + str(get_author()) + FOOTER[2]
-                + str(get_prefix_string(ctx.message))
+            FOOTER[0]
+            + str(ctx.author)
+            + FOOTER[1]
+            + str(get_author())
+            + FOOTER[2]
+            + str(get_prefix_string(ctx.message))
         )
     else:
         footer = (
-                FOOTER[0] + str(message.author) + FOOTER[1] + str(get_author()) + FOOTER[2]
-                + str(get_prefix_string(message))
+            FOOTER[0]
+            + str(message.author)
+            + FOOTER[1]
+            + str(get_author())
+            + FOOTER[2]
+            + str(get_prefix_string(message))
         )
     return str(footer)
 

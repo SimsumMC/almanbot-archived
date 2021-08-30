@@ -18,7 +18,7 @@ class unban(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(usage="<Nutzer#1234>")
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, *, member):
         time = datetime.datetime.now()
@@ -211,70 +211,6 @@ class unban(commands.Cog):
             )
             await ctx.send(embed=embed)
             await msg2.delete()
-
-    @unban.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Dir fehlt folgende Berrechtigung um den Befehl auszuführen: "
-                "```ban_members```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hatte nicht die nötigen Berrechtigungen um "
-                + get_prefix_string(ctx.message)
-                + "unban zu nutzen.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "unban <Nutzer#1234>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "unban eingegeben.",
-                guildid=ctx.guild.id,
-            )
 
 
 ########################################################################################################################

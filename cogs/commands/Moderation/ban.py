@@ -2,27 +2,20 @@ import datetime
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import (
-    MissingRequiredArgument,
-    MissingPermissions,
-    BadArgument,
-)
 
 from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchannel_check
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embeds import get_embed_footer_text
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
+from config import ICON_URL, THUMBNAIL_URL, WRONG_CHANNEL_ERROR
 
 
 class ban(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="ban", usage="<@Nutzer> <opt. Grund>")
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member, *, reason=None):
         time = datetime.datetime.now()
@@ -38,12 +31,7 @@ class ban(commands.Cog):
                 )
                 embed.set_thumbnail(url=THUMBNAIL_URL)
                 embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
+                    text=get_embed_footer_text(ctx),
                     icon_url=ICON_URL,
                 )
                 embed.add_field(name="Moderator:", value=mention, inline=False)
@@ -66,12 +54,7 @@ class ban(commands.Cog):
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
+                    text=get_embed_footer_text(ctx),
                     icon_url=ICON_URL,
                 )
                 embed.add_field(
@@ -105,12 +88,7 @@ class ban(commands.Cog):
                 colour=get_embedcolour(message=ctx.message),
             )
             embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
+                text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
             embed.add_field(
@@ -120,98 +98,6 @@ class ban(commands.Cog):
             )
             await ctx.send(embed=embed)
             await msg2.delete()
-
-    @ban.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingPermissions):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Dir fehlt folgende Berrechtigung um den Befehl auszuführen: "
-                "```ban_members```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hatte nicht die nötigen Berrechtigungen um "
-                + get_prefix_string(ctx.message)
-                + "ban zu nutzen.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "ban <@Nutzer> <opt. Grund>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "ban eingegeben.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, BadArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du musst den Nutzer mit dem Tag angeben, also z.B. Nutzer#1234 !",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat ein ungültiges Argument bei "
-                + get_prefix_string(ctx.message)
-                + "unban angegeben.",
-                guildid=ctx.guild.id,
-            )
 
 
 ########################################################################################################################

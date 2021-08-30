@@ -1,22 +1,35 @@
 import datetime
+import os
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound, MissingRequiredArgument, CommandOnCooldown, BotMissingPermissions, \
-    NotOwner, BadArgument
+from discord.ext.commands import (
+    CommandNotFound,
+    MissingRequiredArgument,
+    CommandOnCooldown,
+    BotMissingPermissions,
+    NotOwner,
+    BadArgument,
+)
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_errors import check_if_error
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embeds import get_embed_footer_text
+from cogs.core.functions.func_json import readjson
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL, WRONG_CHANNEL_ERROR, WRONG_CHANNEL_ERROR_DELETE_AFTER
+from config import (
+    ICON_URL,
+    THUMBNAIL_URL,
+    WRONG_CHANNEL_ERROR,
+    WRONG_CHANNEL_ERROR_DELETE_AFTER,
+)
 
 
 def get_commandname(ctx):
     if not ctx.command:
-        return ctx.message.content
+        return ctx.message.content.split(" ")[0]
     elif ctx.invoked_subcommand:
         parents = ""
         for p in ctx.invoked_parents:
@@ -37,21 +50,21 @@ class on_command_error(commands.Cog):
     async def on_command_error(self, ctx, error):
         time = datetime.datetime.now()
         user = ctx.author.name
-        mention = ctx.author.mention
-        msg = ctx.message.content
         msg2 = ctx.message
         name = ctx.channel.name
         commandname = get_commandname(ctx)
-        if not botchannel_check(ctx):  # todo with event ( on_botchannel_check_failure? )
+        if not botchannel_check(
+            ctx
+        ):  # todo with event ( on_botchannel_check_failure? )
             log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hat probiert den Befehl "
-                     + get_prefix_string(ctx.message)
-                     + f"{commandname} im Channel #"
-                     + str(name)
-                     + " zu benutzen!",
+                + ": Der Nutzer "
+                + str(user)
+                + " hat probiert den Befehl "
+                + get_prefix_string(ctx.message)
+                + f"{commandname} im Channel #"
+                + str(name)
+                + " zu benutzen!",
                 guildid=ctx.guild.id,
             )
             embed = discord.Embed(
@@ -85,12 +98,14 @@ class on_command_error(commands.Cog):
             embed.add_field(
                 name="‎",
                 value=f"Der Befehl `{commandname}` existiert nicht, du kannst alle Befehle mit "
-                      f"`{get_prefix_string(ctx.message)}help` sehen!",
+                f"`{get_prefix_string(ctx.message)}help` sehen!",
                 inline=False,
             )
             await ctx.send(embed=embed)
-            log(f'{time}: Der Nutzer {user} hat versucht den nicht existierenden Befehl "{commandname}" auszuführen.',
-                guildid=ctx.guild.id)
+            log(
+                f'{time}: Der Nutzer {user} hat versucht den nicht existierenden Befehl "{commandname}" auszuführen.',
+                guildid=ctx.guild.id,
+            )
             return
         elif isinstance(error, NotOwner):
             embed = discord.Embed(
@@ -109,13 +124,14 @@ class on_command_error(commands.Cog):
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hatte nicht die nötigen Berrechtigungen um den Befehl "
-                     + get_prefix_string(ctx.message)
-                     + f"{commandname} zu nutzen.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hatte nicht die nötigen Berrechtigungen um den Befehl "
+                + get_prefix_string(ctx.message)
+                + f"{commandname} zu nutzen.",
                 guildid=ctx.guild.id,
             )
+            return
         elif isinstance(error, BotMissingPermissions):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
@@ -129,18 +145,21 @@ class on_command_error(commands.Cog):
             embed.add_field(
                 name="‎",
                 value="Mir fehlt folgende Berrechtigung um den Befehl auszuführen:"
-                      f"```{str(error.missing_perms[0])}```",
+                f"```{str(error.missing_perms[0])}```",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um den Befehl"
-                     + get_prefix_string(ctx.message)
-                     + f"{commandname} vom Nutzer {user} auszuführen.",
+                + ": Der Bot hatte nicht die nötigen Berrechtigungen um den Befehl"
+                + get_prefix_string(ctx.message)
+                + f"{commandname} vom Nutzer {user} auszuführen.",
                 guildid=ctx.guild.id,
             )
+            return
         elif isinstance(error, BadArgument):
+            path = os.path.join("data", "errors", "badargument.json")
+            badargument = readjson(path=path, key=commandname)
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
@@ -151,19 +170,20 @@ class on_command_error(commands.Cog):
             )
             embed.add_field(
                 name="‎",
-                value=ctx.command.badargument,
+                value=badargument,
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hat ein ungültiges Argument bei "
-                     + get_prefix_string(ctx.message)
-                     + f"{commandname} angegeben.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hat ein ungültiges Argument bei "
+                + get_prefix_string(ctx.message)
+                + f"{commandname} angegeben.",
                 guildid=ctx.guild.id,
             )
+            return
         elif isinstance(error, CommandOnCooldown):
             embed = discord.Embed(
                 title="**Cooldown**",
@@ -181,6 +201,7 @@ class on_command_error(commands.Cog):
                 f"{get_prefix_string(ctx.message)}{commandname}' im Kanal #{ctx.channel.name} zu nutzen.",
                 ctx.guild.id,
             )
+            return
         elif isinstance(error, commands.MissingPermissions):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
@@ -193,19 +214,20 @@ class on_command_error(commands.Cog):
             embed.add_field(
                 name="‎",
                 value="Dir fehlt folgende Berrechtigung um den Befehl auszuführen:"
-                      f"```{str(error.missing_perms[0])}```",
+                f"```{str(error.missing_perms[0])}```",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hatte nicht die nötigen Berrechtigungen um den Befehl"
-                     + get_prefix_string(ctx.message)
-                     + f"{commandname} zu nutzen.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hatte nicht die nötigen Berrechtigungen um den Befehl"
+                + get_prefix_string(ctx.message)
+                + f"{commandname} zu nutzen.",
                 guildid=ctx.guild.id,
             )
+            return
         elif isinstance(error, MissingRequiredArgument):
             commandusage = ctx.command.usage
             embed = discord.Embed(
@@ -219,19 +241,21 @@ class on_command_error(commands.Cog):
             embed.add_field(
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung:```"
-                      + get_prefix_string(ctx.message) + f"{commandname} {commandusage}```",
+                + get_prefix_string(ctx.message)
+                + f"{commandname} {commandusage}```",
                 inline=False,
             )
             await ctx.send(embed=embed)
             log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hat nicht alle erforderlichen Argumente beim Befehl "
-                     + get_prefix_string(ctx.message)
-                     + f"{commandname} eingegeben.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hat nicht alle erforderlichen Argumente beim Befehl "
+                + get_prefix_string(ctx.message)
+                + f"{commandname} eingegeben.",
                 guildid=ctx.guild.id,
             )
+            return
         raise error
 
 

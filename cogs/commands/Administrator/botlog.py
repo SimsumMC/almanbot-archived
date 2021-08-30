@@ -9,19 +9,19 @@ from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embeds import get_embed_footer_text
-from cogs.core.functions.functions import (
-    get_author,
-)
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
+from config import ICON_URL, THUMBNAIL_URL, WRONG_CHANNEL_ERROR
 
 
 class botlog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="botlog", aliases=["serverlog", "log"],
-                      description="Gebe dir den Botlog deines Servers aus!")
+    @commands.command(
+        name="botlog",
+        aliases=["serverlog", "log"],
+        description="Gebe dir den Botlog deines Servers aus!",
+    )
     @commands.has_permissions(view_audit_log=True)
     async def botlog(self, ctx):
         time = datetime.datetime.now()
@@ -34,16 +34,19 @@ class botlog(commands.Cog):
                 if os.path.isfile(path):
                     log(
                         text=str(time)
-                             + ": Der Nutzer "
-                             + str(user)
-                             + ' hat sich den Log mit der ID "'
-                             + str(ctx.guild.id)
-                             + '" ausgeben lassen!',
+                        + ": Der Nutzer "
+                        + str(user)
+                        + ' hat sich den Log mit der ID "'
+                        + str(ctx.guild.id)
+                        + '" ausgeben lassen!',
                         guildid=ctx.guild.id,
                     )
                     await msg2.add_reaction(emoji="✅")
                     await ctx.author.send(
-                        file=discord.File(path))  # missing error handling here wenn author has dms blocked
+                        content="test",
+                        file=discord.File(path, filename="log.txt")
+                        # todo doesnt work
+                    )  # todo missing error handling here wenn author has dms blocked
                     embed = discord.Embed(
                         title="**Erfolgreich**",
                         description="Schau in deine Privatnachrichten!",
@@ -66,17 +69,17 @@ class botlog(commands.Cog):
                     embed.add_field(
                         name="‎",
                         value="Es existiert noch kein Log deines Servers, da dass hier anscheinend dein erster "
-                              "Befehl ist!",
+                        "Befehl ist!",
                         inline=False,
                     )
                     await ctx.send(embed=embed)
                     log(
                         text=str(time)
-                             + ": Der Nutzer "
-                             + str(user)
-                             + ' hat versucht sich den noch nicht existierenden Log mit der ID "'
-                             + str(ctx.guild.id)
-                             + '" ausgeben zu lassen!',
+                        + ": Der Nutzer "
+                        + str(user)
+                        + ' hat versucht sich den noch nicht existierenden Log mit der ID "'
+                        + str(ctx.guild.id)
+                        + '" ausgeben zu lassen!',
                         guildid=ctx.guild.id,
                     )
             except Exception:
@@ -85,13 +88,13 @@ class botlog(commands.Cog):
         else:
             log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hat probiert den Befehl "
-                     + get_prefix_string(ctx.message)
-                     + "serverlog im Channel #"
-                     + str(name)
-                     + " zu benutzen!",
+                + ": Der Nutzer "
+                + str(user)
+                + " hat probiert den Befehl "
+                + get_prefix_string(ctx.message)
+                + "serverlog im Channel #"
+                + str(name)
+                + " zu benutzen!",
                 guildid=ctx.guild.id,
             )
             embed = discord.Embed(

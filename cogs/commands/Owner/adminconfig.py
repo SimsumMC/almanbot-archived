@@ -26,11 +26,8 @@ class adminconfig(commands.Cog):
     @commands.command()  # todo adminconfig als group with reset, show and edit
     @commands.is_owner()
     async def adminconfig(self, ctx, guildid, subcommand, arg):
-        time = datetime.datetime.now()
         user = ctx.author.name
-        mention = ctx.author.mention
         msg2 = ctx.message
-        name = ctx.channel.name
         path = os.path.join("data", "configs", f"{guildid}.json")
         existing = [
             "prefix",
