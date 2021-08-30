@@ -1,7 +1,7 @@
 import datetime
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument
+from discord.ext.commands import MissingRequiredArgument, Bot
 
 from cogs.core.config.config_botchannel import get_botchannel_obj_list, botchannel_check
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
@@ -102,38 +102,7 @@ class nachricht(commands.Cog):
                     guildid=ctx.guild.id,
                 )
         else:
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "nachricht im Channel #"
-                + str(name)
-                + " zu benutzen!",
-                guildid=ctx.guild.id,
-            )
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
 ########################################################################################################################

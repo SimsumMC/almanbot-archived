@@ -3,7 +3,7 @@ import os
 import qrcode
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument
+from discord.ext.commands import MissingRequiredArgument, Bot
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.functions.functions import (
@@ -25,7 +25,7 @@ class qr(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="qr", usage="<Text>")
     async def qr(self, ctx, *, text):
         time = datetime.datetime.now()
         user = ctx.author.name
@@ -61,73 +61,7 @@ class qr(commands.Cog):
             )
             os.remove(path)
         else:
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "qr im Channel #"
-                + str(name)
-                + " zu benutzen!",
-                guildid=ctx.guild.id,
-            )
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
-
-    @qr.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "qr <Link>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "qr eingegeben.",
-                guildid=ctx.guild.id,
-            )
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
 ########################################################################################################################

@@ -3,7 +3,7 @@ import random
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import BadArgument
+from discord.ext.commands import BadArgument, Bot
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.functions.functions import (
@@ -54,71 +54,7 @@ class wuerfel(commands.Cog):
                 guildid=ctx.guild.id,
             )
         else:
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "würfel im Channel #"
-                + str(name)
-                + " zu benutzen!",
-                guildid=ctx.guild.id,
-            )
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
-
-    @wuerfel.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, BadArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du musst eine ganze Zahl angeben, also z.B. 6!",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat ein ungültiges Argument bei "
-                + get_prefix_string(ctx.message)
-                + "würfel angegeben.",
-                guildid=ctx.guild.id,
-            )
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
 ########################################################################################################################

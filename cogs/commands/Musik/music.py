@@ -3,6 +3,8 @@ import datetime
 import discord
 import wavelink
 from discord.ext import commands
+from discord.ext.commands import Bot
+from discord_components import Button, ButtonStyle
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.config.config_embedcolour import get_embedcolour
@@ -82,72 +84,61 @@ class music(commands.Cog):
                     guildid=ctx.guild.id,
                 )
         else:
-            log(
-                text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
-                f"example im Channel #{name} zu benutzen!",
-                guildid=ctx.guild.id,
-            )
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
-    @commands.command()
-    async def play(self, ctx, *, query: str):
-        tracks = await self.bot.wavelink.get_tracks(f"ytsearch:{query}")
-        if not tracks:
+    @commands.command(name="play", usage="<Name vom Song / YT Link>")
+    async def play(self, ctx: commands.Context, *, query):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        name = ctx.channel.name
+        msg2 = ctx.message
+        if botchannel_check(ctx):
+            tracks = await self.bot.wavelink.get_tracks(f"ytsearch:{query}")
+            if not tracks:
+                embed = discord.Embed(
+                    title="**Fehler**",
+                    description=f"Ich konnte keinen Song mit der Suchanfrage ````{query}``` finden!",
+                    colour=get_embedcolour(message=ctx.message),
+                )
+                embed.set_thumbnail(url=THUMBNAIL_URL)
+                embed.set_footer(
+                    text=get_embed_footer_text(ctx),
+                    icon_url=ICON_URL,
+                )
+                await ctx.send(embed=embed)
+                return
+            player = self.bot.wavelink.get_player(ctx.guild.id)
+            if not player.is_connected:
+                await ctx.invoke(self.join)
             embed = discord.Embed(
-                title="**Fehler**",
-                description=f"Ich konnte keinen Song mit der Suchanfrage ````{query}``` finden!",
+                title="**Musik Play**",
                 colour=get_embedcolour(message=ctx.message),
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
+            embed.set_thumbnail(
+                url="https://img.youtube.com/vi/"
+                    + tracks[0].info["uri"].split("=")[1]
+                    + "/default.jpg"
+            )
+            embed.add_field(name="**Name**", value=tracks[0].info["title"])
+            embed.add_field(name="**Author**", value=tracks[0].info["author"])
+            embed.add_field(
+                name="**Länge**",
+                value=str(datetime.timedelta(milliseconds=tracks[0].info["length"]))
+                      + "h",
+            )
             embed.set_footer(
                 text=get_embed_footer_text(ctx),
                 icon_url=ICON_URL,
             )
-            await ctx.send(embed=embed)
-            return
-        player = self.bot.wavelink.get_player(ctx.guild.id)
-        if not player.is_connected:
-            await ctx.invoke(self.join)
-        print(tracks[0].info)
-        print(tracks[0].info["uri"])
-        embed = discord.Embed(
-            title="**Musik Play**",
-            colour=get_embedcolour(message=ctx.message),
-        )
-        embed.set_thumbnail(
-            url="https://img.youtube.com/vi/"
-            + tracks[0].info["uri"].split("=")[1]
-            + "/default.jpg"
-        )
-        embed.url = str(tracks[0].info["uri"])
-        embed.add_field(name="**Name**", value=tracks[0].info["title"])
-        embed.add_field(name="**Author**", value=tracks[0].info["author"])
-        embed.add_field(
-            name="**Länge**",
-            value=str(datetime.timedelta(milliseconds=tracks[0].info["length"])) + "h",
-        )
-        print(str(datetime.timedelta(seconds=tracks[0].info["length"])))
-        embed.set_footer(
-            text=get_embed_footer_text(ctx),
-            icon_url=ICON_URL,
-        )
-        await ctx.send(embed=embed)
-        await player.play(tracks[0])
+            await ctx.send(embed=embed, components=[
+                Button(label="YouTube Link", url=str(tracks[0].info["uri"]), style=ButtonStyle.URL)])
+            await player.play(tracks[0])
+        else:
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
+
+    @commands.command(name="stop")
+    async def stop(self, ctx):
+        pass
 
 
 ########################################################################################################################

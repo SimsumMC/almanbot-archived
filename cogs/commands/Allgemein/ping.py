@@ -1,6 +1,7 @@
 import datetime
 import discord
 from discord.ext import commands
+from discord.ext.commands import Bot
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from cogs.core.defaults.defaults_embeds import get_embed_footer_text
@@ -45,33 +46,7 @@ class ping(commands.Cog):
                 guildid=ctx.guild.id,
             )
         else:
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "qr im Channel #"
-                + str(name)
-                + " zu benutzen!",
-                guildid=ctx.guild.id,
-            )
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
 ########################################################################################################################

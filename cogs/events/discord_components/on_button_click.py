@@ -35,8 +35,6 @@ class on_button_click(commands.Cog):
             return
 
         user = res.author.name
-        print(res.component.label.lower())
-        print(res.component.id[5:])
         try:
             help_buttons = [
                 "help_allgemein",
@@ -50,7 +48,6 @@ class on_button_click(commands.Cog):
                 "help_musik",
             ]
             if res.component.id in help_buttons:
-                print("pass")
                 embed = get_page(message=res.message, page=res.component.id[5:])
                 await res.respond(
                     type=7, embed=embed, components=get_help_buttons(res.message)

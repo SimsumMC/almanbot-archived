@@ -4,7 +4,7 @@ import discord
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
 from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument, BadArgument
+from discord.ext.commands import MissingRequiredArgument, BadArgument, Bot
 from discord_components import Button, ButtonStyle
 from cogs.core.functions.functions import (
     get_author,
@@ -18,7 +18,7 @@ class loeschdich(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=["löschdich", "delteyou", "deletuser", "löschenutzer"])
+    @commands.command(aliases=["löschdich", "delteyou", "deletuser", "löschenutzer"], usage="<Nutzer> <opt. Grund>")
     async def loeschdich(self, ctx, member: discord.Member, *, reason=None):
         time = datetime.datetime.now()
         user = ctx.author.name
@@ -69,101 +69,7 @@ class loeschdich(commands.Cog):
                 guildid=ctx.guild.id,
             )
         else:
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + "löschdich im Channel #"
-                + str(name)
-                + " zu benutzen!",
-                guildid=ctx.guild.id,
-            )
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
-
-    @loeschdich.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "löschdich <@Nutzer> <opt. Grund>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat nicht alle erforderlichen Argumente beim Befehl "
-                + get_prefix_string(ctx.message)
-                + "löschdich eingegeben.",
-                guildid=ctx.guild.id,
-            )
-        if isinstance(error, BadArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du musst den Nutzer mit dem Tag angeben, also z.B. Nutzer#1234 !",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat ein ungültiges Argument bei "
-                + get_prefix_string(ctx.message)
-                + "löschdich angegeben.",
-                guildid=ctx.guild.id,
-            )
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
 ########################################################################################################################
