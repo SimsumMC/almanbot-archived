@@ -17,6 +17,7 @@ from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_errors import check_if_error
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embeds import get_embed_footer_text
+from cogs.core.functions.ctx_utils import get_commandname
 from cogs.core.functions.func_json import readjson
 from cogs.core.functions.logging import log
 from config import (
@@ -25,21 +26,6 @@ from config import (
     WRONG_CHANNEL_ERROR,
     WRONG_CHANNEL_ERROR_DELETE_AFTER,
 )
-
-
-def get_commandname(ctx):
-    if not ctx.command:
-        return ctx.message.content.split(" ")[0]
-    elif ctx.invoked_subcommand:
-        parents = ""
-        for p in ctx.invoked_parents:
-            parents = parents + p + " "
-        else:
-            parents = parents[:-1]
-        commandname = str(parents) + " " + str(ctx.invoked_subcommand.name)
-    else:
-        commandname = ctx.command.name
-    return commandname
 
 
 class on_command_error(commands.Cog):
