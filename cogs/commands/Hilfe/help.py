@@ -253,7 +253,17 @@ def get_page(message, page):
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}join**",
-            value="Damit der Bot in deinen Voicechannel kommt!",
+            value="Nutze diesen Befehl damit ich deinen Voichechannel betrete!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{get_prefix_string(message)}play**",
+            value="Nutze diesen Befehl um Musik abzuspielen!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{get_prefix_string(message)}leave**",
+            value="Nutze diesen Befehl damit ich deinen Voichechannel verlasse!",
             inline=False,
         )
     elif page == "tools":
