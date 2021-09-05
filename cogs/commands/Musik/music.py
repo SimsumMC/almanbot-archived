@@ -77,8 +77,6 @@ class music(commands.Cog):
     async def play(self, ctx: commands.Context, *, query):
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
-        msg2 = ctx.message
         if botchannel_check(ctx):
             tracks = await self.bot.wavelink.get_tracks(f"ytsearch:{query}")
             if not tracks:
