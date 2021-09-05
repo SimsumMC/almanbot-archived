@@ -1,24 +1,19 @@
 import datetime
+import inspect
 import os
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingPermissions, MissingRequiredArgument
+from discord.ext.commands import MissingRequiredArgument
 
-from cogs.core.defaults.defaults_embeds import get_embed_footer_text
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, DEFAULT_PREFIX
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.functions.func_json import writejson, readjson
-from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
 from cogs.core.config.config_embedcolour import (
     get_embedcolour,
-    get_embedcolour_code,
-    embedcolour_check,
 )
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
+from cogs.core.functions.func_json import writejson
 from cogs.core.functions.logging import log
+from config import DEFAULT_PREFIX
 
 
 class config(commands.Cog):
@@ -30,7 +25,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config(self, ctx):
         if ctx.invoked_subcommand is None:
-            await self.config_help(self, ctx)
+            await ctx.invoke(self.config_help)
 
     @config.command(name="help", aliases=["hilfe, commands, befehle, cmds"])
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -43,16 +38,8 @@ class config(commands.Cog):
             description=f"Hier findest du alle Subbefehle zum {get_prefix_string(ctx.message)} config Befehl!",
             colour=get_embedcolour(ctx.message),
         )
-        embed.set_thumbnail(url=THUMBNAIL_URL)
-        embed.set_footer(
-            text=FOOTER[0]
-            + str(user)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message)),
-            icon_url=ICON_URL,
-        )
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
         embed.add_field(
             name=f"**{get_prefix_string(ctx.message)}config prefix <Präfix>**",
             value="Ändere den Prefix deines Bots!",
@@ -103,16 +90,16 @@ class config(commands.Cog):
                 description=f'Der Präfix darf maximal 16 Zeichen lang sein, daher ist dein eingegebener Präfix "`{arg}`" ungültig.',
                 colour=get_embedcolour(ctx.message),
             )
-            embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
-            embed.set_thumbnail(url=THUMBNAIL_URL)
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             await ctx.send(embed=embed)
             return
         writejson(type="prefix", input=arg, path=path)
         embed = discord.Embed(
             title="**Config Prefix**", colour=get_embedcolour(ctx.message)
         )
-        embed.set_thumbnail(url=THUMBNAIL_URL)
-        embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
         embed.add_field(
             name="‎",
             value=f"Der Prefix wurde erfolgreich zu ```{arg}``` geändert.",
@@ -125,14 +112,16 @@ class config(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @config.group(name="botchannel")
+    @config.group(name="botchannel", aliases=["bot"], usage="add/remove <@channel>")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
-            print("none")
-            pass
-            # todo error missing
+
+            class error(inspect.Parameter):
+                name = "subcommand"
+
+            raise MissingRequiredArgument(error)
 
     @config_botchannel.command(name="add", aliases=["hinzufügen"])
     async def config_botchannel_add(self, ctx, channel: discord.TextChannel):
@@ -143,16 +132,8 @@ class config(commands.Cog):
         embed = discord.Embed(
             title="**Config Botchannel**", colour=get_embedcolour(ctx.message)
         )
-        embed.set_thumbnail(url=THUMBNAIL_URL)
-        embed.set_footer(
-            text=FOOTER[0]
-            + str(user)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message)),
-            icon_url=ICON_URL,
-        )
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
         embed.add_field(
             name="‎",
             value=f"Der Channel ```{channel.name}``` wurde erfolgreich zu der Botchannel-Liste hinzugefügt.",
@@ -174,16 +155,8 @@ class config(commands.Cog):
         embed = discord.Embed(
             title="**Config Botchannel**", colour=get_embedcolour(ctx.message)
         )
-        embed.set_thumbnail(url=THUMBNAIL_URL)
-        embed.set_footer(
-            text=FOOTER[0]
-            + str(user)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message)),
-            icon_url=ICON_URL,
-        )
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
         embed.add_field(
             name="‎",
             value=f"Der Channel ```{channel.name}``` wurde erfolgreich von der Botchannel-Liste entfernt.",

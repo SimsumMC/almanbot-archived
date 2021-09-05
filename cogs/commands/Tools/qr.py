@@ -1,19 +1,18 @@
 import datetime
 import os
-import qrcode
-import discord
-from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument, Bot
 
-from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+import discord
+import qrcode
+from discord.ext import commands
+from discord.ext.commands import Bot
+
+from cogs.core.config.config_botchannel import botchannel_check
+from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.defaults.defaults_embed import get_embed_footer
 from cogs.core.functions.functions import (
-    get_author,
     get_botname,
 )
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
-from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR
 
 
 def make_qr(filename, msg):
@@ -29,9 +28,6 @@ class qr(commands.Cog):
     async def qr(self, ctx, *, text):
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
-        msg2 = ctx.message
-        mention = ctx.author.mention
         path = f"qrcode by {get_botname()}.png"
         if botchannel_check(ctx):
             make_qr(str(path), text)
@@ -40,15 +36,7 @@ class qr(commands.Cog):
             )
             file = discord.File(path, filename="image.png")
             embed.set_image(url="attachment://image.png")
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
             await ctx.send(file=file, embed=embed)
             log(
                 str(time)

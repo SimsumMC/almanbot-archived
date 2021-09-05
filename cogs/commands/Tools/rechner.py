@@ -9,10 +9,10 @@ from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.defaults.defaults_embeds import get_embed_footer_text
+from cogs.core.defaults.defaults_embed import get_embed_footer
 from cogs.core.functions.cache import save_message_to_cache
 from cogs.core.functions.logging import log
-from config import ICON_URL, CALCULATING_ERROR
+from config import CALCULATING_ERROR
 
 
 def calculate(calculation):
@@ -32,7 +32,6 @@ class calculator(commands.Cog):
     async def calculator(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
         msg2 = ctx.message
         if botchannel_check(ctx):
             embed = discord.Embed(
@@ -40,10 +39,7 @@ class calculator(commands.Cog):
                 description="```|```",
                 colour=get_embedcolour(ctx.message),
             )
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
             msg = await ctx.send(
                 embed=embed,
                 components=[

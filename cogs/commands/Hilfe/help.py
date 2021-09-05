@@ -9,10 +9,9 @@ from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.defaults.defaults_embeds import get_embed_footer_text
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.cache import save_message_to_cache
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL
 
 
 class help(commands.Cog):
@@ -371,11 +370,8 @@ def get_page(message, page):
             value="Setze eine Config zurück!",
             inline=False,
         )
-    embed.set_footer(
-        text=get_embed_footer_text(message=message),
-        icon_url=ICON_URL,
-    )
-    embed.set_thumbnail(url=THUMBNAIL_URL)
+    embed._footer = get_embed_footer(message=message)
+    embed._thumbnail = get_embed_thumbnail()
     return embed
 
 

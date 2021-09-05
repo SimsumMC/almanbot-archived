@@ -1,33 +1,30 @@
-import datetime
 import os
+import os
+
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument
+from discord.ext.commands import Bot
 
-from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.functions.func_json import writejson, readjson
-from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import (
     get_embedcolour,
     get_embedcolour_code,
     embedcolour_check,
 )
+from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
+from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
+from cogs.core.functions.func_json import writejson, readjson
 
 
 class adminconfig(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()  # todo adminconfig als group with reset, show and edit
+    @commands.command(
+        usage="<Guild ID> <Modul> <Wert>"
+    )  # todo adminconfig als group with reset, show and edit
     @commands.is_owner()
     async def adminconfig(self, ctx, guildid, subcommand, arg):
-        user = ctx.author.name
-        msg2 = ctx.message
         path = os.path.join("data", "configs", f"{guildid}.json")
         existing = [
             "prefix",
@@ -55,15 +52,8 @@ class adminconfig(commands.Cog):
                             + "``` geändert!",
                             colour=get_embedcolour(ctx.message),
                         )
-                        embed.set_footer(
-                            text=FOOTER[0]
-                            + str(user)
-                            + FOOTER[1]
-                            + str(get_author())
-                            + FOOTER[2]
-                            + str(get_prefix_string(ctx.message)),
-                            icon_url=ICON_URL,
-                        )
+                        embed._footer = get_embed_footer(ctx)
+                        embed._thumbnail = get_embed_thumbnail()
                         await ctx.send(embed=embed)
                         return
                     else:
@@ -76,15 +66,8 @@ class adminconfig(commands.Cog):
                             + "``` geändert werden.",
                             colour=get_embedcolour(ctx.message),
                         )
-                        embed.set_footer(
-                            text=FOOTER[0]
-                            + str(user)
-                            + FOOTER[1]
-                            + str(get_author())
-                            + FOOTER[2]
-                            + str(get_prefix_string(ctx.message)),
-                            icon_url=ICON_URL,
-                        )
+                        embed._footer = get_embed_footer(ctx)
+                        embed._thumbnail = get_embed_thumbnail()
                         await ctx.send(embed=embed)
                         return
 
@@ -100,31 +83,16 @@ class adminconfig(commands.Cog):
                                 "zulässigen Inhalt.",
                                 color=get_embedcolour(ctx.message),
                             )
-                            embed.set_thumbnail(url=THUMBNAIL_URL)
-                            embed.set_footer(
-                                text=FOOTER[0]
-                                + str(user)
-                                + FOOTER[1]
-                                + str(get_author())
-                                + FOOTER[2]
-                                + str(get_prefix_string(ctx.message)),
-                                icon_url=ICON_URL,
-                            )
+                            embed._footer = get_embed_footer(ctx)
+                            embed._thumbnail = get_embed_thumbnail()
                             await ctx.send(embed=embed)
                             return
                 writejson(type=subcommand, input=arg, path=path)
                 embed = discord.Embed(
                     title="**Admin Config**", colour=get_embedcolour(ctx.message)
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Das Modul ```"
@@ -139,15 +107,8 @@ class adminconfig(commands.Cog):
                 embed = discord.Embed(
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Das Modul **" + str(subcommand) + "** existiert nicht!",
@@ -155,53 +116,7 @@ class adminconfig(commands.Cog):
                 )
                 await ctx.send(embed=embed)
         else:
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
-
-    @adminconfig.error
-    async def handle_error(self, ctx, error):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        if isinstance(error, MissingRequiredArgument):
-            embed = discord.Embed(
-                title="**Fehler**", colour=get_embedcolour(ctx.message)
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung: ```"
-                + get_prefix_string(ctx.message)
-                + "config <Guild ID> <Modul> <Wert>```",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
 ########################################################################################################################

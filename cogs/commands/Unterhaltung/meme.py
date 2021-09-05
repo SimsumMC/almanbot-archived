@@ -5,30 +5,22 @@ import random
 
 import discord
 import praw
+from discord.ext import commands
 from discord.ext.commands import Bot
 
+from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_memechannel import (
-    get_memechannel_obj_list,
     memechannel_check,
 )
+from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
+from cogs.core.functions.func_json import readjson
+from cogs.core.functions.logging import log
 from config import (
-    ICON_URL,
-    THUMBNAIL_URL,
-    FOOTER,
-    WRONG_CHANNEL_ERROR,
     BOT_NAME,
     REDDIT_APP,
 )
-from discord.ext import commands
-
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.functions.func_json import readjson
-from cogs.core.config.config_memes import get_memes, redditnsfwcheck, meme_is_checked
-from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.functions.logging import log
 
 
 class meme(commands.Cog):
@@ -43,8 +35,6 @@ class meme(commands.Cog):
         global submission
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
-        msg2 = ctx.message
         path = os.path.join("data", "verifiedmemes", "memes.json")
         if memechannel_check(ctx):
             try:
@@ -69,16 +59,8 @@ class meme(commands.Cog):
                             "zulässigen Inhalt.",
                             color=get_embedcolour(ctx.message),
                         )
-                        embed.set_thumbnail(url=THUMBNAIL_URL)
-                        embed.set_footer(
-                            text=FOOTER[0]
-                            + str(user)
-                            + FOOTER[1]
-                            + str(get_author())
-                            + FOOTER[2]
-                            + str(get_prefix_string(ctx.message)),
-                            icon_url=ICON_URL,
-                        )
+                        embed._footer = get_embed_footer(ctx)
+                        embed._thumbnail = get_embed_thumbnail()
                         await ctx.send(embed=embed)
                         log(
                             f"{time}: Der Nutzer {user} hat beim Befehl"
@@ -97,15 +79,7 @@ class meme(commands.Cog):
                     title=f"**{submission.title}**", colour=get_embedcolour(ctx.message)
                 )
                 embed.set_image(url=submission.url)
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
                 await ctx.send(embed=embed)
                 log(
                     f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
@@ -122,16 +96,8 @@ class meme(commands.Cog):
                     "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
                     color=get_embedcolour(ctx.message),
                 )
-                embed.set_thumbnail(url=THUMBNAIL_URL)
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 await ctx.send(embed=embed)
                 log(
                     f"{time}: Der Nutzer {user} hat beim Befehl"

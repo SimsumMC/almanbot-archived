@@ -2,16 +2,17 @@ import datetime
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument, MissingPermissions, Bot
+from discord.ext.commands import Bot
 
-from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
+from cogs.core.config.config_botchannel import botchannel_check
+from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.functions import (
     get_author,
 )
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.functions.logging import log
+from config import ICON_URL, THUMBNAIL_URL, FOOTER
 
 
 class unban(commands.Cog):
@@ -23,23 +24,14 @@ class unban(commands.Cog):
     async def unban(self, ctx, *, member):
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
-        msg2 = ctx.message
         mention = ctx.author.mention
         if botchannel_check(ctx):
             if "#" not in member:
                 embed = discord.Embed(
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Du musst den Nutzer mit dem Tag angeben, also z.B. Nutzer#1234 !",
@@ -60,15 +52,8 @@ class unban(commands.Cog):
                 embed = discord.Embed(
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Du musst den Nutzer mit dem Tag angeben, also z.B. Nutzer#1234 !",
@@ -85,99 +70,70 @@ class unban(commands.Cog):
                     guildid=ctx.guild.id,
                 )
                 return
-            try:
-                banned_users = await ctx.guild.bans()
-                member_name, member_disc = member.split("#")
-                for ban_entry in banned_users:
-                    user2 = ban_entry.user
-                    if (user2.name, user2.discriminator) == (member_name, member_disc):
-                        try:
-                            await ctx.guild.unban(user2)
-                            embed = discord.Embed(
-                                title="**Unban**", colour=get_embedcolour(ctx.message)
-                            )
-                            embed.set_thumbnail(url=THUMBNAIL_URL)
-                            embed.set_footer(
-                                text=FOOTER[0]
-                                + str(user)
-                                + FOOTER[1]
-                                + str(get_author())
-                                + FOOTER[2]
-                                + str(get_prefix_string(ctx.message)),
-                                icon_url=ICON_URL,
-                            )
-                            embed.add_field(
-                                name="Moderator:", value=mention, inline=False
-                            )
-                            embed.add_field(
-                                name="Nutzer:", value=str(member), inline=False
-                            )
-                            await ctx.send(embed=embed)
-                            log(
-                                str(time)
-                                + ": Der Moderator "
-                                + str(user)
-                                + "hat den Nutzer "
-                                + str(member)
-                                + " erfolgreich entbannt.",
-                                guildid=ctx.guild.id,
-                            )
-                        except Exception:
-                            embed = discord.Embed(
-                                title="**Fehler**", colour=get_embedcolour(ctx.message)
-                            )
-                            embed.set_footer(
-                                text=FOOTER[0]
-                                + str(user)
-                                + FOOTER[1]
-                                + str(get_author())
-                                + FOOTER[2]
-                                + str(get_prefix_string(ctx.message)),
-                                icon_url=ICON_URL,
-                            )
-                            embed.add_field(
-                                name="‎",
-                                value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!",
-                                inline=False,
-                            )
-                            await ctx.send(embed=embed)
-                            log(
-                                text=str(time)
-                                + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
-                                + get_prefix_string(ctx.message)
-                                + "unban auszuführen..",
-                                guildid=ctx.guild.id,
-                            )
-                else:
-                    embed = discord.Embed(
-                        title="**Fehler**",
-                        description="Der Nutzer "
-                        + str(member)
-                        + " ist nicht gebannt und kann daher "
-                        "auch nicht entbannt werden.",
-                        colour=get_embedcolour(ctx.message),
-                    )
-                    embed.set_footer(
-                        text=FOOTER[0]
-                        + str(user)
-                        + FOOTER[1]
-                        + str(get_author())
-                        + FOOTER[2]
-                        + str(get_prefix_string(ctx.message)),
-                        icon_url=ICON_URL,
-                    )
-                    await ctx.send(embed=embed)
-                    log(
-                        str(time)
-                        + ": Der Moderator "
-                        + str(user)
-                        + "hat versucht den  ungültigen Nutzer "
-                        + str(member)
-                        + " zu entbannen.",
-                        guildid=ctx.guild.id,
-                    )
-            except Exception:
-                raise Exception
+            banned_users = await ctx.guild.bans()
+            member_name, member_disc = member.split("#")
+            for ban_entry in banned_users:
+                user2 = ban_entry.user
+                if (user2.name, user2.discriminator) == (member_name, member_disc):
+                    try:
+                        await ctx.guild.unban(user2)
+                        embed = discord.Embed(
+                            title="**Unban**", colour=get_embedcolour(ctx.message)
+                        )
+                        embed._footer = get_embed_footer(ctx)
+                        embed._thumbnail = get_embed_thumbnail()
+                        embed.add_field(name="Moderator:", value=mention, inline=False)
+                        embed.add_field(name="Nutzer:", value=str(member), inline=False)
+                        await ctx.send(embed=embed)
+                        log(
+                            str(time)
+                            + ": Der Moderator "
+                            + str(user)
+                            + "hat den Nutzer "
+                            + str(member)
+                            + " erfolgreich entbannt.",
+                            guildid=ctx.guild.id,
+                        )
+                    except Exception:
+                        embed = discord.Embed(
+                            title="**Fehler**", colour=get_embedcolour(ctx.message)
+                        )
+                        embed._footer = get_embed_footer(ctx)
+                        embed._thumbnail = get_embed_thumbnail()
+                        embed.add_field(
+                            name="‎",
+                            value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!",
+                            inline=False,
+                        )
+                        await ctx.send(embed=embed)
+                        log(
+                            text=str(time)
+                            + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
+                            + get_prefix_string(ctx.message)
+                            + "unban auszuführen..",
+                            guildid=ctx.guild.id,
+                        )
+            else:
+                embed = discord.Embed(
+                    title="**Fehler**",
+                    description="Der Nutzer "
+                    + str(member)
+                    + " ist nicht gebannt und kann daher "
+                    "auch nicht entbannt werden.",
+                    colour=get_embedcolour(ctx.message),
+                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
+                await ctx.send(embed=embed)
+                log(
+                    str(time)
+                    + ": Der Moderator "
+                    + str(user)
+                    + "hat versucht den  ungültigen Nutzer "
+                    + str(member)
+                    + " zu entbannen.",
+                    guildid=ctx.guild.id,
+                )
         else:
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 

@@ -3,22 +3,15 @@ import random
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
-
-from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+from cogs.core.config.config_botchannel import botchannel_check
+from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_footer
+from cogs.core.functions.logging import log
 from config import (
-    ICON_URL,
-    THUMBNAIL_URL,
-    FOOTER,
     COIN_HEAD,
     COIN_NUMBER,
-    WRONG_CHANNEL_ERROR,
 )
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.functions.logging import log
 
 
 class coinflip(commands.Cog):
@@ -30,10 +23,8 @@ class coinflip(commands.Cog):
         global picture, strval
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
-        msg2 = ctx.message
         if botchannel_check(ctx):
-            value = random.randint(1, 6)
+            value = random.randint(1, 2)
             if value == 1:
                 strval = "Kopf"
                 picture = COIN_HEAD
@@ -47,15 +38,7 @@ class coinflip(commands.Cog):
             embed.add_field(
                 name="‎", value=f"Das Ergebnis ist ```{strval}```", inline=False
             )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
             await ctx.send(embed=embed)
             log(
                 f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"

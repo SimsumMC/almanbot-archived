@@ -4,12 +4,8 @@ import discord
 from discord.ext import commands
 
 from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.functions.functions import (
-    get_author,
-)
+from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
 from cogs.core.functions.logging import log
-from config import FOOTER, ICON_URL
 
 
 class on_blacklist_word(commands.Cog):
@@ -26,23 +22,15 @@ class on_blacklist_word(commands.Cog):
             description="Deine Nachricht hat ein verbotenes Wort "
             "enthalten, daher wurde sie gelöscht. "
             "Sollte dies ein Fehler sein, "
-            "kontaktiere einen Administrator des "
+            "kontaktiere einen Moderator des "
             "Servers. ",
             colour=get_embedcolour(message=message),
         )
-        embed.set_footer(
-            text=FOOTER[0]
-            + message.author.name
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(message)),
-            icon_url=ICON_URL,
-        )
+        embed._footer = get_embed_footer(message=message)
+        embed._thumbnail = get_embed_thumbnail()
         await message.channel.send(embed=embed, delete_after=5)
         log(
-            str(time)
-            + f": Der Nutzer {user} hat versucht ein verbotenes Wort zu benutzen."
+            f"{time}: Der Nutzer {user} hat versucht ein verbotenes Wort zu benutzen."
             f' Wort: "{bannedword}"',
             message.guild.id,
         )

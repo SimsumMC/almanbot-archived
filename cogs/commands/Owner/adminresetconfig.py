@@ -1,17 +1,13 @@
-import datetime
 import os
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import Bot
 
-from cogs.core.config.config_botchannel import get_botchannel_obj_list
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_general import resetconfig
+from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
 
 
 class adminresetconfig(commands.Cog):
@@ -21,14 +17,8 @@ class adminresetconfig(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def adminresetconfig(self, ctx, guildid):
-        time = datetime.datetime.now()
-        user = ctx.author.name
-        mention = ctx.author.mention
-        msg2 = ctx.message
-        name = ctx.channel.name
         path = os.path.join("data", "configs", f"{guildid}.json")
-        channel = get_botc(message=ctx.message)
-        if name == channel or channel == "None":
+        if botchannel_check(ctx):
             if resetconfig(path):
                 embed = discord.Embed(
                     title="**Reset Config**",
@@ -36,15 +26,8 @@ class adminresetconfig(commands.Cog):
                     "wurde erfolgreich zurückgesetzt.",
                     colour=get_embedcolour(ctx.message),
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 await ctx.send(embed=embed)
                 return
             else:
@@ -54,39 +37,12 @@ class adminresetconfig(commands.Cog):
                     "konnte nicht zurückgesetzt werden.",
                     colour=get_embedcolour(ctx.message),
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 await ctx.send(embed=embed)
                 return
         else:
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await msg2.delete()
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
 ########################################################################################################################

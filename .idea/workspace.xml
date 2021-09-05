@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc741242-7678-427f-9d74-e037c3971516" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cogs/core/defaults/defaults_embed.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/botlog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/botlog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/channelclear.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/channelclear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/config_cmd_inwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/config_cmd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/trigger.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/trigger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Allgemein/botinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Allgemein/botinfo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Allgemein/invite.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Allgemein/invite.py" afterDir="false" />
@@ -14,12 +17,15 @@
       <change beforePath="$PROJECT_DIR$/cogs/commands/Informationen/serverinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Informationen/serverinfo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/ban.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/ban.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/blacklist.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/blacklist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/clear.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/clear.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/kick.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/kick.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/mute.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/mute.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/slowmode.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/slowmode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/unban.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/unban.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Moderation/unmute.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Moderation/unmute.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Musik/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Musik/music.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Owner/adminconfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Owner/adminconfig.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Owner/adminresetconfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Owner/adminresetconfig.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Owner/broadcast.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Owner/broadcast.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Owner/cog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Owner/cog.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Tools/avatar.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Tools/avatar.py" afterDir="false" />
@@ -36,12 +42,15 @@
       <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/ssp.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/ssp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/stein.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/stein.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/wuerfel.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/wuerfel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/core/defaults/defaults_embeds.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/events/discord_components/on_button_click.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_components/on_button_click.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_blacklist_word.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_blacklist_word.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_botchannelcheck_failure.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_botchannelcheck_failure.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/events/discord_py/on_command_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_py/on_command_error.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/cache/message_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/message_cache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/errors/badargument.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/errors/badargument.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/logs/825502579474563103.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/logs/825502579474563103.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

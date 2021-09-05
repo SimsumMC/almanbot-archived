@@ -2,7 +2,7 @@ from discord.ext import commands
 
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.functions.functions import get_author
-from config import FOOTER
+from config import FOOTER, ICON_URL, THUMBNAIL_URL
 
 
 class defaults_embeds(commands.Cog):
@@ -10,31 +10,30 @@ class defaults_embeds(commands.Cog):
         self.bot = bot
 
 
-def get_embed_footer_text(ctx=None, message=None):
+def get_embed_footer(ctx=None, message=None):  # TODO : Integrate it everywhere
     """
-    :param message: discord.Message
-    :param ctx: commands.Context
-    :return: str: footer text
+    :param ctx:
+    :param message:
+    :return: dictionary
     """
     if ctx:
-        footer = (
-            FOOTER[0]
-            + str(ctx.author)
-            + FOOTER[1]
-            + str(get_author())
-            + FOOTER[2]
-            + str(get_prefix_string(ctx.message))
-        )
-    else:
-        footer = (
+        message = ctx.message
+    footer_dict = {
+        "text": (
             FOOTER[0]
             + str(message.author)
             + FOOTER[1]
             + str(get_author())
             + FOOTER[2]
             + str(get_prefix_string(message))
-        )
-    return str(footer)
+        ),
+        "icon_url": ICON_URL,
+    }
+    return footer_dict
+
+
+def get_embed_thumbnail():  # TODO : Integrate it everywhere
+    return {"url": THUMBNAIL_URL}
 
 
 ########################################################################################################################

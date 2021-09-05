@@ -4,9 +4,8 @@ import discord
 from discord.ext import commands
 
 from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.defaults.defaults_embeds import get_embed_footer_text
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL
 
 
 class channelclear(commands.Cog):
@@ -27,14 +26,14 @@ class channelclear(commands.Cog):
             description=f"Der Channel {newchannel.mention} wurde erfolgreich geleert!",
             colour=get_embedcolour(ctx.message),
         )
-        embed.set_thumbnail(url=THUMBNAIL_URL)
-        embed.set_footer(text=get_embed_footer_text(ctx), icon_url=ICON_URL)
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
         await newchannel.send(embed=embed)
         log(
             text=str(time)
             + ": Der Nutzer "
             + str(user)
-            + ' hat den Chat "#'
+            + ' hat den Channel "#'
             + str(channel)
             + '" geleert.',
             guildid=ctx.guild.id,

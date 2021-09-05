@@ -1,28 +1,22 @@
 import datetime
+
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 
-from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
-from cogs.core.defaults.defaults_embeds import get_embed_footer_text
-from cogs.core.functions.functions import (
-    get_author,
-)
-from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.logging import log
-from main import client
 from config import (
-    ICON_URL,
-    THUMBNAIL_URL,
-    FOOTER,
     BOT_MAIN_DEVELOPER,
     BOT_DEVELOPERLIST,
     GITHUB_LINK,
     WEBSITE_LINK,
-    WRONG_CHANNEL_ERROR,
     ABOUT,
 )
+from main import client
 
 
 def get_developer_string():
@@ -46,25 +40,14 @@ class botinfo(commands.Cog):
     async def botinfo(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
-        msg2 = ctx.message
-        mention = ctx.author.mention
         if botchannel_check(ctx):
             embed = discord.Embed(
                 title="**Botinfo**",
                 description=ABOUT,
                 color=get_embedcolour(ctx.message),
             )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
-
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             embed.add_field(
                 name="**Entwickler**", value=get_developer_string(), inline=True
             )
@@ -86,7 +69,6 @@ class botinfo(commands.Cog):
                 value=f"[Link]({WEBSITE_LINK})",
                 inline=True,
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
             await ctx.send(embed=embed)
             log(
                 str(time)

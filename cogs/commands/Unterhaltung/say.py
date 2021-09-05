@@ -18,10 +18,9 @@ class say(commands.Cog):
     @commands.command(usage="<Text>")
     async def say(self, ctx, *, text: commands.clean_content):
         time = datetime.datetime.now()
-        user = ctx.author.name
-        name = ctx.channel.name
         msg2 = ctx.message
         if botchannel_check(ctx):
+            # TODO Blacklist Check
             msg = await ctx.send(
                 content=str(text),
                 components=[

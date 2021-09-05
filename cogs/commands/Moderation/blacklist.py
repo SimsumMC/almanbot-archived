@@ -1,19 +1,14 @@
 import datetime
 import os
-
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
-
-from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.func_json import writejson, readjson
-from cogs.core.functions.functions import (
-    get_author,
-)
 from cogs.core.functions.logging import log
-from config import ICON_URL, FOOTER, WRONG_CHANNEL_ERROR
 
 
 class blacklist(commands.Cog):
@@ -28,7 +23,6 @@ class blacklist(commands.Cog):
     async def blacklist(self, ctx, cmd, *, word):
         time = datetime.datetime.now()
         user = ctx.author.name
-        name = ctx.channel.name
         msg2 = ctx.message
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
         bannedWords = readjson(key="blacklist", path=path)
@@ -41,15 +35,8 @@ class blacklist(commands.Cog):
                         " ist bereits auf der Blacklist!",
                         colour=get_embedcolour(ctx.message),
                     )
-                    embed.set_footer(
-                        text=FOOTER[0]
-                        + str(user)
-                        + FOOTER[1]
-                        + str(get_author())
-                        + FOOTER[2]
-                        + str(get_prefix_string(ctx.message)),
-                        icon_url=ICON_URL,
-                    )
+                    embed._footer = get_embed_footer(ctx)
+                    embed._thumbnail = get_embed_thumbnail()
                     await ctx.send(embed=embed)
                     log(
                         f'{time}: Der Moderator {user} hat versucht das Wort "{word}" zur Blacklist hinzufügen,'
@@ -67,15 +54,8 @@ class blacklist(commands.Cog):
                         " wurde zur Blacklist hinzugefügt!",
                         colour=get_embedcolour(ctx.message),
                     )
-                    embed.set_footer(
-                        text=FOOTER[0]
-                        + str(user)
-                        + FOOTER[1]
-                        + str(get_author())
-                        + FOOTER[2]
-                        + str(get_prefix_string(ctx.message)),
-                        icon_url=ICON_URL,
-                    )
+                    embed._footer = get_embed_footer(ctx)
+                    embed._thumbnail = get_embed_thumbnail()
                     await ctx.send(embed=embed)
                     log(
                         f'{time}: Der Moderator {user} hat das Wort "{word}" auf die Blacklist hinzugefügt.',
@@ -93,15 +73,8 @@ class blacklist(commands.Cog):
                         " wurde von der Blacklist entfernt!",
                         colour=get_embedcolour(ctx.message),
                     )
-                    embed.set_footer(
-                        text=FOOTER[0]
-                        + str(user)
-                        + FOOTER[1]
-                        + str(get_author())
-                        + FOOTER[2]
-                        + str(get_prefix_string(ctx.message)),
-                        icon_url=ICON_URL,
-                    )
+                    embed._footer = get_embed_footer(ctx)
+                    embed._thumbnail = get_embed_thumbnail()
                     await ctx.send(embed=embed)
                     log(
                         f'{time}: Der Moderator {user} hat das Wort "{word}"von der Blacklist entfernt.',
@@ -114,15 +87,8 @@ class blacklist(commands.Cog):
                         " befindet sich nicht auf der Blacklist!",
                         colour=get_embedcolour(ctx.message),
                     )
-                    embed.set_footer(
-                        text=FOOTER[0]
-                        + str(user)
-                        + FOOTER[1]
-                        + str(get_author())
-                        + FOOTER[2]
-                        + str(get_prefix_string(ctx.message)),
-                        icon_url=ICON_URL,
-                    )
+                    embed._thumbnail = get_embed_thumbnail()
+                    embed._footer = get_embed_footer(ctx)
                     await ctx.send(embed=embed)
                     log(
                         f'{time}: Der Moderator {user} hat versucht das Wort "{word}" von der Blacklist zu entfernen,'
@@ -133,15 +99,8 @@ class blacklist(commands.Cog):
                 embed = discord.Embed(
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Du hast ein ungültiges Argument angegeben, Nutzung: ```"

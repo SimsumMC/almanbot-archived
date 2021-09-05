@@ -5,12 +5,11 @@ from discord.ext import commands
 
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
 from cogs.core.functions.functions import (
-    get_author,
     is_not_pinned,
 )
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL, FOOTER
 
 
 class clear(commands.Cog):
@@ -37,16 +36,8 @@ class clear(commands.Cog):
                     description=f"Es {wurde} {len(deleted) - 1} {nachricht} gelöscht!",
                     colour=get_embedcolour(ctx.message),
                 )
-                embed.set_thumbnail(url=THUMBNAIL_URL)
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 await ctx.send(embed=embed, delete_after=5)
                 log(
                     str(time)
@@ -65,15 +56,8 @@ class clear(commands.Cog):
                 embed = discord.Embed(
                     title="**Fehler**", colour=get_embedcolour(ctx.message)
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(ctx.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(ctx)
+                embed._thumbnail = get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!",
@@ -95,15 +79,8 @@ class clear(commands.Cog):
                 " Nutze dazu bitte !channelclear .",
                 colour=get_embedcolour(ctx.message),
             )
-            embed.set_footer(
-                text=FOOTER[0]
-                + str(user)
-                + FOOTER[1]
-                + str(get_author())
-                + FOOTER[2]
-                + str(get_prefix_string(ctx.message)),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             await ctx.send(embed=embed, delete_after=5)
             log(
                 str(time)

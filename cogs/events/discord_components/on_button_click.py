@@ -1,4 +1,3 @@
-import traceback
 import datetime
 
 import discord
@@ -9,16 +8,12 @@ from cogs.commands.Hilfe.help import get_page, get_help_buttons
 from cogs.commands.Tools.rechner import calculate
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.cache import (
     get_messages_from_cache,
 )
-from cogs.core.functions.functions import get_author
 from cogs.core.functions.logging import log
 from config import (
-    FOOTER,
-    THUMBNAIL_URL,
-    ICON_URL,
     CALCULATING_ERROR,
     MISSING_PERMISSIONS_BUTTON_ERROR,
 )
@@ -91,16 +86,8 @@ class on_button_click(commands.Cog):
                     description=str(res.message.content),
                     colour=get_embedcolour(res.message),
                 )
-                embed.set_thumbnail(url=THUMBNAIL_URL)
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(res.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(message=res.message)
+                embed._thumbnail = get_embed_thumbnail()
                 await res.respond(
                     type=7,
                     embed=embed,
@@ -285,15 +272,7 @@ class on_button_click(commands.Cog):
                     description=description,
                     colour=get_embedcolour(res.message),
                 )
-                embed.set_footer(
-                    text=FOOTER[0]
-                    + str(user)
-                    + FOOTER[1]
-                    + str(get_author())
-                    + FOOTER[2]
-                    + str(get_prefix_string(res.message)),
-                    icon_url=ICON_URL,
-                )
+                embed._footer = get_embed_footer(message=res.message)
                 await res.respond(
                     type=7,
                     embed=embed,
@@ -413,7 +392,7 @@ class on_button_click(commands.Cog):
                     content=f"Error 404: Diesen Button {res.component.label} kenne ich leider nicht!"
                 )
         except Exception:
-            traceback.print_exc()
+            # traceback.print_exc()
             pass
 
 

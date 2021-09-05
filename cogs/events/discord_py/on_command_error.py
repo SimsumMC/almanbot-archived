@@ -10,22 +10,18 @@ from discord.ext.commands import (
     BotMissingPermissions,
     NotOwner,
     BadArgument,
+    MissingPermissions,
+    Bot,
 )
 
-from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_errors import check_if_error
 from cogs.core.config.config_prefix import get_prefix_string
-from cogs.core.defaults.defaults_embeds import get_embed_footer_text
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.ctx_utils import get_commandname
 from cogs.core.functions.func_json import readjson
 from cogs.core.functions.logging import log
-from config import (
-    ICON_URL,
-    THUMBNAIL_URL,
-    WRONG_CHANNEL_ERROR,
-    WRONG_CHANNEL_ERROR_DELETE_AFTER,
-)
 
 
 class on_command_error(commands.Cog):
@@ -34,41 +30,12 @@ class on_command_error(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+        # TODO : Add TooManyArguments Error
         time = datetime.datetime.now()
         user = ctx.author.name
-        msg2 = ctx.message
-        name = ctx.channel.name
         commandname = get_commandname(ctx)
-        if not botchannel_check(
-            ctx
-        ):  # todo with event ( on_botchannel_check_failure? )
-            log(
-                text=str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat probiert den Befehl "
-                + get_prefix_string(ctx.message)
-                + f"{commandname} im Channel #"
-                + str(name)
-                + " zu benutzen!",
-                guildid=ctx.guild.id,
-            )
-            embed = discord.Embed(
-                title="**Fehler**",
-                description=WRONG_CHANNEL_ERROR,
-                colour=get_embedcolour(message=ctx.message),
-            )
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
-            embed.add_field(
-                name="‎",
-                value=get_botchannel_obj_list(ctx),
-                inline=False,
-            )
-            await ctx.send(embed=embed, delete_after=WRONG_CHANNEL_ERROR_DELETE_AFTER)
-            await msg2.delete()
+        if not botchannel_check(ctx):
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
         elif isinstance(error, CommandNotFound):
             if not check_if_error(ctx=ctx, error="commandnotfound"):
@@ -76,11 +43,8 @@ class on_command_error(commands.Cog):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             embed.add_field(
                 name="‎",
                 value=f"Der Befehl `{commandname}` existiert nicht, du kannst alle Befehle mit "
@@ -97,11 +61,8 @@ class on_command_error(commands.Cog):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             embed.add_field(
                 name="‎",
                 value="Du musst der Besitzer sein, um diesen Befehl nutzen zu dürfen!",
@@ -122,12 +83,8 @@ class on_command_error(commands.Cog):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             embed.add_field(
                 name="‎",
                 value="Mir fehlt folgende Berrechtigung um den Befehl auszuführen:"
@@ -149,11 +106,8 @@ class on_command_error(commands.Cog):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             embed.add_field(
                 name="‎",
                 value=badargument,
@@ -176,11 +130,8 @@ class on_command_error(commands.Cog):
                 description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
                 color=get_embedcolour(ctx.message),
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             await ctx.send(embed=embed)
             log(
                 f"{time}: Der Nutzer {user} hat trotz eines Cooldowns versucht den Befehl '"
@@ -188,15 +139,12 @@ class on_command_error(commands.Cog):
                 ctx.guild.id,
             )
             return
-        elif isinstance(error, commands.MissingPermissions):
+        elif isinstance(error, MissingPermissions):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             embed.add_field(
                 name="‎",
                 value="Dir fehlt folgende Berrechtigung um den Befehl auszuführen:"
@@ -219,11 +167,8 @@ class on_command_error(commands.Cog):
             embed = discord.Embed(
                 title="**Fehler**", colour=get_embedcolour(ctx.message)
             )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
-            embed.set_footer(
-                text=get_embed_footer_text(ctx),
-                icon_url=ICON_URL,
-            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
             embed.add_field(
                 name="‎",
                 value="Du hast nicht alle erforderlichen Argumente angegeben, Nutzung:```"
