@@ -10,7 +10,7 @@ class defaults_embeds(commands.Cog):
         self.bot = bot
 
 
-def get_embed_footer(ctx=None, message=None):  # TODO : Integrate it everywhere
+def get_embed_footer(ctx=None, message=None):
     """
     :param ctx:
     :param message:
@@ -32,7 +32,7 @@ def get_embed_footer(ctx=None, message=None):  # TODO : Integrate it everywhere
     return footer_dict
 
 
-def get_embed_thumbnail():  # TODO : Integrate it everywhere
+def get_embed_thumbnail():
     return {"url": THUMBNAIL_URL}
 
 

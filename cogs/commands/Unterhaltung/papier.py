@@ -6,7 +6,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 
 from cogs.core.config.config_botchannel import botchannel_check, get_botchannel_obj_list
-from cogs.core.defaults.defaults_embed import get_embed_footer
+from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
 from cogs.core.functions.functions import (
     get_author,
 )
