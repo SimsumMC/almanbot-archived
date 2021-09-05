@@ -52,7 +52,7 @@ class AlmanBot(commands.Bot):
         print(f'Der Bot mit dem Namen "{self.user}" wurde erfolgreich gestartet!\n')
         print(f"Discord.py API version: {discord.__version__}")
         print(f"Python version: {platform.python_version()}")
-        print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
+        print(f"Operating System: {platform.system()} {platform.release()} ({os.name})")
         client.loop.create_task(self.status_task())
 
     async def status_task(self):
@@ -126,6 +126,7 @@ client = AlmanBot(
     intents=discord.Intents.all(),
 )
 
+
 ########################################################################################################################
 
 
@@ -161,6 +162,7 @@ for directory in os.listdir("./cogs"):
                         )
                         traceback.print_exc()
             check = 0
+
 
 ########################################################################################################################
 
