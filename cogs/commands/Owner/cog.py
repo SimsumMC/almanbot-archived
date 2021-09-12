@@ -24,11 +24,11 @@ class cog(commands.Cog):
     @commands.is_owner()
     async def cog(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.invoke(self.help)
+            await ctx.invoke(self._help)
 
-    @cog.command(name="help", aliases=["help", "cmds", "commands"])
+    @cog.command(name="help", aliases=["hilfe", "cmds", "commands"])
     @commands.is_owner()
-    async def help(self, ctx):
+    async def _help(self, ctx):
         if botchannel_check(ctx):
             embed = discord.Embed(title="Fehler", colour=get_embedcolour(ctx.message))
             embed.add_field(
@@ -51,14 +51,13 @@ class cog(commands.Cog):
     @cog.command(usage="<Name>")
     @commands.is_owner()
     async def load(self, ctx, cogname):
-        user = ctx.author.name
         if botchannel_check(ctx):
             try:
                 for directory in os.listdir("./cogs"):
                     if directory != "Ignore":
                         for directory2 in os.listdir(f"./cogs/{directory}"):
                             for filename in os.listdir(
-                                f"./cogs/{directory}/{directory2}/"
+                                    f"./cogs/{directory}/{directory2}/"
                             ):
                                 if filename == f"{cogname}.py":
                                     extension = (
@@ -97,7 +96,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht geladen werden. \n\n"
-                    f"Fehler: {str(e)}",
+                          f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed._footer = get_embed_footer(ctx)
@@ -116,7 +115,7 @@ class cog(commands.Cog):
                     if directory != "Ignore":
                         for directory2 in os.listdir(f"./cogs/{directory}"):
                             for filename in os.listdir(
-                                f"./cogs/{directory}/{directory2}/"
+                                    f"./cogs/{directory}/{directory2}/"
                             ):
                                 if filename == f"{cogname}.py":
                                     extension = (
@@ -157,7 +156,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht entladen werden. \n\n"
-                    f"Fehler: {str(e)}",
+                          f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed._footer = get_embed_footer(ctx)
@@ -176,7 +175,7 @@ class cog(commands.Cog):
                     if directory != "Ignore":
                         for directory2 in os.listdir(f"./cogs/{directory}"):
                             for filename in os.listdir(
-                                f"./cogs/{directory}/{directory2}/"
+                                    f"./cogs/{directory}/{directory2}/"
                             ):
                                 if filename == f"{cogname}.py":
                                     extension = (
@@ -196,11 +195,11 @@ class cog(commands.Cog):
                                     )
                                     embed.set_footer(
                                         text=FOOTER[0]
-                                        + str(user)
-                                        + FOOTER[1]
-                                        + str(get_author())
-                                        + FOOTER[2]
-                                        + str(get_prefix_string(ctx.message)),
+                                             + str(user)
+                                             + FOOTER[1]
+                                             + str(get_author())
+                                             + FOOTER[2]
+                                             + str(get_prefix_string(ctx.message)),
                                         icon_url=ICON_URL,
                                     )
                                     await ctx.send(embed=embed)
@@ -224,7 +223,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht neu geladen werden. \n\n"
-                    f"Fehler: {str(e)}",
+                          f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed._footer = get_embed_footer(ctx)
@@ -233,7 +232,7 @@ class cog(commands.Cog):
         else:
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
-    @cog.command()
+    @cog.command(name="reloadall", aliases=["rall", "ra"])
     @commands.is_owner()
     async def reloadall(self, ctx):
         global filename
@@ -260,7 +259,7 @@ class cog(commands.Cog):
                                     embed.add_field(
                                         name="‎",
                                         value=f"Der Cog ```{filename}``` konnte nicht neu geladen werden. \n\n"
-                                        f"Fehler: {str(e)}",
+                                              f"Fehler: {str(e)}",
                                         inline=False,
                                     )
                                     embed._footer = get_embed_footer(ctx)
@@ -292,7 +291,7 @@ class cog(commands.Cog):
                 if directory != "Ignore":
                     if check == 0:
                         description = (
-                            description + f"\n**{directory.capitalize()}**\n\n"
+                                description + f"\n**{directory.capitalize()}**\n\n"
                         )
                     for directory2 in os.listdir(f"./cogs/{directory}"):
                         for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
@@ -306,7 +305,7 @@ class cog(commands.Cog):
                                     else:
                                         emoji = "🟥"
                                     description = (
-                                        description + filename[:-3] + emoji + "\n"
+                                            description + filename[:-3] + emoji + "\n"
                                     )
                                 except Exception:
                                     traceback.print_exc()

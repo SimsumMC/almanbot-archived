@@ -26,7 +26,6 @@ class botlog(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         msg2 = ctx.message
-        name = ctx.channel.name
         path = os.path.join("data", "logs", f"{ctx.guild.id}.txt")
         if botchannel_check(ctx):
             try:
@@ -42,10 +41,8 @@ class botlog(commands.Cog):
                     )
                     await msg2.add_reaction(emoji="✅")
                     await ctx.author.send(
-                        content="test",
-                        file=discord.File(path, filename="log.txt")
-                        # todo doesnt work
-                    )  # todo missing error handling here wenn author has dms blocked
+                        file=discord.File(path)
+                    )
                     embed = discord.Embed(
                         title="**Erfolgreich**",
                         description="Schau in deine Privatnachrichten!",

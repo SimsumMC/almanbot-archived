@@ -16,8 +16,7 @@ from cogs.core.functions.logging import log
 
 
 def make_qr(filename, msg):
-    img = qrcode.make(msg)
-    img.save(filename)
+    qrcode.make(msg).save(filename)
 
 
 class qr(commands.Cog):

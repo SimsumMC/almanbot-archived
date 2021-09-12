@@ -1,0 +1,15 @@
+prefixes = ["a!", "b!"]
+return commands.when_mentioned_or(*prefixes)(bot, message)
+
+Hilfe Übersicht updaten
+MUSIC
+Schere Stein Papier mit Buttons
+AUTOROLES
+CONFIG CMD RECODE
+ADMINCONFIG
+Command Statistics -> Statcord
+Uptime Stats
+TRIGGER
+SLASH COMMANDS
+Fake Nitro Command
+RICKROLL URLS COMMAND -> COUNT

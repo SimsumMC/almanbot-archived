@@ -6,7 +6,7 @@ from asyncio import sleep
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import ExtensionAlreadyLoaded, Bot
+from discord.ext.commands import Bot, ExtensionAlreadyLoaded
 from discord_components import DiscordComponents
 
 from cogs.core.config.config_general import config_check
@@ -44,6 +44,27 @@ run_check()
 ########################################################################################################################
 
 
+async def blacklist_check(self, message):
+    path = os.path.join("data", "configs", f"{message.guild.id}.json")
+    bannedWords = readjson(key="blacklist", path=path)
+    if bannedWords:
+        if TESTING_MODE is not True:
+            if message.author.id == message.guild.owner_id:
+                return False
+        for bannedWord in bannedWords:
+            if msg_contains_word(message.content.lower(), bannedWord):
+                for ignorearg in BLACKLIST_IGNORE:
+                    if msg_contains_word(message.content.lower(), ignorearg):
+                        return False
+                else:
+                    Bot.dispatch(
+                        self, "blacklist_word", message, bannedword=bannedWord
+                    )
+                    return True
+
+
+########################################################################################################################
+
 class AlmanBot(commands.Bot):
     async def on_ready(self):
         DiscordComponents(client)
@@ -79,24 +100,6 @@ class AlmanBot(commands.Bot):
                 )
                 await sleep(5)
 
-    async def blacklist_check(self, message):
-        path = os.path.join("data", "configs", f"{message.guild.id}.json")
-        bannedWords = readjson(key="blacklist", path=path)
-        if bannedWords:
-            if TESTING_MODE is not True:
-                if message.author.id == message.guild.owner_id:
-                    return False
-            for bannedWord in bannedWords:
-                if msg_contains_word(message.content.lower(), bannedWord):
-                    for ignorearg in BLACKLIST_IGNORE:
-                        if msg_contains_word(message.content.lower(), ignorearg):
-                            return False
-                    else:
-                        Bot.dispatch(
-                            self, "blacklist_word", message, bannedword=bannedWord
-                        )
-                        return True
-
     async def on_message(self, message):
         if message.author.bot:
             return
@@ -106,10 +109,10 @@ class AlmanBot(commands.Bot):
         elif not config_check(guildid=message.guild.id):
             Bot.dispatch(self, "missing_config", message)
         elif client.user.mentioned_in(message) and len(message.content) == len(
-            f"<@!{client.user.id}>"
+                f"<@!{client.user.id}>"
         ):
             Bot.dispatch(self, "bot_mention", message)
-        elif await self.blacklist_check(message):
+        elif await blacklist_check(self, message):
             return
         elif message.content in get_trigger_list(message.guild.id):
             Bot.dispatch(self, "trigger", message)
@@ -125,7 +128,6 @@ client = AlmanBot(
     case_insensitive=True,
     intents=discord.Intents.all(),
 )
-
 
 ########################################################################################################################
 
@@ -162,7 +164,6 @@ for directory in os.listdir("./cogs"):
                         )
                         traceback.print_exc()
             check = 0
-
 
 ########################################################################################################################
 

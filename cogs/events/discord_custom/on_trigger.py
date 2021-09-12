@@ -4,13 +4,9 @@ import discord
 from discord.ext import commands
 
 from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.config.config_trigger import get_trigger_msg
-from cogs.core.functions.functions import (
-    get_author,
-)
+from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
 from cogs.core.functions.logging import log
-from config import THUMBNAIL_URL
 
 
 class on_trigger(commands.Cog):
@@ -28,17 +24,7 @@ class on_trigger(commands.Cog):
                 description=answer,
                 color=get_embedcolour(message),
             )
-            embed.set_footer(
-                text="for "
-                + str(user)
-                + " | by "
-                + str(get_author())
-                + " | Prefix "
-                + str(get_prefix_string(message)),
-                icon_url="https://media.discordapp.net/attachments/645276319311200286/803322491480178739"
-                "/winging-easy.png?width=676&height=676",
-            )
-            embed.set_thumbnail(url=THUMBNAIL_URL)
+            embed._footer, embed._thumbnail = get_embed_footer(message=message), get_embed_thumbnail()
             await message.channel.send(embed=embed)
             log(
                 f'{time}: Der Nutzer {user} hat den Trigger "{message.content}" aufgerufen.',

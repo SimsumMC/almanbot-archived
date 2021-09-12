@@ -1,10 +1,7 @@
 import discord
 from discord.ext import commands
 
-from cogs.core.functions.functions import (
-    get_author,
-)
-from config import THUMBNAIL_URL, FOOTER, ICON_URL, DEFAULT_PREFIX
+from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
 
 
 class on_dm_message(commands.Cog):
@@ -14,7 +11,6 @@ class on_dm_message(commands.Cog):
     @commands.Cog.listener()
     async def on_dm_message(self, message):
         embed = discord.Embed(title="Hinweis | Note", colour=0xF00000)
-        embed.set_thumbnail(url=THUMBNAIL_URL)
         embed.add_field(
             name="German",
             value="Dieser Bot hat keine DM Funktion - daher bringt es nichts "
@@ -27,10 +23,7 @@ class on_dm_message(commands.Cog):
             "with writing something to me.",
             inline=False,
         )
-        embed.set_footer(
-            text=f"{FOOTER[0]}{message.author.name}{FOOTER[1]}{str(get_author())}{FOOTER[2]}{DEFAULT_PREFIX}",
-            icon_url=ICON_URL,
-        )
+        embed._footer, embed._thumbnail = get_embed_footer(message=message), get_embed_thumbnail()
         await message.channel.send(embed=embed)
         return
 

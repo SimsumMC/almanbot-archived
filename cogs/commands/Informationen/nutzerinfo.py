@@ -33,38 +33,39 @@ class nutzerinfo(commands.Cog):
             embed._footer = get_embed_footer(ctx)
             embed.set_thumbnail(url=member.avatar_url)
             embed.add_field(
-                name="**Nutzername:**", value=member.display_name, inline=True
+                name="**Nutzername:**", value=member.display_name, inline=False
             )
-            embed.add_field(name="**ID:**", value=member.id, inline=True)
+            embed.add_field(name="**ID:**", value=member.id, inline=False)
 
-            embed.add_field(name="**Tag:**", value=member.discriminator, inline=True)
+            embed.add_field(name="**Tag:**", value=member.discriminator, inline=False)
             embed.add_field(
                 name="Aktuelle Aktivität:",
                 value=f" {member.activity.name}"
                 if member.activity is not None
                 else "Keine",
-                inline=True,
+                inline=False,
             )
             embed.add_field(
                 name="**Erstellt am:**",
                 value=member.created_at.strftime("%d.%m.%y um %H:%M"),
-                inline=True,
+                inline=False,
             )
             embed.add_field(
                 name="**Beigetreten am:**",
                 value=member.joined_at.strftime("%d.%m.%y um %H:%M"),
-                inline=True,
+                inline=False,
             )
             embed.add_field(
                 name="**Bot?:**", value=str(whoisr(member=member)), inline=True
             )
             embed.add_field(
                 name=f"**Rollen ({len(roles) - 1}):**",
-                value="".join([role.mention + "\n" for role in roles]),
+                value="".join([role.mention + "\n" for role in roles if not role.name == "@everyone"]) if len(
+                    roles) != 1 else "Keine",
                 inline=False,
             )
             embed.add_field(
-                name="**Höchste Rolle:**", value=member.top_role.mention, inline=False
+                name="**Höchste Rolle:**", value=member.top_role.mention if not member.top_role.name == "@everyone" else "Keine", inline=False
             )
             await ctx.send(embed=embed)
             log(
@@ -76,7 +77,6 @@ class nutzerinfo(commands.Cog):
                 + "nutzerinfo benutzt!",
                 ctx.guild.id,
             )
-            print("final")
         else:
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 

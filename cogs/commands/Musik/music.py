@@ -33,6 +33,12 @@ class music(commands.Cog):
             region=lavalink.region,
         )
 
+    async def connect_to_player(self, ctx: commands.Context):
+        channel = ctx.author.voice.channel
+        player = ctx.bot.wavelink.get_player(ctx.guild.id)
+        await player.connect(channel.id)
+        await ctx.guild.change_voice_state(channel=channel, self_deaf=True)
+
     @commands.command(
         name="join",
     )
@@ -40,36 +46,33 @@ class music(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         if botchannel_check(ctx):
-            if ctx.author.voice:
-                channel = ctx.author.voice.channel
-                player = self.bot.wavelink.get_player(ctx.guild.id)
-                await player.connect(channel.id)
-                await ctx.guild.change_voice_state(channel=channel, self_deaf=True)
+            if not ctx.author.voice:
                 embed = discord.Embed(
-                    title="Musik Join", colour=get_embedcolour(ctx.message)
+                    title="Fehler", description="Du befindest dich in keinem Sprachkanal!",
+                    colour=get_embedcolour(ctx.message)
                 )
                 embed._footer = get_embed_footer(ctx)
                 embed._thumbnail = get_embed_thumbnail()
                 await ctx.send(embed=embed)
                 log(
-                    f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
-                    "join benutzt!",
+                    f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                    "join zu benutzen, befand sich aber in keinem Sprachkanal!",
                     guildid=ctx.guild.id,
                 )
-            else:
-                embed = discord.Embed(
-                    title="Fehler",
-                    description="Du befindest dich in keinem Voicechannel!",
-                    colour=get_embedcolour(ctx.message),
-                )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
-                await ctx.send(embed=embed)
-                log(
-                    f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
-                    "join benutzt!",
-                    guildid=ctx.guild.id,
-                )
+                return
+            await self.connect_to_player(ctx)
+            embed = discord.Embed(
+                title="Musik Join", description="Ich bin erfolgreich deinem Sprachkanal beigetreten!",
+                colour=get_embedcolour(ctx.message)
+            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            log(
+                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+                "join benutzt!",
+                guildid=ctx.guild.id,
+            )
         else:
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
@@ -93,28 +96,26 @@ class music(commands.Cog):
                     f"play zu benutzen und damit den Song "
                     + tracks[0].info["title"]
                     + " abzuspielen,"
-                    f" der konnte aber nicht gefunden werden!",
+                      f" der konnte aber nicht gefunden werden!",
                     guildid=ctx.guild.id,
                 )
                 return
             player = self.bot.wavelink.get_player(ctx.guild.id)
             if not player.is_connected:
-                await ctx.invoke(self.join)
+                await self.connect_to_player(ctx)
             embed = discord.Embed(
                 title="**Musik Play**",
                 colour=get_embedcolour(message=ctx.message),
             )
             embed.set_thumbnail(
-                url="https://img.youtube.com/vi/"
-                + tracks[0].info["uri"].split("=")[1]
-                + "/default.jpg"
+                url="https://img.youtube.com/vi/" + tracks[0].info["uri"].split("=")[1] + "/default.jpg"
             )
             embed.add_field(name="**Name**", value=tracks[0].info["title"])
             embed.add_field(name="**Author**", value=tracks[0].info["author"])
             embed.add_field(
                 name="**Länge**",
                 value=str(datetime.timedelta(milliseconds=tracks[0].info["length"]))
-                + "h",
+                      + "h",
             )
             embed._footer = get_embed_footer(ctx)
             await ctx.send(
@@ -131,7 +132,7 @@ class music(commands.Cog):
             log(
                 f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 f"play benutzt und damit den Song "
-                + tracks[0].info["title"]
+                + str(tracks[0].info["title"])
                 + " abgespielt!",
                 guildid=ctx.guild.id,
             )
@@ -140,7 +141,51 @@ class music(commands.Cog):
 
     @commands.command(name="stop")
     async def stop(self, ctx):  # TODO
-        pass
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        if not ctx.author.voice:
+            embed = discord.Embed(
+                title="Fehler", description="Du befindest dich in keinem Sprachkanal!", colour=get_embedcolour(ctx.message)
+            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                "stop zu benutzen, befand sich aber in keinem Sprachkanal!",
+                guildid=ctx.guild.id,
+            )
+            return
+        await ctx.bot.wavelink.get_player(ctx.guild.id).stop()
+
+    @commands.command(name="leave")
+    async def leave(self, ctx):  # TODO
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        if not ctx.author.voice:
+            embed = discord.Embed(
+                title="Fehler", description="Du befindest dich in keinem Sprachkanal!",
+                colour=get_embedcolour(ctx.message)
+            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                "leave zu benutzen, befand sich aber in keinem Sprachkanal!",
+                guildid=ctx.guild.id,
+            )
+            return
+        await ctx.bot.wavelink.get_player(ctx.guild.id).destroy()
+
+    @commands.command(name="volume", usage="<Lautstärke von 1-100>")
+    @commands.has_permissions(administrator=True)
+    async def volume(self, ctx):  # TODO
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        if not ctx.author.voice:
+            return
+        await ctx.bot.wavelink.get_player(ctx.guild.id).destroy()
 
 
 ########################################################################################################################
