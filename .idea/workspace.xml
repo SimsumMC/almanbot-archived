@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc741242-7678-427f-9d74-e037c3971516" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cogs/commands/Hilfe/help.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Hilfe/help.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Administrator/botlog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Administrator/botlog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Informationen/nutzerinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Informationen/nutzerinfo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/commands/Musik/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Musik/music.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Owner/cog.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Owner/cog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/commands/Unterhaltung/say.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/commands/Unterhaltung/say.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_bot_mention.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_bot_mention.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_dm_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_dm_message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/events/discord_custom/on_trigger.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events/discord_custom/on_trigger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/cache/message_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/message_cache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/logs/825502579474563103.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/logs/825502579474563103.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
