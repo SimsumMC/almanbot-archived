@@ -157,6 +157,18 @@ class music(commands.Cog):
             )
             return
         await ctx.bot.wavelink.get_player(ctx.guild.id).stop()
+        embed = discord.Embed(
+            title="Musik Stop", description="Ich habe erfolgreich die Musik gestoppt!",
+            colour=get_embedcolour(ctx.message)
+        )
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        log(
+            f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+            "stop benutzt!",
+            guildid=ctx.guild.id,
+        )
 
     @commands.command(name="leave")
     async def leave(self, ctx):  # TODO
@@ -177,17 +189,97 @@ class music(commands.Cog):
             )
             return
         await ctx.bot.wavelink.get_player(ctx.guild.id).destroy()
+        embed = discord.Embed(
+            title="Musik Stop", description="Ich habe erfolgreich deinen Sprachkanal verlassen!",
+            colour=get_embedcolour(ctx.message)
+        )
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        log(
+            f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+            "leave benutzt!",
+            guildid=ctx.guild.id,
+        )
 
-    @commands.command(name="volume", usage="<Lautstärke von 1-100>")
+    @commands.command(name="volume", aliases=["vol", "lautstärke"], usage="<Lautstärke von 1-100>")
     @commands.has_permissions(administrator=True)
-    async def volume(self, ctx):  # TODO
+    async def volume(self, ctx, volume: int):
         time = datetime.datetime.now()
         user = ctx.author.name
         if not ctx.author.voice:
+            embed = discord.Embed(
+                title="Fehler", description="Du befindest dich in keinem Sprachkanal!",
+                colour=get_embedcolour(ctx.message)
+            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                "volume zu benutzen, befand sich aber in keinem Sprachkanal!",
+                guildid=ctx.guild.id,
+            )
             return
-        await ctx.bot.wavelink.get_player(ctx.guild.id).destroy()
+        if not volume > 0 or not volume < 1000:
+            embed = discord.Embed(
+                title="Fehler", description="Du musst eine ganze Zahl von ```0 - 1000``` angeben!",
+                colour=get_embedcolour(ctx.message)
+            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                "volume zu benutzen, die eingebene Lautstärke war aber zu hoch!",
+                guildid=ctx.guild.id,
+            )
+            return
+        await ctx.bot.wavelink.get_player(ctx.guild.id).set_volume(volume)
+        embed = discord.Embed(
+            title="Musik Lautstärke", description=f"Ich habe die Lautstärke auf {volume} gesetzt!",
+            colour=get_embedcolour(ctx.message)
+        )
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        log(
+            f"{time}: Der Nutzer {user} hat mit den Befehl {get_prefix_string(ctx.message)}"
+            f"volume die Lautstärke auf {volume} gesetzt!",
+            guildid=ctx.guild.id,
+        )
 
-
+    @commands.command(name="leave") #
+    async def leave(self, ctx):  # TODO
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        if not ctx.author.voice:
+            embed = discord.Embed(
+                title="Fehler", description="Du befindest dich in keinem Sprachkanal!",
+                colour=get_embedcolour(ctx.message)
+            )
+            embed._footer = get_embed_footer(ctx)
+            embed._thumbnail = get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                "leave zu benutzen, befand sich aber in keinem Sprachkanal!",
+                guildid=ctx.guild.id,
+            )
+            return
+        await ctx.bot.wavelink.get_player(ctx.guild.id).pause()
+        embed = discord.Embed(
+            title="Musik Pause", description="Ich habe erfolgreich die Musik pausiert!",
+            colour=get_embedcolour(ctx.message)
+        )
+        embed._footer = get_embed_footer(ctx)
+        embed._thumbnail = get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        log(
+            f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+            "leave benutzt!",
+            guildid=ctx.guild.id,
+        )
 ########################################################################################################################
 
 
