@@ -136,6 +136,16 @@ def get_page(message, page):
             inline=False,
         )
         embed.add_field(
+            name=f"**Musik**",
+            value="Alle möglichen Befehle für den perfekten Hörgenuss!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**Tools**",
+            value="Ob Taschenrechner oder QR Code Generator - hier findest du viele coole Befehle!",
+            inline=False,
+        )
+        embed.add_field(
             name=f"**Moderation**",
             value="Ob Muten oder direkt bannen - hier findest du alles was du als Moderator brauchst.",
             inline=False,
