@@ -76,7 +76,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 # Befehle
 
-Alle Befehle können auf unserer [Website](https://communitybot.visitlink.de/#commands) gefunden werden und mit dem Hilfe / Help Befehl über den Bot.
+Alle Befehle können auf unserer [Website](https://communitybot.visitlink.de/#commands) gefunden werden und mit dem Hilfe Befehl über den Bot.
 
 <img src="data/pictures/commands.png" alt="Website-Vorschau">
 
