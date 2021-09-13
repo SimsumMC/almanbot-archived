@@ -76,7 +76,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 DISCORD_TOKEN="your token"
 ```
 'your token' zu deinen Bot Token ändern.
-4. Du kannst deinen Bot nun mit ```python main.py``` über die Konsole starten - bitte beachte das  nicht alles funktionieren wird aufgrund von fehlenden Eingaben in der Config & das es nicht erlaubt ist eine 1:1 Kopie des offiziellen Alman Bots zu hosten. [Hier]("https://github.com/SimsumMC/almanbot/wiki/Selfhosting-Guide") findest du mehr zu der Config!
+4. Du kannst deinen Bot nun mit ```python main.py``` über die Konsole starten - bitte beachte das  nicht alles funktionieren wird aufgrund von fehlenden Eingaben in der Config & das es nicht erlaubt ist eine 1:1 Kopie des offiziellen Alman Bots zu hosten. [Hier findest du mehr zu der Config!](https://github.com/SimsumMC/almanbot/wiki/Selfhosting-Guide)
 
 # Befehle
 
