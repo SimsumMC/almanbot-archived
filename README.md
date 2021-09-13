@@ -69,7 +69,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Universelle Installation**
 
-1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) oder Dev Version mitherunter und entpacken sie ihn
+1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) oder die Dev Version als Zip mitherunter und entpacken sie diese
 2. Geben sie in der Konsole den Command ```pip install requirements.txt``` -> achte darauf das du im almanbot Verzeichnis bist
 3. Bearbeiten sie die config.py mit einem Editor deiner Wahl und trage die verschiedenen Sachen ein, hierbei musst du mindestens bei 'your token' zu deinen Bot Token ändern.
 
