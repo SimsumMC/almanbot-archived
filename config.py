@@ -30,21 +30,23 @@ CUBE = "https://cdn.discordapp.com/attachments/645276319311200286/80355093911293
 
 # TOKEN
 
-DISCORD_TOKEN = ""  # to run the bot
-STATCORD_TOKEN = ""  # Optional, for bot stats
+DISCORD_TOKEN = (
+    "your token"  # to run the bot
+)
+STATCORD_TOKEN = "statcord token"  # Optional, for bot stats
 REDDIT_APP = {  # for the memes command, just create an application on reddit
-    "client_id": "",
-    "client_secret": ""
+    "client_id": "id",
+    "client_secret": "secret",
 }
 
 
-class lavalink:  # required for music
-    host = ''
-    port = ''
-    rest_uri = ''
-    passwort = ''
-    identifier = ''
-    region = ''
+class lavalink:  # for music module
+    host = "lava.link"
+    port = "80"
+    rest_uri = "http://lava.link:80"
+    passwort = BOT_NAME
+    identifier = BOT_NAME
+    region = "europe"
 
 
 # DEFAULTS | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
@@ -74,13 +76,10 @@ MISSING_PERMISSIONS_BUTTON_ERROR = (
     "Diese Nachricht gehört dir nicht! Nutz den Befehl bitte selbst!"
 )
 
-CALCULATING_ERROR = (
-    "Fehler beim berechnen!"
-)
+CALCULATING_ERROR = "Fehler beim berechnen!"
 
-DEFAULT_BROADCAST_MESSAGE = (
-    "Hinweis: _Du erhälst diese Nachricht da du diesen Bot auf einem deiner Server nutzt._"
-)
+DEFAULT_BROADCAST_MESSAGE = "Hinweis: _Du erhälst diese Nachricht da du diesen Bot auf einem deiner Server nutzt._"
+
 # Colour Configuration | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (at any action)
 
 EMBEDCOLOUR_CODES = {
