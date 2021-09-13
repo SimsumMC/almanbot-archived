@@ -5,11 +5,11 @@ from discord.ext import commands
 async def get_game_invite(ctx: commands.Context, game):
     print(-1)
     application_ids = {
-        'youtube': 755600276941176913,
-        'poker': 755827207812677713,
-        'betrayal': 773336526917861400,
-        'fishing': 814288819477020702,
-        'schach': 832012774040141894,
+        "youtube": 755600276941176913,
+        "poker": 755827207812677713,
+        "betrayal": 773336526917861400,
+        "fishing": 814288819477020702,
+        "schach": 832012774040141894,
     }
     print(0)
     gameid = application_ids.get(game)
@@ -34,8 +34,11 @@ class party(commands.Cog):
     def __innit__(self, bot):
         self.bot = bot
 
-    @commands.command(name="party", aliases=["together", "watchtogether"],
-                      usage="<YouTube / Poker / Betrayal / Fishing / Schach>")
+    @commands.command(
+        name="party",
+        aliases=["together", "watchtogether"],
+        usage="<YouTube / Poker / Betrayal / Fishing / Schach>",
+    )
     async def party(self, ctx, game):
         print("party-1")
         games = ["youtube", "poker", "betrayal", "fishing", "schach"]
@@ -51,6 +54,7 @@ class party(commands.Cog):
 
 
 ########################################################################################################################
+
 
 def setup(bot):
     bot.add_cog(party(bot))

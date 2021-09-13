@@ -168,7 +168,7 @@ def get_page(message, page):
         )
         embed.add_field(
             name=f"**{get_prefix_string(message)}hilfe**",
-            value="Zeigt dir eine Übersicht aller" " Hilfeseiten!",
+            value="Zeigt dir alle Befehle in Kategrien unterteilt an!",
             inline=False,
         )
         embed.add_field(
@@ -269,6 +269,21 @@ def get_page(message, page):
         embed.add_field(
             name=f"**{get_prefix_string(message)}play**",
             value="Nutze diesen Befehl um Musik abzuspielen!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{get_prefix_string(message)}pause**",
+            value="Nutze diesen Befehl den aktuellen Song zu pausieren!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{get_prefix_string(message)}pause**",
+            value="Nutze diesen Befehl den pausierten Song zu fortzusetzen!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{get_prefix_string(message)}stop**",
+            value="Nutze diesen Befehl um den aktuellen Song zu stoppen!",
             inline=False,
         )
         embed.add_field(

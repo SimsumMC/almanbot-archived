@@ -10,11 +10,14 @@ class nitro(commands.Cog):
 
     @commands.command(name="nitro")
     async def nitro(self, ctx):
-        embed = discord.Embed(title="**Nitro**", colour=get_embedcolour(message=ctx.message))
+        embed = discord.Embed(
+            title="**Nitro**", colour=get_embedcolour(message=ctx.message)
+        )
         ...
 
 
 ########################################################################################################################
+
 
 def setup(bot):
     bot.add_cog(nitro(bot))

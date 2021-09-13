@@ -23,7 +23,10 @@ class on_bot_mention(commands.Cog):
             value=f"Mein Prefix hier ist: ```{get_prefix_string(message)}```",
             inline=True,
         )
-        embed._footer, embed._thumbnail = get_embed_footer(message=message), get_embed_thumbnail()
+        embed._footer, embed._thumbnail = (
+            get_embed_footer(message=message),
+            get_embed_thumbnail(),
+        )
         await message.channel.send(embed=embed)
         log(
             f"{time}: Der Nutzer {user} hat sich den Prefix über eine Erwähnung ausgeben lassen.",

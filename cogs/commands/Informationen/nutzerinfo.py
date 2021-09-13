@@ -60,12 +60,23 @@ class nutzerinfo(commands.Cog):
             )
             embed.add_field(
                 name=f"**Rollen ({len(roles) - 1}):**",
-                value="".join([role.mention + "\n" for role in roles if not role.name == "@everyone"]) if len(
-                    roles) != 1 else "Keine",
+                value="".join(
+                    [
+                        role.mention + "\n"
+                        for role in roles
+                        if not role.name == "@everyone"
+                    ]
+                )
+                if len(roles) != 1
+                else "Keine",
                 inline=False,
             )
             embed.add_field(
-                name="**Höchste Rolle:**", value=member.top_role.mention if not member.top_role.name == "@everyone" else "Keine", inline=False
+                name="**Höchste Rolle:**",
+                value=member.top_role.mention
+                if not member.top_role.name == "@everyone"
+                else "Keine",
+                inline=False,
             )
             await ctx.send(embed=embed)
             log(

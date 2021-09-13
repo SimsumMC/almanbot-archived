@@ -20,6 +20,9 @@ class config(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    def on_unload(self):
+        print("test")
+
     @commands.group(name="config", aliases=["settings", "conf", "set"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
@@ -62,18 +65,18 @@ class config(commands.Cog):
         )
         embed.add_field(
             name=f'**{get_prefix_string(ctx.message)}config memesource <Reddit Name / "default"'
-            ">**",
+                 ">**",
             value="Sorge dafür das der Meme Befehl nur in einem bestimmten Kanal funktioniert!",
             inline=False,
         )
         await ctx.send(embed=embed)
         log(
             text=str(time)
-            + ": Der Nutzer "
-            + str(user)
-            + " hat den Befehl "
-            + get_prefix_string(ctx.message)
-            + "config hilfe benutzt.",
+                 + ": Der Nutzer "
+                 + str(user)
+                 + " hat den Befehl "
+                 + get_prefix_string(ctx.message)
+                 + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -117,7 +120,6 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
-
             class error(inspect.Parameter):
                 name = "subcommand"
 

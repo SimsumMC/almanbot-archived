@@ -40,9 +40,7 @@ class botlog(commands.Cog):
                         guildid=ctx.guild.id,
                     )
                     await msg2.add_reaction(emoji="✅")
-                    await ctx.author.send(
-                        file=discord.File(path)
-                    )
+                    await ctx.author.send(file=discord.File(path))
                     embed = discord.Embed(
                         title="**Erfolgreich**",
                         description="Schau in deine Privatnachrichten!",

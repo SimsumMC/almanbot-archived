@@ -23,7 +23,10 @@ class on_dm_message(commands.Cog):
             "with writing something to me.",
             inline=False,
         )
-        embed._footer, embed._thumbnail = get_embed_footer(message=message), get_embed_thumbnail()
+        embed._footer, embed._thumbnail = (
+            get_embed_footer(message=message),
+            get_embed_thumbnail(),
+        )
         await message.channel.send(embed=embed)
         return
 

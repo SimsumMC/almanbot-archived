@@ -24,7 +24,10 @@ class on_trigger(commands.Cog):
                 description=answer,
                 color=get_embedcolour(message),
             )
-            embed._footer, embed._thumbnail = get_embed_footer(message=message), get_embed_thumbnail()
+            embed._footer, embed._thumbnail = (
+                get_embed_footer(message=message),
+                get_embed_thumbnail(),
+            )
             await message.channel.send(embed=embed)
             log(
                 f'{time}: Der Nutzer {user} hat den Trigger "{message.content}" aufgerufen.',

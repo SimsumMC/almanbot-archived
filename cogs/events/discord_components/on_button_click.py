@@ -25,11 +25,14 @@ class on_button_click(commands.Cog):
 
     @commands.Cog.listener()
     async def on_button_click(self, res):
+        user = res.author.name
         if res.message.id not in get_messages_from_cache(authorid=res.author.id):
             await res.respond(content=MISSING_PERMISSIONS_BUTTON_ERROR)
+            log(
+                f"{datetime.datetime.now()}: Der Nutzer {user} hat versucht mit einem Button zu interagieren, hatte aber nicht die nötigen Berrechtigungen.",
+                res.message.guild.id,
+            )
             return
-
-        user = res.author.name
         try:
             help_buttons = [
                 "help_allgemein",
