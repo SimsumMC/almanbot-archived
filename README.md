@@ -71,11 +71,12 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) oder Dev Version mitherunter und entpacken sie ihn
 2. Geben sie in der Konsole den Command ```pip install requirements.txt``` -> achte darauf das du im almanbot Verzeichnis bist
-3. Bearbeiten sie die config.py mit einem Editor deiner Wahl und trage die verschiedenen Sachen ein, hierbei musst du mindestens bei 
+3. Bearbeiten sie die config.py mit einem Editor deiner Wahl und trage die verschiedenen Sachen ein, hierbei musst du mindestens bei 'your token' zu deinen Bot Token ändern.
+
 ```python
 DISCORD_TOKEN="your token"
 ```
-'your token' zu deinen Bot Token ändern.
+
 4. Du kannst deinen Bot nun mit ```python main.py``` über die Konsole starten - bitte beachte das  nicht alles funktionieren wird aufgrund von fehlenden Eingaben in der Config & das es nicht erlaubt ist eine 1:1 Kopie des offiziellen Alman Bots zu hosten. [Hier findest du mehr zu der Config!](https://github.com/SimsumMC/almanbot/wiki/Selfhosting-Guide)
 
 # Befehle
