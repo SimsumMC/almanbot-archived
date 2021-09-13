@@ -49,6 +49,7 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 - Open Source <a href="https://www.freepik.com/free-vector/cute-bot-say-users-hello-chatbot-greets-online-consultation_4015765.htm#page=1&query=bot&position=0"> <img src="data/pictures/bot.png" align="right" alt="bot" width="200"/> </a>
 - 24/7 Hosting mit kurzen Wartungen
+- Modernes Design mit den neuen Buttons
 - Botlog über die Nutzungen des Bots
 - Komplett konfigurierbar über Discord
 - Wird stetig weiterentwickelt
@@ -68,15 +69,15 @@ Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet un
 
 **Universelle Installation**
 
-1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) herunter und entpacken sie ihn
-2. Gehen sie in den venv Ordner und öffnen sie das Dokument "pyvenv.cfg" mit Notepad ++ oder einem anderem Editor
-3. Ändern sie in der ersten Zeile den Pfad zu ihren Python Pfad und in der unteren Zeile zu ihrer Python Version
-4. Gehen sie in die "main.py" und änderen sie in der untersten Zeile ("client.run(Token)") den Token zu ihrem Bot Token
-5. Nun können sie den Bot starten und natürlich auch den Code modifizieren
+1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) oder Dev Version mitherunter und entpacken sie ihn
+2. Geben sie in der Konsole den Command ```pip install requirements.txt``` -> achte darauf das du im almanbot Verzeichnis bist
+3. Bearbeiten sie die config.py mit einem Editor deiner Wahl und trage die verschiedenen Sachen ein, hierbei musst du mindestens bei 
+```DISCORD_TOKEN="your token"``` 'your token' zu deinem Bot Token ändern.
+4. Du kannst deinen Bot nun mit ```python main.py``` über die Konsole starten - bitte beachte das es nicht erlaubt ist eine 1:1 Kopie des offiziellen Alman Bots zu hosten. [Hier]("linkmissing") findest du mehr dazu!
 
 # Befehle
 
-Alle Befehle können auf unserer [Website](https://communitybot.visitlink.de/#commands) gefunden werden und mit dem Hilfe Befehl über den Bot.
+Alle Befehle können auf unserer [Website](https://communitybot.visitlink.de/#commands) oder per Befehl eingesehen werden.
 
 <img src="data/pictures/commands.png" alt="Website-Vorschau">
 
