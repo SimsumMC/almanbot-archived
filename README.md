@@ -13,16 +13,16 @@
     <img src="https://discord.com/api/guilds/802923248840867840/widget.png?style=shield" alt="Discord Server">
   </a>
   <a href="https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775">
-    <img src="https://img.shields.io/badge/Invite-Bot-red" alt="Einladung">
+    <img src="https://img.shields.io/badge/Invite-Me-red" alt="Einladung">
   </a>
   <a href="https://almanbot.de/">
-    <img src="https://img.shields.io/badge/Website-GO-red" alt="Website">
+    <img src="https://img.shields.io/badge/Website-Visit-red" alt="Website">
   </a>
   <a href="https://www.gnu.org/licenses/gpl-3.0.html">
-    <img src="https://img.shields.io/github/license/SimsumMC/communitybot?color=red&label=Lizenz" alt="Lizenz">
+    <img src="https://img.shields.io/github/license/SimsumMC/communitybot?color=red&label=License" alt="License">
   </a>
   <a href="https://github.com/SimsumMC/communitybot">
-    <img src="https://img.shields.io/badge/Fortschritt-30%25-red" alt="Fortschritt">
+    <img src="https://img.shields.io/badge/Progress-30%25-red" alt="Progress">
   </a>
   <a href="https://github.com/Rapptz/discord.py/">
      <img src="https://img.shields.io/badge/discord-py-red.svg" alt="discord.py">
