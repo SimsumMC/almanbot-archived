@@ -44,6 +44,7 @@
 Egal ob Moderation, einfach ein Lächeln aufs Gesicht zaubern, eine Matheaufgabe lösen oder den Avatar von einem Nutzer klauen - ich helfe dir wo ich nur kann! Penibel wie ein Deutscher bin ich natürlich auch, manchmal ich kurz mit anderen Dingen beschäftigt, z.B. um eine Liege am Pool zu reservieren oder um Falschparker anzuzeigen. Wenn ich dich als wahrer Alman überzeugen konnte, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
 
 Du kannst mich einfach [einladen](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775), wenn du mich aber lieber selber hosten willst dann wirst du unter der Sektion [Installation](#installation) fündig.
+
 **Vorteile:**
 
 - Open Source <a href="https://www.freepik.com/free-vector/cute-bot-say-users-hello-chatbot-greets-online-consultation_4015765.htm#page=1&query=bot&position=0"> <img src="data/pictures/bot.png" align="right" alt="bot" width="200"/> </a>
