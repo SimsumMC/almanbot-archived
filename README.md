@@ -13,16 +13,16 @@
     <img src="https://discord.com/api/guilds/802923248840867840/widget.png?style=shield" alt="Discord Server">
   </a>
   <a href="https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775">
-    <img src="https://img.shields.io/badge/Invite-Bot-red" alt="Einladung">
+    <img src="https://img.shields.io/badge/Invite-Me-red" alt="Einladung">
   </a>
   <a href="https://almanbot.de/">
-    <img src="https://img.shields.io/badge/Website-GO-red" alt="Website">
+    <img src="https://img.shields.io/badge/Website-Visit-red" alt="Website">
   </a>
   <a href="https://www.gnu.org/licenses/gpl-3.0.html">
-    <img src="https://img.shields.io/github/license/SimsumMC/communitybot?color=red&label=Lizenz" alt="Lizenz">
+    <img src="https://img.shields.io/github/license/SimsumMC/communitybot?color=red&label=License" alt="License">
   </a>
   <a href="https://github.com/SimsumMC/communitybot">
-    <img src="https://img.shields.io/badge/Fortschritt-30%25-red" alt="Fortschritt">
+    <img src="https://img.shields.io/badge/Progress-30%25-red" alt="Progress">
   </a>
   <a href="https://github.com/Rapptz/discord.py/">
      <img src="https://img.shields.io/badge/discord-py-red.svg" alt="discord.py">
@@ -41,7 +41,7 @@
 
 # Übersicht
 
-Egal ob Moderation, einfach ein bisschen Spaß haben oder den Avatar von einem Nutzer klauen - ich helfe dir wo ich nur kann! Penibel wie ein Deutscher bin ich natürlich auch, manchmal bin ich kurz offline, um eine Liege am Pool zu reservieren oder um Falschparker anzuzeigen. Wenn ich dich als wahrer Alman überzeugen konnte, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
+Egal ob Moderation, einfach ein Lächeln aufs Gesicht zaubern, eine Matheaufgabe lösen oder den Avatar von einem Nutzer klauen - ich helfe dir wo ich nur kann! Penibel wie ein Deutscher bin ich natürlich auch, manchmal ich kurz mit anderen Dingen beschäftigt, z.B. um eine Liege am Pool zu reservieren oder um Falschparker anzuzeigen. Wenn ich dich als wahrer Alman überzeugen konnte, dann [teste](https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775) ihn direkt aus! 
 
 Die [Installation](#installation) zum Self-Hosting ist sehr einfach gestaltet und du benötigst dafür keine großen Vorkentnisse.
 
