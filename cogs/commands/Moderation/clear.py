@@ -34,12 +34,12 @@ class clear(commands.Cog):
                 embed = discord.Embed(
                     title="Clear",
                     description=f"Es {wurde} {len(deleted) - 1} {nachricht} gelöscht!",
-                    colour=get_embedcolour(ctx.message),
+                    colour=await get_embedcolour(ctx.message),
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 await ctx.send(embed=embed, delete_after=5)
-                log(
+                await log(
                     str(time)
                     + ": Der Nutzer "
                     + str(user)
@@ -48,26 +48,26 @@ class clear(commands.Cog):
                     + " Nachrichten im Kanal #"
                     + str(name)
                     + " mit dem Befehl "
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "clear gelöscht.",
                     guildid=ctx.guild.id,
                 )
             except Exception:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!",
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "clear auszuführen.",
                     guildid=ctx.guild.id,
                 )
@@ -77,12 +77,12 @@ class clear(commands.Cog):
                 title="**Fehler**",
                 description="Du kannst nicht über 100 Nachrichten  aufeinmal löschen!"
                 " Nutze dazu bitte !channelclear .",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed, delete_after=5)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
@@ -91,7 +91,7 @@ class clear(commands.Cog):
                 + " Nachrichten im Kanal #"
                 + str(name)
                 + " mit dem Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "clear zu löschen, hat aber das "
                 "Limit von 100 Nachrichten überschritten!",
                 guildid=ctx.guild.id,

@@ -10,9 +10,9 @@ class config_errors(commands.Cog):
         self.bot = bot
 
 
-def check_if_error(ctx, error):
+async def check_if_error(ctx, error):
     path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
-    data = readjson(path=path, key="errors")
+    data = await readjson(path=path, key="errors")
     if data[error] is True:
         return True
     return False

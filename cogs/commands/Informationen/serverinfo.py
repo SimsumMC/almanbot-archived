@@ -19,10 +19,10 @@ class serverinfo(commands.Cog):
     async def serverinfo(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             embed = discord.Embed(
                 title=f"**Serverinfo für {ctx.guild.name}**",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
             embed.set_thumbnail(url=ctx.guild.icon_url)
             embed.add_field(name="**Name:**", value=ctx.guild.name, inline=True)
@@ -45,14 +45,14 @@ class serverinfo(commands.Cog):
                 f"`{len(list(filter(lambda m: m.bot, ctx.guild.members)))}`\n",
                 inline=True,
             )
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             await ctx.send(embed=embed)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl  "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "serverinfo benutzt!",
                 ctx.guild.id,
             )

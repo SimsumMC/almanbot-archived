@@ -46,15 +46,15 @@ run_check()
 
 async def blacklist_check(self, message):
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
-    bannedWords = readjson(key="blacklist", path=path)
+    bannedWords = await readjson(key="blacklist", path=path)
     if bannedWords:
         if TESTING_MODE is not True:
             if message.author.id == message.guild.owner_id:
                 return False
         for bannedWord in bannedWords:
-            if msg_contains_word(message.content.lower(), bannedWord):
+            if await msg_contains_word(message.content.lower(), bannedWord):
                 for ignorearg in BLACKLIST_IGNORE:
-                    if msg_contains_word(message.content.lower(), ignorearg):
+                    if await msg_contains_word(message.content.lower(), ignorearg):
                         return False
                 else:
                     Bot.dispatch(
@@ -89,10 +89,10 @@ class AlmanBot(commands.Bot):
                         "{guild_count}", str(len(client.guilds))
                     )
                 elif "{user_count}" in activity:
-                    activity = activity.replace("{user_count}", str(get_member_count()))
+                    activity = activity.replace("{user_count}", str(await get_member_count()))
                 elif "{developer_names}" in activity:
                     activity = activity.replace(
-                        "{developer_names}", str(get_developer_string())
+                        "{developer_names}", str(await get_developer_string())
                     )
                 await client.change_presence(
                     activity=discord.Game(activity),
@@ -106,7 +106,7 @@ class AlmanBot(commands.Bot):
         elif isinstance(message.channel, discord.DMChannel):
             Bot.dispatch(self, "dm_message", message)
             return
-        elif not config_check(guildid=message.guild.id):
+        elif not await config_check(guildid=message.guild.id):
             Bot.dispatch(self, "missing_config", message)
         elif client.user.mentioned_in(message) and len(message.content) == len(
                 f"<@!{client.user.id}>"
@@ -114,7 +114,7 @@ class AlmanBot(commands.Bot):
             Bot.dispatch(self, "bot_mention", message)
         elif await blacklist_check(self, message):
             return
-        elif message.content in get_trigger_list(message.guild.id):
+        elif message.content in await get_trigger_list(message.guild.id):
             Bot.dispatch(self, "trigger", message)
         await self.process_commands(message)
 
@@ -143,27 +143,28 @@ for extension in most_important:
 
 check = 0
 for directory in os.listdir("./cogs"):
-    if directory != "Ignore":
-        for directory2 in os.listdir(f"./cogs/{directory}"):
-            if check == 0:
-                print(f"\n\nDirectory: {directory}/{directory2}\n")
-            for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
-                if filename.endswith(".py") and "ignore_" not in filename:
-                    extension = f"cogs.{directory}.{directory2}.{filename[:-3]}"
-                    try:
-                        client.load_extension(extension)
-                        print(
-                            f"Das Modul {extension} konnte erfolgreich geladen werden."
-                        )
-                    except ExtensionAlreadyLoaded:
-                        pass
-                    except Exception:
-                        print(
-                            f'Das Modul "{extension}" konnte nicht geladen werden.',
-                            file=sys.stderr,
-                        )
-                        traceback.print_exc()
-            check = 0
+    for directory2 in os.listdir(f"./cogs/{directory}"):
+        if directory2 == "Ignore":
+            continue
+        if check == 0:
+            print(f"\n\nDirectory: {directory}/{directory2}\n")
+        for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
+            if filename.endswith(".py") and "ignore_" not in filename:
+                extension = f"cogs.{directory}.{directory2}.{filename[:-3]}"
+                try:
+                    client.load_extension(extension)
+                    print(
+                        f"Das Modul {extension} konnte erfolgreich geladen werden."
+                    )
+                except ExtensionAlreadyLoaded:
+                    pass
+                except Exception:
+                    print(
+                        f'Das Modul "{extension}" konnte nicht geladen werden.',
+                        file=sys.stderr,
+                    )
+                    traceback.print_exc()
+        check = 0
 
 ########################################################################################################################
 

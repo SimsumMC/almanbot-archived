@@ -17,18 +17,18 @@ class on_bot_mention(commands.Cog):
     async def on_bot_mention(self, message):
         time = datetime.datetime.now()
         user = message.author.name
-        embed = discord.Embed(title="**Prefix**", color=get_embedcolour(message))
+        embed = discord.Embed(title="**Prefix**", color=await get_embedcolour(message))
         embed.add_field(
             name=" ⠀ ",
             value=f"Mein Prefix hier ist: ```{get_prefix_string(message)}```",
             inline=True,
         )
         embed._footer, embed._thumbnail = (
-            get_embed_footer(message=message),
-            get_embed_thumbnail(),
+            await get_embed_footer(message=message),
+            await get_embed_thumbnail(),
         )
         await message.channel.send(embed=embed)
-        log(
+        await log(
             f"{time}: Der Nutzer {user} hat sich den Prefix über eine Erwähnung ausgeben lassen.",
             message.guild.id,
         )

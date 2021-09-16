@@ -3,7 +3,9 @@ import datetime
 import discord
 import wavelink
 from discord.ext import commands
+from discord.ext.commands import Bot
 
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
@@ -37,17 +39,19 @@ class leave(commands.Cog):
     async def leave(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
+        if not await botchannel_check(ctx):
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
         if not ctx.author.voice:
             embed = discord.Embed(
                 title="Fehler",
                 description="Du befindest dich in keinem Sprachkanal!",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
-            log(
-                f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
                 "leave zu benutzen, befand sich aber in keinem Sprachkanal!",
                 guildid=ctx.guild.id,
             )
@@ -56,13 +60,13 @@ class leave(commands.Cog):
         embed = discord.Embed(
             title="Musik Stop",
             description="Ich habe erfolgreich deinen Sprachkanal verlassen!",
-            colour=get_embedcolour(ctx.message),
+            colour=await get_embedcolour(ctx.message),
         )
-        embed._footer = get_embed_footer(ctx)
-        embed._thumbnail = get_embed_thumbnail()
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
-        log(
-            f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
             "leave benutzt!",
             guildid=ctx.guild.id,
         )

@@ -9,7 +9,7 @@ class trigger_func(commands.Cog):
         self.bot = bot
 
 
-def get_trigger_list(guildid):
+async def get_trigger_list(guildid):
     try:
         path = os.path.join("data", "configs", f"{guildid}.json")
         with open(path, "r") as f:
@@ -24,7 +24,7 @@ def get_trigger_list(guildid):
         raise Exception
 
 
-def get_trigger_msg(guildid, trigger):
+async def get_trigger_msg(guildid, trigger):
     try:
         path = os.path.join("data", "configs", f"{guildid}.json")
         with open(path, "r") as f:
@@ -37,7 +37,7 @@ def get_trigger_msg(guildid, trigger):
         raise Exception
 
 
-def add_trigger(guildid, trigger, msg):
+async def add_trigger(guildid, trigger, msg):
     try:
         path = os.path.join("data", "configs", f"{guildid}.json")
         with open(path, "r") as f:
@@ -56,7 +56,7 @@ def add_trigger(guildid, trigger, msg):
         raise Exception
 
 
-def remove_trigger(guildid, trigger):
+async def remove_trigger(guildid, trigger):
     try:
         path = os.path.join("data", "configs", f"{guildid}.json")
         with open(path, "r") as f:

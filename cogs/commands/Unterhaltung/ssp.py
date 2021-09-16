@@ -19,37 +19,37 @@ class ssp(commands.Cog):
     async def ssp(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             embed = discord.Embed(
                 title="**Schere Stein Papier**",
                 description='Lass uns "Schere Stein Papier" spielen!'
                 "Nutze dazu die Commands:",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             embed.add_field(
-                name=get_prefix_string(ctx.message) + "schere",
+                name=await get_prefix_string(ctx.message) + "schere",
                 value="Spiele die Schere aus!",
                 inline=False,
             )
             embed.add_field(
-                name=get_prefix_string(ctx.message) + "stein",
+                name=await get_prefix_string(ctx.message) + "stein",
                 value="Spiele den Stein aus!",
                 inline=False,
             )
             embed.add_field(
-                name=get_prefix_string(ctx.message) + "papier",
+                name=await get_prefix_string(ctx.message) + "papier",
                 value="Spiele das Papier aus!",
                 inline=False,
             )
             await ctx.send(embed=embed)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "ssp benutzt!",
                 guildid=ctx.guild.id,
             )

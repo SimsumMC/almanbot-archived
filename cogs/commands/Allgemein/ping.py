@@ -20,15 +20,15 @@ class ping(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         ping = round(client.latency * 1000)
-        if botchannel_check(ctx):
-            embed = discord.Embed(title="**Ping**", colour=get_embedcolour(ctx.message))
+        if await botchannel_check(ctx):
+            embed = discord.Embed(title="**Ping**", colour=await get_embedcolour(ctx.message))
             embed.add_field(
                 name="‎", value=f"Mein  Ping beträgt aktuell {ping}ms!", inline=False
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
-            log(
+            await log(
                 text=str(time)
                 + ": Der Nutzer "
                 + str(user)

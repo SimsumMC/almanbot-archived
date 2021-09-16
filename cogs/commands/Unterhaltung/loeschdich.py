@@ -23,17 +23,17 @@ class loeschdich(commands.Cog):
     async def loeschdich(self, ctx, member: discord.Member, *, reason=None):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if reason is None:
                 reason = "Kein Grund angegeben, den kennst du bestimmt selber!"
             link = f"https://löschdich.de/{member.display_name}"
             link = link.split()[0]
             embed = discord.Embed(
                 title=f"**Lösch dich {member.display_name}!**",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             embed.add_field(name="**Link**", value=f"{link}", inline=False)
             embed.add_field(name="**Grund**", value=str(reason), inline=False)
             await ctx.send(
@@ -49,12 +49,12 @@ class loeschdich(commands.Cog):
                     )
                 ],
             )
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "löschdich benutzt!",
                 guildid=ctx.guild.id,
             )

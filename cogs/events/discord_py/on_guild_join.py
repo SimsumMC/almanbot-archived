@@ -8,7 +8,6 @@ from discord.ext import commands
 from cogs.core.config.config_general import get_defaultconfig
 from cogs.core.functions.logging import log
 from config import TESTING_MODE, TESTING_GUILDS
-from main import client
 
 
 class on_guild_join(commands.Cog):
@@ -41,8 +40,12 @@ class on_guild_join(commands.Cog):
         if os.path.isfile(pathcheck):
             copyfile(pathcheck, path)
             os.remove(pathcheck)
+            await log(
+                f"{datetime.datetime.now()}: Der Bot ist dem Server erneut beigetreten.",
+                guild.id,
+            )
         else:
-            log(
+            await log(
                 f"{datetime.datetime.now()}: Der Bot ist dem Server beigetreten.",
                 guild.id,
             )

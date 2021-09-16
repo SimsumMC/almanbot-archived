@@ -33,18 +33,18 @@ class blacklist(commands.Cog):
                         title="**Fehler**",
                         description=f"Das Wort ```{word}```"
                         " ist bereits auf der Blacklist!",
-                        colour=get_embedcolour(ctx.message),
+                        colour=await get_embedcolour(ctx.message),
                     )
-                    embed._footer = get_embed_footer(ctx)
-                    embed._thumbnail = get_embed_thumbnail()
+                    embed._footer = await get_embed_footer(ctx)
+                    embed._thumbnail = await get_embed_thumbnail()
                     await ctx.send(embed=embed)
-                    log(
+                    await log(
                         f'{time}: Der Moderator {user} hat versucht das Wort "{word}" zur Blacklist hinzufügen,'
                         " es war aber schon drauf.",
                         guildid=ctx.guild.id,
                     )
                 else:
-                    writejson(
+                    await writejson(
                         type="blacklist", input=word.lower(), path=path, mode="append"
                     )
                     await msg2.delete()
@@ -52,18 +52,18 @@ class blacklist(commands.Cog):
                         title="**Blacklist**",
                         description=f"Das Wort ```{word}```"
                         " wurde zur Blacklist hinzugefügt!",
-                        colour=get_embedcolour(ctx.message),
+                        colour=await get_embedcolour(ctx.message),
                     )
-                    embed._footer = get_embed_footer(ctx)
-                    embed._thumbnail = get_embed_thumbnail()
+                    embed._footer = await get_embed_footer(ctx)
+                    embed._thumbnail = await get_embed_thumbnail()
                     await ctx.send(embed=embed)
-                    log(
+                    await log(
                         f'{time}: Der Moderator {user} hat das Wort "{word}" auf die Blacklist hinzugefügt.',
                         guildid=ctx.guild.id,
                     )
             elif cmd.lower() == "remove":
                 if word.lower() in bannedWords:
-                    writejson(
+                    await writejson(
                         type="blacklist", input=word.lower(), path=path, mode="removed"
                     )
                     await ctx.message.delete()
@@ -71,12 +71,12 @@ class blacklist(commands.Cog):
                         title="**Blacklist**",
                         description=f"Das Wort ```{word}```"
                         " wurde von der Blacklist entfernt!",
-                        colour=get_embedcolour(ctx.message),
+                        colour=await get_embedcolour(ctx.message),
                     )
-                    embed._footer = get_embed_footer(ctx)
-                    embed._thumbnail = get_embed_thumbnail()
+                    embed._footer = await get_embed_footer(ctx)
+                    embed._thumbnail = await get_embed_thumbnail()
                     await ctx.send(embed=embed)
-                    log(
+                    await log(
                         f'{time}: Der Moderator {user} hat das Wort "{word}"von der Blacklist entfernt.',
                         guildid=ctx.guild.id,
                     )
@@ -85,33 +85,33 @@ class blacklist(commands.Cog):
                         title="**Fehler**",
                         description=f"Das Wort ```{word}```"
                         " befindet sich nicht auf der Blacklist!",
-                        colour=get_embedcolour(ctx.message),
+                        colour=await get_embedcolour(ctx.message),
                     )
-                    embed._thumbnail = get_embed_thumbnail()
-                    embed._footer = get_embed_footer(ctx)
+                    embed._thumbnail = await get_embed_thumbnail()
+                    embed._footer = await get_embed_footer(ctx)
                     await ctx.send(embed=embed)
-                    log(
+                    await log(
                         f'{time}: Der Moderator {user} hat versucht das Wort "{word}" von der Blacklist zu entfernen,'
                         " es war aber nicht drauf.",
                         guildid=ctx.guild.id,
                     )
             else:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Du hast ein ungültiges Argument angegeben, Nutzung: ```"
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "blacklist <add/new>```",
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     f"{time}: Der Moderator {user} hat ein ungültiges Argument beim Befehl"
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "blacklist eingegeben.",
                     ctx.guild.id,
                 )

@@ -40,7 +40,7 @@ async def save_message_to_cache(message, author):
         traceback.print_exc()
 
 
-def get_messages_from_cache(authorid):
+async def get_messages_from_cache(authorid):
     path = os.path.join("data", "cache", "message_cache.json")
     with open(path, "r") as f:
         message_cache = json.load(f)

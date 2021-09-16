@@ -19,13 +19,13 @@ from config import (
 from main import client
 
 
-def get_developer_string():
+async def get_developer_string():
     if len(BOT_DEVELOPERLIST) == 1:
         return BOT_MAIN_DEVELOPER
     return "".join([dev + " ," for dev in BOT_DEVELOPERLIST])[:-1]
 
 
-def get_member_count():
+async def get_member_count():
     ergebnis = 0
     for guild in client.guilds:
         ergebnis += guild.member_count
@@ -40,16 +40,16 @@ class botinfo(commands.Cog):
     async def botinfo(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             embed = discord.Embed(
                 title="**Botinfo**",
                 description=ABOUT,
-                color=get_embedcolour(ctx.message),
+                color=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             embed.add_field(
-                name="**Entwickler**", value=get_developer_string(), inline=True
+                name="**Entwickler**", value=await get_developer_string(), inline=True
             )
             embed.add_field(name="**Projektbeginn**", value="Anfang 2021", inline=True)
             embed.add_field(name="**Arbeitszeit**", value="ca. 50 Stunden", inline=True)
@@ -57,7 +57,7 @@ class botinfo(commands.Cog):
                 name="**Server**", value=f"{len(client.guilds)}", inline=True
             )
             embed.add_field(
-                name="**Nutzer**", value=f"{get_member_count()}", inline=True
+                name="**Nutzer**", value=f"{await get_member_count()}", inline=True
             )
             embed.add_field(
                 name="**Source**",
@@ -70,12 +70,12 @@ class botinfo(commands.Cog):
                 inline=True,
             )
             await ctx.send(embed=embed)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl  "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "botinfo benutzt!",
                 ctx.guild.id,
             )

@@ -24,12 +24,12 @@ class on_blacklist_word(commands.Cog):
             "Sollte dies ein Fehler sein, "
             "kontaktiere einen Moderator des "
             "Servers. ",
-            colour=get_embedcolour(message=message),
+            colour=await get_embedcolour(message=message),
         )
-        embed._footer = get_embed_footer(message=message)
-        embed._thumbnail = get_embed_thumbnail()
+        embed._footer = await get_embed_footer(message=message)
+        embed._thumbnail = await get_embed_thumbnail()
         await message.channel.send(embed=embed, delete_after=5)
-        log(
+        await log(
             f"{time}: Der Nutzer {user} hat versucht ein verbotenes Wort zu benutzen."
             f' Wort: "{bannedword}"',
             message.guild.id,

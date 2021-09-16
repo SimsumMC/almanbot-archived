@@ -1,5 +1,3 @@
-import os
-
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -17,17 +15,16 @@ class adminresetconfig(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def adminresetconfig(self, ctx, guildid):
-        path = os.path.join("data", "configs", f"{guildid}.json")
-        if botchannel_check(ctx):
-            if resetconfig(path):
+        if await botchannel_check(ctx):
+            if await resetconfig(guildid):
                 embed = discord.Embed(
                     title="**Reset Config**",
                     description=f"Die Config vom Server mit der ID```{guildid}```"
                     "wurde erfolgreich zurückgesetzt.",
-                    colour=get_embedcolour(ctx.message),
+                    colour=await get_embedcolour(ctx.message),
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 await ctx.send(embed=embed)
                 return
             else:
@@ -35,10 +32,10 @@ class adminresetconfig(commands.Cog):
                     title="**Fehler**",
                     description=f"Die Config vom Server mit der ID```{guildid}```"
                     "konnte nicht zurückgesetzt werden.",
-                    colour=get_embedcolour(ctx.message),
+                    colour=await get_embedcolour(ctx.message),
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 await ctx.send(embed=embed)
                 return
         else:

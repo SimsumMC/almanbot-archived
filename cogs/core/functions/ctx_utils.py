@@ -1,15 +1,14 @@
 from discord.ext import commands
 
 
-def get_commandname(ctx):
+async def get_commandname(ctx):
     if not ctx.command:
         return ctx.message.content.split(" ")[0]
     elif ctx.invoked_subcommand:
         parents = ""
         for p in ctx.invoked_parents:
             parents = parents + p + " "
-        else:
-            parents = parents[:-1]
+        parents = parents[:-1]
         commandname = str(parents) + " " + str(ctx.invoked_subcommand.name)
     else:
         commandname = ctx.command.name

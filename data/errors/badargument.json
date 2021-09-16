@@ -8,5 +8,6 @@
 	"unmute": "Du musst den Nutzer erwähnen!",
 	"slowmode": "Bitte überprüfe, das du eine gültige Zahl und falls notwendig, einen gültigen #Channel angegeben hast.",
 	"clear": "Bitte gib eine gültige Zahl ein, z.B `50`!",
-	"lookup": "Du musst eine richtige Domain angeben, z.B. ```example.org```"
+	"lookup": "Du musst eine richtige Domain angeben, z.B. ```example.org```",
+	"volume": "Du musst eine ganze Zahl von ```0 - 100``` angeben!"
 }

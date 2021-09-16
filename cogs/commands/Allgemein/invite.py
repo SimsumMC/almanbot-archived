@@ -25,12 +25,12 @@ class invite(commands.Cog):
     async def invite(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             embed = discord.Embed(
-                title="**Invite**", color=get_embedcolour(ctx.message)
+                title="**Invite**", color=await get_embedcolour(ctx.message)
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             embed.add_field(
                 name="**Link**",
                 value=INVITE_LINK,
@@ -58,12 +58,12 @@ class invite(commands.Cog):
                 ],
             )
 
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl  "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "invite benutzt!",
                 ctx.guild.id,
             )

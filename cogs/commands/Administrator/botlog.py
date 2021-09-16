@@ -27,10 +27,10 @@ class botlog(commands.Cog):
         user = ctx.author.name
         msg2 = ctx.message
         path = os.path.join("data", "logs", f"{ctx.guild.id}.txt")
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             try:
                 if os.path.isfile(path):
-                    log(
+                    await log(
                         text=str(time)
                         + ": Der Nutzer "
                         + str(user)
@@ -44,17 +44,17 @@ class botlog(commands.Cog):
                     embed = discord.Embed(
                         title="**Erfolgreich**",
                         description="Schau in deine Privatnachrichten!",
-                        colour=get_embedcolour(ctx.message),
+                        colour=await get_embedcolour(ctx.message),
                     )
-                    embed._footer = get_embed_footer(ctx)
-                    embed._thumbnail = get_embed_thumbnail()
+                    embed._footer = await get_embed_footer(ctx)
+                    embed._thumbnail = await get_embed_thumbnail()
                     await ctx.send(embed=embed)
                 else:
                     embed = discord.Embed(
-                        title="**Fehler**", colour=get_embedcolour(ctx.message)
+                        title="**Fehler**", colour=await get_embedcolour(ctx.message)
                     )
-                    embed._footer = get_embed_footer(ctx)
-                    embed._thumbnail = get_embed_thumbnail()
+                    embed._footer = await get_embed_footer(ctx)
+                    embed._thumbnail = await get_embed_thumbnail()
                     embed.add_field(
                         name="‎",
                         value="Es existiert noch kein Log deines Servers, da dass hier anscheinend dein erster "
@@ -62,7 +62,7 @@ class botlog(commands.Cog):
                         inline=False,
                     )
                     await ctx.send(embed=embed)
-                    log(
+                    await log(
                         text=str(time)
                         + ": Der Nutzer "
                         + str(user)

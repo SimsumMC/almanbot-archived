@@ -23,7 +23,7 @@ class coinflip(commands.Cog):
         global picture, strval
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             value = random.randint(1, 2)
             if value == 1:
                 strval = "Kopf"
@@ -32,16 +32,16 @@ class coinflip(commands.Cog):
                 strval = "Zahl"
                 picture = COIN_NUMBER
             embed = discord.Embed(
-                title="**Münzwurf**", colour=get_embedcolour(ctx.message)
+                title="**Münzwurf**", colour=await get_embedcolour(ctx.message)
             )
             embed.set_thumbnail(url=picture)
             embed.add_field(
                 name="‎", value=f"Das Ergebnis ist ```{strval}```", inline=False
             )
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             await ctx.send(embed=embed)
-            log(
-                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+            await log(
+                f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
                 "münzwurf benutzt!",
                 guildid=ctx.guild.id,
             )

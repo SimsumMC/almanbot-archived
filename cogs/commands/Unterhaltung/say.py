@@ -20,7 +20,7 @@ class say(commands.Cog):
         time = datetime.datetime.now()
         msg2 = ctx.message
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if await blacklist_check(self, ctx.message):
                 return
             msg = await ctx.send(
@@ -28,14 +28,14 @@ class say(commands.Cog):
                 components=[
                     [
                         Button(
-                            style=get_buttoncolour(message=ctx.message),
+                            style=await get_buttoncolour(message=ctx.message),
                             label="Normal",
                             emoji="📄",
                             id="say_normal",
                             disabled=True,
                         ),
                         Button(
-                            style=get_buttoncolour(message=ctx.message),
+                            style=await get_buttoncolour(message=ctx.message),
                             label="Embed",
                             emoji="✒",
                             id="say_embed",
@@ -44,12 +44,12 @@ class say(commands.Cog):
                 ],
             )
             await save_message_to_cache(message=msg, author=msg2.author)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "ssp benutzt!",
                 guildid=ctx.guild.id,
             )

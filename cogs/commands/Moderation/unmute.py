@@ -23,38 +23,53 @@ class unmute(commands.Cog):
         mention = ctx.author.mention
         guild = ctx.guild
         mutedrole = discord.utils.get(guild.roles, name="Muted")
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
+            if ctx.author.top_role > member.top_role:
+                embed = discord.Embed(
+                    title="Fehler",
+                    description="Du bist in der Hierarchie unter dem Nutzer den du unmuten willst, daher bist du zu dieser Aktion nicht berechtigt!",
+                    colour=await get_embedcolour(ctx.message),
+                )
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
+                await ctx.send(embed=embed)
+                await log(
+                    f"{time}: Der Moderator {user} hat versucht den Nutzer {member.name + member.discriminator} mit dem"
+                    f" Befehl {get_prefix_string(ctx.message)}unmute zu unmuten, war aber dazu nicht berrechtigt.",
+                    ctx.guild.id,
+                )
+                return
             try:
                 await member.remove_roles(mutedrole)
                 embed = discord.Embed(
-                    title="**Unmute**", colour=get_embedcolour(ctx.message)
+                    title="**Unmute**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(name="Moderator", value=str(mention), inline=False)
                 embed.add_field(name="Nutzer", value=str(member.mention), inline=False)
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     text=str(time)
                     + f": Der Moderator {user} hat den Nutzer {member} unmuted.",
                     guildid=ctx.guild.id,
                 )
             except Exception:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!",
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "unmute auszuführen..",
                     guildid=ctx.guild.id,
                 )

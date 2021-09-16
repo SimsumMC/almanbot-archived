@@ -47,18 +47,18 @@ class join(commands.Cog):
     async def join(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if not ctx.author.voice:
                 embed = discord.Embed(
                     title="Fehler",
                     description="Du befindest dich in keinem Sprachkanal!",
-                    colour=get_embedcolour(ctx.message),
+                    colour=await get_embedcolour(ctx.message),
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 await ctx.send(embed=embed)
-                log(
-                    f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                await log(
+                    f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
                     "join zu benutzen, befand sich aber in keinem Sprachkanal!",
                     guildid=ctx.guild.id,
                 )
@@ -67,13 +67,13 @@ class join(commands.Cog):
             embed = discord.Embed(
                 title="Musik Join",
                 description="Ich bin erfolgreich deinem Sprachkanal beigetreten!",
-                colour=get_embedcolour(ctx.message),
+                colour= await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
-            log(
-                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+            await log(
+                f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
                 "join benutzt!",
                 guildid=ctx.guild.id,
             )

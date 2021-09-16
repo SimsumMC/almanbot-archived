@@ -21,7 +21,7 @@ class schere(commands.Cog):
     async def schere(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             schere = [
                 "Ich hatte auch die Schere, Unentschieden!",
                 "Du hast gewonnen, ich hatte mich für das Papier entschieden!",
@@ -29,18 +29,18 @@ class schere(commands.Cog):
             ]
             schererandom = random.choice(schere)
             embed = discord.Embed(
-                title="**Schere Stein Papier**", colour=get_embedcolour(ctx.message)
+                title="**Schere Stein Papier**", colour=await get_embedcolour(ctx.message)
             )
             embed.set_thumbnail(url=SSP)
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             embed.add_field(name="‎", value=str(schererandom), inline=False)
             await ctx.send(embed=embed)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "schere benutzt!",
                 guildid=ctx.guild.id,
             )

@@ -20,7 +20,7 @@ class config_general(commands.Cog):
 # general Config things
 
 
-def get_defaultconfig():
+async def get_defaultconfig():
     data = {
         "prefix": DEFAULT_PREFIX,
         "blacklist": [],
@@ -54,31 +54,43 @@ def get_defaultconfig():
     return data
 
 
-def config_check(guildid):
+async def config_check(guildid):
     path = os.path.join("data", "configs", f"{guildid}.json")
     if os.path.isfile(path):
         return True
     return False
 
 
-def config_fix(guildid):
+async def config_fix(guildid):
     path = os.path.join("data", "configs", f"{guildid}.json")
     pathcheck = os.path.join("data", "configs", "deleted", f"{guildid}.json")
     if os.path.isfile(pathcheck):
         copyfile(pathcheck, path)
         os.remove(pathcheck)
         return
-    data = get_defaultconfig()
+    data = await get_defaultconfig()
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
 
 
-def resetconfig(path):
+async def resetconfig(guildid):
+    path = os.path.join("data", "configs", f"{guildid}.json")
     os.remove(path=path)
     with open(path, "w") as f:
-        data = get_defaultconfig()
+        data = await get_defaultconfig()
         json.dump(data, f, indent=4)
     return True
+
+
+async def get_config(guildid):
+    """
+    :param guildid:
+    :return: Guild-Config as Json
+    """
+    path = os.path.join("data", "configs", f"{guildid}.json")
+    with open(path, "r") as f:
+        data = json.load(f)
+    return data
 
 
 ########################################################################################################################

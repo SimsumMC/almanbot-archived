@@ -3,7 +3,9 @@ import datetime
 import discord
 import wavelink
 from discord.ext import commands
+from discord.ext.commands import Bot
 
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
@@ -37,6 +39,8 @@ class stop(commands.Cog):
     async def stop(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
+        if not await botchannel_check(ctx):
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
         if not ctx.author.voice:
             embed = discord.Embed(
                 title="Fehler",
@@ -46,8 +50,8 @@ class stop(commands.Cog):
             embed._footer = get_embed_footer(ctx)
             embed._thumbnail = get_embed_thumbnail()
             await ctx.send(embed=embed)
-            log(
-                f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
                 "stop zu benutzen, befand sich aber in keinem Sprachkanal!",
                 guildid=ctx.guild.id,
             )
@@ -61,8 +65,8 @@ class stop(commands.Cog):
         embed._footer = get_embed_footer(ctx)
         embed._thumbnail = get_embed_thumbnail()
         await ctx.send(embed=embed)
-        log(
-            f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
             "stop benutzt!",
             guildid=ctx.guild.id,
         )

@@ -1,11 +1,12 @@
 import datetime
+import traceback
 
 import discord
 from discord.ext import commands
 from discord_components import Button
 
 from cogs.commands.Hilfe.help import get_page, get_help_buttons
-from cogs.commands.Tools.rechner import calculate
+from cogs.commands.Tools.rechner import calculate, get_calculator_buttons
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
@@ -26,9 +27,9 @@ class on_button_click(commands.Cog):
     @commands.Cog.listener()
     async def on_button_click(self, res):
         user = res.author.name
-        if res.message.id not in get_messages_from_cache(authorid=res.author.id):
+        if res.message.id not in await get_messages_from_cache(authorid=res.author.id):
             await res.respond(content=MISSING_PERMISSIONS_BUTTON_ERROR)
-            log(
+            await log(
                 f"{datetime.datetime.now()}: Der Nutzer {user} hat versucht mit einem Button zu interagieren, hatte aber nicht die nötigen Berrechtigungen.",
                 res.message.guild.id,
             )
@@ -46,11 +47,11 @@ class on_button_click(commands.Cog):
                 "help_musik",
             ]
             if res.component.id in help_buttons:
-                embed = get_page(message=res.message, page=res.component.id[5:])
+                embed = await get_page(message=res.message, page=res.component.id[5:])
                 await res.respond(
-                    type=7, embed=embed, components=get_help_buttons(res.message)
+                    type=7, embed=embed, components=await get_help_buttons(res.message)
                 )
-                log(
+                await log(
                     f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Hilfenachricht interagiert und die "
                     f"Seite {res.component.label.lower()} aufgerufen!",
                     res.message.guild.id,
@@ -63,14 +64,14 @@ class on_button_click(commands.Cog):
                     components=[
                         [
                             Button(
-                                style=get_buttoncolour(message=res.message),
+                                style=await get_buttoncolour(message=res.message),
                                 label="Normal",
                                 emoji="📄",
                                 id="say_normal",
                                 disabled=True,
                             ),
                             Button(
-                                style=get_buttoncolour(message=res.message),
+                                style=await get_buttoncolour(message=res.message),
                                 label="Embed",
                                 emoji="✒",
                                 id="say_embed",
@@ -79,7 +80,7 @@ class on_button_click(commands.Cog):
                         ]
                     ],
                 )
-                log(
+                await log(
                     f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Say-Nachricht interagiert!",
                     res.message.guild.id,
                 )
@@ -87,10 +88,10 @@ class on_button_click(commands.Cog):
                 embed = discord.Embed(
                     title="**Say**",
                     description=str(res.message.content),
-                    colour=get_embedcolour(res.message),
+                    colour=await get_embedcolour(res.message),
                 )
-                embed._footer = get_embed_footer(message=res.message)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(message=res.message)
+                embed._thumbnail = await get_embed_thumbnail()
                 await res.respond(
                     type=7,
                     embed=embed,
@@ -98,14 +99,14 @@ class on_button_click(commands.Cog):
                     components=[
                         [
                             Button(
-                                style=get_buttoncolour(message=res.message),
+                                style=await get_buttoncolour(message=res.message),
                                 label="Normal",
                                 emoji="📄",
                                 id="say_normal",
                                 disabled=False,
                             ),
                             Button(
-                                style=get_buttoncolour(message=res.message),
+                                style=await get_buttoncolour(message=res.message),
                                 label="Embed",
                                 emoji="✒",
                                 id="say_embed",
@@ -114,7 +115,7 @@ class on_button_click(commands.Cog):
                         ]
                     ],
                 )
-                log(
+                await log(
                     f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Say-Nachricht interagiert!",
                     res.message.guild.id,
                 )
@@ -125,270 +126,38 @@ class on_button_click(commands.Cog):
                 elif res.component.label == "x" and description[-2] == "x":
                     pass
                 elif res.component.label == "Exit":
+                    default_button_array = await get_calculator_buttons(res.message)
+                    final_button_array, cache_array = [], []
+                    for array in default_button_array:
+                        for button in array:
+                            button._disabled = True
+                            cache_array.append(button)
+                        final_button_array.append(cache_array)
+                        cache_array = []
                     await res.respond(
                         type=7,
                         content="Rechner geschlossen!",
-                        components=[
-                            [
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="1",
-                                    id="calc_1",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="2",
-                                    id="calc_2",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="3",
-                                    id="calc_3",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="x",
-                                    id="calc_x",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="Exit",
-                                    id="calc_exit",
-                                    disabled=True,
-                                ),
-                            ],
-                            [
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="4",
-                                    id="calc_4",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="5",
-                                    id="calc_5",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="6",
-                                    id="calc_6",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="÷",
-                                    id="calc_division",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="⌫",
-                                    id="calc_delete",
-                                    disabled=True,
-                                ),
-                            ],
-                            [
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="7",
-                                    id="calc_7",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="8",
-                                    id="calc_8",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="9",
-                                    id="calc_9",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="+",
-                                    id="calc_addition",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="Clear",
-                                    id="calc_clear",
-                                    disabled=True,
-                                ),
-                            ],
-                            [
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="00",
-                                    id="calc_00",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="0",
-                                    id="calc_0",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label=".",
-                                    id="calc_comma",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="-",
-                                    id="calc_subtraction",
-                                    disabled=True,
-                                ),
-                                Button(
-                                    style=get_buttoncolour(message=res.message),
-                                    label="=",
-                                    id="calc_equal",
-                                    disabled=True,
-                                ),
-                            ],
-                        ],
-                    )
+                        components=final_button_array)
+                    return
                 elif res.component.label == "⌫":
                     description = description[:-2] + "|"
                 elif res.component.label == "Clear":
                     description = "|"
                 elif res.component.label == "=":
                     description = str(calculate(description[:-1])) + "|"
-                # elif res.coomponent.label == "x" and description[-2] == "x|":
-                # pass
                 else:
                     description = description[:-1] + res.component.label + "|"
                 description = "```" + description + "```"
                 embed = discord.Embed(
                     title=f"**{res.author.name}'s Rechner**",
                     description=description,
-                    colour=get_embedcolour(res.message),
+                    colour=await get_embedcolour(res.message),
                 )
-                embed._footer = get_embed_footer(message=res.message)
+                embed._footer = await get_embed_footer(message=res.message)
                 await res.respond(
                     type=7,
                     embed=embed,
-                    components=[
-                        [
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="1",
-                                id="calc_1",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="2",
-                                id="calc_2",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="3",
-                                id="calc_3",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="x",
-                                id="calc_x",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Exit",
-                                id="calc_exit",
-                            ),
-                        ],
-                        [
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="4",
-                                id="calc_4",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="5",
-                                id="calc_5",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="6",
-                                id="calc_6",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="÷",
-                                id="calc_division",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="⌫",
-                                id="calc_delete",
-                            ),
-                        ],
-                        [
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="7",
-                                id="calc_7",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="8",
-                                id="calc_8",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="9",
-                                id="calc_9",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="+",
-                                id="calc_addition",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="Clear",
-                                id="calc_clear",
-                            ),
-                        ],
-                        [
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="00",
-                                id="calc_00",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="0",
-                                id="calc_0",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label=".",
-                                id="calc_comma",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="-",
-                                id="calc_subtraction",
-                            ),
-                            Button(
-                                style=get_buttoncolour(message=res.message),
-                                label="=",
-                                id="calc_equal",
-                            ),
-                        ],
-                    ],
+                    components=await get_calculator_buttons(res.message)
                 )
             else:
                 await res.respond(

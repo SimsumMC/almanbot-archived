@@ -8,24 +8,24 @@ class logging(commands.Cog):
         self.bot = bot
 
 
-def countlines(path: str):
+async def countlines(path: str):
     return len(open(path).readlines())
 
 
-def deletelines(path, amount):
+async def deletelines(path, amount):
     with open(path, "r") as fin:
         data = fin.read().splitlines(True)
     with open(path, "w") as fout:
         fout.writelines(data[amount:])
 
 
-def log(text, guildid):
+async def log(text, guildid):
     path = os.path.join("data", "logs", f"{guildid}.txt")
     with open(path, "a") as f:
         f.write("\n" + text)
-    amount = countlines(path=path)
+    amount = await countlines(path=path)
     if amount >= 199:
-        deletelines(path=path, amount=amount - 200)
+        await deletelines(path=path, amount=amount - 200)
 
 
 ########################################################################################################################

@@ -15,14 +15,14 @@ class broadcast(commands.Cog):
     @commands.command(name="broadcast", aliases=["ankündigung", "ownermsg", "rundruf"])
     @commands.is_owner()
     async def broadcast(self, ctx, *, message):
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             embed = discord.Embed(
                 title="**Broadcast**",
                 description=DEFAULT_BROADCAST_MESSAGE + "\n\n" + str(message),
-                colour=get_embedcolour(message=ctx.message),
+                colour=await get_embedcolour(message=ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             aldready_messaged = []
             failed = []
             for guild in self.bot.guilds:
@@ -37,12 +37,12 @@ class broadcast(commands.Cog):
             embed2 = discord.Embed(
                 title="**Broadcast**",
                 description="Erfolgreich versendet!",
-                colour=get_embedcolour(message=ctx.message),
+                colour=await get_embedcolour(message=ctx.message),
             )
             if failed:
                 embed2.add_field(name="Fehler", value="".join([id for id in failed]))
-            embed2._footer = get_embed_footer(ctx)
-            embed2._thumbnail = get_embed_thumbnail()
+            embed2._footer = await get_embed_footer(ctx)
+            embed2._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed2)
         else:
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)

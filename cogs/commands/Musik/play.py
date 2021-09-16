@@ -51,13 +51,13 @@ class play(commands.Cog):
                 embed = discord.Embed(
                     title="Fehler",
                     description="Du befindest dich in keinem Sprachkanal!",
-                    colour=get_embedcolour(ctx.message),
+                    colour=await get_embedcolour(ctx.message),
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 await ctx.send(embed=embed)
-                log(
-                    f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                await log(
+                    f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
                     "play zu benutzen, befand sich aber in keinem Sprachkanal!",
                     guildid=ctx.guild.id,
                 )
@@ -67,13 +67,13 @@ class play(commands.Cog):
                 embed = discord.Embed(
                     title="**Fehler**",
                     description=f"Ich konnte keinen Song mit der Suchanfrage ````{query}``` finden!",
-                    colour=get_embedcolour(message=ctx.message),
+                    colour=await get_embedcolour(message=ctx.message),
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 await ctx.send(embed=embed)
-                log(
-                    f"{time}: Der Nutzer {user} hat versucht den Befehl {get_prefix_string(ctx.message)}"
+                await log(
+                    f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
                     f"play zu benutzen und damit den Song "
                     + tracks[0].info["title"]
                     + " abzuspielen,"
@@ -86,7 +86,7 @@ class play(commands.Cog):
                 await self.connect_to_player(ctx)
             embed = discord.Embed(
                 title="**Musik Play**",
-                colour=get_embedcolour(message=ctx.message),
+                colour=await get_embedcolour(message=ctx.message),
             )
             embed.set_thumbnail(
                 url="https://img.youtube.com/vi/"
@@ -100,7 +100,8 @@ class play(commands.Cog):
                 value=str(datetime.timedelta(milliseconds=tracks[0].info["length"]))
                       + "h",
             )
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(
                 embed=embed,
                 components=[
@@ -112,8 +113,8 @@ class play(commands.Cog):
                 ],
             )
             await player.play(tracks[0])
-            log(
-                f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
+            await log(
+                f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
                 f"play benutzt und damit den Song "
                 + str(tracks[0].info["title"])
                 + " abgespielt!",

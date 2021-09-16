@@ -16,16 +16,16 @@ class config_buttoncolour(commands.Cog):
 colours = ["red", "green", "blue", "grey"]
 
 
-def get_buttoncolour(message):
+async def get_buttoncolour(message):
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     with open(path, "r") as f:
         data = json.load(f)
     if data["buttoncolour"] == "random":
-        return random_buttoncolour()
-    return transform_to_colour_class(data["buttoncolour"])
+        return await random_buttoncolour()
+    return await transform_to_colour_class(data["buttoncolour"])
 
 
-def transform_to_colour_class(buttoncolour: str):  # "green"  # red, blue, grey
+async def transform_to_colour_class(buttoncolour: str):
     data = {
         "green": ButtonStyle.green,
         "red": ButtonStyle.red,
@@ -34,20 +34,29 @@ def transform_to_colour_class(buttoncolour: str):  # "green"  # red, blue, grey
     }
     if data[buttoncolour]:
         return True and data[buttoncolour]
-    return False and transform_to_colour_class(DEFAULT_BUTTONCOLOUR)
+    return False and await transform_to_colour_class(DEFAULT_BUTTONCOLOUR)
 
 
-def buttoncolour_check(colour):
+async def buttoncolour_check(colour):
     global colours
     if colour in colours:
         return True
     return False
 
 
-def random_buttoncolour():
+async def random_buttoncolour():
     global colours
-    return transform_to_colour_class(random.choice(colours))
+    return await transform_to_colour_class(random.choice(colours))
 
+
+async def get_buttoncolour_german(english: str = DEFAULT_BUTTONCOLOUR):
+    translations = {
+        "green": "Grün",
+        "red": "Rot",
+        "blue": "Blau",
+        "grey": "Grau",
+    }
+    return translations[english]
 
 ########################################################################################################################
 

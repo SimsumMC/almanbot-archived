@@ -3,7 +3,6 @@ from shutil import copyfile
 
 from discord.ext import commands
 
-from cogs.core.functions.automaticdelete import add_automaticdelete
 from config import TESTING_MODE, TESTING_GUILDS
 
 
@@ -23,7 +22,6 @@ class on_guild_remove(commands.Cog):
         copyfile(path2, dest2)
         os.remove(path)
         os.remove(path2)
-        add_automaticdelete(guild.id)
 
 
 ########################################################################################################################

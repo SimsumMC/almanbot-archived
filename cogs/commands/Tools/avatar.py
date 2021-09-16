@@ -8,11 +8,7 @@ from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_footer
-from cogs.core.functions.functions import (
-    get_author,
-)
 from cogs.core.functions.logging import log
-from config import ICON_URL, FOOTER
 
 
 class avatar(commands.Cog):
@@ -23,17 +19,17 @@ class avatar(commands.Cog):
     async def avatar(self, ctx, member: discord.Member = None):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if member is None:
                 member = ctx.author
             embed = discord.Embed(
                 title=f"**Avatar von {member.display_name}**",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
             embed.set_image(url=member.avatar_url)
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             await ctx.send(embed=embed)
-            log(
+            await log(
                 f"{time}: Der Nutzer {user} hat den Befehl {get_prefix_string(ctx.message)}"
                 "avatar benutzt!",
                 guildid=ctx.guild.id,

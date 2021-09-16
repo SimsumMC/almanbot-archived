@@ -29,18 +29,18 @@ class stein(commands.Cog):
             ]
             steinrandom = random.choice(stein)
             embed = discord.Embed(
-                title="**Schere Stein Papier**", colour=get_embedcolour(ctx.message)
+                title="**Schere Stein Papier**", colour=await get_embedcolour(ctx.message)
             )
             embed.set_thumbnail(url=SSP)
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             embed.add_field(name="‎", value=str(steinrandom), inline=False)
             await ctx.send(embed=embed)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "stein benutzt!",
                 guildid=ctx.guild.id,
             )

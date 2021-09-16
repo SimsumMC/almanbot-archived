@@ -10,25 +10,25 @@ class functions(commands.Cog):
         self.bot = bot
 
 
-def get_author():
+async def get_author():
     return str(BOT_MAIN_DEVELOPER)
 
 
-def get_botname():
+async def get_botname():
     return str(BOT_NAME)
 
 
-def is_not_pinned(message):
+async def is_not_pinned(message):
     return not message.pinned
 
 
-def whoisr(member):
+async def whoisr(member):
     if member.bot is True:
         return str("Ja")
     return str("Nein")
 
 
-def msg_contains_word(msg, word):
+async def msg_contains_word(msg, word):
     return re.search(fr"\b({word})\b", msg) is not None
 
 

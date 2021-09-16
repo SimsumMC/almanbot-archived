@@ -15,7 +15,7 @@ from cogs.core.functions.logging import log
 from config import CALCULATING_ERROR
 
 
-def calculate(calculation):
+async def calculate(calculation):
     o = calculation.replace("x", "*").replace("÷", "/")
     try:
         result = str(eval(o))
@@ -33,138 +33,144 @@ class calculator(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         msg2 = ctx.message
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             embed = discord.Embed(
                 title=f"**{ctx.author.name}'s Rechner**",
                 description="```|```",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             msg = await ctx.send(
                 embed=embed,
-                components=[
-                    [
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="1",
-                            id="calc_1",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="2",
-                            id="calc_2",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="3",
-                            id="calc_3",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="x",
-                            id="calc_x",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="Exit",
-                            id="calc_exit",
-                        ),
-                    ],
-                    [
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="4",
-                            id="calc_4",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="5",
-                            id="calc_5",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="6",
-                            id="calc_6",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="÷",
-                            id="calc_division",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="⌫",
-                            id="calc_delete",
-                        ),
-                    ],
-                    [
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="7",
-                            id="calc_7",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="8",
-                            id="calc_8",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="9",
-                            id="calc_9",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="+",
-                            id="calc_addition",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="Clear",
-                            id="calc_clear",
-                        ),
-                    ],
-                    [
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="00",
-                            id="calc_00",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="0",
-                            id="calc_0",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label=".",
-                            id="calc_comma",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="-",
-                            id="calc_subtraction",
-                        ),
-                        Button(
-                            style=get_buttoncolour(message=ctx.message),
-                            label="=",
-                            id="calc_equal",
-                        ),
-                    ],
-                ],
+                components=await get_calculator_buttons(ctx.message)
             )
             await save_message_to_cache(message=msg, author=msg2.author)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(msg)
                 + "rechner benutzt!",
                 guildid=ctx.guild.id,
             )
         else:
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
+
+
+async def get_calculator_buttons(message):
+    buttoncolour = await get_buttoncolour(message)
+    array = [
+        [
+            Button(
+                style=buttoncolour,
+                label="1",
+                id="calc_1",
+            ),
+            Button(
+                style=buttoncolour,
+                label="2",
+                id="calc_2",
+            ),
+            Button(
+                style=buttoncolour,
+                label="3",
+                id="calc_3",
+            ),
+            Button(
+                style=buttoncolour,
+                label="x",
+                id="calc_x",
+            ),
+            Button(
+                style=buttoncolour,
+                label="Exit",
+                id="calc_exit",
+            ),
+        ],
+        [
+            Button(
+                style=buttoncolour,
+                label="4",
+                id="calc_4",
+            ),
+            Button(
+                style=buttoncolour,
+                label="5",
+                id="calc_5",
+            ),
+            Button(
+                style=buttoncolour,
+                label="6",
+                id="calc_6",
+            ),
+            Button(
+                style=buttoncolour,
+                label="÷",
+                id="calc_division",
+            ),
+            Button(
+                style=buttoncolour,
+                label="⌫",
+                id="calc_delete",
+            ),
+        ],
+        [
+            Button(
+                style=buttoncolour,
+                label="7",
+                id="calc_7",
+            ),
+            Button(
+                style=buttoncolour,
+                label="8",
+                id="calc_8",
+            ),
+            Button(
+                style=buttoncolour,
+                label="9",
+                id="calc_9",
+            ),
+            Button(
+                style=buttoncolour,
+                label="+",
+                id="calc_addition",
+            ),
+            Button(
+                style=buttoncolour,
+                label="Clear",
+                id="calc_clear",
+            ),
+        ],
+        [
+            Button(
+                style=buttoncolour,
+                label="00",
+                id="calc_00",
+            ),
+            Button(
+                style=buttoncolour,
+                label="0",
+                id="calc_0",
+            ),
+            Button(
+                style=buttoncolour,
+                label=".",
+                id="calc_comma",
+            ),
+            Button(
+                style=buttoncolour,
+                label="-",
+                id="calc_subtraction",
+            ),
+            Button(
+                style=buttoncolour,
+                label="=",
+                id="calc_equal",
+            ),
+        ],
+    ]
+    return array
 
 
 ########################################################################################################################

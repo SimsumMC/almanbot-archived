@@ -8,11 +8,7 @@ from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
-from cogs.core.functions.functions import (
-    get_author,
-)
 from cogs.core.functions.logging import log
-from config import ICON_URL, THUMBNAIL_URL, FOOTER
 
 
 class unban(commands.Cog):
@@ -25,47 +21,47 @@ class unban(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         mention = ctx.author.mention
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if "#" not in member:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Du musst den Nutzer mit dem Tag angeben, also z.B. Nutzer#1234 !",
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     text=str(time)
                     + ": Der Nutzer "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "unban angegeben.",
                     guildid=ctx.guild.id,
                 )
                 return
             elif "<@" in member and ">" in member:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Du musst den Nutzer mit dem Tag angeben, also z.B. Nutzer#1234 !",
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     text=str(time)
                     + ": Der Nutzer "
                     + str(user)
                     + " hat ein ungültiges Argument bei "
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "unban angegeben.",
                     guildid=ctx.guild.id,
                 )
@@ -78,14 +74,14 @@ class unban(commands.Cog):
                     try:
                         await ctx.guild.unban(user2)
                         embed = discord.Embed(
-                            title="**Unban**", colour=get_embedcolour(ctx.message)
+                            title="**Unban**", colour=await get_embedcolour(ctx.message)
                         )
-                        embed._footer = get_embed_footer(ctx)
-                        embed._thumbnail = get_embed_thumbnail()
+                        embed._footer = await get_embed_footer(ctx)
+                        embed._thumbnail = await get_embed_thumbnail()
                         embed.add_field(name="Moderator:", value=mention, inline=False)
                         embed.add_field(name="Nutzer:", value=str(member), inline=False)
                         await ctx.send(embed=embed)
-                        log(
+                        await log(
                             str(time)
                             + ": Der Moderator "
                             + str(user)
@@ -94,25 +90,27 @@ class unban(commands.Cog):
                             + " erfolgreich entbannt.",
                             guildid=ctx.guild.id,
                         )
+                        return
                     except Exception:
                         embed = discord.Embed(
-                            title="**Fehler**", colour=get_embedcolour(ctx.message)
+                            title="**Fehler**", colour=await get_embedcolour(ctx.message)
                         )
-                        embed._footer = get_embed_footer(ctx)
-                        embed._thumbnail = get_embed_thumbnail()
+                        embed._footer = await get_embed_footer(ctx)
+                        embed._thumbnail = await get_embed_thumbnail()
                         embed.add_field(
                             name="‎",
                             value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!",
                             inline=False,
                         )
                         await ctx.send(embed=embed)
-                        log(
+                        await log(
                             text=str(time)
                             + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
-                            + get_prefix_string(ctx.message)
+                            + await get_prefix_string(ctx.message)
                             + "unban auszuführen..",
                             guildid=ctx.guild.id,
                         )
+                        return
             else:
                 embed = discord.Embed(
                     title="**Fehler**",
@@ -120,12 +118,12 @@ class unban(commands.Cog):
                     + str(member)
                     + " ist nicht gebannt und kann daher "
                     "auch nicht entbannt werden.",
-                    colour=get_embedcolour(ctx.message),
+                    colour=await get_embedcolour(ctx.message),
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     str(time)
                     + ": Der Moderator "
                     + str(user)

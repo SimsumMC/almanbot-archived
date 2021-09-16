@@ -25,22 +25,22 @@ class nachricht(commands.Cog):
     ):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             try:
-                if embedcolour_check(colour):
-                    colour = get_embedcolour_code(colour)
+                if await embedcolour_check(colour):
+                    colour = await get_embedcolour_code(colour)
                 else:
-                    colour = get_embedcolour(ctx.message)
+                    colour = await get_embedcolour(ctx.message)
                 embed = discord.Embed(
                     title=f"**{title}**", description=message, colour=colour
                 )
-                embed._footer = get_embed_footer(ctx)
+                embed._footer = await get_embed_footer(ctx)
                 await channel.send(embed=embed)
                 embed = discord.Embed(
-                    title="**Nachricht**", colour=get_embedcolour(ctx.message)
+                    title="**Nachricht**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value=f"Die Nachricht wurde erfolgreich in den Channel {channel.mention}"
@@ -48,27 +48,27 @@ class nachricht(commands.Cog):
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
-                    text=f"{time}: Der Nutzer {user} hat mit dem Befehl {get_prefix_string(ctx.message)}nachricht"
+                await log(
+                    text=f"{time}: Der Nutzer {user} hat mit dem Befehl {await get_prefix_string(ctx.message)}nachricht"
                     f" eine Nachricht in #{channel} gesendet.",
                     guildid=ctx.guild.id,
                 )
             except Exception:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!",
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "nachricht auszuführen.",
                     guildid=ctx.guild.id,
                 )

@@ -24,8 +24,8 @@ class on_dm_message(commands.Cog):
             inline=False,
         )
         embed._footer, embed._thumbnail = (
-            get_embed_footer(message=message),
-            get_embed_thumbnail(),
+            await get_embed_footer(message=message),
+            await get_embed_thumbnail(),
         )
         await message.channel.send(embed=embed)
         return

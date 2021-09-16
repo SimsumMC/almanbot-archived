@@ -21,8 +21,8 @@ class on_botchannelcheck_failure(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         msg2 = ctx.message
-        name = get_commandname(ctx)
-        log(
+        name = await get_commandname(ctx)
+        await log(
             text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
             f"join im Channel #{name} zu benutzen!",
             guildid=ctx.guild.id,
@@ -30,13 +30,13 @@ class on_botchannelcheck_failure(commands.Cog):
         embed = discord.Embed(
             title="**Fehler**",
             description=WRONG_CHANNEL_ERROR,
-            colour=get_embedcolour(message=ctx.message),
+            colour=await get_embedcolour(message=ctx.message),
         )
-        embed._footer = get_embed_footer(ctx)
-        embed._thumbnail = get_embed_thumbnail()
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
         embed.add_field(
             name="‎",
-            value=get_botchannel_obj_list(ctx),
+            value=await get_botchannel_obj_list(ctx),
             inline=False,
         )
         await ctx.send(embed=embed, delete_after=WRONG_CHANNEL_ERROR_DELETE_AFTER)

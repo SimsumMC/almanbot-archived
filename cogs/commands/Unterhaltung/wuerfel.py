@@ -21,17 +21,17 @@ class wuerfel(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         value = random.randint(number1, number2)
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             embed = discord.Embed(
-                title="**Würfel**", colour=get_embedcolour(ctx.message)
+                title="**Würfel**", colour=await get_embedcolour(ctx.message)
             )
             embed.set_thumbnail(url=CUBE)
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             embed.add_field(
                 name="‎", value=f"Du hast eine ```{value}``` gewürfelt!", inline=False
             )
             await ctx.send(embed=embed)
-            log(
+            await log(
                 text=str(time)
                 + ": Der Nutzer "
                 + str(user)

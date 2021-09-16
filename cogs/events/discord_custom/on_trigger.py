@@ -17,19 +17,19 @@ class on_trigger(commands.Cog):
     async def on_trigger(self, message):
         time = datetime.datetime.now()
         user = message.author.name
-        answer = get_trigger_msg(guildid=message.guild.id, trigger=message.content)
+        answer = await get_trigger_msg(guildid=message.guild.id, trigger=message.content)
         if answer is not None:
             embed = discord.Embed(
                 title="**Trigger**",
                 description=answer,
-                color=get_embedcolour(message),
+                color=await get_embedcolour(message),
             )
             embed._footer, embed._thumbnail = (
-                get_embed_footer(message=message),
-                get_embed_thumbnail(),
+                await get_embed_footer(message=message),
+                await get_embed_thumbnail(),
             )
             await message.channel.send(embed=embed)
-            log(
+            await log(
                 f'{time}: Der Nutzer {user} hat den Trigger "{message.content}" aufgerufen.',
                 guildid=message.guild.id,
             )

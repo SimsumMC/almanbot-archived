@@ -15,7 +15,7 @@ from cogs.core.functions.functions import (
 from cogs.core.functions.logging import log
 
 
-def make_qr(filename, msg):
+async def make_qr(filename, msg):
     qrcode.make(msg).save(filename)
 
 
@@ -28,16 +28,16 @@ class qr(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         path = f"qrcode by {get_botname()}.png"
-        if botchannel_check(ctx):
-            make_qr(str(path), text)
+        if await botchannel_check(ctx):
+            await make_qr(str(path), text)
             embed = discord.Embed(
-                title="**QR Code**", colour=get_embedcolour(ctx.message)
+                title="**QR Code**", colour=await get_embedcolour(ctx.message)
             )
             file = discord.File(path, filename="image.png")
             embed.set_image(url="attachment://image.png")
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             await ctx.send(file=file, embed=embed)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)

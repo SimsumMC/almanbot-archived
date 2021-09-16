@@ -34,13 +34,13 @@ class adminconfig(commands.Cog):
             "colour",
             "hilfe",
         ]
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if subcommand in existing:
                 if subcommand == "colour":
-                    if embedcolour_check(arg) is True:
-                        writejson(
+                    if await embedcolour_check(arg) is True:
+                        await writejson(
                             type=subcommand,
-                            input=get_embedcolour_code(str(arg)),
+                            input=await get_embedcolour_code(str(arg)),
                             path=path,
                         )
                         embed = discord.Embed(
@@ -50,10 +50,10 @@ class adminconfig(commands.Cog):
                             + "``` wurde erfolgreich zu ```"
                             + str(arg)
                             + "``` geändert!",
-                            colour=get_embedcolour(ctx.message),
+                            colour=await get_embedcolour(ctx.message),
                         )
-                        embed._footer = get_embed_footer(ctx)
-                        embed._thumbnail = get_embed_thumbnail()
+                        embed._footer = await get_embed_footer(ctx)
+                        embed._thumbnail = await get_embed_thumbnail()
                         await ctx.send(embed=embed)
                         return
                     else:
@@ -64,10 +64,10 @@ class adminconfig(commands.Cog):
                             + "``` kann nicht zu ```"
                             + str(arg)
                             + "``` geändert werden.",
-                            colour=get_embedcolour(ctx.message),
+                            colour=await get_embedcolour(ctx.message),
                         )
-                        embed._footer = get_embed_footer(ctx)
-                        embed._thumbnail = get_embed_thumbnail()
+                        embed._footer = await get_embed_footer(ctx)
+                        embed._thumbnail = await get_embed_thumbnail()
                         await ctx.send(embed=embed)
                         return
 
@@ -75,24 +75,24 @@ class adminconfig(commands.Cog):
                     path2 = os.path.join("data", "verifiedmemes", "memes.json")
                     if arg == "default":
                         arg = "memes"
-                    if arg != get_memes(guildid) and meme_is_checked(arg) is False:
-                        if arg in readjson("failed", path2) or redditnsfwcheck(arg):
+                    if arg != await get_memes(guildid) and await meme_is_checked(arg) is False:
+                        if arg in await readjson("failed", path2) or await redditnsfwcheck(arg):
                             embed = discord.Embed(
                                 title="**Fehler**",
                                 description=f"Der angegebene Reddit **{arg}** enthält nicht "
                                 "zulässigen Inhalt.",
-                                color=get_embedcolour(ctx.message),
+                                color=await get_embedcolour(ctx.message),
                             )
-                            embed._footer = get_embed_footer(ctx)
-                            embed._thumbnail = get_embed_thumbnail()
+                            embed._footer = await get_embed_footer(ctx)
+                            embed._thumbnail = await get_embed_thumbnail()
                             await ctx.send(embed=embed)
                             return
-                writejson(type=subcommand, input=arg, path=path)
+                await writejson(type=subcommand, input=arg, path=path)
                 embed = discord.Embed(
-                    title="**Admin Config**", colour=get_embedcolour(ctx.message)
+                    title="**Admin Config**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Das Modul ```"
@@ -105,10 +105,10 @@ class adminconfig(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Das Modul **" + str(subcommand) + "** existiert nicht!",

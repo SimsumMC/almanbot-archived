@@ -8,7 +8,7 @@ class func_json(commands.Cog):
         self.bot = bot
 
 
-def writejson(type, input, path, mode="write"):
+async def writejson(type, input, path, mode="write"):
     with open(path, "r", encoding="UTF-8") as f:
         data = json.load(f)
     if mode == "write":
@@ -21,7 +21,7 @@ def writejson(type, input, path, mode="write"):
         json.dump(data, f, indent=4)
 
 
-def readjson(key: str, path):
+async def readjson(key: str, path):
     with open(path, "r", encoding="UTF-8") as f:
         data = json.load(f)
     if key in data:

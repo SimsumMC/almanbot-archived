@@ -23,18 +23,18 @@ class help(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         msg2 = ctx.message
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             msg = await ctx.send(
-                embed=get_page(ctx.message, "übersicht"),
-                components=get_help_buttons(ctx.message),
+                embed=await get_page(ctx.message, "übersicht"),
+                components=await get_help_buttons(ctx.message),
             )
             await save_message_to_cache(message=msg, author=msg2.author)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "hilfe benutzt!",
                 ctx.guild.id,
             )
@@ -42,29 +42,30 @@ class help(commands.Cog):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
-def get_help_buttons(msg):
+async def get_help_buttons(msg):
+    buttoncolour = await get_buttoncolour(msg)
     buttons = [
         [
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="Übersicht",
                 emoji="🔖",
                 custom_id="help_übersicht",
             ),
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="Allgemein ",
                 emoji="🤖",
                 custom_id="help_allgemein",
             ),
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="Informationen",
                 emoji="📉",
                 custom_id="help_informationen",
             ),
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label=" Unterhaltung ",
                 emoji="🎲",
                 custom_id="help_unterhaltung",
@@ -72,25 +73,25 @@ def get_help_buttons(msg):
         ],
         [
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="   Musik   ",
                 emoji="🎵",
                 custom_id="help_musik",
             ),
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="    Tools    ",
                 emoji="💡",
                 custom_id="help_tools",
             ),
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="  Moderation  ",
                 emoji="🛡",
                 custom_id="help_moderation",
             ),
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="Administration",
                 emoji="⚙",
                 custom_id="help_administration",
@@ -98,7 +99,7 @@ def get_help_buttons(msg):
         ],
         [
             Button(
-                style=get_buttoncolour(msg),
+                style=buttoncolour,
                 label="  Inhaber  ",
                 emoji="🔒",
                 custom_id="help_inhaber",
@@ -108,15 +109,16 @@ def get_help_buttons(msg):
     return buttons
 
 
-def get_page(message, page):
+async def get_page(message, page):
+    prefix = await get_prefix_string(message)
     if page == "übersicht":
         embed = discord.Embed(
             title="**Hilfe Übersicht**",
             description="Hier findest du alle Hilfekategorien!",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"`{get_prefix_string(message)}hilfe`",
+            name=f"`{prefix}hilfe`",
             value="Zeigt dir eine Übersicht aller Hilfekategorien!",
             inline=False,
         )
@@ -164,56 +166,61 @@ def get_page(message, page):
         embed = discord.Embed(
             title="**Hilfe Allgemein**",
             description="Hier findest du alle Befehle zu der Kategorie `Allgemein!`",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}hilfe**",
+            name=f"**{prefix}hilfe**",
             value="Zeigt dir alle Befehle in Kategrien unterteilt an!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}invite**",
+            name=f"**{prefix}invite**",
             value="Invite mich oder schau bei meinem Zuhause vorbei!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}botinfo**",
+            name=f"**{prefix}botinfo**",
             value="Zeigt dir Daten zu mir!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}ping**",
+            value="Erfahre meinen aktuellen Ping!",
             inline=False,
         )
     elif page == "informationen":
         embed = discord.Embed(
             title="**Hilfe Informationen**",
             description="Hier findest du alle Befehle zu der Kategorie `Informationen!`",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}ping**",
+            name=f"**{prefix}ping**",
             value="Zeigt dir meinen Ping an!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}serverinfo**",
+            name=f"**{prefix}serverinfo**",
             value="Zeigt Daten zum aktuellen Server an!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}nutzerinfo**",
+            name=f"**{prefix}nutzerinfo**",
             value="Zeigt Daten zu einem Nutzer an!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}lookup**",
+            name=f"**{prefix}lookup**",
             value="Zeigt Daten zu einer angegebenen Domain an!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}avatar**",
+            name=f"**{prefix}avatar**",
             value="Gib dir das Profilbild von einem Nutzer aus!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}servericon**",
+            name=f"**{prefix}servericon**",
             value="Gib dir das Icon des aktuellen Servers aus!",
             inline=False,
         )
@@ -221,37 +228,37 @@ def get_page(message, page):
         embed = discord.Embed(
             title="**Hilfe Unterhaltung**",
             description="Hier findest du alle Befehle zu der Kategorie `Unterhaltung!`",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}meme**",
+            name=f"**{prefix}meme**",
             value="Zeigt dir einen zufälligen Meme" " von Reddit!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}würfel**",
+            name=f"**{prefix}würfel**",
             value="Nutze meinen integrierten" " Würfel!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}münzwurf**",
+            name=f"**{prefix}münzwurf**",
             value="Wirf eine Münze!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}ssp**",
+            name=f"**{prefix}ssp**",
             value="Spiele Schere, Stein, Papier gegen mich!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}löschdich**",
+            name=f"**{prefix}löschdich**",
             value="Fordere einen bestimmten Nutzer dazu"
-            "auf, sich aus dem Internet zu "
-            "löschen!",
+                  "auf, sich aus dem Internet zu "
+                  "löschen!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}say**",
+            name=f"**{prefix}say**",
             value="Ich spreche dir nach!",
             inline=False,
         )
@@ -259,35 +266,35 @@ def get_page(message, page):
         embed = discord.Embed(
             title="**Hilfe Musik**",
             description="Hier findest du alle Befehle zu der Kategorie `Musik`!",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}join**",
+            name=f"**{prefix}join**",
             value="Nutze diesen Befehl damit ich deinen Voichechannel betrete!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}play**",
+            name=f"**{prefix}play**",
             value="Nutze diesen Befehl um Musik abzuspielen!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}pause**",
+            name=f"**{prefix}pause**",
             value="Nutze diesen Befehl den aktuellen Song zu pausieren!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}pause**",
+            name=f"**{prefix}pause**",
             value="Nutze diesen Befehl den pausierten Song zu fortzusetzen!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}stop**",
+            name=f"**{prefix}stop**",
             value="Nutze diesen Befehl um den aktuellen Song zu stoppen!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}leave**",
+            name=f"**{prefix}leave**",
             value="Nutze diesen Befehl damit ich deinen Voichechannel verlasse!",
             inline=False,
         )
@@ -295,25 +302,25 @@ def get_page(message, page):
         embed = discord.Embed(
             title="**Hilfe Tools**",
             description="Hier findest du alle Befehle zu der Kategorie `Tools`!",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}qr**",
+            name=f"**{prefix}qr**",
             value="Erstelle einen QR Code zu einer" " beliebigen Website!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}servericon**",
+            name=f"**{prefix}servericon**",
             value="Gib dir das Profilbild von dem aktuellen Server aus!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}nachricht**",
+            name=f"**{prefix}nachricht**",
             value="Sende einen personalisierten Embed in einen Channel deiner Wahl!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}rechner**",
+            name=f"**{prefix}rechner**",
             value="Ein fancy Rechner für einfache mathematische Probleme!",
             inline=False,
         )
@@ -321,40 +328,40 @@ def get_page(message, page):
         embed = discord.Embed(
             title="**Hilfe Moderation**",
             description="Hier findest du alle Befehle zu der Kategorie `Moderation!`",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}slowmode**",
+            name=f"**{prefix}slowmode**",
             value="Lege den Intervall zwischen Nachrichten in einem bestimmten Kanal fest.!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}clear**",
+            name=f"**{prefix}clear**",
             value="Lösche eine bestimmte Anzahl an" " Nachrichten!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}ban**",
+            name=f"**{prefix}ban**",
             value="Banne einen bestimmten Nutzer bis" " er entbannt wird!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}unban**",
+            name=f"**{prefix}unban**",
             value="Entbanne einen zuvor" " gebannten Nutzer!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}kick**",
+            name=f"**{prefix}kick**",
             value="Kicke einen bestimmten Nutzer!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}mute**",
+            name=f"**{prefix}mute**",
             value="Stumme einen spezifischen Nutzer!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}unmute**",
+            name=f"**{prefix}unmute**",
             value="Entstumme einen spezifischen Nutzer!",
             inline=False,
         )
@@ -362,20 +369,20 @@ def get_page(message, page):
         embed = discord.Embed(
             title="**Hilfe Administration**",
             description="Hier findest du alle Befehle zu der Kategorie `Administrator!`",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}config**",
+            name=f"**{prefix}config**",
             value="Ändere die" " Botkonfiguration über einen Befehl!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}channelclear**",
+            name=f"**{prefix}channelclear**",
             value="Lösche alle Nachrichten" " aus einem Channel!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}botlog**",
+            name=f"**{prefix}botlog**",
             value="Gebe dir den Botlog deines" " Servers aus!",
             inline=False,
         )
@@ -383,30 +390,30 @@ def get_page(message, page):
         embed = discord.Embed(
             title="**Hilfe Administration**",
             description="Hier findest du alle Befehle zu der Kategorie `Inhaber`!",
-            colour=get_embedcolour(message),
+            colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}broadcast**",
+            name=f"**{prefix}broadcast**",
             value="Sende eine Nachricht an alle Serverowner die diesen Bot nutzen!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}cog**",
+            name=f"**{prefix}cog**",
             value="Lade, Entlade, Lade einzelne oder alle " "Cogs neu!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}adminconfig**",
+            name=f"**{prefix}adminconfig**",
             value="Bearbeite die Config eines " "anderen Servers!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{get_prefix_string(message)}adminctxetconfig**",
+            name=f"**{prefix}adminctxetconfig**",
             value="Setze eine Config zurück!",
             inline=False,
         )
-    embed._footer = get_embed_footer(message=message)
-    embed._thumbnail = get_embed_thumbnail()
+    embed._footer = await get_embed_footer(message=message)
+    embed._thumbnail = await get_embed_thumbnail()
     return embed
 
 

@@ -22,15 +22,15 @@ class nutzerinfo(commands.Cog):
     async def nutzerinfo(self, ctx, member: discord.Member = None):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if member is None:
                 member = ctx.author
             roles = [role for role in member.roles]
             embed = discord.Embed(
                 title=f"**Nutzerinfo für {member.display_name}**",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
+            embed._footer = await get_embed_footer(ctx)
             embed.set_thumbnail(url=member.avatar_url)
             embed.add_field(
                 name="**Nutzername:**", value=member.display_name, inline=False
@@ -56,7 +56,7 @@ class nutzerinfo(commands.Cog):
                 inline=False,
             )
             embed.add_field(
-                name="**Bot?:**", value=str(whoisr(member=member)), inline=True
+                name="**Bot?:**", value=str(await whoisr(member=member)), inline=True
             )
             embed.add_field(
                 name=f"**Rollen ({len(roles) - 1}):**",
@@ -79,12 +79,12 @@ class nutzerinfo(commands.Cog):
                 inline=False,
             )
             await ctx.send(embed=embed)
-            log(
+            await log(
                 str(time)
                 + ": Der Nutzer "
                 + str(user)
                 + " hat den Befehl  "
-                + get_prefix_string(ctx.message)
+                + await get_prefix_string(ctx.message)
                 + "nutzerinfo benutzt!",
                 ctx.guild.id,
             )

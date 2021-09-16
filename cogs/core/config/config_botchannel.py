@@ -12,30 +12,28 @@ class config_botchannel(commands.Cog):
 # Botchannel
 
 
-def botchannel_check(ctx):
+async def botchannel_check(ctx):
     channelid = ctx.channel.id
     message = ctx.message
-    ids = get_botchannel(message=message)
-    if channelid in ids or ids == []:
+    ids = await get_botchannel(message=message)
+    if ids == [] or channelid in ids:
         return True
     return False
 
 
-def get_botchannel(message):
+async def get_botchannel(message):
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     with open(path, "r") as f:
         data = json.load(f)
-    if not isinstance(data["botchannel"], list):
-        data["botchannel"] = []
-        with open(path, "w") as f:
-            json.dump(data, f, indent=4)
     return data["botchannel"]
 
 
-def get_botchannel_obj_list(ctx):
-    list = get_botchannel(ctx.message)
-    string = "".join([client.get_channel(id).mention + ", " for id in list])[:-2]
-    return str(string)
+async def get_botchannel_obj_list(ctx):
+    botchannel = await get_botchannel(ctx.message)
+    if not botchannel:
+        return False
+    string = " ".join([client.get_channel(channel).mention + ", " for channel in botchannel])[:-2]
+    return True and str(string)
 
 
 ########################################################################################################################

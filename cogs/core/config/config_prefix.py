@@ -12,7 +12,7 @@ class config_prefix(commands.Cog):
         self.bot = bot
 
 
-def get_prefix_string(message):
+async def get_prefix_string(message):
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     if not os.path.exists(path):
         return str(DEFAULT_PREFIX)
@@ -22,11 +22,11 @@ def get_prefix_string(message):
     return str(prefix)
 
 
-def get_prefix(bot, message):
+async def get_prefix(bot, message):
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     if not os.path.exists(path):
         with open(path, "w") as f:
-            data = get_defaultconfig()
+            data = await get_defaultconfig()
             json.dump(data, f, indent=4)
             return commands.when_mentioned_or(DEFAULT_PREFIX)(bot, message)
     with open(path, "r") as f:

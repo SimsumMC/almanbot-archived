@@ -24,12 +24,12 @@ class channelclear(commands.Cog):
         embed = discord.Embed(
             title="**Channelclear**",
             description=f"Der Channel {newchannel.mention} wurde erfolgreich geleert!",
-            colour=get_embedcolour(ctx.message),
+            colour=await get_embedcolour(ctx.message),
         )
-        embed._footer = get_embed_footer(ctx)
-        embed._thumbnail = get_embed_thumbnail()
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
         await newchannel.send(embed=embed)
-        log(
+        await log(
             text=str(time)
             + ": Der Nutzer "
             + str(user)

@@ -21,19 +21,34 @@ class kick(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         mention = ctx.author.mention
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
+            if ctx.author.top_role > member.top_role:
+                embed = discord.Embed(
+                    title="Fehler",
+                    description="Du bist in der Hierarchie unter dem Nutzer den du kicken willst, daher bist du zu dieser Aktion nicht berechtigt!",
+                    colour=await get_embedcolour(ctx.message),
+                )
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
+                await ctx.send(embed=embed)
+                await log(
+                    f"{time}: Der Moderator {user} hat versucht den Nutzer {member.name + member.discriminator} mit dem"
+                    f" Befehl {await get_prefix_string(ctx.message)}kick zu kicken, war aber dazu nicht berrechtigt.",
+                    ctx.guild.id,
+                )
+                return
             try:
                 await member.kick(reason=reason)
                 embed = discord.Embed(
-                    title="**Kick**", colour=get_embedcolour(ctx.message)
+                    title="**Kick**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(name="Moderator:", value=mention, inline=False)
                 embed.add_field(name="Nutzer:", value=str(member), inline=False)
                 embed.add_field(name="Grund:", value=reason, inline=False)
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     str(time)
                     + ": Der Moderator "
                     + str(user)
@@ -47,20 +62,20 @@ class kick(commands.Cog):
                 return
             except Exception:
                 embed = discord.Embed(
-                    title="**Fehler**", colour=get_embedcolour(ctx.message)
+                    title="**Fehler**", colour=await get_embedcolour(ctx.message)
                 )
-                embed._footer = get_embed_footer(ctx)
-                embed._thumbnail = get_embed_thumbnail()
+                embed._footer = await get_embed_footer(ctx)
+                embed._thumbnail = await get_embed_thumbnail()
                 embed.add_field(
                     name="‎",
                     value="Ich habe nicht die nötigen Berrechtigungen um diesen Befehl auszuführen!!",
                     inline=False,
                 )
                 await ctx.send(embed=embed)
-                log(
+                await log(
                     text=str(time)
                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um "
-                    + get_prefix_string(ctx.message)
+                    + await get_prefix_string(ctx.message)
                     + "kick auszuführen..",
                     guildid=ctx.guild.id,
                 )
