@@ -39,8 +39,8 @@ class adminconfig(commands.Cog):
                 if subcommand == "colour":
                     if await embedcolour_check(arg) is True:
                         await writejson(
-                            type=subcommand,
-                            input=await get_embedcolour_code(str(arg)),
+                            key=subcommand,
+                            value=await get_embedcolour_code(str(arg)),
                             path=path,
                         )
                         embed = discord.Embed(
@@ -75,8 +75,13 @@ class adminconfig(commands.Cog):
                     path2 = os.path.join("data", "verifiedmemes", "memes.json")
                     if arg == "default":
                         arg = "memes"
-                    if arg != await get_memes(guildid) and await meme_is_checked(arg) is False:
-                        if arg in await readjson("failed", path2) or await redditnsfwcheck(arg):
+                    if (
+                        arg != await get_memes(guildid)
+                        and await meme_is_checked(arg) is False
+                    ):
+                        if arg in await readjson(
+                            "failed", path2
+                        ) or await redditnsfwcheck(arg):
                             embed = discord.Embed(
                                 title="**Fehler**",
                                 description=f"Der angegebene Reddit **{arg}** enthält nicht "
@@ -87,7 +92,7 @@ class adminconfig(commands.Cog):
                             embed._thumbnail = await get_embed_thumbnail()
                             await ctx.send(embed=embed)
                             return
-                await writejson(type=subcommand, input=arg, path=path)
+                await writejson(key=subcommand, value=arg, path=path)
                 embed = discord.Embed(
                     title="**Admin Config**", colour=await get_embedcolour(ctx.message)
                 )

@@ -28,7 +28,8 @@ class papier(commands.Cog):
             ]
             papierrandom = random.choice(papier)
             embed = discord.Embed(
-                title="**Schere Stein Papier**", colour=await get_embedcolour(ctx.message)
+                title="**Schere Stein Papier**",
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()

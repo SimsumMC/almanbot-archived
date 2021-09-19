@@ -32,7 +32,9 @@ async def get_botchannel_obj_list(ctx):
     botchannel = await get_botchannel(ctx.message)
     if not botchannel:
         return False
-    string = " ".join([client.get_channel(channel).mention + ", " for channel in botchannel])[:-2]
+    string = " ".join(
+        [client.get_channel(channel).mention + ", " for channel in botchannel]
+    )[:-2]
     return True and str(string)
 
 

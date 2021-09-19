@@ -10,7 +10,7 @@ from discord.ext.commands import Bot, ExtensionAlreadyLoaded
 from discord_components import DiscordComponents
 
 from cogs.core.config.config_general import config_check
-from cogs.core.config.config_prefix import get_prefix
+from cogs.core.config.config_prefix import get_prefix, get_prefix_string
 from cogs.core.config.config_trigger import get_trigger_list
 from cogs.core.functions.func_json import readjson
 from cogs.core.functions.functions import msg_contains_word
@@ -54,7 +54,7 @@ async def blacklist_check(self, message):
         for bannedWord in bannedWords:
             if await msg_contains_word(message.content.lower(), bannedWord):
                 for ignorearg in BLACKLIST_IGNORE:
-                    if await msg_contains_word(message.content.lower(), ignorearg):
+                    if await msg_contains_word(await get_prefix_string(message) + message.content.lower(), ignorearg):
                         return False
                 else:
                     Bot.dispatch(

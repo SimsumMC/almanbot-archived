@@ -31,5 +31,6 @@ async def get_role_mentions_list(guild):
 
 ########################################################################################################################
 
+
 def setup(bot):
     bot.add_cog(config_autoroles(bot))

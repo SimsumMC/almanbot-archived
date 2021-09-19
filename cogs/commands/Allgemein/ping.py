@@ -21,7 +21,9 @@ class ping(commands.Cog):
         user = ctx.author.name
         ping = round(client.latency * 1000)
         if await botchannel_check(ctx):
-            embed = discord.Embed(title="**Ping**", colour=await get_embedcolour(ctx.message))
+            embed = discord.Embed(
+                title="**Ping**", colour=await get_embedcolour(ctx.message)
+            )
             embed.add_field(
                 name="‎", value=f"Mein  Ping beträgt aktuell {ping}ms!", inline=False
             )

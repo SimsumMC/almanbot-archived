@@ -15,12 +15,17 @@ class on_channel_delete(commands.Cog):
     async def on_guild_channel_delete(self, channel):
         path = os.path.join("data", "configs", f"{channel.guild.id}.json")
         if channel.id in get_botchannel(message=channel):
-            await writejson(type="botchannel", input=channel.id, path=path, mode="remove")
+            await writejson(
+                key="botchannel", value=channel.id, path=path, mode="remove"
+            )
         elif channel.id in get_memechannel(message=channel):
-            await writejson(type="memechannel", input=channel.id, path=path, mode="remove")
+            await writejson(
+                key="memechannel", value=channel.id, path=path, mode="remove"
+            )
 
 
 ########################################################################################################################
+
 
 def setup(bot):
     bot.add_cog(on_channel_delete(bot))

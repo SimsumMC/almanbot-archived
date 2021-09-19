@@ -30,7 +30,9 @@ class cog(commands.Cog):
     @commands.is_owner()
     async def _help(self, ctx):
         if await botchannel_check(ctx):
-            embed = discord.Embed(title="Fehler", colour=await get_embedcolour(ctx.message))
+            embed = discord.Embed(
+                title="Fehler", colour=await get_embedcolour(ctx.message)
+            )
             embed.add_field(
                 name="‎",
                 value=f"""
@@ -55,9 +57,7 @@ class cog(commands.Cog):
             try:
                 for directory in os.listdir("./cogs"):
                     for directory2 in os.listdir(f"./cogs/{directory}"):
-                        for filename in os.listdir(
-                                f"./cogs/{directory}/{directory2}/"
-                        ):
+                        for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
                             if filename == f"{cogname}.py":
                                 extension = (
                                     f"cogs.{directory}.{directory2}.{filename[:-3]}"
@@ -95,7 +95,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht geladen werden. \n\n"
-                          f"Fehler: {str(e)}",
+                    f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed._footer = await get_embed_footer(ctx)
@@ -112,9 +112,7 @@ class cog(commands.Cog):
             try:
                 for directory in os.listdir("./cogs"):
                     for directory2 in os.listdir(f"./cogs/{directory}"):
-                        for filename in os.listdir(
-                                f"./cogs/{directory}/{directory2}/"
-                        ):
+                        for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
                             if filename == f"{cogname}.py":
                                 extension = (
                                     f"cogs.{directory}.{directory2}.{filename[:-3]}"
@@ -154,7 +152,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht entladen werden. \n\n"
-                          f"Fehler: {str(e)}",
+                    f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed._footer = await get_embed_footer(ctx)
@@ -171,9 +169,7 @@ class cog(commands.Cog):
             try:
                 for directory in os.listdir("./cogs"):
                     for directory2 in os.listdir(f"./cogs/{directory}"):
-                        for filename in os.listdir(
-                                f"./cogs/{directory}/{directory2}/"
-                        ):
+                        for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
                             if filename == f"{cogname}.py":
                                 extension = (
                                     f"cogs.{directory}.{directory2}.{filename[:-3]}"
@@ -212,7 +208,7 @@ class cog(commands.Cog):
                 embed.add_field(
                     name="‎",
                     value=f"Der Cog ```{cogname}``` konnte nicht neu geladen werden. \n\n"
-                          f"Fehler: {str(e)}",
+                    f"Fehler: {str(e)}",
                     inline=False,
                 )
                 embed._footer = await get_embed_footer(ctx)
@@ -232,9 +228,7 @@ class cog(commands.Cog):
                         continue
                     for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
                         if filename.endswith(".py") and "ignore_" not in filename:
-                            extension = (
-                                f"cogs.{directory}.{directory2}.{filename[:-3]}"
-                            )
+                            extension = f"cogs.{directory}.{directory2}.{filename[:-3]}"
                             try:
                                 client.unload_extension(extension)
                             except Exception:
@@ -249,7 +243,7 @@ class cog(commands.Cog):
                                 embed.add_field(
                                     name="‎",
                                     value=f"Der Cog ```{filename}``` konnte nicht neu geladen werden. \n\n"
-                                          f"Fehler: {str(e)}",
+                                    f"Fehler: {str(e)}",
                                     inline=False,
                                 )
                                 embed._footer = await get_embed_footer(ctx)
@@ -279,25 +273,19 @@ class cog(commands.Cog):
             check = 0
             for directory in os.listdir("./cogs"):
                 if check == 0:
-                    description = (
-                            description + f"\n**{directory.capitalize()}**\n\n"
-                    )
+                    description = description + f"\n**{directory.capitalize()}**\n\n"
                 for directory2 in os.listdir(f"./cogs/{directory}"):
                     if directory2 == "Ignore":
                         continue
                     for filename in os.listdir(f"./cogs/{directory}/{directory2}/"):
                         if filename.endswith(".py"):
-                            extension = (
-                                f"cogs.{directory}.{directory2}.{filename[:-3]}"
-                            )
+                            extension = f"cogs.{directory}.{directory2}.{filename[:-3]}"
                             try:
                                 if extension in client.extensions:
                                     emoji = "🟩"
                                 else:
                                     emoji = "🟥"
-                                description = (
-                                        description + filename[:-3] + emoji + "\n"
-                                )
+                                description = description + filename[:-3] + emoji + "\n"
                             except Exception:
                                 traceback.print_exc()
                 check = 0

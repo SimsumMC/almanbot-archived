@@ -46,7 +46,7 @@ class play(commands.Cog):
     async def play(self, ctx: commands.Context, *, query):
         time = datetime.datetime.now()
         user = ctx.author.name
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             if not ctx.author.voice:
                 embed = discord.Embed(
                     title="Fehler",
@@ -77,7 +77,7 @@ class play(commands.Cog):
                     f"play zu benutzen und damit den Song "
                     + tracks[0].info["title"]
                     + " abzuspielen,"
-                      f" der konnte aber nicht gefunden werden!",
+                    f" der konnte aber nicht gefunden werden!",
                     guildid=ctx.guild.id,
                 )
                 return
@@ -90,15 +90,15 @@ class play(commands.Cog):
             )
             embed.set_thumbnail(
                 url="https://img.youtube.com/vi/"
-                    + tracks[0].info["uri"].split("=")[1]
-                    + "/default.jpg"
+                + tracks[0].info["uri"].split("=")[1]
+                + "/default.jpg"
             )
             embed.add_field(name="**Name**", value=tracks[0].info["title"])
             embed.add_field(name="**Author**", value=tracks[0].info["author"])
             embed.add_field(
                 name="**Länge**",
                 value=str(datetime.timedelta(milliseconds=tracks[0].info["length"]))
-                      + "h",
+                + "h",
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
@@ -125,6 +125,7 @@ class play(commands.Cog):
 
 
 ########################################################################################################################
+
 
 def setup(bot):
     bot.add_cog(play(bot))

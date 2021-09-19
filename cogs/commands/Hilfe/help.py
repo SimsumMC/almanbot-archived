@@ -42,31 +42,43 @@ class help(commands.Cog):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
+async def on_help_button(res):
+    user = res.author.name
+    embed = await get_page(message=res.message, page=res.component.id[5:])
+    await res.respond(
+        type=7, embed=embed, components=await get_help_buttons(res.message)
+    )
+    await log(
+        f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Hilfenachricht interagiert und die "
+        f"Seite {res.component.label.lower()} aufgerufen!",
+        res.message.guild.id,
+    )
+
 async def get_help_buttons(msg):
     buttoncolour = await get_buttoncolour(msg)
     buttons = [
         [
             Button(
                 style=buttoncolour,
-                label="Übersicht",
+                label="    Übersicht    ",
                 emoji="🔖",
                 custom_id="help_übersicht",
             ),
             Button(
                 style=buttoncolour,
-                label="Allgemein ",
+                label="    Allgemein    ",
                 emoji="🤖",
                 custom_id="help_allgemein",
             ),
             Button(
                 style=buttoncolour,
-                label="Informationen",
+                label="Informationen ",
                 emoji="📉",
                 custom_id="help_informationen",
             ),
             Button(
                 style=buttoncolour,
-                label=" Unterhaltung ",
+                label=" Unterhaltung  ‎‎‎",
                 emoji="🎲",
                 custom_id="help_unterhaltung",
             ),
@@ -74,19 +86,19 @@ async def get_help_buttons(msg):
         [
             Button(
                 style=buttoncolour,
-                label="   Musik   ",
+                label="       Musik       ",
                 emoji="🎵",
                 custom_id="help_musik",
             ),
             Button(
                 style=buttoncolour,
-                label="    Tools    ",
+                label="       Tools        ",
                 emoji="💡",
                 custom_id="help_tools",
             ),
             Button(
                 style=buttoncolour,
-                label="  Moderation  ",
+                label="  Moderation   ",
                 emoji="🛡",
                 custom_id="help_moderation",
             ),
@@ -100,7 +112,7 @@ async def get_help_buttons(msg):
         [
             Button(
                 style=buttoncolour,
-                label="  Inhaber  ",
+                label="      Inhaber      ",
                 emoji="🔒",
                 custom_id="help_inhaber",
             ),

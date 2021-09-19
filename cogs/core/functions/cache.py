@@ -25,7 +25,7 @@ async def get_embed_from_cache(messageid):
     return embed_cache[str(messageid)]
 
 
-async def save_message_to_cache(message, author):
+async def save_message_to_cache(message, author, max_uses: int = None):
     path = os.path.join("data", "cache", "message_cache.json")
     with open(path, "r") as f:
         message_cache = json.load(f)

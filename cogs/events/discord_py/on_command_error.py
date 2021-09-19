@@ -11,7 +11,8 @@ from discord.ext.commands import (
     NotOwner,
     BadArgument,
     MissingPermissions,
-    Bot, )
+    Bot,
+)
 
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
@@ -36,7 +37,7 @@ class on_command_error(commands.Cog):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
         elif isinstance(error, CommandNotFound):
-            if not check_if_error(ctx=ctx, error="commandnotfound"):
+            if not await check_if_error(ctx=ctx, error="commandnotfound"):
                 return
             embed = discord.Embed(
                 title="**Fehler**", colour=await get_embedcolour(ctx.message)
@@ -133,7 +134,7 @@ class on_command_error(commands.Cog):
             await ctx.send(embed=embed)
             await log(
                 f"{time}: Der Nutzer {user} hat trotz eines Cooldowns versucht den Befehl '"
-                f"{get_prefix_string(ctx.message)}{commandname}' im Kanal #{ctx.channel.name} zu nutzen.",
+                f"{await get_prefix_string(ctx.message)}{commandname}' im Kanal #{ctx.channel.name} zu nutzen.",
                 ctx.guild.id,
             )
             return

@@ -93,7 +93,8 @@ class unban(commands.Cog):
                         return
                     except Exception:
                         embed = discord.Embed(
-                            title="**Fehler**", colour=await get_embedcolour(ctx.message)
+                            title="**Fehler**",
+                            colour=await get_embedcolour(ctx.message),
                         )
                         embed._footer = await get_embed_footer(ctx)
                         embed._thumbnail = await get_embed_thumbnail()

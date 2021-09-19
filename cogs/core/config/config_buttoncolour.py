@@ -58,6 +58,7 @@ async def get_buttoncolour_german(english: str = DEFAULT_BUTTONCOLOUR):
     }
     return translations[english]
 
+
 ########################################################################################################################
 
 

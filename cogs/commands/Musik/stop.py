@@ -45,10 +45,10 @@ class stop(commands.Cog):
             embed = discord.Embed(
                 title="Fehler",
                 description="Du befindest dich in keinem Sprachkanal!",
-                colour=get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
-            embed._footer = get_embed_footer(ctx)
-            embed._thumbnail = get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
             await log(
                 f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
@@ -60,10 +60,10 @@ class stop(commands.Cog):
         embed = discord.Embed(
             title="Musik Stop",
             description="Ich habe erfolgreich die Musik gestoppt!",
-            colour=get_embedcolour(ctx.message),
+            colour=await get_embedcolour(ctx.message),
         )
-        embed._footer = get_embed_footer(ctx)
-        embed._thumbnail = get_embed_thumbnail()
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
         await log(
             f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
@@ -73,6 +73,7 @@ class stop(commands.Cog):
 
 
 ########################################################################################################################
+
 
 def setup(bot):
     bot.add_cog(stop(bot))

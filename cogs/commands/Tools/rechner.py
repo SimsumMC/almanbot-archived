@@ -3,7 +3,7 @@ import datetime
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
-from discord_components import Button, DiscordComponents
+from discord_components import Button
 
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_buttoncolour import get_buttoncolour
@@ -41,8 +41,7 @@ class calculator(commands.Cog):
             )
             embed._footer = await get_embed_footer(ctx)
             msg = await ctx.send(
-                embed=embed,
-                components=await get_calculator_buttons(ctx.message)
+                embed=embed, components=await get_calculator_buttons(ctx.message)
             )
             await save_message_to_cache(message=msg, author=msg2.author)
             await log(
@@ -56,6 +55,54 @@ class calculator(commands.Cog):
             )
         else:
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
+
+
+async def on_calculator_button(res):
+    user = res.message.author
+    description = str(res.message.embeds[0].description)[:-3][3:]
+    if description == CALCULATING_ERROR + "|":
+        description = "|"
+    elif len(description) != 1 and res.component.label == "x" and description[-2] == "x":
+        pass
+    elif res.component.label == "Exit":
+        default_button_array = await get_calculator_buttons(res.message)
+        final_button_array, cache_array = [], []
+        for array in default_button_array:
+            for button in array:
+                button._disabled = True
+                cache_array.append(button)
+            final_button_array.append(cache_array)
+            cache_array = []
+        await res.respond(
+            type=7,
+            content="Rechner geschlossen!",
+            components=final_button_array,
+        )
+        return
+    elif res.component.label == "⌫":
+        description = description[:-2] + "|"
+    elif res.component.label == "Clear":
+        description = "|"
+    elif res.component.label == "=":
+        description = str(calculate(description[:-1])) + "|"
+    else:
+        description = description[:-1] + res.component.label + "|"
+    description = "```" + description + "```"
+    embed = discord.Embed(
+        title=f"**{res.author.name}'s Rechner**",
+        description=description,
+        colour=await get_embedcolour(res.message),
+    )
+    embed._footer = await get_embed_footer(message=res.message)
+    await res.respond(
+        type=7,
+        embed=embed,
+        components=await get_calculator_buttons(res.message),
+    )
+    await log(
+        f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Rechner-Nachricht interagiert!",
+        res.message.guild.id,
+    )
 
 
 async def get_calculator_buttons(message):
@@ -178,4 +225,3 @@ async def get_calculator_buttons(message):
 
 def setup(bot):
     bot.add_cog(calculator(bot))
-    DiscordComponents(bot)

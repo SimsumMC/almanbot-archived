@@ -78,21 +78,32 @@ class lookup(commands.Cog):
                 except Exception:
                     ip = "failed"
                 return ip
+
             embed = discord.Embed(
                 title=f"**Informationen zur Domain {domain}**",
                 colour=await get_embedcolour(ctx.message),
             )
             embed.add_field(name="**Domain:**", value=w.domain_name, inline=True)
-            embed.add_field(name="**Registrar:**", value=w.registrar if not "null" else "-", inline=True)
+            embed.add_field(
+                name="**Registrar:**",
+                value=w.registrar if not "null" else "-",
+                inline=True,
+            )
             embed.add_field(name="**IP:**", value=await get_ip(), inline=True)
             embed.add_field(
-                name="**Standort:**", value=f"{w.state} / {w.country}" if not "null" else "-", inline=True
+                name="**Standort:**",
+                value=f"{w.state} / {w.country}" if not "null" else "-",
+                inline=True,
             )
             embed.add_field(
-                name="**Buchungsdatum:**", value=w.creation_date if not "null" else "-", inline=True
+                name="**Buchungsdatum:**",
+                value=w.creation_date if not "null" else "-",
+                inline=True,
             )
             embed.add_field(
-                name="**Auslaufdatum:**", value=w.expiration_date if not "null" else "-", inline=True
+                name="**Auslaufdatum:**",
+                value=w.expiration_date if not "null" else "-",
+                inline=True,
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()

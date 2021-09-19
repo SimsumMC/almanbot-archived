@@ -1,13 +1,17 @@
 import datetime
+import random
 
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
+from discord_components import Button, interaction
 
 from cogs.core.config.config_botchannel import botchannel_check
+from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
+from cogs.core.functions.cache import save_message_to_cache
 from cogs.core.functions.logging import log
 
 
@@ -15,47 +19,88 @@ class ssp(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="", aliases=[], usage="")
     async def ssp(self, ctx):
+        if not await botchannel_check(ctx):
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
+            return
         time = datetime.datetime.now()
         user = ctx.author.name
-        if await botchannel_check(ctx):
-            embed = discord.Embed(
-                title="**Schere Stein Papier**",
-                description='Lass uns "Schere Stein Papier" spielen!'
-                "Nutze dazu die Commands:",
-                colour=await get_embedcolour(ctx.message),
-            )
-            embed._footer = await get_embed_footer(ctx)
-            embed._thumbnail = await get_embed_thumbnail()
-            embed.add_field(
-                name=await get_prefix_string(ctx.message) + "schere",
-                value="Spiele die Schere aus!",
-                inline=False,
-            )
-            embed.add_field(
-                name=await get_prefix_string(ctx.message) + "stein",
-                value="Spiele den Stein aus!",
-                inline=False,
-            )
-            embed.add_field(
-                name=await get_prefix_string(ctx.message) + "papier",
-                value="Spiele das Papier aus!",
-                inline=False,
-            )
-            await ctx.send(embed=embed)
-            await log(
-                str(time)
-                + ": Der Nutzer "
-                + str(user)
-                + " hat den Befehl "
-                + await get_prefix_string(ctx.message)
-                + "ssp benutzt!",
-                guildid=ctx.guild.id,
-            )
+        embed = discord.Embed(title="Schere Stein Papier",
+                              description="Wähle ein Werkzeug mit einem der unteren Buttons aus!\n"
+                                          "Hinweis:\n"
+                                          "_Bei Unentschieden wird keinem ein Punkt abgerechnet, "
+                                          "das Spiel endet wenn jemand 3 Punkte hat._",
+                              colour=await get_embedcolour(ctx.message))
+        embed.add_field(name=f"**Bot  0 : 0 {ctx.author.name}**", value="‎\n", inline=False)
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
+        msg = await ctx.send(embed=embed, components=await get_ssp_buttons(ctx))
+        await save_message_to_cache(message=msg, author=ctx.author)
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "ssp benutzt!",
+            guildid=ctx.guild.id,
+        )
 
-        else:
-            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
+
+async def on_ssp_button(res: interaction):
+    player_win = ["schere-papier", "stein-schere", "papier-stein"]
+    punktestand_bot = int(res.message.embeds[0].fields[0].name.split(" ")[2])
+    punktestand_spieler = int(res.message.embeds[0].fields[0].name.split(" ")[4])
+    emoji1, emoji2 = "", ""
+    options = ["schere", "stein", "papier"]
+    bot_choice = random.choice(options)
+    player_choice = res.component.label.lower()
+    if player_choice == bot_choice:
+        pass
+    elif player_choice + "-" + bot_choice in player_win:  # player won
+        punktestand_spieler += 1
+    else:
+        punktestand_bot += 1
+
+    if punktestand_bot == 3:
+        emoji1 = "🏆"
+        buttons = await get_ssp_buttons(message=res.message, disabled=True)
+    elif punktestand_spieler == 3:
+        emoji2 = "🏆"
+        buttons = await get_ssp_buttons(message=res.message, disabled=True)
+    else:
+        buttons = await get_ssp_buttons(message=res.message)
+    choice_anzeige = f"{bot_choice} - {player_choice}"
+    punktestand_field = f"**Bot {emoji1} {punktestand_bot} : {punktestand_spieler} {res.author.name} {emoji2}**"
+    embed = discord.Embed(title="Schere Stein Papier",
+                          description=res.message.embeds[0].description,
+                          colour=await get_embedcolour(res.message))
+    embed.add_field(name=punktestand_field, value=choice_anzeige + "\n", inline=False)
+    embed._footer = await get_embed_footer(message=res.message)
+    embed._thumbnail = await get_embed_thumbnail()
+    await res.respond(type=7, embed=embed, components=buttons)
+    await log(
+        f"{datetime.datetime.now()}: Der Nutzer {res.author.name} hat mit der Schere Stein Papier-Nachricht interagiert!",
+        res.message.guild.id,
+    )
+
+
+async def get_ssp_buttons(ctx=None, message=None, disabled=False):
+    if ctx:
+        message = ctx.message
+    buttons = [
+        [
+            Button(style=await get_buttoncolour(message), label="Schere", emoji="✂", custom_id="ssp_scissors"),
+            Button(style=await get_buttoncolour(message), label="Stein", emoji="🪨", custom_id="ssp_stone"),
+            Button(style=await get_buttoncolour(message), label="Papier", emoji="📄", custom_id="ssp_paper"),
+        ],
+    ]
+    if disabled:
+        final_button_array, cache_array = [], []
+        for array in buttons:
+            for button in array:
+                button._disabled = True
+                cache_array.append(button)
+            final_button_array.append(cache_array)
+            cache_array = []
+    return buttons
 
 
 ########################################################################################################################

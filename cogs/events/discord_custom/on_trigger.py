@@ -17,7 +17,9 @@ class on_trigger(commands.Cog):
     async def on_trigger(self, message):
         time = datetime.datetime.now()
         user = message.author.name
-        answer = await get_trigger_msg(guildid=message.guild.id, trigger=message.content)
+        answer = await get_trigger_msg(
+            guildid=message.guild.id, trigger=message.content
+        )
         if answer is not None:
             embed = discord.Embed(
                 title="**Trigger**",

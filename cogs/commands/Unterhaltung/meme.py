@@ -47,16 +47,16 @@ class meme(commands.Cog):
                 memes_submissions = reddit.subreddit(redditname).hot()
                 post_to_pick = random.randint(1, 100)
                 if (
-                        redditname != await get_memes(ctx.guild.id)
-                        and await meme_is_checked(redditname) is False
+                    redditname != await get_memes(ctx.guild.id)
+                    and await meme_is_checked(redditname) is False
                 ):
-                    if redditname in await readjson("failed", path) or await redditnsfwcheck(
-                            redditname
-                    ):
+                    if redditname in await readjson(
+                        "failed", path
+                    ) or await redditnsfwcheck(redditname):
                         embed = discord.Embed(
                             title="**Fehler**",
                             description=f"Der angegebene Reddit **{redditname}** enthält nicht "
-                                        "zulässigen Inhalt.",
+                            "zulässigen Inhalt.",
                             color=await get_embedcolour(ctx.message),
                         )
                         embed._footer = await get_embed_footer(ctx)
@@ -76,7 +76,8 @@ class meme(commands.Cog):
                 for i in range(0, post_to_pick):
                     submission = next(x for x in memes_submissions if not x.stickied)
                 embed = discord.Embed(
-                    title=f"**{submission.title}**", colour=await get_embedcolour(ctx.message)
+                    title=f"**{submission.title}**",
+                    colour=await get_embedcolour(ctx.message),
                 )
                 embed.set_image(url=submission.url)
                 embed._footer = await get_embed_footer(ctx)
@@ -91,9 +92,9 @@ class meme(commands.Cog):
                 embed = discord.Embed(
                     title="**Fehler**",
                     description=f"Beim Reddit **{redditname}** ist wohl etwas schiefgelaufen. "
-                                "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
-                                "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
-                                "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
+                    "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
+                    "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
+                    "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
                     color=await get_embedcolour(ctx.message),
                 )
                 embed._footer = await get_embed_footer(ctx)

@@ -1,4 +1,5 @@
 import datetime
+import random
 
 import discord
 import wavelink
@@ -51,7 +52,7 @@ class join(commands.Cog):
             if not ctx.author.voice:
                 embed = discord.Embed(
                     title="Fehler",
-                    description="Du befindest dich in keinem Sprachkanal!",
+                    description=f"Du befindest dich in keinem Sprachkanal!",
                     colour=await get_embedcolour(ctx.message),
                 )
                 embed._footer = await get_embed_footer(ctx)
@@ -67,7 +68,7 @@ class join(commands.Cog):
             embed = discord.Embed(
                 title="Musik Join",
                 description="Ich bin erfolgreich deinem Sprachkanal beigetreten!",
-                colour= await get_embedcolour(ctx.message),
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
@@ -82,6 +83,7 @@ class join(commands.Cog):
 
 
 ########################################################################################################################
+
 
 def setup(bot):
     bot.add_cog(join(bot))

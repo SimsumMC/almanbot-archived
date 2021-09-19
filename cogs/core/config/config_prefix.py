@@ -12,7 +12,7 @@ class config_prefix(commands.Cog):
         self.bot = bot
 
 
-async def get_prefix_string(message):
+async def get_prefix_string(message) -> str:
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     if not os.path.exists(path):
         return str(DEFAULT_PREFIX)
