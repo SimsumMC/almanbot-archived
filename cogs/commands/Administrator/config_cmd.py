@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import MissingRequiredArgument
 
-from cogs.core.config.config_autoroles import get_role_mentions_list
+from cogs.core.config.config_autoroles import get_autorole_mentions_list
 from cogs.core.config.config_botchannel import get_botchannel_obj_list
 from cogs.core.config.config_buttoncolour import get_buttoncolour_german
 from cogs.core.config.config_embedcolour import (
@@ -109,6 +109,7 @@ class config(commands.Cog):
             inline=False,
         )
         embed.add_field(name="**Blacklist**", value="a!blacklist list", inline=False)
+        embed.add_field(name="**Triggerlist**", value="a!trigger list", inline=False)
         embed.add_field(
             name="**Botchannel**",
             value=str(await get_botchannel_obj_list(ctx))
@@ -125,7 +126,7 @@ class config(commands.Cog):
         )
         embed.add_field(
             name="**Autoroles**",
-            value=await get_role_mentions_list(guild=ctx.guild),
+            value=await get_autorole_mentions_list(guild=ctx.guild),
             inline=False,
         )
         await ctx.send(embed=embed)

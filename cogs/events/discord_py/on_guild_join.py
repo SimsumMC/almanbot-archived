@@ -32,7 +32,7 @@ class on_guild_join(commands.Cog):
             os.remove(pathcheck)
         else:
             with open(path, "w") as f:
-                data = get_defaultconfig()
+                data = await get_defaultconfig()
                 json.dump(data, f, indent=4)
         # logs
         path = os.path.join("data", "logs", f"{guild.id}.txt")

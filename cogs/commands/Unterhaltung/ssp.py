@@ -67,7 +67,7 @@ async def on_ssp_button(res: interaction):
         buttons = await get_ssp_buttons(message=res.message, disabled=True)
     else:
         buttons = await get_ssp_buttons(message=res.message)
-    choice_anzeige = f"{bot_choice} - {player_choice}"
+    choice_anzeige = f"{bot_choice} - {player_choice.capitalize()}"
     punktestand_field = f"**Bot {emoji1} {punktestand_bot} : {punktestand_spieler} {res.author.name} {emoji2}**"
     embed = discord.Embed(title="Schere Stein Papier",
                           description=res.message.embeds[0].description,

@@ -7,7 +7,7 @@ from cogs.core.config.config_memechannel import get_memechannel
 from cogs.core.functions.func_json import writejson
 
 
-class on_channel_delete(commands.Cog):
+class on_guild_channel_delete(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -28,4 +28,4 @@ class on_channel_delete(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(on_channel_delete(bot))
+    bot.add_cog(on_guild_channel_delete(bot))
