@@ -57,15 +57,15 @@ class calculator(commands.Cog):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
-async def on_calculator_button(res):
-    user = res.message.author
-    description = str(res.message.embeds[0].description)[:-3][3:]
+async def on_calculator_button(interaction):
+    user = interaction.message.author
+    description = str(interaction.message.embeds[0].description)[:-3][3:]
     if description == CALCULATING_ERROR + "|":
         description = "|"
-    elif len(description) != 1 and res.component.label == "x" and description[-2] == "x":
+    elif len(description) != 1 and interaction.component.label == "x" and description[-2] == "x":
         pass
-    elif res.component.label == "Exit":
-        default_button_array = await get_calculator_buttons(res.message)
+    elif interaction.component.label == "Exit":
+        default_button_array = await get_calculator_buttons(interaction.message)
         final_button_array, cache_array = [], []
         for array in default_button_array:
             for button in array:
@@ -73,35 +73,35 @@ async def on_calculator_button(res):
                 cache_array.append(button)
             final_button_array.append(cache_array)
             cache_array = []
-        await res.respond(
+        await interaction.respond(
             type=7,
             content="Rechner geschlossen!",
             components=final_button_array,
         )
         return
-    elif res.component.label == "⌫":
+    elif interaction.component.label == "⌫":
         description = description[:-2] + "|"
-    elif res.component.label == "Clear":
+    elif interaction.component.label == "Clear":
         description = "|"
-    elif res.component.label == "=":
-        description = str(calculate(description[:-1])) + "|"
+    elif interaction.component.label == "=":
+        description = str(await calculate(description[:-1])) + "|"
     else:
-        description = description[:-1] + res.component.label + "|"
+        description = description[:-1] + interaction.component.label + "|"
     description = "```" + description + "```"
     embed = discord.Embed(
-        title=f"**{res.author.name}'s Rechner**",
+        title=f"**{interaction.author.name}'s Rechner**",
         description=description,
-        colour=await get_embedcolour(res.message),
+        colour=await get_embedcolour(interaction.message),
     )
-    embed._footer = await get_embed_footer(message=res.message)
-    await res.respond(
+    embed._footer = await get_embed_footer(message=interaction.message, author=interaction.author)
+    await interaction.respond(
         type=7,
         embed=embed,
-        components=await get_calculator_buttons(res.message),
+        components=await get_calculator_buttons(interaction.message),
     )
     await log(
         f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Rechner-Nachricht interagiert!",
-        res.message.guild.id,
+        interaction.message.guild.id,
     )
 
 

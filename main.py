@@ -10,6 +10,7 @@ from discord.ext.commands import Bot, ExtensionAlreadyLoaded
 from discord_components import DiscordComponents
 
 from cogs.core.config.config_general import config_check
+from cogs.core.config.config_levelling import add_user_xp
 from cogs.core.config.config_prefix import get_prefix, get_prefix_string
 from cogs.core.config.config_trigger import get_trigger_list
 from cogs.core.functions.func_json import readjson
@@ -116,6 +117,7 @@ class AlmanBot(commands.Bot):
             return
         elif message.content in await get_trigger_list(message.guild.id):
             Bot.dispatch(self, "trigger", message)
+        await add_user_xp(user=message.author, guild=message.guild, xp=10)
         await self.process_commands(message)
 
 

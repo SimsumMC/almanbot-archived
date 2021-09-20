@@ -36,19 +36,26 @@ async def get_defaultconfig():
             "triggermsg": DEFAULT_TRIGGER,
         },
         "errors": {
-            "commandnotfound": False,
-            "missing_permissions": True,
+            "command_not_found": False,
+            "not_owner": True,
+            "user_missing_permissions": True,
+            "bot_missing_permissions": True,
             "missing_argument": True,
             "wrong_channel": True,
             "badargument": True,
+            "command_on_cooldown": True,
         },
         "welcome_messages": {"active": False, "channel": None},
         "leave_messages": {"active": False, "channel": None},
         "tags": {"list": [], "tagmsg": {}},
         "levelling": {
-            "messages": False,
+            "messages": {
+                "on": False,
+                "channel": None,
+            },
             "spam_allowed": False,
             "activated": False,
+            "user": {},
         },
     }
     return data

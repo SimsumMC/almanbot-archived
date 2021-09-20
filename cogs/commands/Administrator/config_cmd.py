@@ -75,11 +75,11 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-            + ": Der Nutzer "
-            + str(user)
-            + " hat den Befehl "
-            + prefix
-            + "config hilfe benutzt.",
+                 + ": Der Nutzer "
+                 + str(user)
+                 + " hat den Befehl "
+                 + prefix
+                 + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -132,11 +132,11 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-            + ": Der Nutzer "
-            + str(user)
-            + " hat den Befehl "
-            + await get_prefix_string(ctx.message)
-            + "config hilfe benutzt.",
+                 + ": Der Nutzer "
+                 + str(user)
+                 + " hat den Befehl "
+                 + await get_prefix_string(ctx.message)
+                 + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -194,12 +194,34 @@ class config(commands.Cog):
             guildid=ctx.guild.id,
         )
 
+    @config.group(name="colour", aliases=["farbe", "color"], usage="<set / list>")
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.has_permissions(administrator=True)
+    async def config_colour(self, ctx):
+        if ctx.invoked_subcommand is None:
+            class error(inspect.Parameter):
+                name = "config colour"
+                param = "subcommand"
+
+            raise MissingRequiredArgument(error)
+
+    @config_colour.command(name="set", aliases=["s"], usage="<Farbe>")
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.has_permissions(administrator=True)
+    async def config_colour_set(self, ctx, colour):
+        pass
+
+    @config_colour.command(name="list", aliases=["l", "all"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.has_permissions(administrator=True)
+    async def config_colour_set(self, ctx):
+        pass
+
     @config.group(name="botchannel", aliases=["bot"], usage="add/remove <@channel>")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
-
             class error(inspect.Parameter):
                 name = "config botchannel"
                 param = "subcommand"
@@ -259,7 +281,6 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_memechannel(self, ctx):
         if ctx.invoked_subcommand is None:
-
             class error(inspect.Parameter):
                 name = "config memechannel"
                 param = "subcommand"
@@ -292,7 +313,7 @@ class config(commands.Cog):
 
     @config_memechannel.command(name="remove", aliases=["entfernen"])
     async def config_memechannel_remove(
-        self, ctx: commands.Context, channel: discord.TextChannel
+            self, ctx: commands.Context, channel: discord.TextChannel
     ):
         prefix = await get_prefix_string(ctx.message)
         time = datetime.datetime.now()

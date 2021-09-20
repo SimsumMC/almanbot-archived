@@ -1,8 +1,9 @@
 from discord.ext import commands
+from discord_components import interaction
 
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.functions.functions import get_author
-from config import FOOTER, ICON_URL, THUMBNAIL_URL
+from config import FOOTER, ICON_URL, THUMBNAIL_URL, DEFAULT_PREFIX
 
 
 class defaults_embeds(commands.Cog):
@@ -10,22 +11,26 @@ class defaults_embeds(commands.Cog):
         self.bot = bot
 
 
-async def get_embed_footer(ctx=None, message=None) -> dict:
+async def get_embed_footer(ctx=None, author=None, message=None, dm=False) -> dict:
     """
+    :param dm:
+    :param author:
     :param ctx:
     :param message:
     :return: dictionary
     """
     if ctx:
         message = ctx.message
+    if not author:
+        author = message.author
     footer_dict = {
         "text": (
-            FOOTER[0]
-            + str(message.author)
-            + FOOTER[1]
-            + str(await get_author())
-            + FOOTER[2]
-            + str(await get_prefix_string(message))
+                FOOTER[0]
+                + str(author)
+                + FOOTER[1]
+                + str(await get_author())
+                + FOOTER[2]
+                + str(await get_prefix_string(message) if not dm else DEFAULT_PREFIX)
         ),
         "icon_url": ICON_URL,
     }

@@ -20,29 +20,29 @@ class on_button_click(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_button_click(self, res):
+    async def on_button_click(self, interaction):
         wait_for_buttons = ["restore-blacklist", "restore-trigger"]
         try:
-            user = res.author.name
+            user = interaction.author.name
             if (
-                    res.component.id not in wait_for_buttons
-                    and res.message.id
-                    not in await get_messages_from_cache(authorid=res.author.id)
+                    interaction.component.id not in wait_for_buttons
+                    and interaction.message.id
+                    not in await get_messages_from_cache(authorid=interaction.author.id)
             ):
-                await res.respond(content=MISSING_PERMISSIONS_BUTTON_ERROR)
+                await interaction.respond(content=MISSING_PERMISSIONS_BUTTON_ERROR)
                 await log(
-                    f"{datetime.datetime.now()}: Der Nutzer {user} hat versucht mit einem Button zu interagieren, hatte aber nicht die nötigen Berrechtigungen.",
-                    res.message.guild.id,
+                    f"{datetime.datetime.now()}: Der Nutzer {user} hat versucht mit einem Button zu interagieren, hatte dazu aber nicht die nötigen Berrechtigungen.",
+                    interaction.message.guild.id,
                 )
                 return
-            if "help_" in res.component.id:
-                await on_help_button(res)
-            elif "say_" in res.component.id:
-                await on_say_button(res)
-            elif "calc_" in res.component.id:
-                await on_calculator_button(res)
-            elif "ssp_" in res.component.id:
-                await on_ssp_button(res)
+            if "help_" in interaction.component.id:
+                await on_help_button(interaction)
+            elif "say_" in interaction.component.id:
+                await on_say_button(interaction)
+            elif "calc_" in interaction.component.id:
+                await on_calculator_button(interaction)
+            elif "ssp_" in interaction.component.id:
+                await on_ssp_button(interaction)
         except Exception:
             # traceback.print_exc()
             pass

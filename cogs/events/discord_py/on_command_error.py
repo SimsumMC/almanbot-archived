@@ -37,7 +37,7 @@ class on_command_error(commands.Cog):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
         elif isinstance(error, CommandNotFound):
-            if not await check_if_error(ctx=ctx, error="commandnotfound"):
+            if not await check_if_error(ctx=ctx, error="command_not_found"):
                 return
             embed = discord.Embed(
                 title="**Fehler**", colour=await get_embedcolour(ctx.message)
@@ -57,6 +57,8 @@ class on_command_error(commands.Cog):
             )
             return
         elif isinstance(error, NotOwner):
+            if not await check_if_error(ctx=ctx, error="not_owner"):
+                return
             embed = discord.Embed(
                 title="**Fehler**", colour=await get_embedcolour(ctx.message)
             )
@@ -79,6 +81,8 @@ class on_command_error(commands.Cog):
             )
             return
         elif isinstance(error, BotMissingPermissions):
+            if not await check_if_error(ctx=ctx, error="bot_missing_permissions"):
+                return
             embed = discord.Embed(
                 title="**Fehler**", colour=await get_embedcolour(ctx.message)
             )
@@ -100,6 +104,8 @@ class on_command_error(commands.Cog):
             )
             return
         elif isinstance(error, BadArgument):
+            if not await check_if_error(ctx=ctx, error="badargument"):
+                return
             path = os.path.join("data", "errors", "badargument.json")
             badargument = await readjson(path=path, key=commandname)
             embed = discord.Embed(
@@ -124,6 +130,8 @@ class on_command_error(commands.Cog):
             )
             return
         elif isinstance(error, CommandOnCooldown):
+            if not await check_if_error(ctx=ctx, error="command_on_cooldown"):
+                return
             embed = discord.Embed(
                 title="**Cooldown**",
                 description=f"Versuch es nochmal in {error.retry_after:.2f}s.",
@@ -139,6 +147,8 @@ class on_command_error(commands.Cog):
             )
             return
         elif isinstance(error, MissingPermissions):
+            if not await check_if_error(ctx=ctx, error="user_missing_permissions"):
+                return
             embed = discord.Embed(
                 title="**Fehler**", colour=await get_embedcolour(ctx.message)
             )
@@ -162,6 +172,8 @@ class on_command_error(commands.Cog):
             )
             return
         elif isinstance(error, MissingRequiredArgument):
+            if not await check_if_error(ctx=ctx, error="missing_argument"):
+                return
             commandusage = ctx.command.usage
             embed = discord.Embed(
                 title="**Fehler**", colour=await get_embedcolour(ctx.message)

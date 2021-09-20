@@ -22,7 +22,7 @@ class ban(commands.Cog):
         user = ctx.author.name
         mention = ctx.author.mention
         if await botchannel_check(ctx):
-            if ctx.author.top_role > member.top_role:
+            if ctx.author.top_role < member.top_role:
                 embed = discord.Embed(
                     title="Fehler",
                     description="Du bist in der Hierarchie unter dem Nutzer den du bannen willst, daher bist du zu dieser Aktion nicht berechtigt!",

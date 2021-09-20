@@ -4,8 +4,8 @@ import random
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
-from discord_components import Button, interaction
-
+from discord_components import Button
+import discord_components
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
@@ -44,14 +44,14 @@ class ssp(commands.Cog):
         )
 
 
-async def on_ssp_button(res: interaction):
+async def on_ssp_button(interaction: discord_components.interaction):
     player_win = ["schere-papier", "stein-schere", "papier-stein"]
-    punktestand_bot = int(res.message.embeds[0].fields[0].name.split(" ")[2])
-    punktestand_spieler = int(res.message.embeds[0].fields[0].name.split(" ")[4])
+    punktestand_bot = int(interaction.message.embeds[0].fields[0].name.split(" ")[2])
+    punktestand_spieler = int(interaction.message.embeds[0].fields[0].name.split(" ")[4])
     emoji1, emoji2 = "", ""
     options = ["schere", "stein", "papier"]
     bot_choice = random.choice(options)
-    player_choice = res.component.label.lower()
+    player_choice = interaction.component.label.lower()
     if player_choice == bot_choice:
         pass
     elif player_choice + "-" + bot_choice in player_win:  # player won
@@ -61,24 +61,24 @@ async def on_ssp_button(res: interaction):
 
     if punktestand_bot == 3:
         emoji1 = "🏆"
-        buttons = await get_ssp_buttons(message=res.message, disabled=True)
+        buttons = await get_ssp_buttons(message=interaction.message, disabled=True)
     elif punktestand_spieler == 3:
         emoji2 = "🏆"
-        buttons = await get_ssp_buttons(message=res.message, disabled=True)
+        buttons = await get_ssp_buttons(message=interaction.message, disabled=True)
     else:
-        buttons = await get_ssp_buttons(message=res.message)
-    choice_anzeige = f"{bot_choice} - {player_choice.capitalize()}"
-    punktestand_field = f"**Bot {emoji1} {punktestand_bot} : {punktestand_spieler} {res.author.name} {emoji2}**"
+        buttons = await get_ssp_buttons(message=interaction.message)
+    choice_anzeige = f"{bot_choice.capitalize()} - {player_choice.capitalize()}"
+    punktestand_field = f"**Bot {emoji1} {punktestand_bot} : {punktestand_spieler} {interaction.author.name} {emoji2}**"
     embed = discord.Embed(title="Schere Stein Papier",
-                          description=res.message.embeds[0].description,
-                          colour=await get_embedcolour(res.message))
+                          description=interaction.message.embeds[0].description,
+                          colour=await get_embedcolour(interaction.message))
     embed.add_field(name=punktestand_field, value=choice_anzeige + "\n", inline=False)
-    embed._footer = await get_embed_footer(message=res.message)
+    embed._footer = await get_embed_footer(message=interaction.message, author=interaction.author)
     embed._thumbnail = await get_embed_thumbnail()
-    await res.respond(type=7, embed=embed, components=buttons)
+    await interaction.respond(type=7, embed=embed, components=buttons)
     await log(
-        f"{datetime.datetime.now()}: Der Nutzer {res.author.name} hat mit der Schere Stein Papier-Nachricht interagiert!",
-        res.message.guild.id,
+        f"{datetime.datetime.now()}: Der Nutzer {interaction.author.name} hat mit der Schere Stein Papier-Nachricht interagiert!",
+        interaction.message.guild.id,
     )
 
 

@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
+from config import DEFAULT_EMBEDCOLOUR
 
 
 class on_dm_message(commands.Cog):
@@ -10,7 +11,7 @@ class on_dm_message(commands.Cog):
 
     @commands.Cog.listener()
     async def on_dm_message(self, message):
-        embed = discord.Embed(title="Hinweis | Note", colour=0xF00000)
+        embed = discord.Embed(title="Hinweis | Note", colour=DEFAULT_EMBEDCOLOUR)
         embed.add_field(
             name="German",
             value="Dieser Bot hat keine DM Funktion - daher bringt es nichts "
@@ -24,7 +25,7 @@ class on_dm_message(commands.Cog):
             inline=False,
         )
         embed._footer, embed._thumbnail = (
-            await get_embed_footer(message=message),
+            await get_embed_footer(message=message, dm=True),
             await get_embed_thumbnail(),
         )
         await message.channel.send(embed=embed)

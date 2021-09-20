@@ -12,8 +12,12 @@ class config_colours(commands.Cog):
         self.bot = bot
 
 
-async def get_embedcolour(message):
-    path = os.path.join("data", "configs", f"{message.guild.id}.json")
+async def get_embedcolour(message=None, guild=None):
+    if guild:
+        guildid = guild.id
+    else:
+        guildid= message.guild.id
+    path = os.path.join("data", "configs", f"{guildid}.json")
     with open(path, "r") as f:
         data = json.load(f)
     if data["embedcolour"] == "random":

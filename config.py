@@ -130,21 +130,22 @@ TESTING_MODE = False  # only allowing Servers to join GUILDS with ID in TESTING_
 TESTING_GUILDS = []
 
 WRONG_CHANNEL_ERROR_DELETE_AFTER = 5
+BLACKLIST_DELETE_AFTER = 5
 
-BLACKLIST_IGNORE = ["blacklist add", "blacklist remove", "qr", "broadcast"]
+BLACKLIST_IGNORE = ["blacklist", "qr", "broadcast"]
 
 # © github.com/SimsumMC | You're not allowed to change the following parts without my (github.com/SimsumMC) permission ⚠️
 
-BOT_MAIN_DEVELOPER = "SimsumMC#0001"
-BOT_DEVELOPERLIST = ["SimsumMC#0001"]
+BOT_MAIN_DEVELOPER = "SimsumMC#2248"
+BOT_DEVELOPERLIST = ["SimsumMC#2248"]
 INVITE_LINK = "https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775"
 DISCORD_LINK = "https://discord.almanbot.de"
 WEBSITE_LINK = "https://almanbot.de/"
 GITHUB_LINK = "https://github.com/SimsumMC/almanbot/"
-
+TOPGG_LINK = "https://top.gg/bot/802922765782089738"
 ABOUT = f"""
-Egal ob Moderation, einfach ein bisschen Spaß haben oder den Avatar von einem Nutzer klauen - ich helfe dir wo ich nur kann!
-Penibel wie ein echter Alman bin ich natürlich auch...
+Egal ob Moderation, einfach ein Lächeln aufs Gesicht zaubern, eine Matheaufgabe lösen oder den Avatar von einem Nutzer 
+klauen - ich helfe dir wo ich nur kann! Penibel wie ein Deutscher bin ich natürlich auch...
         """
 
 BANNER = """

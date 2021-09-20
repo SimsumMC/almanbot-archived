@@ -1,6 +1,7 @@
 import datetime
 
 import discord
+import discord_components
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord_components import Button
@@ -61,24 +62,24 @@ class say(commands.Cog):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
-async def on_say_button(res):
-    user = res.author.name
-    if res.component.id == "say_normal":
-        await res.respond(
+async def on_say_button(interaction: discord_components.interaction):
+    user = interaction.author.name
+    if interaction.component.id == "say_normal":
+        await interaction.respond(
             type=7,
-            content=res.message.embeds[0].description,
+            content=interaction.message.embeds[0].description,
             embeds=[],
             components=[
                 [
                     Button(
-                        style=await get_buttoncolour(message=res.message),
+                        style=await get_buttoncolour(message=interaction.message),
                         label="Normal",
                         emoji="📄",
                         id="say_normal",
                         disabled=True,
                     ),
                     Button(
-                        style=await get_buttoncolour(message=res.message),
+                        style=await get_buttoncolour(message=interaction.message),
                         label="Embed",
                         emoji="✒",
                         id="say_embed",
@@ -89,32 +90,32 @@ async def on_say_button(res):
         )
         await log(
             f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Say-Nachricht interagiert!",
-            res.message.guild.id,
+            interaction.message.guild.id,
         )
 
-    elif res.component.id == "say_embed":
+    elif interaction.component.id == "say_embed":
         embed = discord.Embed(
             title="**Say**",
-            description=str(res.message.content),
-            colour=await get_embedcolour(res.message),
+            description=str(interaction.message.content),
+            colour=await get_embedcolour(interaction.message),
         )
-        embed._footer = await get_embed_footer(message=res.message)
+        embed._footer = await get_embed_footer(message=interaction.message, author=interaction.author)
         embed._thumbnail = await get_embed_thumbnail()
-        await res.respond(
+        await interaction.respond(
             type=7,
             embed=embed,
             content=" ",
             components=[
                 [
                     Button(
-                        style=await get_buttoncolour(message=res.message),
+                        style=await get_buttoncolour(message=interaction.message),
                         label="Normal",
                         emoji="📄",
                         id="say_normal",
                         disabled=False,
                     ),
                     Button(
-                        style=await get_buttoncolour(message=res.message),
+                        style=await get_buttoncolour(message=interaction.message),
                         label="Embed",
                         emoji="✒",
                         id="say_embed",
@@ -125,7 +126,7 @@ async def on_say_button(res):
         )
         await log(
             f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Say-Nachricht interagiert!",
-            res.message.guild.id,
+            interaction.message.guild.id,
         )
 
 ########################################################################################################################

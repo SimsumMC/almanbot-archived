@@ -16,7 +16,7 @@ class on_member_join(commands.Cog):
             try:
                 await member.add_roles(role)
             except Exception:
-                await member.guild.owner.send("Error")  # Message that its not possible to add this role
+                await member.guild.owner.send("")  # Message that its not possible to add this role
 
 
 ########################################################################################################################

@@ -24,7 +24,7 @@ class unmute(commands.Cog):
         guild = ctx.guild
         mutedrole = discord.utils.get(guild.roles, name="Muted")
         if await botchannel_check(ctx):
-            if ctx.author.top_role > member.top_role:
+            if ctx.author.top_role < member.top_role:
                 embed = discord.Embed(
                     title="Fehler",
                     description="Du bist in der Hierarchie unter dem Nutzer den du unmuten willst, daher bist du zu dieser Aktion nicht berechtigt!",

@@ -1,6 +1,7 @@
 import datetime
 
 import discord
+import discord_components
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord_components import Button
@@ -42,17 +43,18 @@ class help(commands.Cog):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
 
 
-async def on_help_button(res):
-    user = res.author.name
-    embed = await get_page(message=res.message, page=res.component.id[5:])
-    await res.respond(
-        type=7, embed=embed, components=await get_help_buttons(res.message)
+async def on_help_button(interaction: discord_components.interaction):
+    user = interaction.author.name
+    embed = await get_page(message=interaction.message, page=interaction.component.id[5:], author=interaction.author)
+    await interaction.respond(
+        type=7, embed=embed, components=await get_help_buttons(interaction.message)
     )
     await log(
         f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Hilfenachricht interagiert und die "
-        f"Seite {res.component.label.lower()} aufgerufen!",
-        res.message.guild.id,
+        f"Seite {interaction.component.label.lower()} aufgerufen!",
+        interaction.message.guild.id,
     )
+
 
 async def get_help_buttons(msg):
     buttoncolour = await get_buttoncolour(msg)
@@ -121,7 +123,9 @@ async def get_help_buttons(msg):
     return buttons
 
 
-async def get_page(message, page):
+async def get_page(message, page, author=None):
+    if not author:
+        author = message.author
     prefix = await get_prefix_string(message)
     if page == "übersicht":
         embed = discord.Embed(
@@ -424,7 +428,7 @@ async def get_page(message, page):
             value="Setze eine Config zurück!",
             inline=False,
         )
-    embed._footer = await get_embed_footer(message=message)
+    embed._footer = await get_embed_footer(message=message, author=author)
     embed._thumbnail = await get_embed_thumbnail()
     return embed
 
