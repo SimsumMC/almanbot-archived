@@ -117,7 +117,7 @@ class AlmanBot(commands.Bot):
             return
         elif message.content in await get_trigger_list(message.guild.id):
             Bot.dispatch(self, "trigger", message)
-        await add_user_xp(user=message.author, guild=message.guild, xp=10)
+        await add_user_xp(user=message.author, guild=message.guild, xp=5)
         await self.process_commands(message)
 
 
