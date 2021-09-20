@@ -1,10 +1,15 @@
+import datetime
 import os
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import Bot
 from easy_pil import Font, Canvas, Editor, load_image_async
 
+from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_levelling import get_user_levelling_data
+from cogs.core.config.config_prefix import get_prefix_string
+from cogs.core.functions.logging import log
 
 
 class rank(commands.Cog):
@@ -13,9 +18,14 @@ class rank(commands.Cog):
 
     @commands.command(name="rank")
     async def rank(self, ctx, member: discord.Member = None):
+        if not await botchannel_check(ctx):
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
+            return
+        time = datetime.datetime.now()
+        user = ctx.author.name
         if not member:
             member = ctx.author
-        if member.bot:
+        if member.bot:  # TODO : Error
             return
         name_lenght = len(str(member))
         underline = int(name_lenght * 27) if name_lenght <= 13 else int(name_lenght * 25)
@@ -57,6 +67,11 @@ class rank(commands.Cog):
 
         file = discord.File(fp=background.image_bytes, filename="rank.png")
         await ctx.send(file=file)
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "rank benutzt!",
+            guildid=ctx.guild.id,
+        )
 
 
 def setup(bot):
