@@ -138,6 +138,7 @@ most_important = [
     "cogs.core.functions.functions",
     "cogs.core.config.config_botchannel",
     "cogs.core.config.config_memechannel",
+    "cogs.core.config.config_levelling",
 ]
 
 for extension in most_important:

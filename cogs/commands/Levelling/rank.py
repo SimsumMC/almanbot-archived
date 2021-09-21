@@ -3,7 +3,7 @@ import os
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, BucketType
 from easy_pil import Font, Canvas, Editor, load_image_async
 
 from cogs.core.config.config_botchannel import botchannel_check
@@ -17,6 +17,7 @@ class rank(commands.Cog):
         self.bot = bot
 
     @commands.command(name="rank")
+    @commands.cooldown(1, 5, BucketType.guild)
     async def rank(self, ctx, member: discord.Member = None):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
@@ -33,7 +34,8 @@ class rank(commands.Cog):
         level = user_data["level"]
         xp = user_data["xp"]
         xp_for_next_level = (user_data["level"] + 1) * 100
-        progress = (xp / xp_for_next_level) * 100
+        progress = int((xp / xp_for_next_level) * 100)
+        print(progress)
         background = Editor(os.path.join("data", "pictures", "rank_card.png"))
         image = await load_image_async(str(member.avatar_url))
         profile = Editor(image).resize((190, 190)).circle_image()
@@ -46,12 +48,12 @@ class rank(commands.Cog):
         background.rectangle(
             (290, 220), width=650, height=40, fill="#494b4f", radius=20
         )
-        if int(progress) != 0:
+        if float(progress) > 1:
             background.bar(
                 (290, 220),
                 max_width=650,
                 height=40,
-                percentage=progress,
+                percentage=progress if progress > 5 else 0,
                 fill="#6FF31F",
                 radius=20,
             )

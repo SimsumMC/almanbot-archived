@@ -23,7 +23,7 @@ class on_botchannelcheck_failure(commands.Cog):
         msg2 = ctx.message
         name = await get_commandname(ctx)
         await log(
-            text=f"{time}: Der Nutzer {user} hat probiert den Befehl {get_prefix_string(ctx.message)}"
+            text=f"{time}: Der Nutzer {user} hat probiert den Befehl {await get_prefix_string(ctx.message)}"
             f"join im Channel #{name} zu benutzen!",
             guildid=ctx.guild.id,
         )
