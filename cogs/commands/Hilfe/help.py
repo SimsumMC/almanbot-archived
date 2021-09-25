@@ -45,7 +45,11 @@ class help(commands.Cog):
 
 async def on_help_button(interaction: discord_components.interaction):
     user = interaction.author.name
-    embed = await get_page(message=interaction.message, page=interaction.component.id[5:], author=interaction.author)
+    embed = await get_page(
+        message=interaction.message,
+        page=interaction.component.id[5:],
+        author=interaction.author,
+    )
     await interaction.respond(
         type=7, embed=embed, components=await get_help_buttons(interaction.message)
     )
@@ -68,19 +72,19 @@ async def get_help_buttons(msg):
             ),
             Button(
                 style=buttoncolour,
-                label="    Allgemein    ",
+                label="    Allgemein     ",
                 emoji="🤖",
                 custom_id="help_allgemein",
             ),
             Button(
                 style=buttoncolour,
-                label="Informationen ",
+                label="Informationen ",
                 emoji="📉",
                 custom_id="help_informationen",
             ),
             Button(
                 style=buttoncolour,
-                label=" Unterhaltung  ‎‎‎",
+                label=" Unterhaltung   ‎‎‎",
                 emoji="🎲",
                 custom_id="help_unterhaltung",
             ),
@@ -88,33 +92,39 @@ async def get_help_buttons(msg):
         [
             Button(
                 style=buttoncolour,
-                label="       Musik       ",
+                label="     Levelling     ",
+                emoji="🧪",
+                custom_id="help_levelling",
+            ),
+            Button(
+                style=buttoncolour,
+                label="       Musik        ",
                 emoji="🎵",
                 custom_id="help_musik",
             ),
             Button(
                 style=buttoncolour,
-                label="       Tools        ",
+                label="       Tools         ",
                 emoji="💡",
                 custom_id="help_tools",
             ),
             Button(
                 style=buttoncolour,
-                label="  Moderation   ",
+                label="  Moderation    ",
                 emoji="🛡",
                 custom_id="help_moderation",
             ),
+        ],
+        [
             Button(
                 style=buttoncolour,
                 label="Administration",
                 emoji="⚙",
                 custom_id="help_administration",
             ),
-        ],
-        [
             Button(
                 style=buttoncolour,
-                label="      Inhaber      ",
+                label="       Inhaber     ",
                 emoji="🔒",
                 custom_id="help_inhaber",
             ),
@@ -140,22 +150,27 @@ async def get_page(message, page, author=None):
         )
         embed.add_field(
             name=f"**Allgemein**",
-            value="Hier findest du ein paar nützliche Befehle wenn du mich magst!",
+            value="Hier kannst du mehr über mich erfahren!",
             inline=False,
         )
         embed.add_field(
             name=f"**Informationen**",
-            value="Du brauchst Informationen oder Profilbilder? Hier bekommst du sie!",
+            value="Hier findest du alles was mit Informationen zu tun hat!",
             inline=False,
         )
         embed.add_field(
             name=f"**Unterhaltung**",
-            value="Hier dreht sich alles ums Spaß haben!",
+            value="Hier findest du bestimmt was gegen Langeweile oder was zum Lachen!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**Levelling**",
+            value="Hier findest du alle möglichen Befehle zum Levellingsystem - flex mit deiner Aktivität!",
             inline=False,
         )
         embed.add_field(
             name=f"**Musik**",
-            value="Alle möglichen Befehle für den perfekten Hörgenuss!",
+            value="Hier findest du alle möglichen Befehle für den perfekten Hörgenuss!",
             inline=False,
         )
         embed.add_field(
@@ -170,12 +185,12 @@ async def get_page(message, page, author=None):
         )
         embed.add_field(
             name=f"**Administration**",
-            value="Hier gibts noch viele Einstellungen für die Admins!",
+            value="Hier gibts viele Einstellungen für die Admins des Servers!",
             inline=False,
         )
         embed.add_field(
             name=f"**Inhaber**",
-            value="Hiervon kannst du eh nichts nutzen... :c",
+            value="Hiervon kannst du wahrscheinlich nichts nutzen - außer du bist der Inhaber ;)!",
             inline=False,
         )
     elif page == "allgemein":
@@ -269,8 +284,8 @@ async def get_page(message, page, author=None):
         embed.add_field(
             name=f"**{prefix}löschdich**",
             value="Fordere einen bestimmten Nutzer dazu"
-                  "auf, sich aus dem Internet zu "
-                  "löschen!",
+            "auf, sich aus dem Internet zu "
+            "löschen!",
             inline=False,
         )
         embed.add_field(
@@ -278,6 +293,28 @@ async def get_page(message, page, author=None):
             value="Ich spreche dir nach!",
             inline=False,
         )
+    elif page == "levelling":
+        embed = discord.Embed(
+            title="**Hilfe Levelling**",
+            description="Hier findest du alle Befehle zu der Kategorie `Levelling!`",
+            colour=await get_embedcolour(message),
+        )
+        embed.add_field(
+            name=f"**{prefix}levelling**",
+            value=f"Alle Einstellungsmöglichkeiten zum Levelsystem! ({prefix}levelling disable zum Deaktivieren)",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}rank**",
+            value="Gibt Informationen zu dem Levelfortschritt des jeweiligen Nutzers!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}top**",
+            value="Zeigt die Top 10 Spieler auf dem aktuellen Server an!",
+            inline=False,
+        )
+
     elif page == "musik":
         embed = discord.Embed(
             title="**Hilfe Musik**",
@@ -424,7 +461,7 @@ async def get_page(message, page, author=None):
             inline=False,
         )
         embed.add_field(
-            name=f"**{prefix}adminctxetconfig**",
+            name=f"**{prefix}adminresetconfig**",
             value="Setze eine Config zurück!",
             inline=False,
         )
