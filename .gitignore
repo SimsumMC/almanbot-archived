@@ -2,7 +2,8 @@
 __pycache__/**
 data/**
 venv/**
-/config.py
+config.py
+todo.txt
 *.pyc
 *.json
 *.png
