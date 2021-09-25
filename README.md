@@ -69,15 +69,15 @@ Du kannst mich einfach [einladen](https://discord.com/oauth2/authorize?client_id
 
 **Universelle Installation**
 
-1. Laden sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) oder die Dev Version als Zip mitherunter und entpacken sie diese
-2. Geben sie in der Konsole den Command ```pip install -r requirements.txt``` -> achte darauf das du im almanbot Verzeichnis bist
-3. Bearbeiten sie die config.py mit einem Editor deiner Wahl und trage die verschiedenen Sachen ein, hierbei musst du mindestens bei 'your token' zu deinen Bot Token ändern.
+1. Laden Sie sich neuesten [Release](https://github.com/SimsumMC/communitybot/releases/) oder die Dev Version als Zip herunter und entpacken sie diese.
+2. Geben Sie in der Konsole den Command ```pip install -r requirements.txt``` -> achte darauf das du im "almanbot" Verzeichnis bist.
+3. Bearbeiten Sie die config.py mit einem Editor deiner Wahl und tragen Sie die verschiedenen Sachen ein, hierbei müssen Sie mindestens bei `DISCORD_TOKEN` 'your token' zu Ihren Bot Token ändern.
 
 ```python
 DISCORD_TOKEN="your token"
 ```
 
-4. Du kannst deinen Bot nun mit ```python main.py``` über die Konsole starten - bitte beachte das  nicht alles funktionieren wird aufgrund von fehlenden Eingaben in der Config & das es nicht erlaubt ist eine 1:1 Kopie des offiziellen Alman Bots zu hosten. [Hier findest du mehr zu der Config!](https://github.com/SimsumMC/almanbot/wiki/Selfhosting-Guide)
+4. Sie können nun Ihren Bot nun mit ```python main.py``` über die Konsole starten - bitte beachten Sie das nicht alles funktionieren wird aufgrund von fehlenden Eingaben in der Config & das es nicht erlaubt ist eine 1:1 Kopie des offiziellen Alman Bots zu hosten. [Hier findest du mehr zu der Config!](https://github.com/SimsumMC/almanbot/wiki/Selfhosting-Guide)
 
 # Befehle
 
