@@ -91,5 +91,5 @@ Alle Befehle können auf unserer [Website](https://communitybot.visitlink.de/#co
 
 Demnach hast du die Erlaubnis, :
 
-- den Code für alle Zwecke zu nutzen (sowhol kommerziell als auch privat)
+- den Code für alle Zwecke zu nutzen (sowohl kommerziell als auch privat)
 - den Code nach den Bedingungen der Lizenz kopieren, weiterverbreiten und ändern
