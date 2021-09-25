@@ -1,3 +1,4 @@
+import datetime
 import os
 import platform
 import sys
@@ -8,13 +9,13 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot, ExtensionAlreadyLoaded
 from discord_components import DiscordComponents
-
-from cogs.core.config.config_general import config_check
-from cogs.core.config.config_levelling import add_user_xp
+from cogs.core.config.config_general import config_check, config_fix
+from cogs.core.config.config_levelling import add_user_xp, get_levelling_config
 from cogs.core.config.config_prefix import get_prefix, get_prefix_string
 from cogs.core.config.config_trigger import get_trigger_list
 from cogs.core.functions.func_json import readjson
 from cogs.core.functions.functions import msg_contains_word
+from cogs.core.functions.logging import log
 from config import (
     DISCORD_TOKEN,
     BANNER,
@@ -102,13 +103,18 @@ class AlmanBot(commands.Bot):
                 await sleep(5)
 
     async def on_message(self, message):
+        time = datetime.datetime.now()
         if message.author.bot:
             return
         elif isinstance(message.channel, discord.DMChannel):
             Bot.dispatch(self, "dm_message", message)
             return
         elif not await config_check(guildid=message.guild.id):
-            Bot.dispatch(self, "missing_config", message)
+            await config_fix(guildid=message.guild.id)
+            await log(
+                text=f"{str(time)}: Der Bot hat die fehlende Config automatisch wiederhergestellt.",
+                guildid=message.guild.id,
+            )
         elif client.user.mentioned_in(message) and len(message.content) == len(
                 f"<@!{client.user.id}>"
         ):
@@ -117,7 +123,7 @@ class AlmanBot(commands.Bot):
             return
         elif message.content in await get_trigger_list(message.guild.id):
             Bot.dispatch(self, "trigger", message)
-        await add_user_xp(user=message.author, guild=message.guild, xp=5)
+        await add_user_xp(user=message.author, guild=message.guild, xp=dict(await get_levelling_config(guild=message.guild))["xp_per_message"])
         await self.process_commands(message)
 
 

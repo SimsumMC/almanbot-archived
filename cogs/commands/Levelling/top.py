@@ -24,14 +24,18 @@ class top(commands.Cog):
             return
         time = datetime.datetime.now()
         user = ctx.author.name
-        embed = discord.Embed(title="Levelling Top", description=str(await get_levelling_top(guild=ctx.guild)), colour=await get_embedcolour(ctx.message))
+        embed = discord.Embed(
+            title="Levelling Top",
+            description=str(await get_levelling_top(guild=ctx.guild)),
+            colour=await get_embedcolour(ctx.message),
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
         await log(
-                f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
-                "top benutzt!",
-                guildid=ctx.guild.id,
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "top benutzt!",
+            guildid=ctx.guild.id,
         )
 
 

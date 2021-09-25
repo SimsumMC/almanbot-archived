@@ -26,13 +26,17 @@ class ssp(commands.Cog):
             return
         time = datetime.datetime.now()
         user = ctx.author.name
-        embed = discord.Embed(title="Schere Stein Papier",
-                              description="Wähle ein Werkzeug mit einem der unteren Buttons aus!\n"
-                                          "Hinweis:\n"
-                                          "_Bei Unentschieden wird keinem ein Punkt abgerechnet, "
-                                          "das Spiel endet wenn jemand 3 Punkte hat._",
-                              colour=await get_embedcolour(ctx.message))
-        embed.add_field(name=f"**Bot  0 : 0 {ctx.author.name}**", value="‎\n", inline=False)
+        embed = discord.Embed(
+            title="Schere Stein Papier",
+            description="Wähle ein Werkzeug mit einem der unteren Buttons aus!\n"
+            "Hinweis:\n"
+            "_Bei Unentschieden wird keinem ein Punkt abgerechnet, "
+            "das Spiel endet wenn jemand 3 Punkte hat._",
+            colour=await get_embedcolour(ctx.message),
+        )
+        embed.add_field(
+            name=f"**Bot  0 : 0 {ctx.author.name}**", value="‎\n", inline=False
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         msg = await ctx.send(embed=embed, components=await get_ssp_buttons(ctx))
@@ -47,7 +51,9 @@ class ssp(commands.Cog):
 async def on_ssp_button(interaction: discord_components.interaction):
     player_win = ["schere-papier", "stein-schere", "papier-stein"]
     punktestand_bot = int(interaction.message.embeds[0].fields[0].name.split(" ")[2])
-    punktestand_spieler = int(interaction.message.embeds[0].fields[0].name.split(" ")[4])
+    punktestand_spieler = int(
+        interaction.message.embeds[0].fields[0].name.split(" ")[4]
+    )
     emoji1, emoji2 = "", ""
     options = ["schere", "stein", "papier"]
     bot_choice = random.choice(options)
@@ -69,11 +75,15 @@ async def on_ssp_button(interaction: discord_components.interaction):
         buttons = await get_ssp_buttons(message=interaction.message)
     choice_anzeige = f"{bot_choice.capitalize()} - {player_choice.capitalize()}"
     punktestand_field = f"**Bot {emoji1} {punktestand_bot} : {punktestand_spieler} {interaction.author.name} {emoji2}**"
-    embed = discord.Embed(title="Schere Stein Papier",
-                          description=interaction.message.embeds[0].description,
-                          colour=await get_embedcolour(interaction.message))
+    embed = discord.Embed(
+        title="Schere Stein Papier",
+        description=interaction.message.embeds[0].description,
+        colour=await get_embedcolour(interaction.message),
+    )
     embed.add_field(name=punktestand_field, value=choice_anzeige + "\n", inline=False)
-    embed._footer = await get_embed_footer(message=interaction.message, author=interaction.author)
+    embed._footer = await get_embed_footer(
+        message=interaction.message, author=interaction.author
+    )
     embed._thumbnail = await get_embed_thumbnail()
     await interaction.respond(type=7, embed=embed, components=buttons)
     await log(
@@ -87,9 +97,24 @@ async def get_ssp_buttons(ctx=None, message=None, disabled=False):
         message = ctx.message
     buttons = [
         [
-            Button(style=await get_buttoncolour(message), label="Schere", emoji="✂", custom_id="ssp_scissors"),
-            Button(style=await get_buttoncolour(message), label="Stein", emoji="🪨", custom_id="ssp_stone"),
-            Button(style=await get_buttoncolour(message), label="Papier", emoji="📄", custom_id="ssp_paper"),
+            Button(
+                style=await get_buttoncolour(message),
+                label="Schere",
+                emoji="✂",
+                custom_id="ssp_scissors",
+            ),
+            Button(
+                style=await get_buttoncolour(message),
+                label="Stein",
+                emoji="🪨",
+                custom_id="ssp_stone",
+            ),
+            Button(
+                style=await get_buttoncolour(message),
+                label="Papier",
+                emoji="📄",
+                custom_id="ssp_paper",
+            ),
         ],
     ]
     if disabled:

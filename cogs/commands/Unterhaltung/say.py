@@ -99,7 +99,9 @@ async def on_say_button(interaction: discord_components.interaction):
             description=str(interaction.message.content),
             colour=await get_embedcolour(interaction.message),
         )
-        embed._footer = await get_embed_footer(message=interaction.message, author=interaction.author)
+        embed._footer = await get_embed_footer(
+            message=interaction.message, author=interaction.author
+        )
         embed._thumbnail = await get_embed_thumbnail()
         await interaction.respond(
             type=7,
@@ -128,6 +130,7 @@ async def on_say_button(interaction: discord_components.interaction):
             f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Say-Nachricht interagiert!",
             interaction.message.guild.id,
         )
+
 
 ########################################################################################################################
 

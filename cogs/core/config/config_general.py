@@ -8,6 +8,8 @@ from config import (
     DEFAULT_TRIGGER,
     DEFAULT_TRIGGER_LIST,
     DEFAULT_BUTTONCOLOUR,
+    DEFAULT_LEVELLING_COOLDOWN,
+    DEFAULT_LEVELLING_XP_PER_MESSAGE,
 )
 from discord.ext import commands
 
@@ -45,17 +47,19 @@ async def get_defaultconfig():
             "badargument": True,
             "command_on_cooldown": True,
         },
-        "welcome_messages": {"active": False, "channel": None},
-        "leave_messages": {"active": False, "channel": None},
+        "welcome_messages": {"active": False, "channel": None, "style": {}},
+        "leave_messages": {"active": False, "channel": None, "style": {}},
         "tags": {"list": [], "tagmsg": {}},
         "levelling": {
             "messages": {
                 "on": False,
                 "channel": None,
             },
-            "spam_allowed": False,
             "activated": False,
+            "cooldown": DEFAULT_LEVELLING_COOLDOWN,
+            "xp_per_message": DEFAULT_LEVELLING_XP_PER_MESSAGE,
             "user": {},
+            "roles": {},
         },
     }
     return data

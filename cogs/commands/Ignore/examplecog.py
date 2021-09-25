@@ -16,21 +16,23 @@ class example(commands.Cog):
         self.bot = bot
 
     @commands.command(name="", aliases=[], usage="")
-    async def example(self, ctx):
+    async def example(self, ctx: commands.Context):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
         time = datetime.datetime.now()
         user = ctx.author.name
-        embed = discord.Embed(title="", description="", colour=await get_embedcolour(ctx.message))
+        embed = discord.Embed(
+            title="", description="", colour=await get_embedcolour(ctx.message)
+        )
         embed.add_field(name="‎", value="", inline=False)
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
         await log(
-                f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
-                "meme benutzt!",
-                guildid=ctx.guild.id,
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "meme benutzt!",
+            guildid=ctx.guild.id,
         )
 
 

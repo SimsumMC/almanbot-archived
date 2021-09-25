@@ -19,7 +19,11 @@ class nachricht(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="nachricht", aliases=["embed", "message"], usage="<Titel> <Farbe> <Textkanal> <Nachricht>")
+    @commands.command(
+        name="nachricht",
+        aliases=["embed", "message"],
+        usage="<Titel> <Farbe> <Textkanal> <Nachricht>",
+    )
     async def nachricht(
         self, ctx, title, colour, channel: discord.TextChannel, *, message
     ):

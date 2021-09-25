@@ -62,7 +62,11 @@ async def on_calculator_button(interaction):
     description = str(interaction.message.embeds[0].description)[:-3][3:]
     if description == CALCULATING_ERROR + "|":
         description = "|"
-    elif len(description) != 1 and interaction.component.label == "x" and description[-2] == "x":
+    elif (
+        len(description) != 1
+        and interaction.component.label == "x"
+        and description[-2] == "x"
+    ):
         pass
     elif interaction.component.label == "Exit":
         default_button_array = await get_calculator_buttons(interaction.message)
@@ -93,7 +97,9 @@ async def on_calculator_button(interaction):
         description=description,
         colour=await get_embedcolour(interaction.message),
     )
-    embed._footer = await get_embed_footer(message=interaction.message, author=interaction.author)
+    embed._footer = await get_embed_footer(
+        message=interaction.message, author=interaction.author
+    )
     await interaction.respond(
         type=7,
         embed=embed,

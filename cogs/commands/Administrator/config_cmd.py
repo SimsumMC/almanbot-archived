@@ -19,22 +19,24 @@ from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.func_json import writejson, readjson
 from cogs.core.functions.logging import log
-from config import DEFAULT_PREFIX
+from config import DEFAULT_PREFIX, EMBEDCOLOUR_CODES, EMBEDCOLOURS_SUPPORTED
 
 
 class config(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    cooldown = 5
+
     @commands.group(name="config", aliases=["settings", "conf", "set"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.invoke(self.config_help)
 
     @config.command(name="help", aliases=["hilfe, commands, befehle, cmds"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_help(self, ctx):
         prefix = await get_prefix_string(ctx.message)
@@ -84,7 +86,7 @@ class config(commands.Cog):
         )
 
     @config.command(name="show", aliases=["werte", "s", "all"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_show(self, ctx):
         time = datetime.datetime.now()
@@ -141,7 +143,7 @@ class config(commands.Cog):
         )
 
     @config.command(name="prefix", aliases=["präfix"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_prefix(self, ctx, arg=DEFAULT_PREFIX):
         prefix = await get_prefix_string(ctx.message)
@@ -194,8 +196,8 @@ class config(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @config.group(name="colour", aliases=["farbe", "color"], usage="<set / list>")
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @config.group(name="colour", aliases=["farbe", "color", "farben"], usage="<set / list>")
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_colour(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -206,19 +208,33 @@ class config(commands.Cog):
             raise MissingRequiredArgument(error)
 
     @config_colour.command(name="set", aliases=["s"], usage="<Farbe>")
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_colour_set(self, ctx, colour):
-        pass
+        if colour.lower() not in EMBEDCOLOURS_SUPPORTED:
+            # Error
+            return
 
     @config_colour.command(name="list", aliases=["l", "all"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
-    async def config_colour_set(self, ctx):
-        pass
+    async def config_colour_list(self, ctx):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        colours = "".join([colour.capitalize() + ", " for colour in EMBEDCOLOUR_CODES])[:-2]
+        embed = discord.Embed(
+            title="**Farben Liste**", description=colours, colour=await get_embedcolour(ctx.message)
+        )
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "config colour set benutzt!",
+            guildid=ctx.guild.id,
+        )
 
     @config.group(name="botchannel", aliases=["bot"], usage="add/remove <@channel>")
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -277,7 +293,7 @@ class config(commands.Cog):
         )
 
     @config.group(name="memechannel", aliases=["meme"], usage="add/remove <@channel>")
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def config_memechannel(self, ctx):
         if ctx.invoked_subcommand is None:

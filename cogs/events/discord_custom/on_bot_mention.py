@@ -20,7 +20,7 @@ class on_bot_mention(commands.Cog):
         embed = discord.Embed(title="**Prefix**", color=await get_embedcolour(message))
         embed.add_field(
             name=" ⠀ ",
-            value=f"Mein Prefix hier ist: ```{get_prefix_string(message)}```",
+            value=f"Mein Prefix hier ist: ```{await get_prefix_string(message)}```",
             inline=True,
         )
         embed._footer, embed._thumbnail = (

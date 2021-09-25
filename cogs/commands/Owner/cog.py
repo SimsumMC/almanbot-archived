@@ -9,10 +9,7 @@ from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
-from cogs.core.functions.functions import (
-    get_author,
-)
-from config import ICON_URL, THUMBNAIL_URL, FOOTER, WRONG_CHANNEL_ERROR
+from config import THUMBNAIL_URL, WRONG_CHANNEL_ERROR
 from main import client
 
 
@@ -108,7 +105,7 @@ class cog(commands.Cog):
     @cog.command(usage="<Name>")
     @commands.is_owner()
     async def unload(self, ctx, cogname):
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             try:
                 for directory in os.listdir("./cogs"):
                     for directory2 in os.listdir(f"./cogs/{directory}"):
@@ -221,7 +218,7 @@ class cog(commands.Cog):
     @commands.is_owner()
     async def reloadall(self, ctx):
         global filename
-        if botchannel_check(ctx):
+        if await botchannel_check(ctx):
             for directory in os.listdir("./cogs"):
                 for directory2 in os.listdir(f"./cogs/{directory}"):
                     if directory2 == "Ignore":

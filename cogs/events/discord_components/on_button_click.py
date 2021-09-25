@@ -25,9 +25,9 @@ class on_button_click(commands.Cog):
         try:
             user = interaction.author.name
             if (
-                    interaction.component.id not in wait_for_buttons
-                    and interaction.message.id
-                    not in await get_messages_from_cache(authorid=interaction.author.id)
+                interaction.component.id not in wait_for_buttons
+                and interaction.message.id
+                not in await get_messages_from_cache(authorid=interaction.author.id)
             ):
                 await interaction.respond(content=MISSING_PERMISSIONS_BUTTON_ERROR)
                 await log(

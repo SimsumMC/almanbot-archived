@@ -25,12 +25,12 @@ async def get_embed_footer(ctx=None, author=None, message=None, dm=False) -> dic
         author = message.author
     footer_dict = {
         "text": (
-                FOOTER[0]
-                + str(author)
-                + FOOTER[1]
-                + str(await get_author())
-                + FOOTER[2]
-                + str(await get_prefix_string(message) if not dm else DEFAULT_PREFIX)
+            FOOTER[0]
+            + str(author)
+            + FOOTER[1]
+            + str(await get_author())
+            + FOOTER[2]
+            + str(await get_prefix_string(message) if not dm else DEFAULT_PREFIX)
         ),
         "icon_url": ICON_URL,
     }

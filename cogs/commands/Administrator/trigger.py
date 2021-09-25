@@ -82,15 +82,17 @@ class trigger(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-                 + ": Der Nutzer "
-                 + str(user)
-                 + " hat den Befehl "
-                 + prefix
-                 + "trigger hilfe benutzt.",
+            + ": Der Nutzer "
+            + str(user)
+            + " hat den Befehl "
+            + prefix
+            + "trigger hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
-    @trigger.command(name="list", aliases=["liste", "show", "all"])  # all triggers in a list without values
+    @trigger.command(
+        name="list", aliases=["liste", "show", "all"]
+    )  # all triggers in a list without values
     async def list(self, ctx: commands.Context):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
@@ -98,7 +100,9 @@ class trigger(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
-        trigger_list: list = dict(await readjson(key="trigger", path=path))["triggerlist"]
+        trigger_list: list = dict(await readjson(key="trigger", path=path))[
+            "triggerlist"
+        ]
         embed = discord.Embed(
             title="**Trigger List**",
             colour=await get_embedcolour(ctx.message),
@@ -124,7 +128,9 @@ class trigger(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
-        trigger_list: list = dict(await readjson(key="trigger", path=path))["triggerlist"]
+        trigger_list: list = dict(await readjson(key="trigger", path=path))[
+            "triggerlist"
+        ]
         trigger_dict: dict = await readjson(key="trigger", path=path)
         default_trigger_dict = {
             "triggerlist": DEFAULT_TRIGGER_LIST,
@@ -169,7 +175,9 @@ class trigger(commands.Cog):
             res = await self.bot.wait_for(
                 event="button_click",
                 timeout=15.0,
-                check=lambda inter: inter.custom_id == "restore-trigger" and inter.message.id == msg.id and inter.author.id == ctx.author.id,
+                check=lambda inter: inter.custom_id == "restore-trigger"
+                and inter.message.id == msg.id
+                and inter.author.id == ctx.author.id,
             )
             await writejson(key="trigger", value=trigger_dict, path=path)
             await res.respond(
@@ -212,8 +220,8 @@ class trigger(commands.Cog):
                 embed = discord.Embed(
                     title=f"**Fehler**",
                     description=f"Der Trigger {word} existiert bereits! Wenn du ihn verändern möchtest, "
-                                f"nutze den Befehl:"
-                                f"```{await get_prefix_string(message=ctx.message)}trigger edit```",
+                    f"nutze den Befehl:"
+                    f"```{await get_prefix_string(message=ctx.message)}trigger edit```",
                     colour=await get_embedcolour(ctx.message),
                 )
                 embed._footer = await get_embed_footer(ctx)
@@ -230,7 +238,7 @@ class trigger(commands.Cog):
             embed = discord.Embed(
                 title=f"**Trigger Add**",
                 description=f"Der Bot reagiert nun auf ```{word}``` mit der Nachricht:"
-                            f"```{msg}```",
+                f"```{msg}```",
                 colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
@@ -255,8 +263,8 @@ class trigger(commands.Cog):
                 embed = discord.Embed(
                     title=f"**Fehler**",
                     description=f"Der Trigger {word} existiert nicht! Wenn du einen erstellen möchtest,"
-                                "nutz den Befehl:"
-                                f"```{await get_prefix_string(message=ctx.message)}trigger add```",
+                    "nutz den Befehl:"
+                    f"```{await get_prefix_string(message=ctx.message)}trigger add```",
                     colour=await get_embedcolour(ctx.message),
                 )
                 embed._footer = await get_embed_footer(ctx)
@@ -273,7 +281,7 @@ class trigger(commands.Cog):
             embed = discord.Embed(
                 title=f"**Trigger Remove**",
                 description=f"Der Trigger ```{word}``` mit dem Wert ```{await get_trigger_msg(guildid=ctx.guild.id, trigger=word)}"
-                            f"```wurde erfolgreich gelöscht.",
+                f"```wurde erfolgreich gelöscht.",
                 colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
@@ -307,8 +315,8 @@ class trigger(commands.Cog):
                 embed = discord.Embed(
                     title=f"**Fehler**",
                     description=f"Der Trigger {word} existiert nicht! Wenn du einen erstellen möchtest,"
-                                "nutz den Befehl:"
-                                f"```{await get_prefix_string(message=ctx.message)}trigger add```",
+                    "nutz den Befehl:"
+                    f"```{await get_prefix_string(message=ctx.message)}trigger add```",
                     colour=await get_embedcolour(ctx.message),
                 )
                 embed._footer = await get_embed_footer(ctx)
