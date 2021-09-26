@@ -39,6 +39,7 @@ class leave(commands.Cog):
     async def leave(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
+        player = ctx.bot.wavelink.get_player(ctx.guild.id)
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
         if not ctx.author.voice:
@@ -56,7 +57,22 @@ class leave(commands.Cog):
                 guildid=ctx.guild.id,
             )
             return
-        await ctx.bot.wavelink.get_player(ctx.guild.id).destroy()
+        elif not ctx.author.voice.channel.id == player.channel_id:
+            embed = discord.Embed(
+                title="Fehler",
+                description="Du befindest dich nicht im dem Sprachkanal, in dem der Bot sich aktuell aufhält!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
+                "leave zu benutzen, befand sich aber nicht in dem gleichen Sprachkanal wie der Bot!",
+                guildid=ctx.guild.id,
+            )
+            return
+        await player.destroy()
         embed = discord.Embed(
             title="Musik Stop",
             description="Ich habe erfolgreich deinen Sprachkanal verlassen!",

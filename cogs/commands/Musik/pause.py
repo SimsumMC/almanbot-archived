@@ -39,6 +39,7 @@ class pause(commands.Cog):
     async def pause(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
+        player = ctx.bot.wavelink.get_player(ctx.guild.id)
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
         if not ctx.author.voice:
@@ -56,7 +57,37 @@ class pause(commands.Cog):
                 guildid=ctx.guild.id,
             )
             return
-        await ctx.bot.wavelink.get_player(ctx.guild.id).set_pause(True)
+        elif not ctx.author.voice.channel.id == player.channel_id:
+            embed = discord.Embed(
+                title="Fehler",
+                description="Du befindest dich nicht im dem Sprachkanal, in dem der Bot sich aktuell aufhält!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
+                "pause zu benutzen, befand sich aber nicht in dem gleichen Sprachkanal wie der Bot!",
+                guildid=ctx.guild.id,
+            )
+            return
+        elif not player.is_connected or not player.is_playing:
+            embed = discord.Embed(
+                title="Fehler",
+                description="Der Bot spielt keine Musik und kann daher auch keine pausieren!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
+                "pause zu benutzen, es wurde aber kein Song abgespielt!",
+                guildid=ctx.guild.id,
+            )
+            return
+        await player.set_pause(True)
         embed = discord.Embed(
             title="Musik Pause",
             description="Ich habe erfolgreich die Musik pausiert!",

@@ -62,6 +62,7 @@ class play(commands.Cog):
                     guildid=ctx.guild.id,
                 )
                 return
+
             tracks = await self.bot.wavelink.get_tracks(f"ytsearch:{query}")
             if not tracks:
                 embed = discord.Embed(

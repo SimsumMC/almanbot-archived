@@ -1,5 +1,4 @@
 import datetime
-import random
 
 import discord
 import wavelink
@@ -48,6 +47,7 @@ class join(commands.Cog):
     async def join(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
+        player = ctx.bot.wavelink.get_player(ctx.guild.id)
         if await botchannel_check(ctx):
             if not ctx.author.voice:
                 embed = discord.Embed(
