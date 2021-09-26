@@ -125,7 +125,6 @@ async def get_rank_card(member: discord.Member, guild: discord.Guild):
     xp = user_data["xp"]
     xp_for_next_level = (user_data["level"] + 1) * 100
     progress = int((xp / xp_for_next_level) * 100)
-    print(progress)
     background = Editor(os.path.join("data", "pictures", "rank_card.png"))
     image = await load_image_async(str(member.avatar_url))
     profile = Editor(image).resize((190, 190)).circle_image()
