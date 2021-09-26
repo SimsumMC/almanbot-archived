@@ -1,5 +1,7 @@
 import discord
 
+OWNER_IDS = []
+
 # BASIC THINGS
 
 BOT_NAME = "Alman Bot"
@@ -19,7 +21,10 @@ ACTIVITY_LIST = [
     "in {guild_count} Servern",
     "mit {user_count} Nutzern",
     "Entwickelt von {developer_names}",
-]  # guild_count, user_count, developer_names
+]
+# guild_count, user_count, developer_names
+DEFAULT_LEVELLING_COOLDOWN = 3
+DEFAULT_LEVELLING_XP_PER_MESSAGE = 5
 
 # Other Thumbnails
 
@@ -41,12 +46,12 @@ REDDIT_APP = {  # for the memes command, just create an application on reddit
 
 
 class lavalink:  # for music module
-    host = "lava.link"
-    port = "80"
-    rest_uri = "http://lava.link:80"
-    passwort = BOT_NAME
-    identifier = BOT_NAME
-    region = "europe"
+    host = ""
+    port = ""
+    rest_uri = ""
+    passwort = ""
+    identifier = ""
+    region = ""
 
 
 # DEFAULTS | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
@@ -119,7 +124,7 @@ EMBEDCOLOURS_SUPPORTED = [
     "dunkellila",
     "lila",
     "pink",
-    "rainbow",  # todo add rainbow
+    "rainbow",
     "random",
     "gelb",
 ]
