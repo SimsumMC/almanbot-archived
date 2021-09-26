@@ -11,7 +11,7 @@ from cogs.core.config.config_botchannel import get_botchannel_obj_list
 from cogs.core.config.config_buttoncolour import get_buttoncolour_german
 from cogs.core.config.config_embedcolour import (
     get_embedcolour,
-    colourcode_to_name,
+    colourcode_to_name, get_embedcolour_code,
 )
 from cogs.core.config.config_general import get_config
 from cogs.core.config.config_memechannel import get_memechannel_obj_list
@@ -29,14 +29,14 @@ class config(commands.Cog):
     cooldown = 5
 
     @commands.group(name="config", aliases=["settings", "conf", "set"])
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.invoke(self.config_help)
 
     @config.command(name="help", aliases=["hilfe, commands, befehle, cmds"])
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_help(self, ctx):
         prefix = await get_prefix_string(ctx.message)
@@ -55,7 +55,7 @@ class config(commands.Cog):
             inline=False,
         )
         embed.add_field(
-            name=f'**{prefix}config colour <Farbe ({prefix}colours / "random">**',
+            name=f'**{prefix}config colour <Embed / Button> <Farbe ({prefix}colours / "random")>**',
             value="Ändere die Farbe der Embeds!",
             inline=False,
         )
@@ -70,7 +70,7 @@ class config(commands.Cog):
             inline=False,
         )
         embed.add_field(
-            name=f'**{prefix}config memesource <Reddit Name / "default"' ">**",
+            name=f'**{prefix}config memesource <Reddit Name / "default">**',
             value="Sorge dafür das der Meme Befehl nur in einem bestimmten Kanal funktioniert!",
             inline=False,
         )
@@ -86,7 +86,7 @@ class config(commands.Cog):
         )
 
     @config.command(name="show", aliases=["werte", "s", "all"])
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_show(self, ctx):
         time = datetime.datetime.now()
@@ -143,7 +143,7 @@ class config(commands.Cog):
         )
 
     @config.command(name="prefix", aliases=["präfix"])
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_prefix(self, ctx, arg=DEFAULT_PREFIX):
         prefix = await get_prefix_string(ctx.message)
@@ -197,7 +197,7 @@ class config(commands.Cog):
         )
 
     @config.group(name="colour", aliases=["farbe", "color", "farben"], usage="<set / list>")
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_colour(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -207,34 +207,72 @@ class config(commands.Cog):
 
             raise MissingRequiredArgument(error)
 
-    @config_colour.command(name="set", aliases=["s"], usage="<Farbe>")
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @config_colour.group(name="embed", aliases=["msg", "message", "nachricht"], usage="<set / list>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
+    @commands.has_permissions(administrator=True)
+    async def config_colour_embed(self, ctx):
+        if ctx.invoked_subcommand is None:
+            class error(inspect.Parameter):
+                name = "config colour embed"
+                param = "subcommand"
+
+            raise MissingRequiredArgument(error)
+
+    @config_colour_embed.command(name="set", aliases=["s"], usage="<Farbe>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_colour_set(self, ctx, colour):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
         if colour.lower() not in EMBEDCOLOURS_SUPPORTED:
-            # Error
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=f"Die Farbe ```{str(colour.lower()).capitalize()}``` existiert nicht!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}config colour set zu benutzen, hat aber eine ungütige Farbe angegeben!",
+                ctx.guild.id,
+            )
             return
+        await writejson(key="embedcolour", value=await get_embedcolour_code(colour.lower()), path=path)
+        embed = discord.Embed(
+            title="**Config Colour**", description=f"Die Farbe wurde nun zu ```{str(colour.lower()).capitalize()}``` geändert!", colour=await get_embedcolour(ctx.message)
+        )
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        await log(
+            f"{time}: Der Nutzer {user} hat mit dem Befehl {await get_prefix_string(ctx.message)}"
+            f"config colour set die Farbe zu {str(colour.lower()).capitalize()} geändert!",
+            guildid=ctx.guild.id,
+        )
 
-    @config_colour.command(name="list", aliases=["l", "all"])
+    @config_colour_embed.command(name="list", aliases=["l", "all"])
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_colour_list(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
         colours = "".join([colour.capitalize() + ", " for colour in EMBEDCOLOUR_CODES])[:-2]
         embed = discord.Embed(
-            title="**Farben Liste**", description=colours, colour=await get_embedcolour(ctx.message)
+            title="**Config Colour**", description=colours, colour=await get_embedcolour(ctx.message)
         )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
         await log(
             f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
-            "config colour set benutzt!",
+            "config colour list benutzt!",
             guildid=ctx.guild.id,
         )
 
-    @config.group(name="botchannel", aliases=["bot"], usage="add/remove <@channel>")
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @config.group(name="botchannel", aliases=["bot"], usage="add/remove <@Channel>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -244,12 +282,28 @@ class config(commands.Cog):
 
             raise MissingRequiredArgument(error)
 
-    @config_botchannel.command(name="add", aliases=["hinzufügen"])
+    @config_botchannel.command(name="add", aliases=["hinzufügen"], usage="<@Channel>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     async def config_botchannel_add(self, ctx, channel: discord.TextChannel):
         prefix = await get_prefix_string(ctx.message)
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
+        botchannel = await readjson(key="botchannel", path=path)
+        if channel.id in botchannel:
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=f"Der Channel {channel.mention} ist breits auf der Botchannel-Liste!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat mit dem Befehl {prefix}config botchannel add versucht den bereits vorhandenen Channel {channel.name} auf die Botchannel-Liste hinzuzufügen!",
+                ctx.guild.id,
+            )
+            return
         await writejson(key="botchannel", value=channel.id, path=path, mode="append")
         embed = discord.Embed(
             title="**Config Botchannel**", colour=await get_embedcolour(ctx.message)
@@ -268,12 +322,28 @@ class config(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @config_botchannel.command(name="remove", aliases=["entfernen"])
+    @config_botchannel.command(name="remove", aliases=["entfernen"], usage="<@Channel>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     async def config_botchannel_remove(self, ctx, channel: discord.TextChannel):
         prefix = await get_prefix_string(ctx.message)
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
+        botchannel = await readjson(key="botchannel", path=path)
+        if channel.id not in botchannel:
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=f"Der Channel {channel.mention} ist nicht auf der Memechannel-Liste vorhanden!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat mit dem Befehl {prefix}config memechannel versucht den nicht gesetzten Channel {channel.name} auf die Memechannel-Liste zu packen!",
+                ctx.guild.id,
+            )
+            return
         await writejson(key="botchannel", value=channel.id, path=path, mode="remove")
         embed = discord.Embed(
             title="**Config Botchannel**", colour=await get_embedcolour(ctx.message)
@@ -293,7 +363,7 @@ class config(commands.Cog):
         )
 
     @config.group(name="memechannel", aliases=["meme"], usage="add/remove <@channel>")
-    @commands.cooldown(1, cooldown, commands.BucketType.user)
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_memechannel(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -303,12 +373,28 @@ class config(commands.Cog):
 
             raise MissingRequiredArgument(error)
 
-    @config_memechannel.command(name="add", aliases=["hinzufügen"])
+    @config_memechannel.command(name="add", aliases=["hinzufügen"], usage="<@Channel>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     async def config_memechannel_add(self, ctx, channel: discord.TextChannel):
         prefix = await get_prefix_string(ctx.message)
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
+        memechannel = await readjson(key="botchannel", path=path)
+        if channel.id in memechannel:
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=f"Der Channel {channel.mention} ist breits auf der Memechannel-Liste!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat mit dem Befehl {prefix}config memechannel add versucht den bereits vorhandenen Channel {channel.name} auf die Memechannel-Liste hinzuzufügen!",
+                ctx.guild.id,
+            )
+            return
         await writejson(key="memechannel", value=channel.id, path=path, mode="append")
         embed = discord.Embed(
             title="**Config Memechannel**", colour=await get_embedcolour(ctx.message)
@@ -327,7 +413,8 @@ class config(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @config_memechannel.command(name="remove", aliases=["entfernen"])
+    @config_memechannel.command(name="remove", aliases=["entfernen"], usage="<@Channel>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
     async def config_memechannel_remove(
             self, ctx: commands.Context, channel: discord.TextChannel
     ):
@@ -335,18 +422,18 @@ class config(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
-        memechannel = readjson(key="memechannel", path=path)
-        if channel.id in memechannel:
+        memechannel = await readjson(key="memechannel", path=path)
+        if channel.id not in memechannel:
             embed = discord.Embed(
                 title="**Fehler**",
-                description=f"Der Channel {channel.mention} ist bereits auf der ",
+                description=f"Der Channel {channel.mention} ist nicht auf der Memechannel-Liste vorhanden!",
                 colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
             await log(
-                f"{time}: Der Nutzer {user} hat mit dem Befehl {prefix}config memechannel versucht den nicht gesetzten Channel {channel.name} auf die ",
+                f"{time}: Der Nutzer {user} hat mit dem Befehl {prefix}config memechannel versucht den nicht gesetzten Channel {channel.name} auf die Memechannel-Liste zu packen!",
                 ctx.guild.id,
             )
             return
