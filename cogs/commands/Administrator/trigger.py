@@ -92,7 +92,7 @@ class trigger(commands.Cog):
 
     @trigger.command(
         name="list", aliases=["liste", "show", "all"]
-    )  # all triggers in a list without values
+    )
     async def list(self, ctx: commands.Context):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
