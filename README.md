@@ -21,9 +21,6 @@
   <a href="https://www.gnu.org/licenses/gpl-3.0.html">
     <img src="https://img.shields.io/github/license/SimsumMC/communitybot?color=red&label=License" alt="License">
   </a>
-  <a href="https://github.com/SimsumMC/communitybot">
-    <img src="https://img.shields.io/badge/Progress-30%25-red" alt="Progress">
-  </a>
   <a href="https://github.com/Rapptz/discord.py/">
      <img src="https://img.shields.io/badge/discord-py-red.svg" alt="discord.py">
   </a>
