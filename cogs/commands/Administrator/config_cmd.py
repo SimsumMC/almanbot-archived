@@ -11,7 +11,8 @@ from cogs.core.config.config_botchannel import get_botchannel_obj_list
 from cogs.core.config.config_buttoncolour import get_buttoncolour_german
 from cogs.core.config.config_embedcolour import (
     get_embedcolour,
-    colourcode_to_name, get_embedcolour_code,
+    colourcode_to_name,
+    get_embedcolour_code,
 )
 from cogs.core.config.config_general import get_config
 from cogs.core.config.config_memechannel import get_memechannel_obj_list
@@ -77,11 +78,11 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-                 + ": Der Nutzer "
-                 + str(user)
-                 + " hat den Befehl "
-                 + prefix
-                 + "config hilfe benutzt.",
+            + ": Der Nutzer "
+            + str(user)
+            + " hat den Befehl "
+            + prefix
+            + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -134,11 +135,11 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-                 + ": Der Nutzer "
-                 + str(user)
-                 + " hat den Befehl "
-                 + await get_prefix_string(ctx.message)
-                 + "config hilfe benutzt.",
+            + ": Der Nutzer "
+            + str(user)
+            + " hat den Befehl "
+            + await get_prefix_string(ctx.message)
+            + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -196,22 +197,28 @@ class config(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @config.group(name="colour", aliases=["farbe", "color", "farben"], usage="<set / list>")
+    @config.group(
+        name="colour", aliases=["farbe", "color", "farben"], usage="<set / list>"
+    )
     @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_colour(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config colour"
                 param = "subcommand"
 
             raise MissingRequiredArgument(error)
 
-    @config_colour.group(name="embed", aliases=["msg", "message", "nachricht"], usage="<set / list>")
+    @config_colour.group(
+        name="embed", aliases=["msg", "message", "nachricht"], usage="<set / list>"
+    )
     @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_colour_embed(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config colour embed"
                 param = "subcommand"
@@ -239,9 +246,15 @@ class config(commands.Cog):
                 ctx.guild.id,
             )
             return
-        await writejson(key="embedcolour", value=await get_embedcolour_code(colour.lower()), path=path)
+        await writejson(
+            key="embedcolour",
+            value=await get_embedcolour_code(colour.lower()),
+            path=path,
+        )
         embed = discord.Embed(
-            title="**Config Colour**", description=f"Die Farbe wurde nun zu ```{str(colour.lower()).capitalize()}``` geändert!", colour=await get_embedcolour(ctx.message)
+            title="**Config Colour**",
+            description=f"Die Farbe wurde nun zu ```{str(colour.lower()).capitalize()}``` geändert!",
+            colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
@@ -258,9 +271,13 @@ class config(commands.Cog):
     async def config_colour_list(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
-        colours = "".join([colour.capitalize() + ", " for colour in EMBEDCOLOUR_CODES])[:-2]
+        colours = "".join([colour.capitalize() + ", " for colour in EMBEDCOLOUR_CODES])[
+            :-2
+        ]
         embed = discord.Embed(
-            title="**Config Colour**", description=colours, colour=await get_embedcolour(ctx.message)
+            title="**Config Colour**",
+            description=colours,
+            colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
@@ -276,6 +293,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config botchannel"
                 param = "subcommand"
@@ -367,6 +385,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_memechannel(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config memechannel"
                 param = "subcommand"
@@ -413,10 +432,12 @@ class config(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @config_memechannel.command(name="remove", aliases=["entfernen"], usage="<@Channel>")
+    @config_memechannel.command(
+        name="remove", aliases=["entfernen"], usage="<@Channel>"
+    )
     @commands.cooldown(1, cooldown, commands.BucketType.guild)
     async def config_memechannel_remove(
-            self, ctx: commands.Context, channel: discord.TextChannel
+        self, ctx: commands.Context, channel: discord.TextChannel
     ):
         prefix = await get_prefix_string(ctx.message)
         time = datetime.datetime.now()

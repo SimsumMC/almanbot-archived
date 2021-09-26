@@ -90,9 +90,7 @@ class trigger(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @trigger.command(
-        name="list", aliases=["liste", "show", "all"]
-    )
+    @trigger.command(name="list", aliases=["liste", "show", "all"])
     async def list(self, ctx: commands.Context):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)

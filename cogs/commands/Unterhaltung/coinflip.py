@@ -32,7 +32,9 @@ class coinflip(commands.Cog):
                 strval = "Zahl"
                 picture = COIN_NUMBER
             embed = discord.Embed(
-                title="**Münzwurf**", description=f"```{strval}```", colour=await get_embedcolour(ctx.message)
+                title="**Münzwurf**",
+                description=f"```{strval}```",
+                colour=await get_embedcolour(ctx.message),
             )
             embed.set_thumbnail(url=picture)
             embed._footer = await get_embed_footer(ctx)

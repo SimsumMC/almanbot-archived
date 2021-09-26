@@ -40,7 +40,9 @@ class rank(commands.Cog):
                 guildid=ctx.guild.id,
             )
             return
-        file = discord.File(fp=await get_rank_card(member=member, guild=ctx.guild), filename="rank.png")
+        file = discord.File(
+            fp=await get_rank_card(member=member, guild=ctx.guild), filename="rank.png"
+        )
         await ctx.send(file=file)
         await log(
             f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
