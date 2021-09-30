@@ -9,7 +9,7 @@
 <h4 align="center">Musik, Memes, (Auto-)Moderation, Informationen, Minigames und viel mehr! </h4>
 
 <p align="center">
-  <a href="https://discord.gg/wksGyBNnHN">
+  <a href="https://discord.gg/NaE4hccHtZ">
     <img src="https://discord.com/api/guilds/802923248840867840/widget.png?style=shield" alt="Discord Server">
   </a>
   <a href="https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775">
