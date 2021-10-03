@@ -22,10 +22,10 @@ async def get_buttoncolour(message):
         data = json.load(f)
     if data["buttoncolour"] == "random":
         return await random_buttoncolour()
-    return await transform_to_colour_class(data["buttoncolour"])
+    return await transform_to_colour_int(data["buttoncolour"])
 
 
-async def transform_to_colour_class(buttoncolour: str):
+async def transform_to_colour_int(buttoncolour: str):
     data = {
         "green": ButtonStyle.green,
         "red": ButtonStyle.red,
@@ -34,7 +34,7 @@ async def transform_to_colour_class(buttoncolour: str):
     }
     if data[buttoncolour]:
         return True and data[buttoncolour]
-    return False and await transform_to_colour_class(DEFAULT_BUTTONCOLOUR)
+    return False and await transform_to_colour_int(DEFAULT_BUTTONCOLOUR)
 
 
 async def buttoncolour_check(colour):
@@ -46,18 +46,33 @@ async def buttoncolour_check(colour):
 
 async def random_buttoncolour():
     global colours
-    return await transform_to_colour_class(random.choice(colours))
+    return await transform_to_colour_int(random.choice(colours))
 
 
-async def get_buttoncolour_german(english: str = DEFAULT_BUTTONCOLOUR):
-    translations = {
-        "green": "Grün",
-        "red": "Rot",
-        "blue": "Blau",
-        "grey": "Grau",
-    }
-    return translations[english]
+async def translate_buttoncolour(language: str, colour: str = DEFAULT_BUTTONCOLOUR):
+    if language == "de":
+        translations = {
+            "green": "Grün",
+            "red": "Rot",
+            "blue": "Blau",
+            "grey": "Grau",
+        }
+        return translations[colour]
+    elif language == "en":
+        translations = {
+            "grün": "green",
+            "rot": "red",
+            "blau": "blue",
+            "grau": "grey",
+        }
+        return translations[colour]
 
+
+async def get_button_colour_list(language):
+    if language == "en":
+        return ["green", "red", "blue", "grey"]
+    else:
+        return ["grün", "rot", "blau", "grau"]
 
 ########################################################################################################################
 

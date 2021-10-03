@@ -22,7 +22,7 @@ async def get_prefix_string(message=None, guild=None) -> str:
         return str(DEFAULT_PREFIX)
     with open(path, "r") as f:
         data = json.load(f)
-    prefix = str(data["prefix"])
+    prefix = str(data["prefix"][0])
     return str(prefix)
 
 
@@ -35,7 +35,7 @@ async def get_prefix(bot, message):
             return commands.when_mentioned_or(DEFAULT_PREFIX)(bot, message)
     with open(path, "r") as f:
         data = json.load(f)
-    prefix = str(data["prefix"])
+    prefix = str(data["prefix"][0])
     return commands.when_mentioned_or(prefix)(bot, message)
 
 

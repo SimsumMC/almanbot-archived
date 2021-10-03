@@ -22,24 +22,14 @@ async def get_memes(id):
     return "memes"
 
 
-"""
-async def redditnsfwcheck(reddit):  # TODO AIOHTTP
+async def redditnsfwcheck(reddit):
     url = f"https://www.reddit.com/r/{reddit}/about.json"
-    response = urlopen(url)
-    data = json.loads(response.read())
-    if data["data"]["over18"] is True:
-        return True
-    return False"""
-
-
-async def redditnsfwcheck(reddit):  # TODO AIOHTTP
-    url = f"https://www.reddit.com/r/{reddit}/about.json"
-    async with aiohttp.ClientSession as session:
-        response = await session.get(url)
-    data = await response.json()
-    if data["data"]["over18"] is True:
-        return True
-    return False
+    async with aiohttp.ClientSession() as session:
+        async with session.request("GET", url) as response:
+            data = await response.json()
+            if data["data"]["over18"] is True:
+                return True
+            return False
 
 
 async def meme_is_checked(reddit):

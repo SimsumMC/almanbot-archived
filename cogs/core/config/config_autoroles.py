@@ -11,15 +11,6 @@ class config_autoroles(commands.Cog):
         self.bot = bot
 
 
-async def get_autorole_objects(guild):
-    path = os.path.join("data", "configs", f"{guild.id}.json")
-    roles = await readjson(key="autoroles", path=path)
-    roleobjects = []
-    for role in roles:
-        roleobjects.append(discord.Guild.get_role(guild, role))
-    return roleobjects
-
-
 async def get_autorole_mentions_list(guild):
     path = os.path.join("data", "configs", f"{guild.id}.json")
     roles = await readjson(key="autoroles", path=path)

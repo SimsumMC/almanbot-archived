@@ -8,7 +8,7 @@ from discord.ext.commands import MissingRequiredArgument
 
 from cogs.core.config.config_autoroles import get_autorole_mentions_list
 from cogs.core.config.config_botchannel import get_botchannel_obj_list
-from cogs.core.config.config_buttoncolour import get_buttoncolour_german
+from cogs.core.config.config_buttoncolour import translate_buttoncolour, get_button_colour_list
 from cogs.core.config.config_embedcolour import (
     get_embedcolour,
     colourcode_to_name,
@@ -78,11 +78,11 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-            + ": Der Nutzer "
-            + str(user)
-            + " hat den Befehl "
-            + prefix
-            + "config hilfe benutzt.",
+                 + ": Der Nutzer "
+                 + str(user)
+                 + " hat den Befehl "
+                 + prefix
+                 + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -108,7 +108,7 @@ class config(commands.Cog):
         )
         embed.add_field(
             name="**Button-Farbe**",
-            value=await get_buttoncolour_german(config_json["buttoncolour"]),
+            value=await translate_buttoncolour(language="de", colour=config_json["buttoncolour"]),
             inline=False,
         )
         embed.add_field(name="**Blacklist**", value="a!blacklist list", inline=False)
@@ -135,11 +135,11 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-            + ": Der Nutzer "
-            + str(user)
-            + " hat den Befehl "
-            + await get_prefix_string(ctx.message)
-            + "config hilfe benutzt.",
+                 + ": Der Nutzer "
+                 + str(user)
+                 + " hat den Befehl "
+                 + await get_prefix_string(ctx.message)
+                 + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -179,7 +179,7 @@ class config(commands.Cog):
                 ctx.guild.id,
             )
             return
-        await writejson(key="prefix", value=arg, path=path)
+        await writejson(key="prefix", value=[str(arg)], path=path)
         embed = discord.Embed(
             title="**Config Prefix**", colour=await get_embedcolour(ctx.message)
         )
@@ -204,7 +204,6 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_colour(self, ctx):
         if ctx.invoked_subcommand is None:
-
             class error(inspect.Parameter):
                 name = "config colour"
                 param = "subcommand"
@@ -218,7 +217,6 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_colour_embed(self, ctx):
         if ctx.invoked_subcommand is None:
-
             class error(inspect.Parameter):
                 name = "config colour embed"
                 param = "subcommand"
@@ -228,7 +226,7 @@ class config(commands.Cog):
     @config_colour_embed.command(name="set", aliases=["s"], usage="<Farbe>")
     @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
-    async def config_colour_set(self, ctx, colour):
+    async def config_colour_embed_set(self, ctx, colour):
         time = datetime.datetime.now()
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
@@ -242,7 +240,7 @@ class config(commands.Cog):
             embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
             await log(
-                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}config colour set zu benutzen, hat aber eine ungütige Farbe angegeben!",
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}config colour embed set zu benutzen, hat aber eine ungütige Farbe angegeben!",
                 ctx.guild.id,
             )
             return
@@ -253,7 +251,7 @@ class config(commands.Cog):
         )
         embed = discord.Embed(
             title="**Config Colour**",
-            description=f"Die Farbe wurde nun zu ```{str(colour.lower()).capitalize()}``` geändert!",
+            description=f"Die Embed-Farbe wurde nun zu ```{str(colour.lower()).capitalize()}``` geändert!",
             colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
@@ -261,19 +259,19 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             f"{time}: Der Nutzer {user} hat mit dem Befehl {await get_prefix_string(ctx.message)}"
-            f"config colour set die Farbe zu {str(colour.lower()).capitalize()} geändert!",
+            f"config colour embed set die Farbe zu {str(colour.lower()).capitalize()} geändert!",
             guildid=ctx.guild.id,
         )
 
     @config_colour_embed.command(name="list", aliases=["l", "all"])
     @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
-    async def config_colour_list(self, ctx):
+    async def config_colour_embed_list(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
         colours = "".join([colour.capitalize() + ", " for colour in EMBEDCOLOUR_CODES])[
-            :-2
-        ]
+                  :-2
+                  ]
         embed = discord.Embed(
             title="**Config Colour**",
             description=colours,
@@ -284,7 +282,84 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
-            "config colour list benutzt!",
+            "config colour embed list benutzt!",
+            guildid=ctx.guild.id,
+        )
+
+    @config_colour.group(
+        name="button", aliases=["knopf", "b"], usage="<set / list>"
+    )
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
+    @commands.has_permissions(administrator=True)
+    async def config_colour_button(self, ctx):
+        if ctx.invoked_subcommand is None:
+            class error(inspect.Parameter):
+                name = "config colour button"
+                param = "subcommand"
+
+            raise MissingRequiredArgument(error)
+
+    @config_colour_button.command(name="set", aliases=["s"], usage="<Farbe>")
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
+    @commands.has_permissions(administrator=True)
+    async def config_colour_button_set(self, ctx, colour):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
+        if colour.lower() in await get_button_colour_list("en"):
+            buttoncolour = colour.lower()
+        elif colour.lower() in await get_button_colour_list("de"):
+            buttoncolour = await translate_buttoncolour(language="en", colour=colour.lower())
+        else:
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=f"Die Farbe ```{str(colour.lower()).capitalize()}``` existiert nicht!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}config colour button set zu benutzen, hat aber eine ungütige Farbe angegeben!",
+                ctx.guild.id,
+            )
+            return
+        await writejson(key="buttoncolour", value=str(buttoncolour),
+                        path=path)
+        embed = discord.Embed(
+            title="**Config Colour**",
+            description=f"Die Button-Farbe wurde nun zu ```{str(colour.lower()).capitalize()}``` geändert!",
+            colour=await get_embedcolour(ctx.message),
+        )
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        await log(
+            f"{time}: Der Nutzer {user} hat mit dem Befehl {await get_prefix_string(ctx.message)}"
+            f"config colour button set die Button-Farbe zu {str(colour.lower()).capitalize()} geändert!",
+            guildid=ctx.guild.id,
+        )
+
+    @config_colour_button.command(name="list", aliases=["l", "all"])
+    @commands.cooldown(1, cooldown, commands.BucketType.guild)
+    @commands.has_permissions(administrator=True)
+    async def config_colour_button_list(self, ctx):
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        colours = "".join([colour.capitalize() + ", " for colour in await get_button_colour_list("de")])[
+                  :-2
+                  ]
+        embed = discord.Embed(
+            title="**Config Colour**",
+            description=colours,
+            colour=await get_embedcolour(ctx.message),
+        )
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "config colour button list benutzt!",
             guildid=ctx.guild.id,
         )
 
@@ -293,7 +368,6 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
-
             class error(inspect.Parameter):
                 name = "config botchannel"
                 param = "subcommand"
@@ -385,7 +459,6 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_memechannel(self, ctx):
         if ctx.invoked_subcommand is None:
-
             class error(inspect.Parameter):
                 name = "config memechannel"
                 param = "subcommand"
@@ -437,7 +510,7 @@ class config(commands.Cog):
     )
     @commands.cooldown(1, cooldown, commands.BucketType.guild)
     async def config_memechannel_remove(
-        self, ctx: commands.Context, channel: discord.TextChannel
+            self, ctx: commands.Context, channel: discord.TextChannel
     ):
         prefix = await get_prefix_string(ctx.message)
         time = datetime.datetime.now()

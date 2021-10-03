@@ -22,6 +22,20 @@ class example(commands.Cog):
             return
         time = datetime.datetime.now()
         user = ctx.author.name
+        if "condition" is True:  # default error
+            embed = discord.Embed(
+                title="**Fehler**",
+                description="Bots sind vom Levelsystem ausgeschlossen und verdienen daher keine XP!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._thumbnail = await get_embed_thumbnail()
+            embed._footer = await get_embed_footer(ctx)
+            await ctx.send(embed=embed)
+            await log(
+                text=f"{time}: Der Nutzer {user} hat versucht mit dem Befehl {await get_prefix_string(ctx.message)}example ...!",
+                guildid=ctx.guild.id,
+            )
+            return
         embed = discord.Embed(
             title="", description="", colour=await get_embedcolour(ctx.message)
         )
@@ -31,7 +45,7 @@ class example(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
-            "meme benutzt!",
+            "example benutzt!",
             guildid=ctx.guild.id,
         )
 
