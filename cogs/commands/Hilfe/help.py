@@ -226,11 +226,6 @@ async def get_page(message, page, author=None):
             colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{prefix}ping**",
-            value="Zeigt dir meinen Ping an!",
-            inline=False,
-        )
-        embed.add_field(
             name=f"**{prefix}serverinfo**",
             value="Zeigt Daten zum aktuellen Server an!",
             inline=False,
@@ -291,6 +286,11 @@ async def get_page(message, page, author=None):
         embed.add_field(
             name=f"**{prefix}say**",
             value="Ich spreche dir nach!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}chat**",
+            value="Sprich mit mir - dabei lernst du auch noch Englisch!",
             inline=False,
         )
     elif page == "levelling":
@@ -385,22 +385,22 @@ async def get_page(message, page, author=None):
         )
         embed.add_field(
             name=f"**{prefix}slowmode**",
-            value="Lege den Intervall zwischen Nachrichten in einem bestimmten Kanal fest.!",
+            value="Lege den Intervall zwischen Nachrichten in einem bestimmten Kanal fest!",
             inline=False,
         )
         embed.add_field(
             name=f"**{prefix}clear**",
-            value="Lösche eine bestimmte Anzahl an" " Nachrichten!",
+            value="Lösche eine bestimmte Anzahl and Nachrichten!",
             inline=False,
         )
         embed.add_field(
             name=f"**{prefix}ban**",
-            value="Banne einen bestimmten Nutzer bis" " er entbannt wird!",
+            value="Banne einen bestimmten Nutzer bis er entbannt wird!",
             inline=False,
         )
         embed.add_field(
             name=f"**{prefix}unban**",
-            value="Entbanne einen zuvor" " gebannten Nutzer!",
+            value="Entbanne einen zuvor gebannten Nutzer!",
             inline=False,
         )
         embed.add_field(
