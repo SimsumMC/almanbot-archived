@@ -7,3 +7,5 @@ wavelink>=0.9.10
 python-whois >=0.7.3
 statcord.py>=3.1.0
 easy-pil >= 0.0.9
+aiohttp>=3.7.4.post0
+asyncpraw>=7.4.0
