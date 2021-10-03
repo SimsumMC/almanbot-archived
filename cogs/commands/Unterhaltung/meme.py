@@ -27,11 +27,11 @@ class meme(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="meme", aliases=["joke", "bild", "witz", "picture"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def meme(self, ctx, redditname=None):
         if redditname is None:
-            redditname = get_memes(ctx.guild.id)
+            redditname = await get_memes(ctx.guild.id)
         global submission
         time = datetime.datetime.now()
         user = ctx.author.name
