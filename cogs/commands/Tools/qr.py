@@ -27,7 +27,7 @@ class qr(commands.Cog):
     async def qr(self, ctx, *, text):
         time = datetime.datetime.now()
         user = ctx.author.name
-        path = f"qrcode by {get_botname()}.png"
+        path = f"qrcode by {await get_botname()}.png"
         if await botchannel_check(ctx):
             await make_qr(str(path), text)
             embed = discord.Embed(

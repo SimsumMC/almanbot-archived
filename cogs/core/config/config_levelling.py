@@ -7,6 +7,9 @@ from discord.ext import commands
 from easy_pil import Editor, Font
 from easy_pil.loader import load_image_async
 
+from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
+
 
 class config_levelling(commands.Cog):
     def __init__(self, bot):
@@ -16,9 +19,9 @@ class config_levelling(commands.Cog):
 user_cooldowns = {}
 
 
-async def add_user_xp(
-    user: discord.Member, guild: discord.Guild, xp: int, cooldown=True
-):
+async def add_user_xp(message: discord.Message, xp: int, cooldown=True, messages=True):
+    user = message.author
+    guild = message.guild
     path = os.path.join("data", "configs", f"{guild.id}.json")
     with open(path, "r") as f:
         data = json.load(f)
@@ -36,17 +39,70 @@ async def add_user_xp(
     )
     while True:
         if (
-            data["levelling"]["user"][str(user.id)]["xp"]
-            >= (data["levelling"]["user"][str(user.id)]["level"] + 1) * 100
+                data["levelling"]["user"][str(user.id)]["xp"]
+                >= (data["levelling"]["user"][str(user.id)]["level"] + 1) * 100
         ):
             data["levelling"]["user"][str(user.id)]["level"] += 1
             data["levelling"]["user"][str(user.id)]["xp"] = data["levelling"]["user"][
-                str(user.id)
-            ]["xp"] - (data["levelling"]["user"][str(user.id)]["level"] * 100)
+                                                                str(user.id)
+                                                            ]["xp"] - (data["levelling"]["user"][str(user.id)][
+                                                                           "level"] * 100)
+            lvl_str = str(data["levelling"]["user"][str(user.id)]["level"])
+            if lvl_str in data["levelling"]["roles"]:
+                role = message.guild.get_role(data["levelling"]["roles"][lvl_str])
+                try:
+                    await message.author.add_roles(role)
+                except Exception:
+                    embed = discord.Embed(
+                        title="Fehler",
+                        description=f"Dem Nutzer {str(message.author)} konnte folgende Levelling-Rolle nicht gegeben werden: {role.name}!",
+                        colour=await get_embedcolour(guild=message.guild),
+                    )
+                    embed._footer, embed._thumbnail = (
+                        await get_embed_footer(guild=message.guild, author=message.guild.owner),
+                        await get_embed_thumbnail(),
+                    )
+                    await message.guild.owner.send(embed=embed)
+            if messages:
+                await send_lvl_up_message(message, levelling_data=data["levelling"]["user"][str(user.id)])
         else:
             break
+
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
+
+
+async def send_lvl_up_message(message: discord.Message, levelling_data: dict):
+    path = os.path.join("data", "configs", f"{message.guild.id}.json")
+    with open(path, "r") as f:
+        data = json.load(f)
+    config = data["levelling"]["messages"]
+    if not config["on"]:
+        return
+    desc = config["content"]
+    if "{level}" in desc:
+        desc = desc.replace("{level}", str(levelling_data["level"]))
+    elif "{xp}" in desc:
+        desc = desc.replace("{xp}", str(levelling_data["xp"]))
+    elif "{old_level}" in desc:
+        desc = desc.replace("{old_level}", str(levelling_data["level"] - 1))
+    elif "{mention}" in desc:
+        desc = desc.replace("{mention}", str(message.author.mention))
+    elif "{name}" in desc:
+        desc = desc.replace("{name}", str(message.author.name))
+    embed = discord.Embed(
+        title="Levelaufstieg", description=desc, colour=await get_embedcolour(message)
+    )
+    embed._footer = await get_embed_footer(message=message)
+    embed._thumbnail = await get_embed_thumbnail()
+    if config["mode"] == "same":
+        await message.reply(embed=embed)
+    elif config["mode"] == "dm":
+        embed.description = desc + f"\n\nServer: {message.guild.name}"
+        await message.author.send(embed=embed)
+    elif config["mode"] == "channel":
+        channel = message.guild.get_channel(config["channel"])
+        await channel.send(embed=embed)
 
 
 async def get_user_levelling_data(user: discord.Member, guild: discord.Guild) -> dict:
@@ -64,7 +120,6 @@ async def get_user_levelling_data(user: discord.Member, guild: discord.Guild) ->
 
 async def get_levelling_top(guild: discord.Guild) -> str:
     from main import client
-
     path = os.path.join("data", "configs", f"{guild.id}.json")
     with open(path, "r") as f:
         data = json.load(f)
@@ -86,11 +141,20 @@ async def get_levelling_top(guild: discord.Guild) -> str:
         discord_user = client.get_user(int(user["id"]))
         user_data = await get_user_levelling_data(user=discord_user, guild=guild)
         top_string = (
-            top_string
-            + f"\n{passes}. {discord_user.mention} - Level: {user_data['level']} | XP: {user_data['xp']}"
+                top_string
+                + f"\n{passes}. {discord_user.mention} - Level: {user_data['level']} | XP: {user_data['xp']}"
         )
         passes += 1
     return top_string
+
+
+async def levelling_active(guild: discord.Guild):
+    path = os.path.join("data", "configs", f"{guild.id}.json")
+    with open(path, "r") as f:
+        data = json.load(f)
+    if data["levelling"]["active"]:
+        return True
+    return False
 
 
 async def add_user_cooldown(user: discord.Member, guild: discord.Guild, cooldown: int):

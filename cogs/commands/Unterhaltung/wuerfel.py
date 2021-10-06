@@ -16,7 +16,7 @@ class wuerfel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="würfel")
+    @commands.command(name="wuerfel", aliases=["würfel"])
     async def wuerfel(self, ctx, number1: int = 1, number2: int = 6):
         time = datetime.datetime.now()
         user = ctx.author.name

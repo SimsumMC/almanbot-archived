@@ -34,11 +34,11 @@ class cog(commands.Cog):
                 name="‎",
                 value=f"""
                 Bitte gib eines der unten angegebenen Befehle ein:
-                `{get_prefix_string(ctx.message)}cog list`
-                `{get_prefix_string(ctx.message)}cog load <Name vom Cog>`
-                `{get_prefix_string(ctx.message)}cog unload <Name vom Cog>`
-                `{get_prefix_string(ctx.message)}cog reload <Name vom Cog>`
-                `{get_prefix_string(ctx.message)}cog reloadall` """,
+                `{await get_prefix_string(ctx.message)}cog list`
+                `{await get_prefix_string(ctx.message)}cog load <Name vom Cog>`
+                `{await get_prefix_string(ctx.message)}cog unload <Name vom Cog>`
+                `{await get_prefix_string(ctx.message)}cog reload <Name vom Cog>`
+                `{await get_prefix_string(ctx.message)}cog reloadall` """,
                 inline=False,
             )
             embed._footer = await get_embed_footer(ctx)

@@ -29,7 +29,7 @@ class tictactoe(commands.Cog):
         embed = discord.Embed(
             title="TicTacToe",
             description="Klick einfach auf einen Button, wo du setzen möchtest! Du hast die Farbe `Rot`.",
-            colour=await get_embedcolour(ctx.message)
+            colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
@@ -41,7 +41,9 @@ class tictactoe(commands.Cog):
         )
 
 
-async def get_ttt_buttons(ctx=None, message=None, disabled=False, default=False, interaction=None):
+async def get_ttt_buttons(
+    ctx=None, message=None, disabled=False, default=False, interaction=None
+):
     global buttons
     if ctx:
         message = ctx.message
@@ -64,7 +66,6 @@ async def get_ttt_buttons(ctx=None, message=None, disabled=False, default=False,
                     label="     ",
                     custom_id="ttt_default_2",
                 ),
-
             ],
             [
                 Button(
@@ -82,7 +83,6 @@ async def get_ttt_buttons(ctx=None, message=None, disabled=False, default=False,
                     label="     ",
                     custom_id="ttt_default_5",
                 ),
-
             ],
             [
                 Button(
@@ -100,7 +100,6 @@ async def get_ttt_buttons(ctx=None, message=None, disabled=False, default=False,
                     label="     ",
                     custom_id="ttt_default_8",
                 ),
-
             ],
         ]
         if disabled:

@@ -25,10 +25,6 @@ async def get_memechannel(message):
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     with open(path, "r") as f:
         data = json.load(f)
-    if not isinstance(data["memechannel"], list):
-        data["memechannel"] = []
-        with open(path, "w") as f:
-            json.dump(data, f, indent=4)
     return data["memechannel"]
 
 

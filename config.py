@@ -5,7 +5,7 @@ OWNER_IDS = []
 # BASIC THINGS
 
 BOT_NAME = "Alman Bot"
-DEFAULT_PREFIX = "a!"
+DEFAULT_PREFIX = ["a!"]
 DEFAULT_EMBEDCOLOUR = 0x41A13A
 DEFAULT_BUTTONCOLOUR = "green"  # green, red, blue, grey
 DEFAULT_MEMESOURCE = "memes"
@@ -22,9 +22,15 @@ ACTIVITY_LIST = [
     "mit {user_count} Nutzern",
     "Entwickelt von {developer_names}",
 ]
+DEFAULT_LVLUP_MESSAGE = (
+    "Herzlichen Glückwunsch, du bist auf Level {level} aufgestiegen! 🎉"
+)
+DEFAULT_LVLUP_MODE = "same"  # dm , channel, same
 # guild_count, user_count, developer_names
 DEFAULT_LEVELLING_COOLDOWN = 3
 DEFAULT_LEVELLING_XP_PER_MESSAGE = 5
+
+SUGGESTION_CHANNEL_ID = 895413425696571402
 
 # Other Thumbnails
 
@@ -38,20 +44,24 @@ CUBE = "https://cdn.discordapp.com/attachments/645276319311200286/80355093911293
 DISCORD_TOKEN = (
     "your token"  # to run the bot
 )
-STATCORD_TOKEN = "statcord token"  # Optional, for bot stats
+STATCORD_TOKEN = "statcord token"  # Optional, for bot stats ->
 REDDIT_APP = {  # for the memes command, just create an application on reddit
     "client_id": "id",
     "client_secret": "secret",
 }
 
+# PATHS
+
+CHROMEDRIVER_PATH = "path to chromedriver"
+
 
 class lavalink:  # for music module
-    host = ""
-    port = ""
-    rest_uri = ""
-    passwort = ""
-    identifier = ""
-    region = ""
+    host = "host"
+    port = "port"
+    rest_uri = "rest url"
+    passwort = BOT_NAME
+    identifier = BOT_NAME
+    region = "region"
 
 
 # DEFAULTS | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
@@ -143,7 +153,7 @@ BLACKLIST_IGNORE = ["blacklist", "qr", "broadcast"]
 
 BOT_MAIN_DEVELOPER = "SimsumMC#2248"
 BOT_DEVELOPERLIST = ["SimsumMC#2248"]
-INVITE_LINK = "https://discord.com/oauth2/authorize?client_id=802922765782089738&scope=bot&permissions=2620914775"
+INVITE_LINK = "https://discord.com/oauth2/authorize?client_id=802922765782089738&permissions=2620914775&redirect_uri=https%3A%2F%2Fdiscord.events.stdlib.com%2Fdiscord%2Fauth%2F&scope=bot%20applications.commands"
 DISCORD_LINK = "https://discord.almanbot.de"
 WEBSITE_LINK = "https://almanbot.de/"
 GITHUB_LINK = "https://github.com/SimsumMC/almanbot/"

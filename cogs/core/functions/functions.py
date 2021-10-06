@@ -18,7 +18,7 @@ async def get_botname():
     return str(BOT_NAME)
 
 
-async def is_not_pinned(message):
+def is_not_pinned(message):
     return not message.pinned
 
 

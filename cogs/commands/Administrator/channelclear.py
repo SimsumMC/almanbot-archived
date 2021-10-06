@@ -1,10 +1,14 @@
 import datetime
+import os
 
 import discord
 from discord.ext import commands
 
+from cogs.core.config.config_botchannel import get_botchannel
 from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_memechannel import get_memechannel
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
+from cogs.core.functions.func_json import writejson
 from cogs.core.functions.logging import log
 
 
@@ -20,6 +24,20 @@ class channelclear(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         newchannel = await channel.clone()
+        if channel.id in await get_botchannel(message=channel):
+            await writejson(
+                key="botchannel",
+                value=newchannel.id,
+                path=os.path.join("data", "configs", f"{channel.guild.id}.json"),
+                mode="append",
+            )
+        elif channel.id in await get_memechannel(message=channel):
+            await writejson(
+                key="memechannel",
+                value=newchannel.id,
+                path=os.path.join("data", "configs", f"{channel.guild.id}.json"),
+                mode="append",
+            )
         await channel.delete()
         embed = discord.Embed(
             title="**Channelclear**",

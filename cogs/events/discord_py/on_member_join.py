@@ -14,23 +14,24 @@ class on_member_join(commands.Cog):
     async def on_member_join(self, member):
 
         # autoroles
+
         roles = await get_autoroles(member.guild)
         for role in roles:
             try:
                 await member.add_roles(role)
             except Exception:
-                embed = discord.Embed(title="Fehler", description="Dem ", colour=await get_embedcolour(guild=member.guild))
+                embed = discord.Embed(
+                    title="Fehler",
+                    description=f"Dem Nutzer {str(member)} konnte folgende Autorole nicht gegeben werden: {role.name}!",
+                    colour=await get_embedcolour(guild=member.guild),
+                )
                 embed._footer, embed._thumbnail = (
-                    await get_embed_footer(guild=member.guild, dm=True),
+                    await get_embed_footer(guild=member.guild, author=member.guild.owner),
                     await get_embed_thumbnail(),
                 )
-                await member.guild.owner.send(
-                    embed=embed
-                )  # Message that its not possible to add this role
+                await member.guild.owner.send(embed=embed)
 
         # join message
-
-        ...
 
 
 ########################################################################################################################

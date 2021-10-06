@@ -26,7 +26,7 @@ async def get_prefix_string(message=None, guild=None) -> str:
     return str(prefix)
 
 
-async def get_prefix(bot, message):
+async def get_prefix(bot, message) -> commands.when_mentioned_or():
     path = os.path.join("data", "configs", f"{message.guild.id}.json")
     if not os.path.exists(path):
         with open(path, "w") as f:

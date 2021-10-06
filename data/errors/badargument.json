@@ -13,5 +13,13 @@
 	"config botchannel add": "Du musst den Kanal erwähnen!",
 	"config botchannel remove": "Du musst den Kanal erwähnen!",
 	"config memechannel add": "Du musst den Kanal erwähnen!",
-	"config memechannel remove": "Du musst den Kanal erwähnen!"
+	"config memechannel remove": "Du musst den Kanal erwähnen!",
+	"config autoroles add": "Du musst die Rolle erwähnen!",
+	"config autoroles remove": "Du musst die Rolle erwähnen!",
+	"levelling set xp_per_msg": "Du musst eine Zahl angeben!",
+	"levelling set cooldown": "Du musst eine Zahl angeben!",
+	"rank": "Du musst den Nutzer erwähnen!",
+	"levelling set message_mode": "Bitte gib einen gültigen Channel an!",
+	"levelling set roles add": "Bitte gib ein gültiges Level & eine gültige Rolle an!",
+	"levelling set roles remove": "Bitte gib ein gültiges Level (Zahl) an!"
 }

@@ -5,6 +5,7 @@ from discord.ext import commands
 
 from cogs.core.config.config_botchannel import get_botchannel_obj_list
 from cogs.core.config.config_embedcolour import get_embedcolour
+from cogs.core.config.config_memechannel import get_memechannel_obj_list
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.ctx_utils import get_commandname
@@ -17,7 +18,7 @@ class on_botchannelcheck_failure(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_botchannelcheck_failure(self, ctx):
+    async def on_memechannelcheck_failure(self, ctx):
         time = datetime.datetime.now()
         user = ctx.author.name
         msg2 = ctx.message
@@ -36,7 +37,7 @@ class on_botchannelcheck_failure(commands.Cog):
         embed._thumbnail = await get_embed_thumbnail()
         embed.add_field(
             name="‎",
-            value=await get_botchannel_obj_list(ctx),
+            value=await get_memechannel_obj_list(ctx),
             inline=False,
         )
         await ctx.send(embed=embed, delete_after=WRONG_CHANNEL_ERROR_DELETE_AFTER)

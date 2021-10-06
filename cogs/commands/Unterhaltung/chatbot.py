@@ -23,14 +23,13 @@ class chatbot(commands.Cog):
         user = ctx.author.name
         url = f"https://api.pgamerx.com/v5/ai"
         headers = {
-            'Authorization': "EWuDPCUXqCKo",
+            "Authorization": "EWuDPCUXqCKo",
         }
-        params = {
-            "message": message,
-            "server": "main"
-        }
+        params = {"message": message, "server": "main"}
         async with aiohttp.ClientSession() as session:
-            async with session.request("GET", url, headers=headers, params=params) as response:
+            async with session.request(
+                "GET", url, headers=headers, params=params
+            ) as response:
                 if response.status != 200:
                     embed = discord.Embed(
                         title="**Fehler**",
@@ -47,7 +46,9 @@ class chatbot(commands.Cog):
                     return
                 json = await response.json()
                 embed = discord.Embed(
-                    title="Chatbot", description=str(json[0]["response"]), colour=await get_embedcolour(ctx.message)
+                    title="Chatbot",
+                    description=str(json[0]["response"]),
+                    colour=await get_embedcolour(ctx.message),
                 )
                 embed._footer = await get_embed_footer(ctx)
                 embed._thumbnail = await get_embed_thumbnail()

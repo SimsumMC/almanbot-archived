@@ -1,12 +1,12 @@
 import asyncio
 import datetime
 import os
+
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord_components import Button
 
-import main
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
@@ -179,7 +179,7 @@ class blacklist(commands.Cog):
             name="‎",
             value="".join([word + ", " for word in bannedWords])[:-2]
             if bannedWords != []
-            else "Keine Wörter vorhanden",
+            else "Keine Wörter vorhanden!",
             inline=False,
         )
         embed._footer = await get_embed_footer(ctx)

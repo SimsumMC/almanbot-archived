@@ -10,8 +10,11 @@ class defaults_embeds(commands.Cog):
         self.bot = bot
 
 
-async def get_embed_footer(ctx=None, author=None, message=None, dm=False, guild=None) -> dict:
+async def get_embed_footer(
+    ctx=None, author=None, message=None, dm=False, guild=None
+) -> dict:
     """
+    :param guild:
     :param dm:
     :param author:
     :param ctx:
@@ -29,7 +32,11 @@ async def get_embed_footer(ctx=None, author=None, message=None, dm=False, guild=
             + FOOTER[1]
             + str(await get_author())
             + FOOTER[2]
-            + str(await get_prefix_string(message=message, guild=guild) if not dm else DEFAULT_PREFIX)
+            + str(
+                await get_prefix_string(message=message, guild=guild)
+                if not dm
+                else DEFAULT_PREFIX
+            )
         ),
         "icon_url": ICON_URL,
     }

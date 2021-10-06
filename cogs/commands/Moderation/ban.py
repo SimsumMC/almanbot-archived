@@ -26,7 +26,7 @@ class ban(commands.Cog):
                 embed = discord.Embed(
                     title="Fehler",
                     description="Du bist in der Hierarchie unter dem Nutzer den du bannen willst, daher bist du zu dieser Aktion nicht berechtigt!",
-                    colour=get_embedcolour(ctx.message),
+                    colour=await get_embedcolour(ctx.message),
                 )
                 embed._footer = await get_embed_footer(ctx)
                 embed._thumbnail = await get_embed_thumbnail()

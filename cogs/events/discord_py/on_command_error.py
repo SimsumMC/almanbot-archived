@@ -12,11 +12,13 @@ from discord.ext.commands import (
     BadArgument,
     MissingPermissions,
     Bot,
+    NSFWChannelRequired,
 )
 
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_errors import check_if_error
+from cogs.core.config.config_memechannel import memechannel_check
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_footer
 from cogs.core.functions.ctx_utils import get_commandname
@@ -33,10 +35,15 @@ class on_command_error(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         commandname = await get_commandname(ctx)
-        if not await botchannel_check(ctx):
-            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
-            return
-        elif isinstance(error, CommandNotFound):
+        if commandname in ["meme"]:
+            if not await memechannel_check(ctx):
+                Bot.dispatch(self.bot, "memechannelcheck_failure", ctx)
+                return
+        else:
+            if not await botchannel_check(ctx):
+                Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
+                return
+        if isinstance(error, CommandNotFound):
             if not await check_if_error(ctx=ctx, error="command_not_found"):
                 return
             embed = discord.Embed(
@@ -195,6 +202,25 @@ class on_command_error(commands.Cog):
                 + " hat nicht alle erforderlichen Argumente beim Befehl "
                 + await get_prefix_string(ctx.message)
                 + f"{commandname} eingegeben.",
+                guildid=ctx.guild.id,
+            )
+            return
+        elif isinstance(error, NSFWChannelRequired):
+            if not await check_if_error(ctx=ctx, error="not_nsfw_channel"):
+                return
+            embed = discord.Embed(
+                title="**Fehler**", colour=await get_embedcolour(ctx.message)
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            embed.add_field(
+                name="‎",
+                value=f"Der Befehl `{commandname}` kann nur in einem NSFW Kanal ausgeführt werden!",
+                inline=False,
+            )
+            await ctx.send(embed=embed)
+            await log(
+                f'{time}: Der Nutzer {user} hat versucht den NSFW Befehl "{commandname}" in einem normalen Kanal auszuführen.',
                 guildid=ctx.guild.id,
             )
             return

@@ -22,7 +22,7 @@ async def deletelines(path, amount):
 async def log(text, guildid):
     path = os.path.join("data", "logs", f"{guildid}.txt")
     with open(path, "a") as f:
-        f.write("\n" + text)
+        f.write(text + "\n")
     amount = await countlines(path=path)
     if amount >= 199:
         await deletelines(path=path, amount=amount - 200)

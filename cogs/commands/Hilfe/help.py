@@ -219,6 +219,11 @@ async def get_page(message, page, author=None):
             value="Erfahre meinen aktuellen Ping!",
             inline=False,
         )
+        embed.add_field(
+            name=f"**{prefix}commandstats**",
+            value="Siehe die Nutzungszahlen der Top-10 Befehle ein!",
+            inline=False,
+        )
     elif page == "informationen":
         embed = discord.Embed(
             title="**Hilfe Informationen**",
@@ -236,18 +241,13 @@ async def get_page(message, page, author=None):
             inline=False,
         )
         embed.add_field(
+            name=f"**{prefix}duden**",
+            value="Zeigt dir Informationen zu deutschen Wörtern an!",
+            inline=False,
+        )
+        embed.add_field(
             name=f"**{prefix}lookup**",
             value="Zeigt Daten zu einer angegebenen Domain an!",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"**{prefix}avatar**",
-            value="Gib dir das Profilbild von einem Nutzer aus!",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"**{prefix}servericon**",
-            value="Gib dir das Icon des aktuellen Servers aus!",
             inline=False,
         )
     elif page == "unterhaltung":
@@ -300,11 +300,6 @@ async def get_page(message, page, author=None):
             colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{prefix}levelling**",
-            value=f"Alle Einstellungsmöglichkeiten zum Levelsystem! ({prefix}levelling disable zum Deaktivieren)",
-            inline=False,
-        )
-        embed.add_field(
             name=f"**{prefix}rank**",
             value="Gibt Informationen zu dem Levelfortschritt des jeweiligen Nutzers!",
             inline=False,
@@ -312,6 +307,11 @@ async def get_page(message, page, author=None):
         embed.add_field(
             name=f"**{prefix}top**",
             value="Zeigt die Top 10 Spieler auf dem aktuellen Server an!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}levelling**",
+            value=f"Alle Einstellungsmöglichkeiten zum Levelsystem!",
             inline=False,
         )
 
@@ -358,13 +358,18 @@ async def get_page(message, page, author=None):
             colour=await get_embedcolour(message),
         )
         embed.add_field(
-            name=f"**{prefix}qr**",
-            value="Erstelle einen QR Code zu einer" " beliebigen Website!",
+            name=f"**{prefix}rechner**",
+            value="Ein fancy Rechner für einfache mathematische Probleme!",
             inline=False,
         )
         embed.add_field(
-            name=f"**{prefix}servericon**",
-            value="Gib dir das Profilbild von dem aktuellen Server aus!",
+            name=f"**{prefix}screenshot**",
+            value="Erstelle einen Screenshot von einer beliebigen Website!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}qr**",
+            value="Erstelle einen QR Code zu einer" " beliebigen Website!",
             inline=False,
         )
         embed.add_field(
@@ -373,8 +378,13 @@ async def get_page(message, page, author=None):
             inline=False,
         )
         embed.add_field(
-            name=f"**{prefix}rechner**",
-            value="Ein fancy Rechner für einfache mathematische Probleme!",
+            name=f"**{prefix}avatar**",
+            value="Gib dir das Profilbild von einem Nutzer aus!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}servericon**",
+            value="Gib dir das Profilbild von dem aktuellen Server aus!",
             inline=False,
         )
     elif page == "moderation":

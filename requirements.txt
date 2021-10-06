@@ -9,3 +9,6 @@ statcord.py>=3.1.0
 easy-pil >= 0.0.9
 aiohttp>=3.7.4.post0
 asyncpraw>=7.4.0
+selenium>=3.141.0
+duden>=0.15.0
+matplotlib>=3.4.3

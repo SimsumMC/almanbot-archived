@@ -26,7 +26,7 @@ async def redditnsfwcheck(reddit):
     url = f"https://www.reddit.com/r/{reddit}/about.json"
     async with aiohttp.ClientSession() as session:
         async with session.request("GET", url) as response:
-            data = await response.json()
+            data = await response.json(content_type="text/html")
             if data["data"]["over18"] is True:
                 return True
             return False

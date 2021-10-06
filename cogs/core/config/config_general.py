@@ -10,6 +10,8 @@ from config import (
     DEFAULT_BUTTONCOLOUR,
     DEFAULT_LEVELLING_COOLDOWN,
     DEFAULT_LEVELLING_XP_PER_MESSAGE,
+    DEFAULT_LVLUP_MESSAGE,
+    DEFAULT_LVLUP_MODE,
 )
 from discord.ext import commands
 
@@ -25,13 +27,13 @@ class config_general(commands.Cog):
 async def get_defaultconfig():
     data = {
         "prefix": DEFAULT_PREFIX,
-        "blacklist": [],
-        "botchannel": [],
-        "memechannel": [],
-        "autoroles": [],
-        "memesource": DEFAULT_MEMESOURCE,
         "embedcolour": DEFAULT_EMBEDCOLOUR,
         "buttoncolour": DEFAULT_BUTTONCOLOUR,
+        "memesource": DEFAULT_MEMESOURCE,
+        "botchannel": [],
+        "memechannel": [],
+        "blacklist": [],
+        "autoroles": [],
         "deactivated_commands": [],
         "trigger": {
             "triggerlist": DEFAULT_TRIGGER_LIST,
@@ -46,16 +48,19 @@ async def get_defaultconfig():
             "wrong_channel": True,
             "badargument": True,
             "command_on_cooldown": True,
+            "not_nsfw_channel": True,
         },
         "welcome_messages": {"active": False, "channel": None, "style": {}},
         "leave_messages": {"active": False, "channel": None, "style": {}},
         "tags": {"list": [], "tagmsg": {}},
         "levelling": {
             "messages": {
-                "on": False,
+                "on": True,
+                "mode": DEFAULT_LVLUP_MODE,  # dm , channel, same
                 "channel": None,
+                "content": DEFAULT_LVLUP_MESSAGE,  # {level} {xp} {old_level} {mention} {name}
             },
-            "activated": False,
+            "active": True,
             "cooldown": DEFAULT_LEVELLING_COOLDOWN,
             "xp_per_message": DEFAULT_LEVELLING_XP_PER_MESSAGE,
             "user": {},
