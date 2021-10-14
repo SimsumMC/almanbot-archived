@@ -11,7 +11,7 @@ class defaults_embeds(commands.Cog):
 
 
 async def get_embed_footer(
-    ctx=None, author=None, message=None, dm=False, guild=None
+    ctx=None, author=None, message=None, dm=False, guild=None, replace: list = None,
 ) -> dict:
     """
     :param guild:
@@ -40,6 +40,9 @@ async def get_embed_footer(
         ),
         "icon_url": ICON_URL,
     }
+    if replace:
+        for rep in replace:
+            footer_dict["text"] = footer_dict["text"].replace(rep[0], rep[1])
     return footer_dict
 
 

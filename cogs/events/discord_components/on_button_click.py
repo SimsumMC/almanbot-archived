@@ -2,7 +2,8 @@ import datetime
 
 from discord.ext import commands
 
-from cogs.commands.Hilfe.help import on_help_button
+from cogs.commands.Allgemein.help import on_help_button
+from cogs.commands.Tools.giveaways import on_giveaway_button
 from cogs.commands.Tools.rechner import on_calculator_button
 from cogs.commands.Unterhaltung.say import on_say_button
 from cogs.commands.Unterhaltung.ssp import on_ssp_button
@@ -21,13 +22,14 @@ class on_button_click(commands.Cog):
 
     @commands.Cog.listener()
     async def on_button_click(self, interaction):
-        wait_for_buttons = ["restore-blacklist", "restore-trigger"]
+        bypass_buttons = ["restore-blacklist", "restore-trigger", "giveaway_preview", "giveaway_start",
+                          "giveaway_cancel", "giveaway_join"]
         try:
             user = interaction.author.name
             if (
-                interaction.component.id not in wait_for_buttons
-                and interaction.message.id
-                not in await get_messages_from_cache(authorid=interaction.author.id)
+                    interaction.component.id not in bypass_buttons
+                    and interaction.message.id
+                    not in await get_messages_from_cache(authorid=interaction.author.id)
             ):
                 await interaction.respond(content=MISSING_PERMISSIONS_BUTTON_ERROR)
                 await log(
@@ -43,6 +45,8 @@ class on_button_click(commands.Cog):
                 await on_calculator_button(interaction)
             elif "ssp_" in interaction.component.id:
                 await on_ssp_button(interaction)
+            elif "giveaway" in interaction.component.id:
+                await on_giveaway_button(interaction)
         except Exception:
             # traceback.print_exc()
             pass

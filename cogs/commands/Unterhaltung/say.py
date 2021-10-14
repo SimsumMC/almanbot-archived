@@ -20,7 +20,7 @@ class say(commands.Cog):
         self.bot = bot
 
     @commands.command(usage="<Text>")
-    async def say(self, ctx, *, text: commands.clean_content):
+    async def say(self, ctx: commands.Context, *, text):
         time = datetime.datetime.now()
         msg2 = ctx.message
         user = ctx.author.name
@@ -46,6 +46,7 @@ class say(commands.Cog):
                         ),
                     ]
                 ],
+                allowed_mentions=discord.AllowedMentions.none()
             )
             await save_message_to_cache(message=msg, author=msg2.author)
             await log(

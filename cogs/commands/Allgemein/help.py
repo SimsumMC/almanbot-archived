@@ -224,6 +224,11 @@ async def get_page(message, page, author=None):
             value="Siehe die Nutzungszahlen der Top-10 Befehle ein!",
             inline=False,
         )
+        embed.add_field(
+            name=f"**{prefix}vorschlag**",
+            value="Schlage ein Feature / einen Befehl vor!",
+            inline=False,
+        )
     elif page == "informationen":
         embed = discord.Embed(
             title="**Hilfe Informationen**",
@@ -250,6 +255,11 @@ async def get_page(message, page, author=None):
             value="Zeigt Daten zu einer angegebenen Domain an!",
             inline=False,
         )
+        embed.add_field(
+            name=f"**{prefix}mcaccount**",
+            value="Gibt Informationen über einen bestimmten Minecraft Account aus!",
+            inline=False,
+        )
     elif page == "unterhaltung":
         embed = discord.Embed(
             title="**Hilfe Unterhaltung**",
@@ -259,6 +269,16 @@ async def get_page(message, page, author=None):
         embed.add_field(
             name=f"**{prefix}meme**",
             value="Zeigt dir einen zufälligen Meme" " von Reddit!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}ssp**",
+            value="Spiele Schere, Stein, Papier gegen mich!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}chat**",
+            value="Sprich mit mir - dabei lernst du auch noch Englisch!",
             inline=False,
         )
         embed.add_field(
@@ -272,8 +292,8 @@ async def get_page(message, page, author=None):
             inline=False,
         )
         embed.add_field(
-            name=f"**{prefix}ssp**",
-            value="Spiele Schere, Stein, Papier gegen mich!",
+            name=f"**{prefix}8ball**",
+            value="Der Orakel beantwortet jede deiner Fragen!",
             inline=False,
         )
         embed.add_field(
@@ -286,11 +306,6 @@ async def get_page(message, page, author=None):
         embed.add_field(
             name=f"**{prefix}say**",
             value="Ich spreche dir nach!",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"**{prefix}chat**",
-            value="Sprich mit mir - dabei lernst du auch noch Englisch!",
             inline=False,
         )
     elif page == "levelling":

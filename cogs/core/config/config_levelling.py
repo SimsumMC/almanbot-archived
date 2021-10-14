@@ -105,17 +105,18 @@ async def send_lvl_up_message(message: discord.Message, levelling_data: dict):
         await channel.send(embed=embed)
 
 
-async def get_user_levelling_data(user: discord.Member, guild: discord.Guild) -> dict:
+async def get_user_levelling_data(guild: discord.Guild, user: discord.Member = None, userid= None) -> dict:
+    userid = userid if userid else user.id
     path = os.path.join("data", "configs", f"{guild.id}.json")
     with open(path, "r") as f:
         data = json.load(f)
     levelling_dict = data["levelling"]["user"]
-    if str(user.id) not in levelling_dict:
-        data["levelling"]["user"][str(user.id)] = {
+    if str(userid) not in levelling_dict:
+        data["levelling"]["user"][str(userid)] = {
             "xp": 0,
             "level": 0,
         }
-    return data["levelling"]["user"][str(user.id)]
+    return data["levelling"]["user"][str(userid)]
 
 
 async def get_levelling_top(guild: discord.Guild) -> str:
@@ -139,10 +140,13 @@ async def get_levelling_top(guild: discord.Guild) -> str:
 
     for user in sorted_list:
         discord_user = client.get_user(int(user["id"]))
-        user_data = await get_user_levelling_data(user=discord_user, guild=guild)
+        if not discord_user:
+            user_data = await get_user_levelling_data(userid=int(user["id"]), guild=guild)
+        else:
+            user_data = await get_user_levelling_data(user=discord_user, guild=guild)
         top_string = (
                 top_string
-                + f"\n{passes}. {discord_user.mention} - Level: {user_data['level']} | XP: {user_data['xp']}"
+                + f"\n{passes}. {discord_user.mention if discord_user else '@<' + user['id'] + '>'} - Level: {user_data['level']} | XP: {user_data['xp']}"
         )
         passes += 1
     return top_string
