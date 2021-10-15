@@ -50,7 +50,6 @@ Du kannst mich einfach [einladen](https://discord.com/oauth2/authorize?client_id
 - Botlog über die Nutzungen des Bots
 - Komplett konfigurierbar über Discord
 - Wird stetig weiterentwickelt
-- Groß - und Kleinschreibung wird ignoriert
 - In Python geschrieben - leicht erweiterbar mit Cogs
 
 # Installation
