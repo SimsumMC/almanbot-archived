@@ -6,7 +6,7 @@
   <br>
 </h1> 
 
-<h4 align="center">Musik, Memes, (Auto-)Moderation, Informationen, Minigames und viel mehr! </h4>
+<h4 align="center">Musik, Levelling, (Auto-)Moderation, Memes, Informationen, Minigames und viel mehr! </h4>
 
 <p align="center">
   <a href="https://discord.gg/NaE4hccHtZ">
@@ -50,7 +50,6 @@ Du kannst mich einfach [einladen](https://discord.com/oauth2/authorize?client_id
 - Botlog über die Nutzungen des Bots
 - Komplett konfigurierbar über Discord
 - Wird stetig weiterentwickelt
-- Groß - und Kleinschreibung wird ignoriert
 - In Python geschrieben - leicht erweiterbar mit Cogs
 
 # Installation
