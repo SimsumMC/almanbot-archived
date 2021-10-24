@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import os
 import re
 import time as time_lib
 
@@ -12,9 +13,14 @@ from discord_components import Button, ButtonStyle
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_buttoncolour import get_buttoncolour
 from cogs.core.config.config_embedcolour import get_embedcolour
-from cogs.core.config.config_giveaways import create_giveaway, add_giveaway_member
+from cogs.core.config.config_giveaways import (
+    create_giveaway,
+    add_giveaway_member,
+    end_giveaway,
+)
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
+from cogs.core.functions.func_json import readjson, writejson
 from cogs.core.functions.logging import log
 from config import GIVEAWAY
 
@@ -34,24 +40,28 @@ async def convert(argument) -> bool and int:
     return True and round(time)
 
 
-async def get_giveaway_embed(message, prize, unix_time, winner_amount, author) -> discord.Embed:
+async def get_giveaway_embed(
+        message, prize, unix_time, winner_amount, author
+) -> discord.Embed:
     embed5 = discord.Embed(title="Gewinnspiel", colour=await get_embedcolour(message))
     embed5.add_field(
         name=f"Preis {f'({winner_amount}x)' if winner_amount > 1 else ''}",
         value=prize,
         inline=False,
     )
-    embed5.add_field(
-        name="Ende", value=f"<t:{unix_time}:R>", inline=False
+    embed5.add_field(name="Ende", value=f"<t:{unix_time}:R>", inline=False)
+    embed5._footer = await get_embed_footer(
+        message=message, replace=[["für", "von"]], author=author
     )
-    embed5._footer = await get_embed_footer(message=message, replace=[["für", "von"]], author=author)
     embed5.set_thumbnail(url=GIVEAWAY)
     return embed5
 
 
 async def on_giveaway_button(interaction: discord_components.interaction):
     if interaction.component.id == "giveaway_join":
-        if await add_giveaway_member(message=interaction.message, user=interaction.user):
+        if await add_giveaway_member(
+                message=interaction.message, user=interaction.user
+        ):
             await interaction.respond(content="Du nimmst jetzt am Gewinnspiel teil! 🎉")
         else:
             await interaction.respond(content="Du nimmst bereits am Gewinnspiel teil❗")
@@ -95,7 +105,9 @@ class giveaways(commands.Cog):
         embed.add_field(
             name=f"{prefix}g end", value="Beende ein Gewinnspiel sofort!", inline=False
         )
-        embed.add_field(name=f"{prefix}g reroll", value="Verlose ein Gewinnspiel neu!", inline=False)
+        embed.add_field(
+            name=f"{prefix}g reroll", value="Verlose ein Gewinnspiel neu!", inline=False
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -152,7 +164,9 @@ class giveaways(commands.Cog):
             else:
                 channel_check = False
                 for guild_channel in ctx.guild.channels:
-                    if guild_channel.name == giveaway_channel and isinstance(guild_channel, discord.TextChannel):
+                    if guild_channel.name == giveaway_channel and isinstance(
+                            guild_channel, discord.TextChannel
+                    ):
                         giveaway_channel = ctx.guild.get_channel(guild_channel.id)
                         channel_check = True
                         break
@@ -193,7 +207,6 @@ class giveaways(commands.Cog):
                 return
             if await convert(time_raw):
                 giveaway_time = int(time_lib.time()) + await convert(time_raw)
-                print(giveaway_time)
                 break
             else:
                 embed2_fehler = discord.Embed(
@@ -227,7 +240,11 @@ class giveaways(commands.Cog):
             if "cancel" in time_raw or "abbruch" in time_raw:
                 await msg.add_reaction(emoji="✅")
                 return
-            if 1 <= int(msg.content) <= 20:
+            try:
+                zahl = int(msg.content)
+            except ValueError:
+                zahl = 1
+            if 1 <= zahl <= 20:
                 giveaway_winner = int(msg.content)
                 break
             else:
@@ -290,10 +307,12 @@ class giveaways(commands.Cog):
         )
         while True:
             start_wait = round(time_lib.time())
-            print(start_wait)
             try:
                 interaction = await self.bot.wait_for(
-                    "button_click", check=lambda i: i.message.id == msg.id, timeout=60
+                    "button_click",
+                    check=lambda i: i.message.id == msg.id
+                                    and i.user.id == ctx.author.id,
+                    timeout=60,
                 )
                 giveaway_time = giveaway_time + (round(time_lib.time()) - start_wait)
             except asyncio.TimeoutError:
@@ -329,12 +348,11 @@ class giveaways(commands.Cog):
                         prize=giveaway_prize,
                         unix_time=giveaway_time,
                         winner_amount=giveaway_winner,
-                        author=ctx.author),
+                        author=ctx.author,
+                    ),
                     components=[
                         Button(
-                            style=await get_buttoncolour(
-                                message=interaction.message
-                            ),
+                            style=await get_buttoncolour(message=interaction.message),
                             custom_id="giveaway_join",
                             label="Beitreten",
                             emoji="🎉",
@@ -342,10 +360,15 @@ class giveaways(commands.Cog):
                         )
                     ],
                 )
-                await create_giveaway(author_id=ctx.author.id, channel_id=giveaway_channel.id,
-                                      message_id=giveaway_msg.id,
-                                      unix_time=giveaway_time, winner_amount=giveaway_winner, prize=giveaway_prize,
-                                      guild=ctx.guild)
+                await create_giveaway(
+                    author_id=ctx.author.id,
+                    channel_id=giveaway_channel.id,
+                    message_id=giveaway_msg.id,
+                    unix_time=giveaway_time,
+                    winner_amount=giveaway_winner,
+                    prize=giveaway_prize,
+                    guild=ctx.guild,
+                )
                 await interaction.respond(
                     content=f"Das Gewinnspiel wurde erfolgreich in {giveaway_channel.mention} gestartet!"
                 )
@@ -375,29 +398,33 @@ class giveaways(commands.Cog):
                 )
                 break
             elif interaction.component.id == "giveaway_cancel":
-                await msg.edit(components=[
-                    [
-                        Button(
-                            style=ButtonStyle.green,
-                            custom_id="giveaway_start",
-                            label="Start",
-                            disabled=True,
-                        ),
-                        Button(
-                            style=ButtonStyle.red,
-                            custom_id="giveaway_cancel",
-                            label="Abbruch",
-                            disabled=True,
-                        ),
-                        Button(
-                            style=ButtonStyle.blue,
-                            custom_id="giveaway_preview",
-                            label="Vorschau",
-                            disabled=True,
-                        ),
+                await msg.edit(
+                    components=[
+                        [
+                            Button(
+                                style=ButtonStyle.green,
+                                custom_id="giveaway_start",
+                                label="Start",
+                                disabled=True,
+                            ),
+                            Button(
+                                style=ButtonStyle.red,
+                                custom_id="giveaway_cancel",
+                                label="Abbruch",
+                                disabled=True,
+                            ),
+                            Button(
+                                style=ButtonStyle.blue,
+                                custom_id="giveaway_preview",
+                                label="Vorschau",
+                                disabled=True,
+                            ),
+                        ]
                     ]
-                ])
-                await interaction.respond(content="Das Giveaway Setup wurde erfolgreich abgebrochen!")
+                )
+                await interaction.respond(
+                    content="Das Giveaway Setup wurde erfolgreich abgebrochen!"
+                )
                 return
             elif interaction.component.id == "giveaway_preview":
                 embed: discord.Embed = await get_giveaway_embed(
@@ -405,10 +432,9 @@ class giveaways(commands.Cog):
                     prize=giveaway_prize,
                     unix_time=giveaway_time,
                     winner_amount=giveaway_winner,
-                    author=ctx.author
+                    author=ctx.author,
                 )
                 embed.title = "Giveaway Setup"
-                print(embed.title)
                 await interaction.respond(
                     type=7,
                     embed=embed,
@@ -439,7 +465,143 @@ class giveaways(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    # Mit discord.ext.loop checken -> Restarts etc
+    @giveaway.command(name="end", aliases=["e"])
+    @commands.has_permissions(manage_guild=True)
+    async def giveaway_end(self, ctx: commands.Context, message_id=None):
+        global giveaway_channel
+        if not await botchannel_check(ctx):
+            Bot.dispatch(self.bot, "botchannel9check_failure", ctx)
+            return
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        giveaway_list = await readjson(
+            key="giveaways", path=os.path.join("data", "cache", "giveaway_cache.json")
+        )
+        if message_id:
+            message_id = int(message_id)
+        else:
+            giveaway_list_reversed = reversed(giveaway_list)
+            for giveaway in giveaway_list_reversed:
+                if (
+                        giveaway["guild_id"] == ctx.guild.id
+                        and giveaway["channel_id"] == ctx.channel.id
+                ):
+                    message_id = giveaway["message_id"]
+                    break
+        for giveaway in giveaway_list:
+            if (
+                    giveaway["guild_id"] == ctx.guild.id
+                    and giveaway["message_id"] == message_id
+            ):
+                giveaway_dict = giveaway
+                giveaway_channel = giveaway["channel_id"]
+                await end_giveaway(self.bot, giveaway_dict)
+                await writejson(
+                    key="giveaways",
+                    value=giveaway_dict,
+                    path=os.path.join("data", "cache", "giveaway_cache.json"),
+                    mode="remove",
+                )
+                break
+        else:
+            embed = discord.Embed(
+                title="Fehler",
+                description=f"Es konnte kein Gewinnspiel {'in dem aktuellen Kanal' if not str(message_id) else 'mit der Nachricht-ID'}"
+                            f" {message_id if message_id else ''} gefunden werden das noch **aktiv** ist!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
+                "giveaway end zu nutzen, es konnte aber kein passendes Gewinnspiel gefunden werden!",
+                guildid=ctx.guild.id,
+            )
+            return
+        embed = discord.Embed(
+            title="Giveaway End",
+            description=f"Das Gewinnspiel mit der Message ID {message_id} wurde erfolgreich beendet!"
+                        f" \n\n [Jump](https://discord.com/channels/{ctx.guild.id}/{giveaway_channel}/{message_id})",
+            colour=await get_embedcolour(ctx.message),
+        )
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "giveaway end benutzt!",
+            guildid=ctx.guild.id,
+        )
+
+    @giveaway.command(name="reroll", aliases=["r"])
+    @commands.has_permissions(manage_guild=True)
+    async def giveaway_reroll(self, ctx: commands.Context, message_id=None):
+        global giveaway_channel
+        if not await botchannel_check(ctx):
+            Bot.dispatch(self.bot, "botchannel9check_failure", ctx)
+            return
+        time = datetime.datetime.now()
+        user = ctx.author.name
+        giveaway_list = await readjson(
+            key="giveaways", path=os.path.join("data", "cache", "giveaway_cache.json")
+        )
+        if message_id:
+            message_id = int(message_id)
+        else:
+            giveaway_list_reversed = reversed(giveaway_list)
+            for giveaway in giveaway_list_reversed:
+                if (
+                        giveaway["guild_id"] == ctx.guild.id
+                        and giveaway["channel_id"] == ctx.channel.id
+                ):
+                    message_id = giveaway["message_id"]
+                    break
+        for giveaway in giveaway_list:
+            if (
+                    giveaway["guild_id"] == ctx.guild.id
+                    and giveaway["message_id"] == message_id
+            ):
+                giveaway_dict = giveaway
+                giveaway_channel = giveaway["channel_id"]
+                await end_giveaway(self.bot, giveaway_dict)
+                await writejson(
+                    key="giveaways",
+                    value=giveaway_dict,
+                    path=os.path.join("data", "cache", "giveaway_cache.json"),
+                    mode="remove",
+                )
+                break
+        else:
+            embed = discord.Embed(
+                title="Fehler",
+                description=f"Es konnte kein Gewinnspiel {'in dem aktuellen Kanal' if not str(message_id) else 'mit der Nachricht-ID'}"
+                            f" {message_id if message_id else ''} gefunden werden das noch **aktiv** ist!",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
+                "giveaway end zu nutzen, es konnte aber kein passendes Gewinnspiel gefunden werden!",
+                guildid=ctx.guild.id,
+            )
+            return
+        embed = discord.Embed(
+            title="Giveaway Reroll",
+            description=f"Das Gewinnspiel mit der Message ID {message_id} wurde erfolgreich beendet!"
+                        f" \n\n [Jump](https://discord.com/channels/{ctx.guild.id}/{giveaway_channel}/{message_id})",
+            colour=await get_embedcolour(ctx.message),
+        )
+        embed._footer = await get_embed_footer(ctx)
+        embed._thumbnail = await get_embed_thumbnail()
+        await ctx.send(embed=embed)
+        await log(
+            f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
+            "giveaway end benutzt!",
+            guildid=ctx.guild.id,
+        )
 
 
 ########################################################################################################################

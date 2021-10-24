@@ -80,10 +80,16 @@ class levelling(commands.Cog):
         role_dict = dict(await get_levelling_config(guild=ctx.guild))["roles"]
         role_dict_sorted = sorted(role_dict, key=lambda i: i)
         embed = discord.Embed(
-            title="Levelling Roles", description="".join(
-                [f'Level {lvl}: {(ctx.guild.get_role(role_dict[lvl])).mention}\n' for lvl in
-                 role_dict_sorted]) if role_dict != {} else "Keine Levellingrollen konfiguriert!",
-            colour=await get_embedcolour(ctx.message)
+            title="Levelling Roles",
+            description="".join(
+                [
+                    f"Level {lvl}: {(ctx.guild.get_role(role_dict[lvl])).mention}\n"
+                    for lvl in role_dict_sorted
+                ]
+            )
+            if role_dict != {}
+            else "Keine Levellingrollen konfiguriert!",
+            colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
@@ -105,20 +111,30 @@ class levelling(commands.Cog):
         prefix = await get_prefix_string(ctx.message)
         levelling_dict: dict = await get_levelling_config(guild=ctx.guild)
         embed = discord.Embed(
-            title="Levelling Settings", description="Hier findest die derzeitigen Einstellungen zum Levelsystem!",
-            colour=await get_embedcolour(ctx.message)
+            title="Levelling Settings",
+            description="Hier findest die derzeitigen Einstellungen zum Levelsystem!",
+            colour=await get_embedcolour(ctx.message),
         )
-        embed.add_field(name="Status", value="Aktiviert" if levelling_dict["active"] else "Deaktiviert", inline=False)
-        embed.add_field(name="XP pro Nachricht", value=str(levelling_dict["xp_per_message"]) + "s", inline=False)
-        embed.add_field(name="Cooldown", value=str(levelling_dict["cooldown"]) + "s", inline=False)
-        nachricht_value = f'''
+        embed.add_field(
+            name="Status",
+            value="Aktiviert" if levelling_dict["active"] else "Deaktiviert",
+            inline=False,
+        )
+        embed.add_field(
+            name="XP pro Nachricht",
+            value=str(levelling_dict["xp_per_message"]) + "s",
+            inline=False,
+        )
+        embed.add_field(
+            name="Cooldown", value=str(levelling_dict["cooldown"]) + "s", inline=False
+        )
+        nachricht_value = f"""
         Status: {"aktiv" if levelling_dict["messages"]["on"] else "deaktiviert"}
         Modus: {levelling_dict["messages"]["mode"]} {"" if levelling_dict["messages"]["mode"] != "channel" else ctx.guild.get_channel(levelling_dict["messages"]["channel"]).mention}
         Nachricht:
         _{levelling_dict["messages"]["content"]}_
-        '''
-        embed.add_field(name="Nachrichten",
-                        value=nachricht_value, inline=False)
+        """
+        embed.add_field(name="Nachrichten", value=nachricht_value, inline=False)
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -132,6 +148,7 @@ class levelling(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def levelling_toggle(self, ctx: commands.Context):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "levelling toggle"
                 param = "subcommand"
@@ -155,7 +172,11 @@ class levelling(commands.Cog):
         embed = discord.Embed(
             title="Levelling Toggle All", colour=await get_embedcolour(ctx.message)
         )
-        embed.add_field(name="‎", value=f"Das Levelsystem wurde erfolgreich {toggle_str}!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Das Levelsystem wurde erfolgreich {toggle_str}!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -182,7 +203,11 @@ class levelling(commands.Cog):
         embed = discord.Embed(
             title="Levelling Toggle Messages", colour=await get_embedcolour(ctx.message)
         )
-        embed.add_field(name="‎", value=f"Das Levelsystem-Nachrichten wurden erfolgreich {toggle_str}!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Das Levelsystem-Nachrichten wurden erfolgreich {toggle_str}!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -192,18 +217,24 @@ class levelling(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @levelling.group(name="set", aliases=["s"],
-                     usage="<xp_per_msg / cooldown / message_mode / message_content / roles>")
+    @levelling.group(
+        name="set",
+        aliases=["s"],
+        usage="<xp_per_msg / cooldown / message_mode / message_content / roles>",
+    )
     @commands.has_permissions(administrator=True)
     async def levelling_set(self, ctx: commands.Context):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "levelling set"
                 param = "subcommand"
 
             raise MissingRequiredArgument(error)
 
-    @levelling_set.command(name="xp_per_msg", aliases=["xppm", "xp_per_message"], usage="<Anzahl>")
+    @levelling_set.command(
+        name="xp_per_msg", aliases=["xppm", "xp_per_message"], usage="<Anzahl>"
+    )
     @commands.has_permissions(administrator=True)
     async def levelling_set_xpm(self, ctx: commands.Context, xp: int):
         if not await botchannel_check(ctx):
@@ -233,7 +264,11 @@ class levelling(commands.Cog):
         embed = discord.Embed(
             title="Levelling Set XP_PER_MSG", colour=await get_embedcolour(ctx.message)
         )
-        embed.add_field(name="‎", value=f"Die XP pro Nachricht wurden auf ```{xp}``` gesetzt!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Die XP pro Nachricht wurden auf ```{xp}``` gesetzt!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -243,7 +278,9 @@ class levelling(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @levelling_set.command(name="cooldown", aliases=["c", "slowdown", "verzögerung"], usage="<Sekunden>")
+    @levelling_set.command(
+        name="cooldown", aliases=["c", "slowdown", "verzögerung"], usage="<Sekunden>"
+    )
     @commands.has_permissions(administrator=True)
     async def levelling_set_cooldown(self, ctx: commands.Context, cooldown: int):
         if not await botchannel_check(ctx):
@@ -273,7 +310,11 @@ class levelling(commands.Cog):
         embed = discord.Embed(
             title="Levelling Set Cooldown", colour=await get_embedcolour(ctx.message)
         )
-        embed.add_field(name="‎", value=f"Der Cooldown wurde auf ```{cooldown}s``` gesetzt!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Der Cooldown wurde auf ```{cooldown}s``` gesetzt!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -283,10 +324,15 @@ class levelling(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @levelling_set.command(name="message_mode", aliases=["msgm", "mode"],
-                           usage="<same / channel / dm> <opt. #Channel>")
+    @levelling_set.command(
+        name="message_mode",
+        aliases=["msgm", "mode"],
+        usage="<same / channel / dm> <opt. #Channel>",
+    )
     @commands.has_permissions(administrator=True)
-    async def levelling_set_message_mode(self, ctx: commands.Context, mode, channel: discord.TextChannel = None):
+    async def levelling_set_message_mode(
+        self, ctx: commands.Context, mode, channel: discord.TextChannel = None
+    ):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
@@ -312,8 +358,8 @@ class levelling(commands.Cog):
         elif mode == channel and not channel:
             embed = discord.Embed(
                 title="**Fehler**",
-                description=f'Wenn du den Modus `channel` nutzen möchtest, musst du auch einen dazugehörigen Channel angeben.'
-                            f'In deinem Fall wäre das: {prefix}levelling set message_mode channel <dein #Channel> !',
+                description=f"Wenn du den Modus `channel` nutzen möchtest, musst du auch einen dazugehörigen Channel angeben."
+                f"In deinem Fall wäre das: {prefix}levelling set message_mode channel <dein #Channel> !",
                 colour=await get_embedcolour(ctx.message),
             )
             embed._thumbnail = await get_embed_thumbnail()
@@ -330,9 +376,14 @@ class levelling(commands.Cog):
             levelling_dict["messages"]["channel"] = channel.id
         await writejson(key="levelling", value=levelling_dict, path=path)
         embed = discord.Embed(
-            title="Levelling Set Message Mode", colour=await get_embedcolour(ctx.message)
+            title="Levelling Set Message Mode",
+            colour=await get_embedcolour(ctx.message),
         )
-        embed.add_field(name="‎", value=f"Der Message-Mode wurde auf ```{mode}``` gesetzt!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Der Message-Mode wurde auf ```{mode}``` gesetzt!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -342,7 +393,9 @@ class levelling(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @levelling_set.command(name="message_content", aliases=["msgc", "content"], usage="<Nachrichtenhalt>")
+    @levelling_set.command(
+        name="message_content", aliases=["msgc", "content"], usage="<Nachrichtenhalt>"
+    )
     @commands.has_permissions(administrator=True)
     async def levelling_set_message_mode(self, ctx: commands.Context, content):
         if not await botchannel_check(ctx):
@@ -371,9 +424,14 @@ class levelling(commands.Cog):
         levelling_dict["messages"]["content"] = content
         await writejson(key="levelling", value=levelling_dict, path=path)
         embed = discord.Embed(
-            title="Levelling Set Message Content", colour=await get_embedcolour(ctx.message)
+            title="Levelling Set Message Content",
+            colour=await get_embedcolour(ctx.message),
         )
-        embed.add_field(name="‎", value=f"Der Message-Content wurde erfolgreich geändert!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Der Message-Content wurde erfolgreich geändert!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -383,20 +441,26 @@ class levelling(commands.Cog):
             guildid=ctx.guild.id,
         )
 
-    @levelling_set.group(name="roles", aliases=["rollen", "role"],
-                         usage="<add / remove>")
+    @levelling_set.group(
+        name="roles", aliases=["rollen", "role"], usage="<add / remove>"
+    )
     @commands.has_permissions(administrator=True)
     async def levelling_set_roles(self, ctx: commands.Context):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "levelling set roles"
                 param = "subcommand"
 
             raise MissingRequiredArgument(error)
 
-    @levelling_set_roles.command(name="add", aliases=["hinzufügen"], usage="<Level> <@Rolle>")
+    @levelling_set_roles.command(
+        name="add", aliases=["hinzufügen"], usage="<Level> <@Rolle>"
+    )
     @commands.has_permissions(administrator=True)
-    async def levelling_set_roles_add(self, ctx: commands.Context, level: int, role: discord.Role):
+    async def levelling_set_roles_add(
+        self, ctx: commands.Context, level: int, role: discord.Role
+    ):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
@@ -425,7 +489,11 @@ class levelling(commands.Cog):
         embed = discord.Embed(
             title="Levelling Set Roles Add", colour=await get_embedcolour(ctx.message)
         )
-        embed.add_field(name="‎", value=f"Bei Level {level} wurde erfolgreich die Rolle {role.mention} gesetzt!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Bei Level {level} wurde erfolgreich die Rolle {role.mention} gesetzt!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)
@@ -465,10 +533,14 @@ class levelling(commands.Cog):
         del levelling_dict["roles"][str(level)]
         await writejson(key="levelling", value=levelling_dict, path=path)
         embed = discord.Embed(
-            title="Levelling Set Roles Remove", colour=await get_embedcolour(ctx.message)
+            title="Levelling Set Roles Remove",
+            colour=await get_embedcolour(ctx.message),
         )
-        embed.add_field(name="‎", value=f"Bei Level {level} wurde erfolgreich die Rolle {ctx.guild.get_role(backup_levelling_dict['roles'][str(level)]).mention} entfernt!",
-                        inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Bei Level {level} wurde erfolgreich die Rolle {ctx.guild.get_role(backup_levelling_dict['roles'][str(level)]).mention} entfernt!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)

@@ -16,7 +16,9 @@ class suggestion(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="vorschlag", aliases=["suggest", "suggestion"], usage="<Vorschlag>")
+    @commands.command(
+        name="vorschlag", aliases=["suggest", "suggestion"], usage="<Vorschlag>"
+    )
     async def vorschlag(self, ctx: commands.Context, *, _suggestion):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
@@ -27,7 +29,9 @@ class suggestion(commands.Cog):
         _suggestion = str(_suggestion)
         # Channel Embed
         embed = discord.Embed(
-            title="Vorschlag", description=_suggestion, colour=await get_embedcolour(ctx.message)
+            title="Vorschlag",
+            description=_suggestion,
+            colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx, replace=[["für", "von"]])
         embed._thumbnail = await get_embed_thumbnail()
@@ -38,7 +42,11 @@ class suggestion(commands.Cog):
         embed = discord.Embed(
             title="Vorschlag", colour=await get_embedcolour(ctx.message)
         )
-        embed.add_field(name="‎", value=f"Dein Vorschlag wurde erfolgreich in {channel.mention} gesendet!", inline=False)
+        embed.add_field(
+            name="‎",
+            value=f"Dein Vorschlag wurde erfolgreich in {channel.mention} gesendet!",
+            inline=False,
+        )
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         await ctx.send(embed=embed)

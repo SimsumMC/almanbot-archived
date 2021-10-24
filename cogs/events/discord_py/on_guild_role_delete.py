@@ -19,13 +19,9 @@ class on_guild_role_delete(commands.Cog):
         if role.id in levelling_roles:
             key = dict((v, k) for k, v in roles.items()).get(role.id)
             del levelling_dict["roles"][key]
-            await writejson(
-                key="levelling", value=levelling_dict, path=path
-            )
+            await writejson(key="levelling", value=levelling_dict, path=path)
         elif role.id in autoroles:
-            await writejson(
-                key="autoroles", value=role.id, path=path, mode="remove"
-            )
+            await writejson(key="autoroles", value=role.id, path=path, mode="remove")
 
 
 ########################################################################################################################

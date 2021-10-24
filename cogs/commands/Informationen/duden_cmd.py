@@ -72,9 +72,9 @@ class duden_cmd(commands.Cog):
                 embed.add_field(
                     name="Bedeutung",
                     value=(
-                        "".join([m.replace("\n", " ") + ", " for m in w.meaning_overview])[
-                        :-2
-                        ]
+                        "".join(
+                            [m.replace("\n", " ") + ", " for m in w.meaning_overview]
+                        )[:-2]
                         if isinstance(w.meaning_overview, list)
                         else str(w.meaning_overview)
                     )
@@ -116,7 +116,9 @@ class duden_cmd(commands.Cog):
                 )
                 embed.add_field(
                     name="Synonyme",
-                    value="".join([synonym for synonym in w.synonyms]) if not None else "-",
+                    value="".join([synonym for synonym in w.synonyms])
+                    if not None
+                    else "-",
                     inline=False,
                 )
                 embed.add_field(
@@ -143,7 +145,9 @@ class duden_cmd(commands.Cog):
                 )
                 embed.add_field(
                     name="Synonyme",
-                    value="".join([synonym for synonym in w.synonyms]) if not None else "-",
+                    value="".join([synonym for synonym in w.synonyms])
+                    if not None
+                    else "-",
                     inline=False,
                 )
                 embed.add_field(

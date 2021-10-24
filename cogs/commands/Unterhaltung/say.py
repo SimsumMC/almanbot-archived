@@ -46,7 +46,7 @@ class say(commands.Cog):
                         ),
                     ]
                 ],
-                allowed_mentions=discord.AllowedMentions.none()
+                allowed_mentions=discord.AllowedMentions.none(),
             )
             await save_message_to_cache(message=msg, author=msg2.author)
             await log(

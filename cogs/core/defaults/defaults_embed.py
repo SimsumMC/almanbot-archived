@@ -1,5 +1,5 @@
 from discord.ext import commands
-
+import discord
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.functions.functions import get_author
 from config import FOOTER, ICON_URL, THUMBNAIL_URL, DEFAULT_PREFIX
@@ -11,14 +11,20 @@ class defaults_embeds(commands.Cog):
 
 
 async def get_embed_footer(
-    ctx=None, author=None, message=None, dm=False, guild=None, replace: list = None,
+    ctx: commands.Context = None,
+    author: discord.Member = None,
+    message: discord.Message = None,
+    dm: bool = False,
+    guild: discord.Guild = None,
+    replace: list = None,
 ) -> dict:
     """
-    :param guild:
-    :param dm:
-    :param author:
-    :param ctx:
-    :param message:
+    :param ctx: discord.ext.commands.Context -> author / prefix
+    :param message: discord.Message -> author / prefix
+    :param guild: discord.Guild -> prefix
+    :param dm: bool -> prefix
+    :param author: discord.Member -> author
+    :param replace: list of arrays, for example [["1", "2"]] would replace "1" in the footer with "2"
     :return: dictionary
     """
     if ctx:

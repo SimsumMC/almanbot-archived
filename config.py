@@ -38,37 +38,38 @@ COIN_HEAD = "https://cdn.discordapp.com/attachments/851853486948745246/851853519
 COIN_NUMBER = "https://cdn.discordapp.com/attachments/851853486948745246/851853652002996224/zahl.png"
 SSP = "https://cdn.discordapp.com/attachments/645276319311200286/803373963316953158/stp.png"
 CUBE = "https://cdn.discordapp.com/attachments/645276319311200286/803550939112931378/wurfelv2.png"
-
+GIVEAWAY = "https://media.discordapp.net/attachments/851853486948745246/897609523911614534/1f389.png"
 # TOKEN
 
 DISCORD_TOKEN = (
-    "your token"  # to run the bot
+    "ODEwOTMzMTI0NTk4NTk1NjE0.YCq2Uw.ZbRn0JfpKk9JN0XzRSMqgWeSVvQ"  # to run the bot
 )
-STATCORD_TOKEN = "statcord token"  # Optional, for bot stats ->
+STATCORD_TOKEN = "statcord.com-OcSdYoeaMLzCassriL2I"  # Optional, for bot stats ->
 REDDIT_APP = {  # for the memes command, just create an application on reddit
-    "client_id": "id",
-    "client_secret": "secret",
+    "client_id": "JiHoJGCPBC9vlg",
+    "client_secret": "egXFBVdIx7ucn9_6tji18kyLClWCIA",
 }
 
 # PATHS
 
-CHROMEDRIVER_PATH = "path to chromedriver"
+CHROMEDRIVER_PATH = "C:/Users/1234n/Downloads/chromedriver_win32/chromedriver"
 
 
 class lavalink:  # for music module
-    host = "host"
-    port = "port"
-    rest_uri = "rest url"
+    host = "lava.link"
+    port = "80"
+    rest_uri = "http://lava.link:80"
     passwort = BOT_NAME
     identifier = BOT_NAME
-    region = "region"
+    region = "europe"
 
 
 # DEFAULTS | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause crashes *while* running (when receiving messages)
 
-DEFAULT_TRIGGER_LIST = ["Alman Bot"]
+DEFAULT_TRIGGER_LIST = ["Alman Bot", "SimsumMC"]
 DEFAULT_TRIGGER = {
     "Alman Bot": "Hey, Ich bins!",
+    "SimsumMC": "Das ist der komische RGB Fan, der für meine Existenz verantwortlich ist..."
 }
 
 """ Example for more Triggers
@@ -141,8 +142,8 @@ EMBEDCOLOURS_SUPPORTED = [
 
 # Developer Settings | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause the bot to instant leave your server and misfunctions
 
-TESTING_MODE = False  # only allowing Servers to join GUILDS with ID in TESTING_GUILDS, removes guild owner bypasses and more
-TESTING_GUILDS = []
+TESTING_MODE = False # only allowing Servers to join GUILDS with ID in TESTING_GUILDS, removes guild owner bypasses and more
+TESTING_GUILDS = [802923248840867840, 778288526608433172, 825502579474563103]
 
 WRONG_CHANNEL_ERROR_DELETE_AFTER = 5
 BLACKLIST_DELETE_AFTER = 5

@@ -16,8 +16,11 @@ class minecraft(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="mcaccount", aliases=["mc", "mcinfo", "accinfo", "minecraft"],
-                      usage="<Name / UUID>")
+    @commands.command(
+        name="mcaccount",
+        aliases=["mc", "mcinfo", "accinfo", "minecraft"],
+        usage="<Name / UUID>",
+    )
     async def mcaccount(self, ctx: commands.Context, name: str):
         global uuid
         if not await botchannel_check(ctx):
@@ -30,7 +33,9 @@ class minecraft(commands.Cog):
         if len(name) == 32:  # TRY UUID
             uuid = name
             async with aiohttp.ClientSession() as session:
-                async with session.request("GET", f"https://api.mojang.com/user/profiles/{uuid}/names") as response:
+                async with session.request(
+                    "GET", f"https://api.mojang.com/user/profiles/{uuid}/names"
+                ) as response:
                     if response.status != 200:
                         embed = discord.Embed(
                             title="**Fehler**",
@@ -38,7 +43,8 @@ class minecraft(commands.Cog):
                             colour=await get_embedcolour(ctx.message),
                         )
                         embed.set_thumbnail(
-                            url="https://media.discordapp.net/attachments/851853486948745246/896803463856553984/minecraft.png")
+                            url="https://media.discordapp.net/attachments/851853486948745246/896803463856553984/minecraft.png"
+                        )
                         embed._footer = await get_embed_footer(ctx)
                         await ctx.send(embed=embed)
                         await log(
@@ -51,8 +57,9 @@ class minecraft(commands.Cog):
                     name_history = await get_name_history(data)
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.request("GET",
-                                           f"https://api.mojang.com/users/profiles/minecraft/{name}") as response:
+                async with session.request(
+                    "GET", f"https://api.mojang.com/users/profiles/minecraft/{name}"
+                ) as response:
                     if response.status != 200:
                         embed = discord.Embed(
                             title="**Fehler**",
@@ -60,7 +67,8 @@ class minecraft(commands.Cog):
                             colour=await get_embedcolour(ctx.message),
                         )
                         embed.set_thumbnail(
-                            url="https://media.discordapp.net/attachments/851853486948745246/896803463856553984/minecraft.png")
+                            url="https://media.discordapp.net/attachments/851853486948745246/896803463856553984/minecraft.png"
+                        )
                         embed._footer = await get_embed_footer(ctx)
                         await ctx.send(embed=embed)
                         await log(
@@ -71,7 +79,9 @@ class minecraft(commands.Cog):
                     data = await response.json()
                     uuid = data["id"]
                     name = data["name"]
-                async with session.request("GET", f"https://api.mojang.com/user/profiles/{uuid}/names") as response:
+                async with session.request(
+                    "GET", f"https://api.mojang.com/user/profiles/{uuid}/names"
+                ) as response:
                     data = await response.json()
                     name_history = await get_name_history(data)
         embed = discord.Embed(
@@ -80,11 +90,14 @@ class minecraft(commands.Cog):
         embed.add_field(name="Name", value=name, inline=False)
         embed.add_field(name="UUID", value=uuid, inline=False)
         embed.add_field(name="Name History", value=name_history, inline=False)
-        embed.add_field(name="Links",
-                        value=f"[Skin Download](https://crafatar.com/skins/{uuid}) | [NameMC Profil](https://de.namemc.com/{name})",
-                        inline=False)
+        embed.add_field(
+            name="Links",
+            value=f"[Skin Download](https://crafatar.com/skins/{uuid}) | [NameMC Profil](https://de.namemc.com/{name})",
+            inline=False,
+        )
         embed.set_thumbnail(
-            url="https://media.discordapp.net/attachments/851853486948745246/896803463856553984/minecraft.png")
+            url="https://media.discordapp.net/attachments/851853486948745246/896803463856553984/minecraft.png"
+        )
         embed.set_image(url=f"https://crafatar.com/renders/body/{uuid}?overlay.png")
         embed._footer = await get_embed_footer(ctx)
         await ctx.send(embed=embed)
@@ -98,7 +111,10 @@ class minecraft(commands.Cog):
 async def get_name_history(history: list) -> str:
     history_str = ""
     for dict in history:
-        history_str = history_str + f'{dict["name"]} {"◌ <t:" + str(dict["changedToAt"])[:-3] + ":R>" if "changedToAt" in dict else ""} \n'
+        history_str = (
+            history_str
+            + f'{dict["name"]} {"◌ <t:" + str(dict["changedToAt"])[:-3] + ":R>" if "changedToAt" in dict else ""} \n'
+        )
     return history_str
 
 

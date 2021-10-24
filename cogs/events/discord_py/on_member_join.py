@@ -26,7 +26,9 @@ class on_member_join(commands.Cog):
                     colour=await get_embedcolour(guild=member.guild),
                 )
                 embed._footer, embed._thumbnail = (
-                    await get_embed_footer(guild=member.guild, author=member.guild.owner),
+                    await get_embed_footer(
+                        guild=member.guild, author=member.guild.owner
+                    ),
                     await get_embed_thumbnail(),
                 )
                 await member.guild.owner.send(embed=embed)

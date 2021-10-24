@@ -39,14 +39,13 @@ async def add_user_xp(message: discord.Message, xp: int, cooldown=True, messages
     )
     while True:
         if (
-                data["levelling"]["user"][str(user.id)]["xp"]
-                >= (data["levelling"]["user"][str(user.id)]["level"] + 1) * 100
+            data["levelling"]["user"][str(user.id)]["xp"]
+            >= (data["levelling"]["user"][str(user.id)]["level"] + 1) * 100
         ):
             data["levelling"]["user"][str(user.id)]["level"] += 1
             data["levelling"]["user"][str(user.id)]["xp"] = data["levelling"]["user"][
-                                                                str(user.id)
-                                                            ]["xp"] - (data["levelling"]["user"][str(user.id)][
-                                                                           "level"] * 100)
+                str(user.id)
+            ]["xp"] - (data["levelling"]["user"][str(user.id)]["level"] * 100)
             lvl_str = str(data["levelling"]["user"][str(user.id)]["level"])
             if lvl_str in data["levelling"]["roles"]:
                 role = message.guild.get_role(data["levelling"]["roles"][lvl_str])
@@ -59,12 +58,16 @@ async def add_user_xp(message: discord.Message, xp: int, cooldown=True, messages
                         colour=await get_embedcolour(guild=message.guild),
                     )
                     embed._footer, embed._thumbnail = (
-                        await get_embed_footer(guild=message.guild, author=message.guild.owner),
+                        await get_embed_footer(
+                            guild=message.guild, author=message.guild.owner
+                        ),
                         await get_embed_thumbnail(),
                     )
                     await message.guild.owner.send(embed=embed)
             if messages:
-                await send_lvl_up_message(message, levelling_data=data["levelling"]["user"][str(user.id)])
+                await send_lvl_up_message(
+                    message, levelling_data=data["levelling"]["user"][str(user.id)]
+                )
         else:
             break
 
@@ -105,7 +108,9 @@ async def send_lvl_up_message(message: discord.Message, levelling_data: dict):
         await channel.send(embed=embed)
 
 
-async def get_user_levelling_data(guild: discord.Guild, user: discord.Member = None, userid= None) -> dict:
+async def get_user_levelling_data(
+    guild: discord.Guild, user: discord.Member = None, userid=None
+) -> dict:
     userid = userid if userid else user.id
     path = os.path.join("data", "configs", f"{guild.id}.json")
     with open(path, "r") as f:
@@ -121,6 +126,7 @@ async def get_user_levelling_data(guild: discord.Guild, user: discord.Member = N
 
 async def get_levelling_top(guild: discord.Guild) -> str:
     from main import client
+
     path = os.path.join("data", "configs", f"{guild.id}.json")
     with open(path, "r") as f:
         data = json.load(f)
@@ -141,12 +147,14 @@ async def get_levelling_top(guild: discord.Guild) -> str:
     for user in sorted_list:
         discord_user = client.get_user(int(user["id"]))
         if not discord_user:
-            user_data = await get_user_levelling_data(userid=int(user["id"]), guild=guild)
+            user_data = await get_user_levelling_data(
+                userid=int(user["id"]), guild=guild
+            )
         else:
             user_data = await get_user_levelling_data(user=discord_user, guild=guild)
         top_string = (
-                top_string
-                + f"\n{passes}. {discord_user.mention if discord_user else '@<' + user['id'] + '>'} - Level: {user_data['level']} | XP: {user_data['xp']}"
+            top_string
+            + f"\n{passes}. {discord_user.mention if discord_user else '@<' + user['id'] + '>'} - Level: {user_data['level']} | XP: {user_data['xp']}"
         )
         passes += 1
     return top_string

@@ -92,11 +92,11 @@ class config(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-                 + ": Der Nutzer "
-                 + str(user)
-                 + " hat den Befehl "
-                 + prefix
-                 + "config hilfe benutzt.",
+            + ": Der Nutzer "
+            + str(user)
+            + " hat den Befehl "
+            + prefix
+            + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -153,7 +153,8 @@ class config(commands.Cog):
         embed.add_field(
             name="**Autoroles**",
             value=await get_autorole_mentions_list(guild=ctx.guild),
-            inline=False)
+            inline=False,
+        )
         embed.add_field(
             name="**Levelsystem**",
             value=f"Mehr Infos unter {await get_prefix_string(ctx.message)}levelling und {await get_prefix_string(ctx.message)}levelling roles!",
@@ -162,8 +163,8 @@ class config(commands.Cog):
         embed.add_field(
             name="**Deaktivierte Befehle**",
             value="".join([cmd + ", " for cmd in config_json["deactivated_commands"]])[
-                  :-2
-                  ]
+                :-2
+            ]
             if config_json["deactivated_commands"]
             else "Aktuell sind keine Befehle deaktiviert!",
             inline=False,
@@ -176,18 +177,18 @@ class config(commands.Cog):
                     for e in config_json["errors"]
                 ]
             )
-                .replace("False", "🔴")
-                .replace("True", "🟢"),
+            .replace("False", "🔴")
+            .replace("True", "🟢"),
             inline=False,
         )
         await ctx.send(embed=embed)
         await log(
             text=str(time)
-                 + ": Der Nutzer "
-                 + str(user)
-                 + " hat den Befehl "
-                 + await get_prefix_string(ctx.message)
-                 + "config hilfe benutzt.",
+            + ": Der Nutzer "
+            + str(user)
+            + " hat den Befehl "
+            + await get_prefix_string(ctx.message)
+            + "config hilfe benutzt.",
             guildid=ctx.guild.id,
         )
 
@@ -254,6 +255,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_colour(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config colour"
                 param = "subcommand"
@@ -267,6 +269,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_colour_embed(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config colour embed"
                 param = "subcommand"
@@ -320,8 +323,8 @@ class config(commands.Cog):
         time = datetime.datetime.now()
         user = ctx.author.name
         colours = "".join([colour.capitalize() + ", " for colour in EMBEDCOLOUR_CODES])[
-                  :-2
-                  ]
+            :-2
+        ]
         embed = discord.Embed(
             title="**Config Colour**",
             description=colours,
@@ -341,6 +344,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_colour_button(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config colour button"
                 param = "subcommand"
@@ -424,6 +428,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_botchannel(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config botchannel"
                 param = "subcommand"
@@ -523,6 +528,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_memechannel(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config memechannel"
                 param = "subcommand"
@@ -576,7 +582,7 @@ class config(commands.Cog):
     @commands.cooldown(1, cooldown, commands.BucketType.guild)
     @commands.has_permissions(administrator=True)
     async def config_memechannel_remove(
-            self, ctx: commands.Context, channel: discord.TextChannel
+        self, ctx: commands.Context, channel: discord.TextChannel
     ):
         prefix = await get_prefix_string(ctx.message)
         time = datetime.datetime.now()
@@ -624,6 +630,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_autoroles(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config autoroles"
                 param = "subcommand"
@@ -787,7 +794,7 @@ class config(commands.Cog):
             return
         try:
             if await meme_is_checked(str(reddit.lower())) or await redditnsfwcheck(
-                    reddit=str(reddit.lower())
+                reddit=str(reddit.lower())
             ):
                 await writejson(
                     key="memesource", value=str(reddit.lower), path=path, mode="remove"
@@ -827,9 +834,9 @@ class config(commands.Cog):
             embed = discord.Embed(
                 title="**Fehler**",
                 description=f"Beim Reddit **{reddit}** ist wohl etwas schiefgelaufen. "
-                            "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
-                            "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
-                            "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
+                "Das könnte z.B. bedeuten das der Reddit nicht existiert oder das der Reddit "
+                "aufgrund von zu vielen Anfragen nicht automatisch auf NSFW Content überprüft "
+                "wurde. Sollte letzteres zutreffen, warte ein paar Minuten!",
                 color=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
@@ -846,6 +853,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_error(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config error"
                 param = "subcommand"
@@ -907,8 +915,8 @@ class config(commands.Cog):
         embed = discord.Embed(
             title="**Config Error**",
             description="".join([str(errors[e]) + " : " + e + "\n" for e in errors])
-                .replace("False", "🔴")
-                .replace("True", "🟢"),
+            .replace("False", "🔴")
+            .replace("True", "🟢"),
             colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
@@ -927,6 +935,7 @@ class config(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def config_command(self, ctx):
         if ctx.invoked_subcommand is None:
+
             class error(inspect.Parameter):
                 name = "config command"
                 param = "subcommand"

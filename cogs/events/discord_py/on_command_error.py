@@ -49,8 +49,8 @@ class on_command_error(commands.Cog):
             embed = discord.Embed(
                 title="**Fehler**",
                 description=f"Der Befehl `{commandname}` existiert nicht, du kannst alle Befehle mit "
-                            f"`{await get_prefix_string(ctx.message)}help` sehen!",
-                colour=await get_embedcolour(ctx.message)
+                f"`{await get_prefix_string(ctx.message)}help` sehen!",
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
@@ -63,7 +63,9 @@ class on_command_error(commands.Cog):
         elif isinstance(error, NotOwner):
             if not await check_if_error(ctx=ctx, error="not_owner"):
                 return
-            embed = discord.Embed(title="**Fehler**", colour=await get_embedcolour(ctx.message))
+            embed = discord.Embed(
+                title="**Fehler**", colour=await get_embedcolour(ctx.message)
+            )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
             embed.add_field(
@@ -74,11 +76,11 @@ class on_command_error(commands.Cog):
             await ctx.send(embed=embed)
             await log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hatte nicht die nötigen Berrechtigungen um den Befehl "
-                     + await get_prefix_string(ctx.message)
-                     + f"{commandname} zu nutzen.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hatte nicht die nötigen Berrechtigungen um den Befehl "
+                + await get_prefix_string(ctx.message)
+                + f"{commandname} zu nutzen.",
                 guildid=ctx.guild.id,
             )
             return
@@ -86,18 +88,19 @@ class on_command_error(commands.Cog):
             if not await check_if_error(ctx=ctx, error="bot_missing_permissions"):
                 return
             embed = discord.Embed(
-                title="**Fehler**", description="Mir fehlt folgende Berrechtigung um den Befehl auszuführen:"
-                                                f"```{str(error.missing_perms[0])}```",
-                colour=await get_embedcolour(ctx.message)
+                title="**Fehler**",
+                description="Mir fehlt folgende Berrechtigung um den Befehl auszuführen:"
+                f"```{str(error.missing_perms[0])}```",
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
             await log(
                 text=str(time)
-                     + ": Der Bot hatte nicht die nötigen Berrechtigungen um den Befehl"
-                     + await get_prefix_string(ctx.message)
-                     + f"{commandname} vom Nutzer {user} auszuführen.",
+                + ": Der Bot hatte nicht die nötigen Berrechtigungen um den Befehl"
+                + await get_prefix_string(ctx.message)
+                + f"{commandname} vom Nutzer {user} auszuführen.",
                 guildid=ctx.guild.id,
             )
             return
@@ -107,18 +110,22 @@ class on_command_error(commands.Cog):
             path = os.path.join("data", "errors", "badargument.json")
             badargument = await readjson(path=path, key=commandname)
             embed = discord.Embed(
-                title="**Fehler**", description=badargument if badargument else f"Du hast ein ungültiges Argument angegeben! Nutzung: ```{ctx.command.usage}```" ,colour=await get_embedcolour(ctx.message)
+                title="**Fehler**",
+                description=badargument
+                if badargument
+                else f"Du hast ein ungültiges Argument angegeben! Nutzung: ```{ctx.command.usage}```",
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
             await log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hat ein ungültiges Argument bei "
-                     + await get_prefix_string(ctx.message)
-                     + f"{commandname} angegeben.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hat ein ungültiges Argument bei "
+                + await get_prefix_string(ctx.message)
+                + f"{commandname} angegeben.",
                 guildid=ctx.guild.id,
             )
             return
@@ -143,20 +150,21 @@ class on_command_error(commands.Cog):
             if not await check_if_error(ctx=ctx, error="user_missing_permissions"):
                 return
             embed = discord.Embed(
-                title="**Fehler**", description="Dir fehlt folgende Berrechtigung um den Befehl auszuführen:"
-                                                f"```{str(error.missing_perms[0])}```",
-                colour=await get_embedcolour(ctx.message)
+                title="**Fehler**",
+                description="Dir fehlt folgende Berrechtigung um den Befehl auszuführen:"
+                f"```{str(error.missing_perms[0])}```",
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
             await log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hatte nicht die nötigen Berrechtigungen um den Befehl"
-                     + await get_prefix_string(ctx.message)
-                     + f"{commandname} zu nutzen.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hatte nicht die nötigen Berrechtigungen um den Befehl"
+                + await get_prefix_string(ctx.message)
+                + f"{commandname} zu nutzen.",
                 guildid=ctx.guild.id,
             )
             return
@@ -165,21 +173,22 @@ class on_command_error(commands.Cog):
                 return
             commandusage = ctx.command.usage
             embed = discord.Embed(
-                title="**Fehler**", description=f"Du hast nicht alle erforderlichen Argumente angegeben, Nutzung:```"
-                                                + await get_prefix_string(ctx.message)
-                                                + f"{commandname} {commandusage}```",
-                colour=await get_embedcolour(ctx.message)
+                title="**Fehler**",
+                description=f"Du hast nicht alle erforderlichen Argumente angegeben, Nutzung:```"
+                + await get_prefix_string(ctx.message)
+                + f"{commandname} {commandusage}```",
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()
             await ctx.send(embed=embed)
             await log(
                 text=str(time)
-                     + ": Der Nutzer "
-                     + str(user)
-                     + " hat nicht alle erforderlichen Argumente beim Befehl "
-                     + await get_prefix_string(ctx.message)
-                     + f"{commandname} eingegeben.",
+                + ": Der Nutzer "
+                + str(user)
+                + " hat nicht alle erforderlichen Argumente beim Befehl "
+                + await get_prefix_string(ctx.message)
+                + f"{commandname} eingegeben.",
                 guildid=ctx.guild.id,
             )
             return
@@ -187,8 +196,10 @@ class on_command_error(commands.Cog):
             if not await check_if_error(ctx=ctx, error="not_nsfw_channel"):
                 return
             embed = discord.Embed(
-                title="**Fehler**", description=f"Der Befehl `{commandname}` kann nur in einem NSFW Kanal ausgeführt "
-                                                f"werden!", colour=await get_embedcolour(ctx.message)
+                title="**Fehler**",
+                description=f"Der Befehl `{commandname}` kann nur in einem NSFW Kanal ausgeführt "
+                f"werden!",
+                colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
             embed._thumbnail = await get_embed_thumbnail()

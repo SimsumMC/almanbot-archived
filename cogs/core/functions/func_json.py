@@ -21,7 +21,7 @@ async def writejson(key, value, path, mode="write"):
         json.dump(data, f, indent=4)
 
 
-async def readjson(key: str, path) -> dict or str or int:
+async def readjson(key: str, path):
     with open(path, "r", encoding="UTF-8") as f:
         data = json.load(f)
     if key in data:
