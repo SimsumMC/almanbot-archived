@@ -50,10 +50,6 @@ REDDIT_APP = {  # for the memes command, just create an application on reddit
     "client_secret": "secret",
 }
 
-# PATHS
-
-CHROMEDRIVER_PATH = "C:/Users/1234n/Downloads/chromedriver_win32/chromedriver"
-
 
 class lavalink:  # for music module
     host = "host"
