@@ -39,6 +39,7 @@ COIN_NUMBER = "https://cdn.discordapp.com/attachments/851853486948745246/8518536
 SSP = "https://cdn.discordapp.com/attachments/645276319311200286/803373963316953158/stp.png"
 CUBE = "https://cdn.discordapp.com/attachments/645276319311200286/803550939112931378/wurfelv2.png"
 GIVEAWAY = "https://media.discordapp.net/attachments/851853486948745246/897609523911614534/1f389.png"
+
 # TOKEN
 
 DISCORD_TOKEN = (
@@ -49,10 +50,7 @@ REDDIT_APP = {  # for the memes command, just create an application on reddit
     "client_id": "JiHoJGCPBC9vlg",
     "client_secret": "egXFBVdIx7ucn9_6tji18kyLClWCIA",
 }
-
-# PATHS
-
-CHROMEDRIVER_PATH = "C:/Users/1234n/Downloads/chromedriver_win32/chromedriver"
+ABSTRACT_API_KEY = "key"
 
 
 class lavalink:  # for music module
@@ -69,7 +67,7 @@ class lavalink:  # for music module
 DEFAULT_TRIGGER_LIST = ["Alman Bot", "SimsumMC"]
 DEFAULT_TRIGGER = {
     "Alman Bot": "Hey, Ich bins!",
-    "SimsumMC": "Das ist der komische RGB Fan, der für meine Existenz verantwortlich ist..."
+    "SimsumMC": "Das ist der komische RGB Fan, der für meine Existenz verantwortlich ist...",
 }
 
 """ Example for more Triggers
@@ -142,7 +140,7 @@ EMBEDCOLOURS_SUPPORTED = [
 
 # Developer Settings | ⚠️ DANGER ZONE ⚠️ -> anything wrong here can cause the bot to instant leave your server and misfunctions
 
-TESTING_MODE = False # only allowing Servers to join GUILDS with ID in TESTING_GUILDS, removes guild owner bypasses and more
+TESTING_MODE = False  # only allowing Servers to join GUILDS with ID in TESTING_GUILDS, removes guild owner bypasses and more
 TESTING_GUILDS = [802923248840867840, 778288526608433172, 825502579474563103]
 
 WRONG_CHANNEL_ERROR_DELETE_AFTER = 5

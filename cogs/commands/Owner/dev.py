@@ -14,5 +14,6 @@ logs
 
 user <UserID>
 -> Command Usages, Owns {x} Guilds with Bot, user json data
+guild <Guild ID>
 
 """

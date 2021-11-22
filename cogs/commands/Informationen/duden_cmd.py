@@ -99,9 +99,7 @@ class duden_cmd(commands.Cog):
                     colour=await get_embedcolour(ctx.message),
                 )
                 embed.add_field(name="Name", value=w.name, inline=False)
-                embed.add_field(
-                    name="schwach / stark?", value=str(w.part_of_speech), inline=False
-                )
+                embed.add_field(name="Typ", value=str(w.part_of_speech), inline=False)
                 embed.add_field(
                     name="Häufigkeit von 1-5",
                     value=f"{await get_frequency(w.frequency, 5)} ({w.frequency})"

@@ -30,6 +30,8 @@ class on_button_click(commands.Cog):
             "giveaway_start",
             "giveaway_cancel",
             "giveaway_join",
+            "todo_add_undo",
+            "todo_clear_undo",
         ]
         try:
             user = interaction.author.name

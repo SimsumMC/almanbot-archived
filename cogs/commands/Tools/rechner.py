@@ -58,7 +58,7 @@ class calculator(commands.Cog):
 
 
 async def on_calculator_button(interaction):
-    user = interaction.message.author
+    user = interaction.user
     description = str(interaction.message.embeds[0].description)[:-3][3:]
     if description == CALCULATING_ERROR + "|":
         description = "|"

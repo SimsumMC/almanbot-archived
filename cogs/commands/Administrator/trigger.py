@@ -56,7 +56,7 @@ class trigger(commands.Cog):
         )
         embed.add_field(
             name=f"**{prefix}trigger list**",
-            value="zeigt alle konfigurierten Trigger an!",
+            value="Zeigt alle konfigurierten Trigger an!",
             inline=False,
         )
         embed.add_field(

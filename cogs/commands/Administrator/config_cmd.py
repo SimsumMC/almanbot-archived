@@ -55,6 +55,16 @@ class config(commands.Cog):
         embed._footer = await get_embed_footer(ctx)
         embed._thumbnail = await get_embed_thumbnail()
         embed.add_field(
+            name=f"**{prefix}config hilfe**",
+            value="Zeigt dir diese Hilfeseite an!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}config show**",
+            value="Schau dir die Konfiguration des Servers an!",
+            inline=False,
+        )
+        embed.add_field(
             name=f"**{prefix}config prefix <Präfix>**",
             value="Ändere den Prefix deines Bots!",
             inline=False,
@@ -951,7 +961,7 @@ class config(commands.Cog):
         user = ctx.author.name
         path = os.path.join("data", "configs", f"{ctx.guild.id}.json")
         deactivated_cmds = await readjson(path=path, key="deactivated_commands")
-        blocked = ["config", "broadcast", "cog", "adminconfig", "adminresetconfig"]
+        blocked = ["config", "broadcast", "cog", "dev"]
         cmd = self.bot.get_command(str(cmd.lower()))
         if not cmd:
             embed = discord.Embed(

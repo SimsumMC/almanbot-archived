@@ -2,19 +2,18 @@ import datetime
 import os
 import traceback
 
+import aiohttp
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord_components import Button, ButtonStyle
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
 from cogs.core.defaults.defaults_embed import get_embed_footer, get_embed_thumbnail
 from cogs.core.functions.logging import log
-from config import CHROMEDRIVER_PATH
+from config import ABSTRACT_API_KEY
 
 
 class screenshot(commands.Cog):
@@ -46,15 +45,13 @@ class screenshot(commands.Cog):
             )
             return
         try:
-            async with ctx.typing():  # takes a bit of time
-                options = Options()
-                options.add_argument("--headless")
-                driver = webdriver.Chrome(
-                    executable_path=CHROMEDRIVER_PATH, chrome_options=options
-                )
-                driver.set_window_size(1225, 800)
-                driver.get(url)
-                driver.save_screenshot("screen.png")
+            async with ctx.typing():
+                url = f"https://screenshot.abstractapi.com/v1/?api_key={ABSTRACT_API_KEY}&url={url}&capture_full_page=false&delay=3&export_format=png"
+                async with aiohttp.ClientSession() as session:
+                    async with session.request("GET", url) as response:
+                        img = await response.read()
+                        with open("screen.png", "wb") as f:
+                            f.write(img)
                 file = discord.File("screen.png", filename="screen.png")
             embed = discord.Embed(
                 title="**Screenshot**", colour=await get_embedcolour(ctx.message)

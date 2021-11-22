@@ -1,6 +1,7 @@
 import asyncio
 import datetime
 import os
+import random
 import re
 import time as time_lib
 
@@ -41,7 +42,7 @@ async def convert(argument) -> bool and int:
 
 
 async def get_giveaway_embed(
-        message, prize, unix_time, winner_amount, author
+    message, prize, unix_time, winner_amount, author
 ) -> discord.Embed:
     embed5 = discord.Embed(title="Gewinnspiel", colour=await get_embedcolour(message))
     embed5.add_field(
@@ -60,7 +61,7 @@ async def get_giveaway_embed(
 async def on_giveaway_button(interaction: discord_components.interaction):
     if interaction.component.id == "giveaway_join":
         if await add_giveaway_member(
-                message=interaction.message, user=interaction.user
+            message=interaction.message, user=interaction.user
         ):
             await interaction.respond(content="Du nimmst jetzt am Gewinnspiel teil! 🎉")
         else:
@@ -135,7 +136,7 @@ class giveaways(commands.Cog):
         embed1 = discord.Embed(
             title="Giveaway Setup",
             description="Los geht's mit dem Setup! Du kannst den Vorgang jederzeit abbrechen indem du `abbruch` in den Chat schreibst. "
-                        "In welchem Channel soll das Gewinnspiel stattfinden?",
+            "In welchem Channel soll das Gewinnspiel stattfinden?",
             colour=await get_embedcolour(ctx.message),
         )
         embed1._footer = await get_embed_footer(ctx)
@@ -146,7 +147,7 @@ class giveaways(commands.Cog):
                 msg: discord.Message = await self.bot.wait_for(
                     "message",
                     check=lambda m: m.author.id == ctx.author.id
-                                    and m.channel.id == ctx.channel.id,
+                    and m.channel.id == ctx.channel.id,
                     timeout=60,
                 )
             except asyncio.TimeoutError:
@@ -165,7 +166,7 @@ class giveaways(commands.Cog):
                 channel_check = False
                 for guild_channel in ctx.guild.channels:
                     if guild_channel.name == giveaway_channel and isinstance(
-                            guild_channel, discord.TextChannel
+                        guild_channel, discord.TextChannel
                     ):
                         giveaway_channel = ctx.guild.get_channel(guild_channel.id)
                         channel_check = True
@@ -183,8 +184,8 @@ class giveaways(commands.Cog):
         embed2 = discord.Embed(
             title="Giveaway Setup",
             description=f"Okay, das Gewinnspiel wird in {giveaway_channel.mention} stattfinden. Wie lange soll das Gewinnspiel gehen? "
-                        f"Bitte hänge dafür `s` für Sekunden, `m` für Minuten, `h` für Stunden und `d` für Tage an! Das könnte z.B. so aussehen:"
-                        f"```5d 3h 30m 5s (5 Tage / 3 Stunden / 30 Minuten / 5 Sekunden```",
+            f"Bitte hänge dafür `s` für Sekunden, `m` für Minuten, `h` für Stunden und `d` für Tage an! Das könnte z.B. so aussehen:"
+            f"```5d 3h 30m 5s (5 Tage / 3 Stunden / 30 Minuten / 5 Sekunden```",
             colour=await get_embedcolour(ctx.message),
         )
         embed2._footer = await get_embed_footer(ctx)
@@ -195,7 +196,7 @@ class giveaways(commands.Cog):
                 msg: discord.Message = await self.bot.wait_for(
                     "message",
                     check=lambda m: m.author.id == ctx.author.id
-                                    and m.channel.id == ctx.channel.id,
+                    and m.channel.id == ctx.channel.id,
                     timeout=60,
                 )
             except asyncio.TimeoutError:
@@ -220,7 +221,7 @@ class giveaways(commands.Cog):
         embed3 = discord.Embed(
             title="Giveaway Setup",
             description=f"Okay, das Gewinnspiel wird `{time_raw}` dauern! Wie viele Gewinner soll es geben? Bitte gib eine Zahl "
-                        f"von 1-20 ein!",
+            f"von 1-20 ein!",
             colour=await get_embedcolour(ctx.message),
         )
         embed3._footer = await get_embed_footer(ctx)
@@ -231,7 +232,7 @@ class giveaways(commands.Cog):
                 msg: discord.Message = await self.bot.wait_for(
                     "message",
                     check=lambda m: m.author.id == ctx.author.id
-                                    and m.channel.id == ctx.channel.id,
+                    and m.channel.id == ctx.channel.id,
                     timeout=60,
                 )
             except asyncio.TimeoutError:
@@ -268,7 +269,7 @@ class giveaways(commands.Cog):
             msg: discord.Message = await self.bot.wait_for(
                 "message",
                 check=lambda m: m.author.id == ctx.author.id
-                                and m.channel.id == ctx.channel.id,
+                and m.channel.id == ctx.channel.id,
                 timeout=60,
             )
         except asyncio.TimeoutError:
@@ -278,7 +279,7 @@ class giveaways(commands.Cog):
         embed4 = discord.Embed(
             title="Giveaway Setup",
             description=f'Alles klar, möchtest du das Gewinnspiel starten? Dann klick unten einfach auf "Start" oder zum Abbrechen auf "Abbruch"! Mit dem Button'
-                        f' "Vorschau" eine Vorschau des Gewinnspiels einsehen!',
+            f'"Vorschau" kannst du eine Vorschau des Gewinnspiels einsehen!',
             colour=await get_embedcolour(ctx.message),
         )
         embed4._footer = await get_embed_footer(ctx)
@@ -311,7 +312,7 @@ class giveaways(commands.Cog):
                 interaction = await self.bot.wait_for(
                     "button_click",
                     check=lambda i: i.message.id == msg.id
-                                    and i.user.id == ctx.author.id,
+                    and i.user.id == ctx.author.id,
                     timeout=60,
                 )
                 giveaway_time = giveaway_time + (round(time_lib.time()) - start_wait)
@@ -470,7 +471,7 @@ class giveaways(commands.Cog):
     async def giveaway_end(self, ctx: commands.Context, message_id=None):
         global giveaway_channel
         if not await botchannel_check(ctx):
-            Bot.dispatch(self.bot, "botchannel9check_failure", ctx)
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
         time = datetime.datetime.now()
         user = ctx.author.name
@@ -483,15 +484,15 @@ class giveaways(commands.Cog):
             giveaway_list_reversed = reversed(giveaway_list)
             for giveaway in giveaway_list_reversed:
                 if (
-                        giveaway["guild_id"] == ctx.guild.id
-                        and giveaway["channel_id"] == ctx.channel.id
+                    giveaway["guild_id"] == ctx.guild.id
+                    and giveaway["channel_id"] == ctx.channel.id
                 ):
                     message_id = giveaway["message_id"]
                     break
         for giveaway in giveaway_list:
             if (
-                    giveaway["guild_id"] == ctx.guild.id
-                    and giveaway["message_id"] == message_id
+                giveaway["guild_id"] == ctx.guild.id
+                and giveaway["message_id"] == message_id
             ):
                 giveaway_dict = giveaway
                 giveaway_channel = giveaway["channel_id"]
@@ -506,8 +507,8 @@ class giveaways(commands.Cog):
         else:
             embed = discord.Embed(
                 title="Fehler",
-                description=f"Es konnte kein Gewinnspiel {'in dem aktuellen Kanal' if not str(message_id) else 'mit der Nachricht-ID'}"
-                            f" {message_id if message_id else ''} gefunden werden das noch **aktiv** ist!",
+                description=f"Es konnte kein aktives Gewinnspiel {'in dem aktuellen Kanal' if not str(message_id) else 'mit der Nachricht-ID'}"
+                f" {message_id if message_id else ''} gefunden werden!",
                 colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
@@ -522,7 +523,7 @@ class giveaways(commands.Cog):
         embed = discord.Embed(
             title="Giveaway End",
             description=f"Das Gewinnspiel mit der Message ID {message_id} wurde erfolgreich beendet!"
-                        f" \n\n [Jump](https://discord.com/channels/{ctx.guild.id}/{giveaway_channel}/{message_id})",
+            f" \n\n [Jump](https://discord.com/channels/{ctx.guild.id}/{giveaway_channel}/{message_id})",
             colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
@@ -537,46 +538,40 @@ class giveaways(commands.Cog):
     @giveaway.command(name="reroll", aliases=["r"])
     @commands.has_permissions(manage_guild=True)
     async def giveaway_reroll(self, ctx: commands.Context, message_id=None):
+        """
+        -> findet Nachricht (mid id oder im channel)
+        ->
+        """
         global giveaway_channel
         if not await botchannel_check(ctx):
-            Bot.dispatch(self.bot, "botchannel9check_failure", ctx)
+            Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
             return
         time = datetime.datetime.now()
         user = ctx.author.name
-        giveaway_list = await readjson(
-            key="giveaways", path=os.path.join("data", "cache", "giveaway_cache.json")
+        giveaway_list_default = await readjson(
+            key="giveaways",
+            path=os.path.join("data", "configs", f"{ctx.guild.id}.json"),
         )
+        giveaway_list = dict(reversed(list(giveaway_list_default.items())))
         if message_id:
             message_id = int(message_id)
         else:
-            giveaway_list_reversed = reversed(giveaway_list)
-            for giveaway in giveaway_list_reversed:
-                if (
-                        giveaway["guild_id"] == ctx.guild.id
-                        and giveaway["channel_id"] == ctx.channel.id
-                ):
+            for giveaway in giveaway_list:
+                giveaway = giveaway_list[str(giveaway)]
+                if giveaway["channel_id"] == ctx.channel.id:
                     message_id = giveaway["message_id"]
                     break
         for giveaway in giveaway_list:
-            if (
-                    giveaway["guild_id"] == ctx.guild.id
-                    and giveaway["message_id"] == message_id
-            ):
-                giveaway_dict = giveaway
+            giveaway = giveaway_list[str(giveaway)]
+            if giveaway["message_id"] == message_id:
                 giveaway_channel = giveaway["channel_id"]
-                await end_giveaway(self.bot, giveaway_dict)
-                await writejson(
-                    key="giveaways",
-                    value=giveaway_dict,
-                    path=os.path.join("data", "cache", "giveaway_cache.json"),
-                    mode="remove",
-                )
+                new_winner = ctx.guild.get_member(random.choice(giveaway["member"]))
                 break
         else:
             embed = discord.Embed(
                 title="Fehler",
-                description=f"Es konnte kein Gewinnspiel {'in dem aktuellen Kanal' if not str(message_id) else 'mit der Nachricht-ID'}"
-                            f" {message_id if message_id else ''} gefunden werden das noch **aktiv** ist!",
+                description=f"Es konnte kein bereits abgelaufenes Gewinnspiel {'in dem aktuellen Kanal' if not str(message_id) else 'mit der Nachricht-ID'}"
+                f" {message_id if message_id else ''} gefunden werden, bei dem ein neuer Gewinner ausgelost werden kann!",
                 colour=await get_embedcolour(ctx.message),
             )
             embed._footer = await get_embed_footer(ctx)
@@ -584,14 +579,14 @@ class giveaways(commands.Cog):
             await ctx.send(embed=embed)
             await log(
                 f"{time}: Der Nutzer {user} hat versucht den Befehl {await get_prefix_string(ctx.message)}"
-                "giveaway end zu nutzen, es konnte aber kein passendes Gewinnspiel gefunden werden!",
+                "giveaway reroll zu nutzen, es konnte aber kein passendes Gewinnspiel gefunden werden!",
                 guildid=ctx.guild.id,
             )
             return
         embed = discord.Embed(
             title="Giveaway Reroll",
-            description=f"Das Gewinnspiel mit der Message ID {message_id} wurde erfolgreich beendet!"
-                        f" \n\n [Jump](https://discord.com/channels/{ctx.guild.id}/{giveaway_channel}/{message_id})",
+            description=f"Beim Gewinnspiel mit der Message ID {message_id} wurde {new_winner.mention} als neuer Gewinner ausgelost!"
+            f" \n\n [Jump](https://discord.com/channels/{ctx.guild.id}/{giveaway_channel}/{message_id})",
             colour=await get_embedcolour(ctx.message),
         )
         embed._footer = await get_embed_footer(ctx)
@@ -599,7 +594,7 @@ class giveaways(commands.Cog):
         await ctx.send(embed=embed)
         await log(
             f"{time}: Der Nutzer {user} hat den Befehl {await get_prefix_string(ctx.message)}"
-            "giveaway end benutzt!",
+            "giveaway reroll benutzt!",
             guildid=ctx.guild.id,
         )
 

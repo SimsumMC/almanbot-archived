@@ -4,7 +4,7 @@
 	"mute": "Du musst den Nutzer erwähnen!",
 	"avatar": "Du musst den Nutzer erwähnen!",
 	"loeschdich": "Du musst den Nutzer erwähnen!",
-	"würfel": "Du musst eine ganze Zahl angeben, also z.B. 6!",
+	"wuerfel": "Du musst eine ganze Zahl angeben, also z.B. 6!",
 	"unmute": "Du musst den Nutzer erwähnen!",
 	"slowmode": "Bitte überprüfe, das du eine gültige Zahl und falls notwendig, einen gültigen #Channel angegeben hast.",
 	"clear": "Bitte gib eine gültige Zahl ein, z.B `50`!",
@@ -21,5 +21,7 @@
 	"rank": "Du musst den Nutzer erwähnen!",
 	"levelling set message_mode": "Bitte gib einen gültigen Channel an!",
 	"levelling set roles add": "Bitte gib ein gültiges Level & eine gültige Rolle an!",
-	"levelling set roles remove": "Bitte gib ein gültiges Level (Zahl) an!"
+	"levelling set roles remove": "Bitte gib ein gültiges Level (Zahl) an!",
+	"todo list": "Du musst den Nutzer erwähnen!",
+	"todo remove": "Du musst eine ganze Zahl angeben, also z.B. 6!"
 }

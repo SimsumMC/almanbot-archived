@@ -92,7 +92,13 @@ async def get_help_buttons(msg):
         [
             Button(
                 style=buttoncolour,
-                label="     Levelling     ",
+                label="       Bilder        ",
+                emoji="📸",
+                custom_id="help_images",
+            ),
+            Button(
+                style=buttoncolour,
+                label="     Levelling      ",
                 emoji="🧪",
                 custom_id="help_levelling",
             ),
@@ -108,14 +114,14 @@ async def get_help_buttons(msg):
                 emoji="💡",
                 custom_id="help_tools",
             ),
+        ],
+        [
             Button(
                 style=buttoncolour,
                 label="  Moderation    ",
                 emoji="🛡",
                 custom_id="help_moderation",
             ),
-        ],
-        [
             Button(
                 style=buttoncolour,
                 label="Administration",
@@ -124,7 +130,7 @@ async def get_help_buttons(msg):
             ),
             Button(
                 style=buttoncolour,
-                label="       Inhaber     ",
+                label="       Inhaber      ",
                 emoji="🔒",
                 custom_id="help_inhaber",
             ),
@@ -164,6 +170,11 @@ async def get_page(message, page, author=None):
             inline=False,
         )
         embed.add_field(
+            name=f"**Bilder**",
+            value="Hier wirst du mit vielen süßen Tierbildern versorgt!",
+            inline=False,
+        )
+        embed.add_field(
             name=f"**Levelling**",
             value="Hier findest du alle möglichen Befehle zum Levellingsystem - flex mit deiner Aktivität!",
             inline=False,
@@ -175,7 +186,7 @@ async def get_page(message, page, author=None):
         )
         embed.add_field(
             name=f"**Tools**",
-            value="Ob Taschenrechner oder QR Code Generator - hier findest du viele coole Befehle!",
+            value="Ob Gewinnspiele erstellen, Taschenrechner oder QR Code Generator - hier findest du viele coole Befehle!",
             inline=False,
         )
         embed.add_field(
@@ -267,6 +278,11 @@ async def get_page(message, page, author=None):
             colour=await get_embedcolour(message),
         )
         embed.add_field(
+            name=f"**{prefix}activities**",
+            value="Schaue YouTube mit Freunden & spiele unterschiedliche Spiele direkt auf Discord!",
+            inline=False,
+        )
+        embed.add_field(
             name=f"**{prefix}meme**",
             value="Zeigt dir einen zufälligen Meme" " von Reddit!",
             inline=False,
@@ -306,6 +322,37 @@ async def get_page(message, page, author=None):
         embed.add_field(
             name=f"**{prefix}say**",
             value="Ich spreche dir nach!",
+            inline=False,
+        )
+    elif page == "images":
+        embed = discord.Embed(
+            title="**Hilfe Bilder**",
+            description="Hier findest du alle Befehle zu der Kategorie `Bilder`!",
+            colour=await get_embedcolour(message),
+        )
+        embed.add_field(
+            name=f"**{prefix}hund**",
+            value="Schau dir süße Hunde an!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}katze**",
+            value="Schau dir knuffige Katzen an!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}ente**",
+            value="Schau dir watschelnde Enten an!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}fuchs**",
+            value="Schau dir niedliche Füchse an!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}vogel**",
+            value="Schau dir kunterbunte Vögel an!",
             inline=False,
         )
     elif page == "levelling":
@@ -373,8 +420,18 @@ async def get_page(message, page, author=None):
             colour=await get_embedcolour(message),
         )
         embed.add_field(
+            name=f"**{prefix}gewinnspiel**",
+            value="Hier findest du alle Befehle für das perfekte Gewinnspiel!",
+            inline=False,
+        )
+        embed.add_field(
             name=f"**{prefix}rechner**",
             value="Ein fancy Rechner für einfache mathematische Probleme!",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"**{prefix}todo**",
+            value="Deine zuverlässige digitale TODO-Liste über Discord!",
             inline=False,
         )
         embed.add_field(
