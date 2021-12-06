@@ -5,9 +5,8 @@ import traceback
 import aiohttp
 import discord
 from discord.ext import commands
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, BucketType
 from discord_components import Button, ButtonStyle
-
 from cogs.core.config.config_botchannel import botchannel_check
 from cogs.core.config.config_embedcolour import get_embedcolour
 from cogs.core.config.config_prefix import get_prefix_string
@@ -23,7 +22,7 @@ class screenshot(commands.Cog):
     @commands.command(
         name="screenshot", aliases=["bildschirmfoto", "screen"], usage="<Websitelink>"
     )
-    @commands.is_nsfw()
+    @commands.cooldown(1, 5, BucketType.guild)
     async def screenshot(self, ctx: commands.Context, url):
         if not await botchannel_check(ctx):
             Bot.dispatch(self.bot, "botchannelcheck_failure", ctx)
@@ -45,18 +44,19 @@ class screenshot(commands.Cog):
             )
             return
         try:
+            filename = f"screen-{ctx.author.id}.png"
             async with ctx.typing():
                 url = f"https://screenshot.abstractapi.com/v1/?api_key={ABSTRACT_API_KEY}&url={url}&capture_full_page=false&delay=3&export_format=png"
                 async with aiohttp.ClientSession() as session:
                     async with session.request("GET", url) as response:
                         img = await response.read()
-                        with open("screen.png", "wb") as f:
+                        with open(filename, "wb") as f:
                             f.write(img)
-                file = discord.File("screen.png", filename="screen.png")
+            file = discord.File(filename, filename="screen.png")
             embed = discord.Embed(
                 title="**Screenshot**", colour=await get_embedcolour(ctx.message)
             )
-            embed.set_image(url="attachment://screen.png")
+            embed.set_image(url=f"attachment://screen.png")
             embed._footer = await get_embed_footer(ctx)
             await ctx.send(
                 file=file,
@@ -65,7 +65,7 @@ class screenshot(commands.Cog):
                     Button(style=ButtonStyle.URL, url=url, label="Zur Website")
                 ],
             )
-
+            os.remove(filename)
             await log(
                 f"{time}: Der Nutzer {user} hat mit dem Befehl {await get_prefix_string(ctx.message)}"
                 f"screenshot einen Screenshot der Seite {url} erstellt!",
@@ -85,7 +85,6 @@ class screenshot(commands.Cog):
                 guildid=ctx.guild.id,
             )
             traceback.print_exc()
-        os.remove("screen.png")
 
 
 ########################################################################################################################
