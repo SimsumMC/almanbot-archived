@@ -50,13 +50,13 @@ async def on_help_button(interaction: discord_components.interaction):
         page=interaction.component.id[5:],
         author=interaction.author,
     )
-    await interaction.respond(
-        type=7, embed=embed, components=await get_help_buttons(interaction.message)
-    )
     await log(
         f"{datetime.datetime.now()}: Der Nutzer {user} hat mit der Hilfenachricht interagiert und die "
         f"Seite {interaction.component.label.lower()} aufgerufen!",
         interaction.message.guild.id,
+    )
+    await interaction.respond(
+        type=7, embed=embed, components=await get_help_buttons(interaction.message)
     )
 
 
@@ -315,8 +315,8 @@ async def get_page(message, page, author=None):
         embed.add_field(
             name=f"**{prefix}löschdich**",
             value="Fordere einen bestimmten Nutzer dazu"
-            "auf, sich aus dem Internet zu "
-            "löschen!",
+                  "auf, sich aus dem Internet zu "
+                  "löschen!",
             inline=False,
         )
         embed.add_field(
@@ -421,7 +421,7 @@ async def get_page(message, page, author=None):
         )
         embed.add_field(
             name=f"**{prefix}gewinnspiel**",
-            value="Hier findest du alle Befehle für das perfekte Gewinnspiel!",
+            value="Hier findest du alle Befehle zum Veranstalten des perfekten Gewinnspiels!",
             inline=False,
         )
         embed.add_field(
