@@ -122,7 +122,7 @@ class levelling(commands.Cog):
         )
         embed.add_field(
             name="XP pro Nachricht",
-            value=str(levelling_dict["xp_per_message"]) + "s",
+            value=str(levelling_dict["xp_per_message"]) + " XP",
             inline=False,
         )
         embed.add_field(
