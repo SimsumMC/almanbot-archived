@@ -12,7 +12,7 @@ from discord.ext.commands import (
     BadArgument,
     MissingPermissions,
     Bot,
-    NSFWChannelRequired,
+    NSFWChannelRequired, DisabledCommand,
 )
 
 from cogs.core.config.config_botchannel import botchannel_check
@@ -24,6 +24,7 @@ from cogs.core.defaults.defaults_embed import get_embed_thumbnail, get_embed_foo
 from cogs.core.functions.ctx_utils import get_commandname
 from cogs.core.functions.func_json import readjson
 from cogs.core.functions.logging import log
+from config import DISCORD_LINK
 
 
 class on_command_error(commands.Cog):
@@ -32,7 +33,6 @@ class on_command_error(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        print(error)
         time = datetime.datetime.now()
         user = ctx.author.name
         commandname = await get_commandname(ctx)
@@ -207,6 +207,20 @@ class on_command_error(commands.Cog):
             await ctx.send(embed=embed)
             await log(
                 f'{time}: Der Nutzer {user} hat versucht den NSFW Befehl "{commandname}" in einem normalen Kanal auszuführen.',
+                guildid=ctx.guild.id,
+            )
+            return
+        elif isinstance(error, DisabledCommand):
+            embed = discord.Embed(
+                title="**Fehler**",
+                description=f"Der Befehl {commandname} wurde vorübergehend **global deaktiviert**! \n\nKomm auf unseren Support Discord, wenn du mehr Informationen benötigst:\n{DISCORD_LINK}",
+                colour=await get_embedcolour(ctx.message),
+            )
+            embed._footer = await get_embed_footer(ctx)
+            embed._thumbnail = await get_embed_thumbnail()
+            await ctx.send(embed=embed)
+            await log(
+                f'{time}: Der Nutzer {user} hat versucht den nicht existierenden Befehl "{commandname}" auszuführen.',
                 guildid=ctx.guild.id,
             )
             return
