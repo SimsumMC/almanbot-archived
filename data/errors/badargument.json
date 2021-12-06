@@ -23,5 +23,9 @@
 	"levelling set roles add": "Bitte gib ein gültiges Level & eine gültige Rolle an!",
 	"levelling set roles remove": "Bitte gib ein gültiges Level (Zahl) an!",
 	"todo list": "Du musst den Nutzer erwähnen!",
-	"todo remove": "Du musst eine ganze Zahl angeben, also z.B. 6!"
+	"todo remove": "Du musst eine ganze Zahl angeben, also z.B. 6!",
+	"dev userinfo": "Der Nutzer existiert nicht!",
+	"dev guildinfo": "Die Gilde existiert nicht!",
+	"dev log show": "Die Gilde existiert nicht!",
+	"dev log reset": "Die Gilde existiert nicht!"
 }
