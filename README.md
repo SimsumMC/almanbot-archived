@@ -84,8 +84,3 @@ Alle Befehle können auf unserer [Website](https://communitybot.visitlink.de/#co
 # Lizenz
 
 "Die GNU General Public License (kurz GNU GPL oder GPL; aus dem Englischen wörtlich für allgemeine Veröffentlichungserlaubnis oder -genehmigung) ist die am weitesten verbreitete Softwarelizenz, die einem gewährt, die Software auszuführen, zu studieren, zu ändern und zu verbreiten (kopieren). Software, die diese Freiheitsrechte gewährt, wird Freie Software genannt; und wenn die Software einem Copyleft unterliegt, so müssen diese Rechte bei Weitergabe (mit oder ohne Software-Änderung, -Erweiterung, oder Softwareteile-Wiederverwendung) beibehalten werden. Bei der GPL ist beides der Fall." Quelle: [Wikepedia](https://de.wikipedia.org/wiki/GNU_General_Public_License)
-
-Demnach hast du die Erlaubnis, :
-
-- den Code für alle Zwecke zu nutzen (sowohl kommerziell als auch privat)
-- den Code nach den Bedingungen der Lizenz kopieren, weiterverbreiten und ändern
