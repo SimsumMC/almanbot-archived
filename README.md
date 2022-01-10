@@ -31,7 +31,7 @@
   •
   <a href="#installation">Installation</a>
   •
-  <a href="#funktionen">Funktionen</a>
+  <a href="#übersicht">Funktionen</a>
   •
   <a href="#lizenz">Lizenz</a>
 </p>
